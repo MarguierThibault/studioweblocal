@@ -406,16 +406,16 @@ let service = document.getElementById("service").value;
 let total = document.getElementById("total").innerText;
 
 let data = {
-service,
-total,
-nom: document.getElementById("nom")?.value || "",
-email: document.getElementById("email")?.value || "",
-objectif: document.getElementById("objectif")?.value || "",
-produits: document.getElementById("produits")?.value || "",
-existant: document.getElementById("existant")?.value || "",
-typecontenu: document.getElementById("typecontenu")?.value || "",
-objectifcm: document.getElementById("objectifcm")?.value || "",
-message: document.getElementById("message")?.value || ""
+  service: service || "",
+  total: total || "",
+  nom: document.getElementById("nom")?.value || "",
+  email: document.getElementById("email")?.value || "",
+  objectif: document.getElementById("objectif")?.value || "",
+  produits: document.getElementById("produits")?.value || "",
+  existant: document.getElementById("existant")?.value || "",
+  typecontenu: document.getElementById("typecontenu")?.value || "",
+  objectifcm: document.getElementById("objectifcm")?.value || "",
+  message: document.getElementById("message")?.value || ""
 };
 
 emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
