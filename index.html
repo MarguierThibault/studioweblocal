@@ -9,9 +9,7 @@
 
 <script>
 (function(){
-emailjs.init({
-  publicKey: "ZnaIdcbmV7R2B1ph"
-});
+emailjs.init("ZnaIdcbmV7R2B1ph");
 })();
 </script>
 
@@ -247,7 +245,6 @@ Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
 <img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868">
 <h3>Community Management</h3>
 
-<!-- SEULE MODIF ICI -->
 <p class="price">150€ → 430€/mois</p>
 
 <p><strong>Description :</strong><br>
@@ -285,7 +282,7 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 <div id="formFields"></div>
 <div class="total" id="total"></div>
 
-<button onclick="sendQuote()">Envoyer devis</button>
+<button onclick="sendQuote()">Envoyer le devis</button>
 
 </section>
 
@@ -302,10 +299,6 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 
 const SERVICE_ID = "service_a53gjwo";
 const TEMPLATE_ID = "template_qw8k1jc";
-
-emailjs.init({
-  publicKey: "ZnaIdcbmV7R2B1ph"
-});
 
 let base = 0;
 
@@ -430,8 +423,8 @@ document.body.innerHTML = `
 `;
 })
 .catch(err=>{
-console.log(err);
 alert("Erreur envoi email");
+console.log(err);
 });
 
 }
