@@ -5,9 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Web Local</title>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script>
 (function(){
 emailjs.init("ZnaIdcbmV7R2B1ph");
 })();
@@ -397,6 +396,11 @@ document.getElementById("total").innerHTML =
 
 function sendQuote(){
 
+if(!document.getElementById("service").value){
+alert("Veuillez sélectionner une offre.");
+return;
+}
+
 let service = document.getElementById("service").value;
 let total = document.getElementById("total").innerText;
 
@@ -423,8 +427,8 @@ document.body.innerHTML = `
 `;
 })
 .catch(err=>{
-alert("Erreur envoi email");
-console.log(err);
+console.error(err);
+alert("Erreur EmailJS : " + JSON.stringify(err));
 });
 
 }
