@@ -401,17 +401,38 @@ document.getElementById("total").innerHTML =
 
 function sendQuote(){
 
+let optionsChoisies = [];
+
+// Récupération des options cochées
+document.querySelectorAll("#options input").forEach(input => {
+  if (input.checked) {
+
+    let label = input.parentElement.querySelector("span")?.innerText || "Option";
+    let prix = input.getAttribute("data") || 0;
+
+    optionsChoisies.push(`${label} (+${prix}€)`);
+  }
+});
+
+// Vérification service
 if(!document.getElementById("service").value){
 alert("Veuillez sélectionner une offre.");
 return;
 }
 
-let service = document.getElementById("service").value;
+// 🔥 NOM DU SERVICE UNIQUEMENT
+let select = document.getElementById("service");
+let serviceName = select.options[select.selectedIndex].text;
+
+// Total
 let total = document.getElementById("total").innerText;
 
+// DATA EMAILJS
 let data = {
-  service: service || "",
+  service: serviceName, // ✔ UNIQUEMENT LE NOM
+  options: optionsChoisies.join(" | "),
   total: total || "",
+
   nom: document.getElementById("nom")?.value || "",
   email: document.getElementById("email")?.value || "",
   objectif: document.getElementById("objectif")?.value || "",
@@ -424,12 +445,14 @@ let data = {
 
 emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
 .then(()=>{
+
 document.body.innerHTML = `
 <div style="text-align:center;margin-top:20%;color:white;">
 <h1 style="color:#ffd54a;">Devis envoyé ✔</h1>
 <button onclick="location.reload()">Retour</button>
 </div>
 `;
+
 })
 .catch(err=>{
 console.error(err);
