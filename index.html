@@ -410,6 +410,9 @@ document.querySelectorAll("#options input").forEach(input => {
     let label = input.parentElement.querySelector("span")?.innerText || "Option";
     let prix = input.getAttribute("data") || 0;
 
+    // 🔥 SUPPRESSION DU PRIX DÉJÀ DANS LE TEXTE
+    label = label.replace(/\(\+\d+€\)/g, "").trim();
+
     optionsChoisies.push(`${label} (+${prix}€)`);
   }
 });
