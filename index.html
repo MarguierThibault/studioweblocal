@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Studio Web Local</title>
+
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0d0d12;
+color:white;
+}
+
+.hero{
+background:url("https://images.unsplash.com/photo-1521737604893-d14cc237f11d") center/cover;
+padding:120px 20px;
+text-align:center;
+position:relative;
+}
+
+.hero::after{
+content:"";
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.75);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:900px;
+margin:auto;
+}
+
+section{
+padding:60px 20px;
+max-width:1200px;
+margin:auto;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.card{
+background:#1a1a26;
+padding:15px;
+border-radius:12px;
+}
+
+.card img{
+width:100%;
+height:160px;
+object-fit:cover;
+border-radius:10px;
+}
+
+.price{
+color:#ffd54a;
+font-weight:bold;
+}
+
+.option{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#222233;
+padding:10px;
+margin:6px 0;
+border-radius:8px;
+}
+
+.option span{flex:1;}
+.option input{width:18px;height:18px;}
+
+input,textarea,select{
+width:100%;
+padding:10px;
+margin-top:8px;
+border-radius:6px;
+border:none;
+}
+
+.total{
+background:#222233;
+padding:15px;
+margin-top:10px;
+border-radius:10px;
+}
+
+button{
+background:#ffd54a;
+padding:10px;
+border:none;
+cursor:pointer;
+font-weight:bold;
+border-radius:6px;
+}
+
+.bottom{
+text-align:center;
+padding:40px;
+}
+
+.impact{
+background:#151522;
+padding:40px;
+border-radius:12px;
+margin:40px auto;
+text-align:center;
+max-width:900px;
+}
+
+.impact h2{
+margin-bottom:15px;
+color:#ffd54a;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+<div class="hero-content">
+
+<!-- AJOUT NOM ENTREPRISE -->
+<h3 style="color:#ffd54a;margin-bottom:10px;">Studio Web Local</h3>
+
+<h1>Sites web qui transforment vos visiteurs en clients</h1>
+<p>Création de sites + acquisition clients + réseaux sociaux</p>
+
+<p>📞 06282237722 | ✉️ studioweblocal@gmail.com</p>
+</div>
+</section>
+
+<!-- BLOC IMPACT MODIFIÉ -->
+<section>
+<div class="impact">
+
+<h2>Pourquoi un site web change tout ?</h2>
+
+<p>
+Une entreprise sans site internet perd aujourd’hui une part importante de clients potentiels à cause d’un manque de visibilité et de crédibilité en ligne.
+</p>
+
+<p>
+En moyenne, 30% à 60% des prospects comparent plusieurs concurrents et choisissent plus facilement une entreprise disposant d’un site clair et professionnel.
+</p>
+
+<p>
+Un site web sert de base de confiance et améliore fortement la perception de votre activité dès la première visite.
+</p>
+
+<p>
+Il permet de présenter vos services de façon structurée et d’augmenter naturellement les prises de contact.
+</p>
+
+<p>
+👉 Résultats observés selon les stratégies :
+<br>• +15% à +25% de contacts pour les sites locaux simples
+<br>• +25% à +40% pour les sites optimisés conversion
+<br>• jusqu’à +60% de visibilité globale avec SEO + Google + réseaux sociaux
+</p>
+
+<p>
+Un site professionnel améliore directement le taux de conversion en réduisant les hésitations des visiteurs.
+</p>
+
+<p>
+Il permet aussi de centraliser toutes vos informations importantes (services, prix, contact, avis).
+</p>
+
+<p>
+Contrairement aux réseaux sociaux, votre site vous appartient totalement et reste actif en continu.
+</p>
+
+<p>
+C’est un outil essentiel pour structurer votre acquisition client et vous différencier durablement.
+</p>
+
+</div>
+</section>
+
+<!-- OFFRES -->
+<section>
+
+<h2>Nos offres</h2>
+
+<div class="grid">
+
+<!-- SITE VITRINE -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d">
+<h3>Site Vitrine</h3>
+<p class="price">550€ → 750€</p>
+
+<p><strong>Description :</strong><br>
+Site vitrine professionnel conçu pour présenter clairement votre activité, inspirer confiance et générer des prises de contact locales.</p>
+
+<p><strong>Contenu :</strong><br>
+Pages essentielles, présentation services, Google Maps, optimisation mobile et structure orientée conversion.</p>
+
+<p><strong>Résultat :</strong><br>
++15% à +25% de contacts supplémentaires et meilleure visibilité locale.</p>
+
+<p><strong>Options :</strong><br>
+Design personnalisé, SEO local, optimisation contenu, Google Maps renforcé.</p>
+
+<p><strong>Pour qui :</strong><br>
+Artisans, commerces, indépendants et petites entreprises locales.</p>
+</div>
+
+<!-- SITE PREMIUM -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1556761175-b413da4baf72">
+<h3>Site Premium</h3>
+<p class="price">1115€ → 1400€</p>
+
+<p><strong>🔥 OFFRE RECOMMANDÉE</strong></p>
+
+<p><strong>Description :</strong><br>
+Site premium orienté acquisition client, image de marque et performance commerciale.</p>
+
+<p><strong>Contenu :</strong><br>
+Multi-pages, structure avancée, branding, optimisation SEO et parcours utilisateur optimisé.</p>
+
+<p><strong>Résultat :</strong><br>
++25% à +40% de demandes clients et meilleure conversion globale.</p>
+
+<p><strong>Options :</strong><br>
+Branding complet, SEO avancé, optimisation conversion, pages supplémentaires.</p>
+
+<p><strong>Pour qui :</strong><br>
+Entreprises en développement, services professionnels, structures établies.</p>
+</div>
+
+<!-- ULTRA PREMIUM -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1556761175-4b46a572b786">
+<h3>Ultra Premium</h3>
+<p class="price">2500€ → 4000€</p>
+
+<p><strong>Description :</strong><br>
+Solution haut de gamme sur mesure avec stratégie digitale complète et automatisation avancée.</p>
+
+<p><strong>Contenu :</strong><br>
+Site sur mesure, tunnel de conversion, SEO avancé, automation et stratégie digitale complète.</p>
+
+<p><strong>Résultat :</strong><br>
+Jusqu’à +60% de visibilité globale et forte augmentation des ventes.</p>
+
+<p><strong>Options :</strong><br>
+Publicité, tunnel de vente, automation marketing, stratégie complète.</p>
+
+<p><strong>Pour qui :</strong><br>
+Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
+</div>
+
+<!-- COMMUNITY MANAGEMENT -->
+<div class="card">
+<img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868">
+<h3>Community Management</h3>
+<p class="price">150€ → 350€/mois</p>
+
+<p><strong>Description :</strong><br>
+Gestion complète des réseaux sociaux pour développer votre visibilité, votre image et votre engagement client.</p>
+
+<p><strong>Contenu :</strong><br>
+Création de contenu photo/vidéo, gestion des publications, interactions et stratégie éditoriale.</p>
+
+<p><strong>Résultat :</strong><br>
++30% à +60% de visibilité et engagement selon la stratégie appliquée.</p>
+
+<p><strong>Options :</strong><br>
+Posts réguliers, vidéos, gestion messages, stratégie de contenu personnalisée.</p>
+
+<p><strong>Pour qui :</strong><br>
+Entreprises locales, commerces, marques et indépendants souhaitant une présence active.</p>
+</div>
+
+</div>
+</section>
+
+<!-- DEVIS (INCHANGÉ) -->
+<section>
+
+<h2>Devis personnalisé</h2>
+
+<select id="service" onchange="setBase()">
+<option value="">Choisir une offre</option>
+<option value="550">Site Vitrine</option>
+<option value="1115">Site Premium</option>
+<option value="2500">Ultra Premium</option>
+<option value="150">Community Management</option>
+</select>
+
+<div id="options"></div>
+<div id="formFields"></div>
+<div class="total" id="total"></div>
+
+<button>Envoyer devis</button>
+
+</section>
+
+<!-- CONTACT -->
+<section class="bottom">
+<h2>Contact direct</h2>
+
+<a href="tel:06282237722"><button>Appeler</button></a>
+<a href="mailto:studioweblocal@gmail.com"><button>Email</button></a>
+</section>
+
+<script>
+let base=0;
+
+function setBase(){
+base=parseInt(document.getElementById("service").value||0);
+renderOptions();
+renderFields();
+calc();
+}
+
+function renderOptions(){
+
+let s=document.getElementById("service").value;
+let html="";
+
+if(s=="550"){
+html=`
+<div class="option"><span>Design personnalisé (+80€)</span><input type="checkbox" data="80" onchange="calc()"></div>
+<div class="option"><span>Google Maps optimisé (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
+<div class="option"><span>Contenu optimisé (+30€)</span><input type="checkbox" data="30" onchange="calc()"></div>
+`;
+}
+
+if(s=="1115"){
+html=`
+<div class="option"><span>Branding complet (+120€)</span><input type="checkbox" data="120" onchange="calc()"></div>
+<div class="option"><span>SEO local (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
+<div class="option"><span>Conversion optimisée (+75€)</span><input type="checkbox" data="75" onchange="calc()"></div>
+`;
+}
+
+if(s=="2500"){
+html=`
+<div class="option"><span>Publicité locale (+600€)</span><input type="checkbox" data="600" onchange="calc()"></div>
+<div class="option"><span>Tunnel de conversion (+500€)</span><input type="checkbox" data="500" onchange="calc()"></div>
+<div class="option"><span>Automation marketing (+400€)</span><input type="checkbox" data="400" onchange="calc()"></div>
+`;
+}
+
+if(s=="150"){
+html=`
+<div class="option"><span>2 posts / semaine (+50€)</span><input type="radio" name="cm" data="50" onchange="calc()"></div>
+<div class="option"><span>4 posts / semaine (+100€)</span><input type="radio" name="cm" data="100" onchange="calc()"></div>
+<div class="option"><span>Vidéos / Reels (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
+<div class="option"><span>Gestion messages (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
+`;
+}
+
+document.getElementById("options").innerHTML=html;
+}
+
+function renderFields(){
+
+let s=document.getElementById("service").value;
+let html="";
+
+if(s=="550" || s=="1115" || s=="2500"){
+html=`
+<input placeholder="Nom de l'entreprise">
+<input placeholder="Email">
+<input placeholder="Objectif du projet">
+<input placeholder="Liste des produits + prix + type">
+<textarea placeholder="Description du projet"></textarea>
+`;
+}
+
+if(s=="150"){
+html=`
+<input placeholder="Avez-vous un compte existant ? (oui / non)">
+<input placeholder="Type de contenu (photo / vidéo / mix)">
+<input placeholder="Objectif (visibilité / ventes / communauté)">
+<textarea placeholder="Décrivez votre projet réseaux sociaux"></textarea>
+`;
+}
+
+document.getElementById("formFields").innerHTML=html;
+}
+
+function calc(){
+let extra=0;
+document.querySelectorAll("#options input:checked").forEach(i=>{
+extra+=parseInt(i.getAttribute("data"));
+});
+
+let totalHT=base+extra;
+let tva=totalHT*0.2;
+let ttc=totalHT+tva;
+
+document.getElementById("total").innerHTML=
+`HT : ${totalHT}€ | TVA : ${tva.toFixed(0)}€ | TTC : ${ttc.toFixed(0)}€`;
+}
+</script>
+
+</body>
+</html>
