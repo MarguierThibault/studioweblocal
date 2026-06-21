@@ -8,7 +8,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
-document.addEventListener("DOMContentLoaded", () => {
+window.addEventListener("load", function () {
   emailjs.init({
     publicKey: "_Y9wyDROWTwY1--zW"
   });
@@ -298,36 +298,21 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 </section>
 
 <script>
-let base = 0;
-let isSending = false;
 
 const SERVICE_ID = "service_a53gjwo";
-const TEMPLATE_CLIENT = "template_ec8v56a";
-const TEMPLATE_ADMIN = "template_qw8k1jc";
-const PAYMENT_LINK = "https://buy.stripe.com/xxxxxx";
+const TEMPLATE_ID = "template_qw8k1jc";
 
-/* FIX SAAS - CLEAN OPTIONS */
-function cleanLabel(label){
-  return label.replace(/\(\+\d+€\)/g, "").trim();
-}
-
-function generateQuoteNumber(){
-  const d = new Date();
-  return `DEV-${d.getFullYear()}${d.getMonth()+1}${d.getDate()}-${Math.floor(Math.random()*9999)}`;
-}
+let base = 0;
 
 function setBase(){
-  document.getElementById("options").innerHTML = "";
-  document.getElementById("formFields").innerHTML = "";
-
-  base = parseInt(document.getElementById("service").value || 0);
-
-  renderOptions();
-  renderFields();
-  calc();
+base = parseInt(document.getElementById("service").value || 0);
+renderOptions();
+renderFields();
+calc();
 }
 
 function renderOptions(){
+
 let s = document.getElementById("service").value;
 let html = "";
 
@@ -368,19 +353,9 @@ document.getElementById("options").innerHTML = html;
 }
 
 function renderFields(){
+
 let s = document.getElementById("service").value;
 let html = "";
-
-if(s=="150"){
-html = `
-<input id="nom" placeholder="Nom entreprise">
-<input id="email" placeholder="Email">
-<input id="existant" placeholder="Compte existant ?">
-<input id="typecontenu" placeholder="Photo / Vidéo / Mix">
-<input id="objectifcm" placeholder="Objectif réseaux sociaux">
-<textarea id="message" placeholder="Description projet"></textarea>
-`;
-}
 
 if(s=="550" || s=="1115" || s=="2500"){
 html = `
@@ -392,10 +367,24 @@ html = `
 `;
 }
 
+if(s=="150"){
+html = `
+<input id="nom" placeholder="Nom entreprise">
+<input id="email" placeholder="Email">
+
+<input id="existant" placeholder="Compte existant ?">
+<input id="typecontenu" placeholder="Photo / Vidéo / Mix">
+<input id="objectifcm" placeholder="Objectif réseaux sociaux">
+
+<textarea id="message" placeholder="Description projet"></textarea>
+`;
+}
+
 document.getElementById("formFields").innerHTML = html;
 }
 
 function calc(){
+
 let extra = 0;
 
 document.querySelectorAll("#options input:checked").forEach(i=>{
@@ -403,7 +392,7 @@ extra += parseInt(i.getAttribute("data")||0);
 });
 
 const radio = document.querySelector("#options input[type='radio']:checked");
-if(radio) extra += parseInt(radio.getAttribute("data")||0);
+if(radio) extra += parseInt(radio.getAttribute("data"));
 
 let total = base + extra;
 let tva = total * 0.2;
@@ -414,77 +403,57 @@ document.getElementById("total").innerHTML =
 
 function sendQuote(){
 
-if(isSending) return;
-isSending = true;
-
-if(!document.getElementById("service").value){
-alert("Veuillez sélectionner une offre.");
-isSending = false;
-return;
-}
-
-let email = document.getElementById("email")?.value || "";
-if(email && !email.includes("@")){
-alert("Email invalide");
-isSending = false;
-return;
-}
-
-let quoteNumber = generateQuoteNumber();
-
-/* FIX IMPORTANT : suppression doublons "+xx€" */
 let optionsChoisies = [];
+
 document.querySelectorAll("#options input").forEach(input=>{
 if(input.checked){
-let label = cleanLabel(input.parentElement.querySelector("span").innerText);
+let label = input.parentElement.querySelector("span")?.innerText || "Option";
 let prix = input.getAttribute("data") || 0;
+label = label.replace(/\(\+\d+€\)/g,"").trim();
 optionsChoisies.push(`${label} (+${prix}€)`);
 }
 });
+
+if(!document.getElementById("service").value){
+alert("Veuillez sélectionner une offre.");
+return;
+}
 
 let select = document.getElementById("service");
 let serviceName = select.options[select.selectedIndex].text;
 
 let total = document.getElementById("total").innerText;
 
-let paymentUrl = `${PAYMENT_LINK}?ref=${encodeURIComponent(quoteNumber)}`;
-
 let data = {
-quoteNumber,
 service: serviceName,
 options: optionsChoisies.join(" | "),
-total,
+total: total || "",
 nom: document.getElementById("nom")?.value || "",
-email,
+email: document.getElementById("email")?.value || "",
 objectif: document.getElementById("objectif")?.value || "",
 produits: document.getElementById("produits")?.value || "",
 existant: document.getElementById("existant")?.value || "",
 typecontenu: document.getElementById("typecontenu")?.value || "",
 objectifcm: document.getElementById("objectifcm")?.value || "",
-message: document.getElementById("message")?.value || "",
-paymentLink: paymentUrl
+message: document.getElementById("message")?.value || ""
 };
 
-emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data)
-.then(()=> emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data))
+emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
 .then(()=>{
 document.body.innerHTML = `
 <div style="text-align:center;margin-top:20%;color:white;">
 <h1 style="color:#ffd54a;">Devis envoyé ✔</h1>
-<p>Numéro : ${quoteNumber}</p>
-<a href="${paymentUrl}" target="_blank" style="color:#ffd54a;">Payer maintenant</a>
-<br><br>
 <button onclick="location.reload()">Retour</button>
-</div>`;
+</div>
+`;
 })
 .catch(err=>{
 console.error(err);
-alert("Erreur EmailJS");
-})
-.finally(()=>{
-isSending = false;
+alert("Erreur EmailJS : " + JSON.stringify(err));
 });
+
 }
+
 </script>
 
 </body>
