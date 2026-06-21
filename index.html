@@ -298,10 +298,32 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 <script>
 
 const SERVICE_ID = "service_a53gjwo";
-const TEMPLATE_ID = "template_qw8k1jc";
+const TEMPLATE_ADMIN = "template_qw8k1jc";
+const TEMPLATE_CLIENT = "template_ec8v56a";
+
+emailjs.init("_Y9wyDROWTwY1--zW");
 
 let base = 0;
 
+/* =========================
+   CALCUL PRIX
+========================= */
+function calc(){
+let total = base;
+
+document.querySelectorAll("#options input").forEach(el=>{
+if(el.checked){
+total += parseInt(el.getAttribute("data"));
+}
+});
+
+document.getElementById("total").innerHTML =
+"<strong>Total estimé : " + total + "€</strong>";
+}
+
+/* =========================
+   SET BASE
+========================= */
 function setBase(){
 base = parseInt(document.getElementById("service").value || 0);
 renderOptions();
@@ -309,6 +331,9 @@ renderFields();
 calc();
 }
 
+/* =========================
+   OPTIONS
+========================= */
 function renderOptions(){
 
 let s = document.getElementById("service").value;
@@ -350,15 +375,14 @@ html = `
 document.getElementById("options").innerHTML = html;
 }
 
+/* =========================
+   FORM
+========================= */
 function renderFields(){
 
 let s = document.getElementById("service").value;
-let html = "";
 
-/* =========================
-   🧱 CHAMPS COMMUNS
-========================= */
-function commonFields(){
+function common(){
 return `
 <h3>Informations entreprise</h3>
 
@@ -377,30 +401,21 @@ return `
 `;
 }
 
-/* =========================
-   🌐 SITES WEB
-========================= */
-if(s=="550" || s=="1115" || s=="2500"){
-html = commonFields() + `
+let html = "";
 
+if(s=="550" || s=="1115" || s=="2500"){
+html = common() + `
 <h3>Informations site web</h3>
 
 <input id="secteur" placeholder="Secteur d'activité">
-
-<textarea id="produits" placeholder="Liste des produits / services + prix (important)"></textarea>
-
-<input id="objectif" placeholder="Objectif principal (clients, visibilité, ventes...)">
-
-<input id="concurrents" placeholder="Concurrents (optionnel)">
+<textarea id="produits" placeholder="Produits / services + prix"></textarea>
+<input id="objectif" placeholder="Objectif principal">
+<input id="concurrents" placeholder="Concurrents">
 `;
 }
 
-/* =========================
-   📱 COMMUNITY MANAGEMENT
-========================= */
 if(s=="150"){
 html = `
-
 <h3>Informations entreprise</h3>
 
 <input id="prenom" placeholder="Prénom">
@@ -419,79 +434,135 @@ html = `
 <option value="non">Non</option>
 </select>
 
-<input id="nomcompte" placeholder="Nom du compte / @handle">
+<input id="nomcompte" placeholder="Nom du compte">
 
 <h3>Stratégie</h3>
 
-<input id="objectifcm" placeholder="Objectif (visibilité, ventes, notoriété...)">
+<input id="objectifcm" placeholder="Objectif">
 
-<textarea id="contenu" placeholder="Type de contenu souhaité (photo, vidéo, mix...)"></textarea>
-
-<textarea id="message" placeholder="Informations complémentaires"></textarea>
+<textarea id="contenu" placeholder="Contenu souhaité"></textarea>
+<textarea id="message" placeholder="Message"></textarea>
 `;
 }
 
 document.getElementById("formFields").innerHTML = html;
 }
 
+/* =========================
+   OPTIONS SELECTED
+========================= */
+function getSelectedOptions(){
+let options = [];
+
+document.querySelectorAll("#options input").forEach(el=>{
+if(el.checked){
+options.push(el.parentElement.querySelector("span").innerText);
+}
+});
+
+return options.join(", ");
+}
+
+/* =========================
+   SEND EMAILS
+========================= */
 function sendQuote(){
 
 let service = document.getElementById("service").value;
 let total = document.getElementById("total").innerText;
 
-/* helper safe getter */
-const get = (id) => document.getElementById(id)?.value || "";
+let serviceName = "";
+if(service=="550") serviceName="Site Vitrine";
+if(service=="1115") serviceName="Site Premium";
+if(service=="2500") serviceName="Ultra Premium";
+if(service=="150") serviceName="Community Management";
+
+const get = (id)=>document.getElementById(id)?.value || "";
 
 let data = {
+service_name: serviceName,
 service,
 total,
+options: getSelectedOptions(),
 
-// identité
-prenom: get("prenom"),
-nom: get("nom"),
-email: get("email"),
-telephone: get("telephone"),
+prenom:get("prenom"),
+nom:get("nom"),
+email:get("email"),
+telephone:get("telephone"),
 
-// entreprise
-entreprise: get("entreprise"),
-adresse: get("adresse"),
-ville: get("ville"),
-codepostal: get("codepostal"),
-secteur: get("secteur"),
+entreprise:get("entreprise"),
+adresse:get("adresse"),
+ville:get("ville"),
+codepostal:get("codepostal"),
+secteur:get("secteur"),
 
-// projet site
-objectif: get("objectif"),
-produits: get("produits"),
-concurrents: get("concurrents"),
+objectif:get("objectif"),
+produits:get("produits"),
+concurrents:get("concurrents"),
 
-// CM
-aCompte: get("aCompte"),
-nomcompte: get("nomcompte"),
-objectifcm: get("objectifcm"),
-contenu: get("contenu"),
-
-// global
-message: get("message"),
-description: get("description")
+aCompte:get("aCompte"),
+nomcompte:get("nomcompte"),
+objectifcm:get("objectifcm"),
+contenu:get("contenu"),
+message:get("message"),
+description:get("description")
 };
 
-emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
+if(!data.email){
+alert("Email obligatoire");
+return;
+}
+
+Promise.all([
+emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data),
+emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data)
+])
 .then(()=>{
-document.body.innerHTML = `
+document.body.innerHTML=`
 <div style="text-align:center;margin-top:20%;color:white;">
 <h1 style="color:#ffd54a;">Devis envoyé ✔</h1>
-button onclick="location.reload()">Retour</button>
+<button onclick="location.reload()">Retour</button>
 </div>
 `;
 })
 .catch(err=>{
-alert("Erreur envoi email");
 console.log(err);
+alert("Erreur envoi email");
 });
 
 }
 
 </script>
 
+</script>
+
+</script>
+function getSelectedOptions(){
+
+let options = [];
+
+document.querySelectorAll("#options input").forEach(el=>{
+
+if(
+(el.type==="checkbox" && el.checked)
+||
+(el.type==="radio" && el.checked)
+){
+let label = el.parentElement.querySelector("span").innerText;
+options.push(label);
+}
+
+});
+
+return options.join(", ");
+}
+let serviceName = "";
+
+if(service=="550") serviceName = "Site Vitrine";
+if(service=="1115") serviceName = "Site Premium";
+if(service=="2500") serviceName = "Ultra Premium";
+if(service=="150") serviceName = "Community Management";
+
+data.service_name = serviceName;
 </body>
 </html>
