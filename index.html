@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Web Local</title>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
-(function(){
-emailjs.init("_Y9wyDROWTwY1--zW");
-})();
+document.addEventListener("DOMContentLoaded", function () {
+  emailjs.init("_Y9wyDROWTwY1--zW");
+});
 </script>
 
 <style>
@@ -419,8 +419,8 @@ let service = document.getElementById("service").value;
 let total = document.getElementById("total").innerText;
 
 let data = {
-service,
-total,
+service: service || "",
+total: total || "",
 
 prenom: document.getElementById("prenom")?.value || "",
 nom: document.getElementById("nom")?.value || "",
@@ -431,9 +431,9 @@ telephone: document.getElementById("telephone")?.value || "",
 objectif: document.getElementById("objectif")?.value || "",
 produits: document.getElementById("produits")?.value || "",
 
-existant: document.getElementById("existant")?.value || "",
-compte: document.getElementById("compte")?.value || "",
-objectifcm: document.getElementById("objectifcm")?.value || "",
+existant: document.getElementById("existant")?.value || "non renseigné",
+compte: document.getElementById("compte")?.value || "non renseigné",
+objectifcm: document.getElementById("objectifcm")?.value || "non renseigné",
 
 message: document.getElementById("message")?.value || ""
 };
@@ -452,8 +452,8 @@ document.body.innerHTML = `
 `;
 })
 .catch(err=>{
-alert("Erreur envoi email");
-console.log(err);
+console.log("EMAILJS FULL ERROR:", err);
+alert(err?.text || JSON.stringify(err));
 });
 
 }
@@ -461,4 +461,3 @@ console.log(err);
 </script>
 
 </body>
-</html>
