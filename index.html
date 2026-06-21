@@ -355,22 +355,41 @@ function renderFields(){
 let s = document.getElementById("service").value;
 let html = "";
 
+// POUR TOUS LES SITES WEB (550 / 1115 / 2500)
 if(s=="550" || s=="1115" || s=="2500"){
 html = `
-<input id="nom" placeholder="Nom entreprise">
+<input id="prenom" placeholder="Prénom">
+<input id="nom" placeholder="Nom">
+<input id="entreprise" placeholder="Nom de l'entreprise">
 <input id="email" placeholder="Email">
-<input id="objectif" placeholder="Objectif">
+<input id="telephone" placeholder="Téléphone">
+<input id="objectif" placeholder="Objectif du site">
 <input id="produits" placeholder="Produits / services">
-<textarea id="message" placeholder="Description projet"></textarea>
+<textarea id="message" placeholder="Description détaillée du projet"></textarea>
 `;
 }
 
+// COMMUNITY MANAGEMENT
 if(s=="150"){
 html = `
-<input id="existant" placeholder="Compte existant ?">
-<input id="typecontenu" placeholder="Photo / Vidéo / Mix">
+<input id="prenom" placeholder="Prénom">
+<input id="nom" placeholder="Nom">
+<input id="entreprise" placeholder="Nom de l'entreprise">
+<input id="email" placeholder="Email">
+<input id="telephone" placeholder="Téléphone">
+
+<div style="margin-top:10px;">
+<label>Avez-vous déjà un compte existant ?</label>
+<select id="existant" onchange="calc()">
+<option value="">Choisir</option>
+<option value="oui">Oui</option>
+<option value="non">Non</option>
+</select>
+</div>
+
+<input id="compte" placeholder="Nom du compte (si existant)">
 <input id="objectifcm" placeholder="Objectif réseaux sociaux">
-<textarea id="message" placeholder="Description projet"></textarea>
+<textarea id="message" placeholder="Description détaillée du projet"></textarea>
 `;
 }
 
@@ -403,13 +422,20 @@ let total = document.getElementById("total").innerText;
 let data = {
 service,
 total,
+
+prenom: document.getElementById("prenom")?.value || "",
 nom: document.getElementById("nom")?.value || "",
+entreprise: document.getElementById("entreprise")?.value || "",
 email: document.getElementById("email")?.value || "",
+telephone: document.getElementById("telephone")?.value || "",
+
 objectif: document.getElementById("objectif")?.value || "",
 produits: document.getElementById("produits")?.value || "",
+
 existant: document.getElementById("existant")?.value || "",
-typecontenu: document.getElementById("typecontenu")?.value || "",
+compte: document.getElementById("compte")?.value || "",
 objectifcm: document.getElementById("objectifcm")?.value || "",
+
 message: document.getElementById("message")?.value || ""
 };
 
