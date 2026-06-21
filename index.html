@@ -306,9 +306,10 @@ const TEMPLATE_CLIENT = "template_ec8v56a";
 const TEMPLATE_ADMIN = "template_qw8k1jc";
 const PAYMENT_LINK = "https://buy.stripe.com/xxxxxx";
 
-/* -----------------------------
-   SAAS ENGINE (AMÉLIORÉ)
-------------------------------*/
+/* FIX SAAS - CLEAN OPTIONS */
+function cleanLabel(label){
+  return label.replace(/\(\+\d+€\)/g, "").trim();
+}
 
 function generateQuoteNumber(){
   const d = new Date();
@@ -431,11 +432,11 @@ return;
 
 let quoteNumber = generateQuoteNumber();
 
-/* SaaS: breakdown propre */
+/* FIX IMPORTANT : suppression doublons "+xx€" */
 let optionsChoisies = [];
 document.querySelectorAll("#options input").forEach(input=>{
 if(input.checked){
-let label = input.parentElement.querySelector("span").innerText;
+let label = cleanLabel(input.parentElement.querySelector("span").innerText);
 let prix = input.getAttribute("data") || 0;
 optionsChoisies.push(`${label} (+${prix}€)`);
 }
@@ -446,10 +447,8 @@ let serviceName = select.options[select.selectedIndex].text;
 
 let total = document.getElementById("total").innerText;
 
-/* lien de paiement SaaS (avec tracking devis) */
 let paymentUrl = `${PAYMENT_LINK}?ref=${encodeURIComponent(quoteNumber)}`;
 
-/* DATA SaaS structurée */
 let data = {
 quoteNumber,
 service: serviceName,
@@ -466,7 +465,6 @@ message: document.getElementById("message")?.value || "",
 paymentLink: paymentUrl
 };
 
-/* envoi client + admin */
 emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data)
 .then(()=> emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data))
 .then(()=>{
