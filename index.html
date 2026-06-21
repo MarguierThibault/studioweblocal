@@ -8,9 +8,7 @@
 <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
 
 <script>
-(function(){
 emailjs.init("ZnaIdcbmV7R2B1ph");
-})();
 </script>
 
 <style>
@@ -132,6 +130,7 @@ color:#ffd54a;
 
 <body>
 
+<!-- HERO -->
 <section class="hero">
 <div class="hero-content">
 <h3 style="color:#ffd54a;">Studio Web Local</h3>
@@ -141,6 +140,7 @@ color:#ffd54a;
 </div>
 </section>
 
+<!-- WHY WEBSITE (INCHANGÉ) -->
 <section>
 <div class="impact">
 
@@ -170,6 +170,7 @@ color:#ffd54a;
 </div>
 </section>
 
+<!-- OFFRES (100% INCHANGÉES) -->
 <section>
 
 <h2>Nos offres</h2>
@@ -266,6 +267,7 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 </div>
 </section>
 
+<!-- FORM -->
 <section>
 
 <h2>Devis personnalisé</h2>
@@ -280,40 +282,37 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 
 <div id="options"></div>
 <div id="formFields"></div>
-<div class="total" id="total"></div>
+
+<div class="total" id="total"><strong>Total estimé : 0€</strong></div>
 
 <button onclick="sendQuote()">Envoyer le devis</button>
 
 </section>
 
 <section class="bottom">
-
 <h2>Contact direct</h2>
-
-<button onclick="window.location.href='tel:06282237722'">Appeler</button>
-<button onclick="window.location.href='mailto:studioweblocal@gmail.com'">Email</button>
-
+<button onclick="location.href='tel:06282237722'">Appeler</button>
+<button onclick="location.href='mailto:studioweblocal@gmail.com'">Email</button>
 </section>
 
 <script>
 
+/* EMAILJS */
 const SERVICE_ID = "service_a53gjwo";
 const TEMPLATE_ADMIN = "template_qw8k1jc";
 const TEMPLATE_CLIENT = "template_ec8v56a";
 
-emailjs.init("_Y9wyDROWTwY1--zW");
+emailjs.init("ZnaIdcbmV7R2B1ph");
 
 let base = 0;
 
-/* =========================
-   CALCUL PRIX
-========================= */
+/* CALC */
 function calc(){
 let total = base;
 
 document.querySelectorAll("#options input").forEach(el=>{
 if(el.checked){
-total += parseInt(el.getAttribute("data"));
+total += parseInt(el.dataset.value || 0);
 }
 });
 
@@ -321,9 +320,7 @@ document.getElementById("total").innerHTML =
 "<strong>Total estimé : " + total + "€</strong>";
 }
 
-/* =========================
-   SET BASE
-========================= */
+/* BASE */
 function setBase(){
 base = parseInt(document.getElementById("service").value || 0);
 renderOptions();
@@ -331,53 +328,48 @@ renderFields();
 calc();
 }
 
-/* =========================
-   OPTIONS
-========================= */
+/* OPTIONS */
 function renderOptions(){
-
 let s = document.getElementById("service").value;
 let html = "";
 
-if(s=="150"){
+if(s==="150"){
 html = `
-<div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data="0" onchange="calc()" checked></div>
-<div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data="80" onchange="calc()"></div>
-<div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
-<div class="option"><span>Messages (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
+<div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
+<div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data-value="80" onchange="calc()"></div>
+<div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div>
+<div class="option"><span>Messages (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div>
 `;
 }
 
-if(s=="550"){
+if(s==="550"){
 html = `
-<div class="option"><span>Design (+80€)</span><input type="checkbox" data="80" onchange="calc()"></div>
-<div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
-<div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data="30" onchange="calc()"></div>
+<div class="option"><span>Design (+80€)</span><input type="checkbox" data-value="80" onchange="calc()"></div>
+<div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div>
+<div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data-value="30" onchange="calc()"></div>
 `;
 }
 
-if(s=="1115"){
+if(s==="1115"){
 html = `
-<div class="option"><span>Branding (+120€)</span><input type="checkbox" data="120" onchange="calc()"></div>
-<div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
-<div class="option"><span>Conversion (+75€)</span><input type="checkbox" data="75" onchange="calc()"></div>
+<div class="option"><span>Branding (+120€)</span><input type="checkbox" data-value="120" onchange="calc()"></div>
+<div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div>
+<div class="option"><span>Conversion (+75€)</span><input type="checkbox" data-value="75" onchange="calc()"></div>
 `;
 }
 
-if(s=="2500"){
+if(s==="2500"){
 html = `
-<div class="option"><span>Ads (+600€)</span><input type="checkbox" data="600" onchange="calc()"></div>
-<div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data="500" onchange="calc()"></div>
-<div class="option"><span>Automation (+400€)</span><input type="checkbox" data="400" onchange="calc()"></div>
+<div class="option"><span>Ads (+600€)</span><input type="checkbox" data-value="600" onchange="calc()"></div>
+<div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data-value="500" onchange="calc()"></div>
+<div class="option"><span>Automation (+400€)</span><input type="checkbox" data-value="400" onchange="calc()"></div>
 `;
 }
 
 document.getElementById("options").innerHTML = html;
 }
 
-/* =========================
-   FORM
-========================= */
+/* FORM */
 function renderFields(){
 
 let s = document.getElementById("service").value;
@@ -401,10 +393,10 @@ return `
 `;
 }
 
-let html = "";
+let html="";
 
-if(s=="550" || s=="1115" || s=="2500"){
-html = common() + `
+if(s==="550" || s==="1115" || s==="2500"){
+html = common()+`
 <h3>Informations site web</h3>
 
 <input id="secteur" placeholder="Secteur d'activité">
@@ -414,7 +406,7 @@ html = common() + `
 `;
 }
 
-if(s=="150"){
+if(s==="150"){
 html = `
 <h3>Informations entreprise</h3>
 
@@ -448,58 +440,52 @@ html = `
 document.getElementById("formFields").innerHTML = html;
 }
 
-/* =========================
-   OPTIONS SELECTED
-========================= */
+/* OPTIONS SELECTED */
 function getSelectedOptions(){
-let options = [];
-
+let options=[];
 document.querySelectorAll("#options input").forEach(el=>{
-if(el.checked){
-options.push(el.parentElement.querySelector("span").innerText);
-}
+if(el.checked) options.push(el.parentElement.querySelector("span").innerText);
 });
-
 return options.join(", ");
 }
 
-/* =========================
-   SEND EMAILS
-========================= */
+/* SEND */
 function sendQuote(){
 
 let service = document.getElementById("service").value;
-let total = document.getElementById("total").innerText;
 
-let serviceName = "";
-if(service=="550") serviceName="Site Vitrine";
-if(service=="1115") serviceName="Site Premium";
-if(service=="2500") serviceName="Ultra Premium";
-if(service=="150") serviceName="Community Management";
+if(!service){
+alert("Choisis une offre");
+return;
+}
 
-const get = (id)=>document.getElementById(id)?.value || "";
+const get=id=>document.getElementById(id)?.value||"";
 
-let data = {
-service_name: serviceName,
+let serviceName={
+"550":"Site Vitrine",
+"1115":"Site Premium",
+"2500":"Ultra Premium",
+"150":"Community Management"
+}[service];
+
+let data={
+service_name:serviceName,
 service,
-total,
-options: getSelectedOptions(),
+total:document.getElementById("total").innerText,
+options:getSelectedOptions(),
 
 prenom:get("prenom"),
 nom:get("nom"),
 email:get("email"),
 telephone:get("telephone"),
-
 entreprise:get("entreprise"),
 adresse:get("adresse"),
 ville:get("ville"),
 codepostal:get("codepostal"),
 secteur:get("secteur"),
-
 objectif:get("objectif"),
 produits:get("produits"),
 concurrents:get("concurrents"),
-
 aCompte:get("aCompte"),
 nomcompte:get("nomcompte"),
 objectifcm:get("objectifcm"),
@@ -514,8 +500,8 @@ return;
 }
 
 Promise.all([
-emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data),
-emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data)
+emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data),
+emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data)
 ])
 .then(()=>{
 document.body.innerHTML=`
@@ -527,42 +513,15 @@ document.body.innerHTML=`
 })
 .catch(err=>{
 console.log(err);
-alert("Erreur envoi email");
+alert("Erreur EmailJS");
 });
 
 }
 
-</script>
+/* INIT */
+setBase();
 
 </script>
 
-</script>
-function getSelectedOptions(){
-
-let options = [];
-
-document.querySelectorAll("#options input").forEach(el=>{
-
-if(
-(el.type==="checkbox" && el.checked)
-||
-(el.type==="radio" && el.checked)
-){
-let label = el.parentElement.querySelector("span").innerText;
-options.push(label);
-}
-
-});
-
-return options.join(", ");
-}
-let serviceName = "";
-
-if(service=="550") serviceName = "Site Vitrine";
-if(service=="1115") serviceName = "Site Premium";
-if(service=="2500") serviceName = "Ultra Premium";
-if(service=="150") serviceName = "Community Management";
-
-data.service_name = serviceName;
 </body>
 </html>
