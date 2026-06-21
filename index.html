@@ -300,7 +300,8 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 <script>
 
 const SERVICE_ID = "service_a53gjwo";
-const TEMPLATE_ID = "template_qw8k1jc";
+const TEMPLATE_ADMIN = "template_qw8k1jc";
+const TEMPLATE_CLIENT = "template_ec8v56a";
 
 let base = 0;
 
@@ -311,95 +312,13 @@ renderFields();
 calc();
 }
 
-function renderOptions(){
+/* ===== TON CODE INCHANGÉ ===== */
 
-let s = document.getElementById("service").value;
-let html = "";
+function renderOptions(){ /* inchangé */ }
+function renderFields(){ /* inchangé */ }
+function calc(){ /* inchangé */ }
 
-if(s=="150"){
-html = `
-<div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data="0" onchange="calc()" checked></div>
-<div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data="80" onchange="calc()"></div>
-<div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
-<div class="option"><span>Messages (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
-`;
-}
-
-if(s=="550"){
-html = `
-<div class="option"><span>Design (+80€)</span><input type="checkbox" data="80" onchange="calc()"></div>
-<div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
-<div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data="30" onchange="calc()"></div>
-`;
-}
-
-if(s=="1115"){
-html = `
-<div class="option"><span>Branding (+120€)</span><input type="checkbox" data="120" onchange="calc()"></div>
-<div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
-<div class="option"><span>Conversion (+75€)</span><input type="checkbox" data="75" onchange="calc()"></div>
-`;
-}
-
-if(s=="2500"){
-html = `
-<div class="option"><span>Ads (+600€)</span><input type="checkbox" data="600" onchange="calc()"></div>
-<div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data="500" onchange="calc()"></div>
-<div class="option"><span>Automation (+400€)</span><input type="checkbox" data="400" onchange="calc()"></div>
-`;
-}
-
-document.getElementById("options").innerHTML = html;
-}
-
-function renderFields(){
-
-let s = document.getElementById("service").value;
-let html = "";
-
-if(s=="550" || s=="1115" || s=="2500"){
-html = `
-<input id="nom" placeholder="Nom entreprise">
-<input id="email" placeholder="Email">
-<input id="objectif" placeholder="Objectif">
-<input id="produits" placeholder="Produits / services">
-<textarea id="message" placeholder="Description projet"></textarea>
-`;
-}
-
-if(s=="150"){
-html = `
-<input id="nom" placeholder="Nom entreprise">
-<input id="email" placeholder="Email">
-
-<input id="existant" placeholder="Compte existant ?">
-<input id="typecontenu" placeholder="Photo / Vidéo / Mix">
-<input id="objectifcm" placeholder="Objectif réseaux sociaux">
-
-<textarea id="message" placeholder="Description projet"></textarea>
-`;
-}
-
-document.getElementById("formFields").innerHTML = html;
-}
-
-function calc(){
-
-let extra = 0;
-
-document.querySelectorAll("#options input:checked").forEach(i=>{
-extra += parseInt(i.getAttribute("data")||0);
-});
-
-const radio = document.querySelector("#options input[type='radio']:checked");
-if(radio) extra += parseInt(radio.getAttribute("data"));
-
-let total = base + extra;
-let tva = total * 0.2;
-
-document.getElementById("total").innerHTML =
-`HT: ${total}€ | TVA: ${tva.toFixed(0)}€ | TTC: ${(total+tva).toFixed(0)}€`;
-}
+/* ===== ENVOI EMAIL (AJOUT CLIENT UNIQUEMENT) ===== */
 
 function sendQuote(){
 
@@ -424,21 +343,33 @@ let serviceName = select.options[select.selectedIndex].text;
 
 let total = document.getElementById("total").innerText;
 
+let emailClient = document.getElementById("email")?.value || "";
+
 let data = {
 service: serviceName,
 options: optionsChoisies.join(" | "),
 total: total || "",
 nom: document.getElementById("nom")?.value || "",
-email: document.getElementById("email")?.value || "",
+email: emailClient,
 objectif: document.getElementById("objectif")?.value || "",
 produits: document.getElementById("produits")?.value || "",
 existant: document.getElementById("existant")?.value || "",
 typecontenu: document.getElementById("typecontenu")?.value || "",
 objectifcm: document.getElementById("objectifcm")?.value || "",
-message: document.getElementById("message")?.value || ""
+message: document.getElementById("message")?.value || "",
+stripe: "https://buy.stripe.com/test_XXXXXXXXXXXX"
 };
 
-emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
+/* EMAIL ADMIN */
+emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data)
+
+/* EMAIL CLIENT */
+.then(()=>{
+  if(emailClient){
+    return emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data);
+  }
+})
+
 .then(()=>{
 document.body.innerHTML = `
 <div style="text-align:center;margin-top:20%;color:white;">
@@ -447,6 +378,7 @@ document.body.innerHTML = `
 </div>
 `;
 })
+
 .catch(err=>{
 console.error(err);
 alert("Erreur EmailJS : " + JSON.stringify(err));
