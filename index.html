@@ -355,44 +355,83 @@ function renderFields(){
 let s = document.getElementById("service").value;
 let html = "";
 
-if(s=="550" || s=="1115" || s=="2500"){
-html = `
-<input id="nom" placeholder="Nom entreprise">
+/* =========================
+   🧱 CHAMPS COMMUNS
+========================= */
+function commonFields(){
+return `
+<h3>Informations entreprise</h3>
+
+<input id="prenom" placeholder="Prénom">
+<input id="nom" placeholder="Nom">
 <input id="email" placeholder="Email">
-<input id="objectif" placeholder="Objectif">
-<input id="produits" placeholder="Produits / services">
-<textarea id="message" placeholder="Description projet"></textarea>
+<input id="telephone" placeholder="Téléphone">
+
+<input id="entreprise" placeholder="Nom de l'entreprise">
+<input id="adresse" placeholder="Adresse complète">
+<input id="ville" placeholder="Ville">
+<input id="codepostal" placeholder="Code postal">
+
+<h3>Projet</h3>
+<textarea id="description" placeholder="Décrivez votre projet"></textarea>
 `;
 }
 
+/* =========================
+   🌐 SITES WEB
+========================= */
+if(s=="550" || s=="1115" || s=="2500"){
+html = commonFields() + `
+
+<h3>Informations site web</h3>
+
+<input id="secteur" placeholder="Secteur d'activité">
+
+<textarea id="produits" placeholder="Liste des produits / services + prix (important)"></textarea>
+
+<input id="objectif" placeholder="Objectif principal (clients, visibilité, ventes...)">
+
+<input id="concurrents" placeholder="Concurrents (optionnel)">
+`;
+}
+
+/* =========================
+   📱 COMMUNITY MANAGEMENT
+========================= */
 if(s=="150"){
 html = `
-<input id="existant" placeholder="Compte existant ?">
-<input id="typecontenu" placeholder="Photo / Vidéo / Mix">
-<input id="objectifcm" placeholder="Objectif réseaux sociaux">
-<textarea id="message" placeholder="Description projet"></textarea>
+
+<h3>Informations entreprise</h3>
+
+<input id="prenom" placeholder="Prénom">
+<input id="nom" placeholder="Nom">
+<input id="email" placeholder="Email">
+<input id="telephone" placeholder="Téléphone">
+
+<input id="entreprise" placeholder="Nom de l'entreprise">
+<input id="secteur" placeholder="Secteur d'activité">
+
+<h3>Réseaux sociaux</h3>
+
+<select id="aCompte">
+<option value="">Avez-vous déjà un compte ?</option>
+<option value="oui">Oui</option>
+<option value="non">Non</option>
+</select>
+
+<input id="nomcompte" placeholder="Nom du compte / @handle">
+
+<h3>Stratégie</h3>
+
+<input id="objectifcm" placeholder="Objectif (visibilité, ventes, notoriété...)">
+
+<textarea id="contenu" placeholder="Type de contenu souhaité (photo, vidéo, mix...)"></textarea>
+
+<textarea id="message" placeholder="Informations complémentaires"></textarea>
 `;
 }
 
 document.getElementById("formFields").innerHTML = html;
-}
-
-function calc(){
-
-let extra = 0;
-
-document.querySelectorAll("#options input:checked").forEach(i=>{
-extra += parseInt(i.getAttribute("data")||0);
-});
-
-const radio = document.querySelector("#options input[type='radio']:checked");
-if(radio) extra += parseInt(radio.getAttribute("data"));
-
-let total = base + extra;
-let tva = total * 0.2;
-
-document.getElementById("total").innerHTML =
-`HT: ${total}€ | TVA: ${tva.toFixed(0)}€ | TTC: ${(total+tva).toFixed(0)}€`;
 }
 
 function sendQuote(){
@@ -400,17 +439,40 @@ function sendQuote(){
 let service = document.getElementById("service").value;
 let total = document.getElementById("total").innerText;
 
+/* helper safe getter */
+const get = (id) => document.getElementById(id)?.value || "";
+
 let data = {
 service,
 total,
-nom: document.getElementById("nom")?.value || "",
-email: document.getElementById("email")?.value || "",
-objectif: document.getElementById("objectif")?.value || "",
-produits: document.getElementById("produits")?.value || "",
-existant: document.getElementById("existant")?.value || "",
-typecontenu: document.getElementById("typecontenu")?.value || "",
-objectifcm: document.getElementById("objectifcm")?.value || "",
-message: document.getElementById("message")?.value || ""
+
+// identité
+prenom: get("prenom"),
+nom: get("nom"),
+email: get("email"),
+telephone: get("telephone"),
+
+// entreprise
+entreprise: get("entreprise"),
+adresse: get("adresse"),
+ville: get("ville"),
+codepostal: get("codepostal"),
+secteur: get("secteur"),
+
+// projet site
+objectif: get("objectif"),
+produits: get("produits"),
+concurrents: get("concurrents"),
+
+// CM
+aCompte: get("aCompte"),
+nomcompte: get("nomcompte"),
+objectifcm: get("objectifcm"),
+contenu: get("contenu"),
+
+// global
+message: get("message"),
+description: get("description")
 };
 
 emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
@@ -418,7 +480,7 @@ emailjs.send(SERVICE_ID, TEMPLATE_ID, data)
 document.body.innerHTML = `
 <div style="text-align:center;margin-top:20%;color:white;">
 <h1 style="color:#ffd54a;">Devis envoyé ✔</h1>
-<button onclick="location.reload()">Retour</button>
+button onclick="location.reload()">Retour</button>
 </div>
 `;
 })
