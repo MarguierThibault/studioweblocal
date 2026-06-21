@@ -303,158 +303,186 @@ const TEMPLATE_CLIENT = "template_ec8v56a";
 
 let base = 0;
 
-function setBase(){
-base = parseInt(document.getElementById("service").value || 0);
-renderOptions();
-renderFields();
-calc();
+/* =========================
+   🔥 SERVICE NAME MAPPING
+========================= */
+function getServiceName(id){
+  switch(id){
+    case "550": return "Site Vitrine";
+    case "1115": return "Site Premium";
+    case "2500": return "Ultra Premium";
+    case "150": return "Community Management";
+    default: return "Service non sélectionné";
+  }
 }
 
+/* =========================
+   BASE UPDATE
+========================= */
+function setBase(){
+  base = parseInt(document.getElementById("service").value || 0);
+  renderOptions();
+  renderFields();
+  calc();
+}
+
+/* =========================
+   OPTIONS
+========================= */
 function renderOptions(){
 
-let s = document.getElementById("service").value;
-let html = "";
+  let s = document.getElementById("service").value;
+  let html = "";
 
-if(s=="150"){
-html = `
-<div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data="0" onchange="calc()" checked></div>
-<div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data="80" onchange="calc()"></div>
-<div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
-<div class="option"><span>Messages (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
-`;
+  if(s=="150"){
+    html = `
+    <div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data="0" onchange="calc()" checked></div>
+    <div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data="80" onchange="calc()"></div>
+    <div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
+    <div class="option"><span>Messages (+60€)</span><input type="checkbox" data="60" onchange="calc()"></div>
+    `;
+  }
+
+  if(s=="550"){
+    html = `
+    <div class="option"><span>Design (+80€)</span><input type="checkbox" data="80" onchange="calc()"></div>
+    <div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
+    <div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data="30" onchange="calc()"></div>
+    `;
+  }
+
+  if(s=="1115"){
+    html = `
+    <div class="option"><span>Branding (+120€)</span><input type="checkbox" data="120" onchange="calc()"></div>
+    <div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
+    <div class="option"><span>Conversion (+75€)</span><input type="checkbox" data="75" onchange="calc()"></div>
+    `;
+  }
+
+  if(s=="2500"){
+    html = `
+    <div class="option"><span>Ads (+600€)</span><input type="checkbox" data="600" onchange="calc()"></div>
+    <div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data="500" onchange="calc()"></div>
+    <div class="option"><span>Automation (+400€)</span><input type="checkbox" data="400" onchange="calc()"></div>
+    `;
+  }
+
+  document.getElementById("options").innerHTML = html;
 }
 
-if(s=="550"){
-html = `
-<div class="option"><span>Design (+80€)</span><input type="checkbox" data="80" onchange="calc()"></div>
-<div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
-<div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data="30" onchange="calc()"></div>
-`;
-}
-
-if(s=="1115"){
-html = `
-<div class="option"><span>Branding (+120€)</span><input type="checkbox" data="120" onchange="calc()"></div>
-<div class="option"><span>SEO (+90€)</span><input type="checkbox" data="90" onchange="calc()"></div>
-<div class="option"><span>Conversion (+75€)</span><input type="checkbox" data="75" onchange="calc()"></div>
-`;
-}
-
-if(s=="2500"){
-html = `
-<div class="option"><span>Ads (+600€)</span><input type="checkbox" data="600" onchange="calc()"></div>
-<div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data="500" onchange="calc()"></div>
-<div class="option"><span>Automation (+400€)</span><input type="checkbox" data="400" onchange="calc()"></div>
-`;
-}
-
-document.getElementById("options").innerHTML = html;
-}
-
+/* =========================
+   FORM FIELDS
+========================= */
 function renderFields(){
 
-let s = document.getElementById("service").value;
-let html = "";
+  let s = document.getElementById("service").value;
+  let html = "";
 
-if(s=="550" || s=="1115" || s=="2500"){
-html = `
-<input id="prenom" placeholder="Prénom">
-<input id="nom" placeholder="Nom">
-<input id="entreprise" placeholder="Nom de l'entreprise">
-<input id="email" placeholder="Email">
-<input id="telephone" placeholder="Téléphone">
-<input id="objectif" placeholder="Objectif du site">
-<input id="produits" placeholder="Produits / services">
-<textarea id="message" placeholder="Description détaillée du projet"></textarea>
-`;
+  if(s=="550" || s=="1115" || s=="2500"){
+    html = `
+    <input id="prenom" placeholder="Prénom">
+    <input id="nom" placeholder="Nom">
+    <input id="entreprise" placeholder="Nom de l'entreprise">
+    <input id="email" placeholder="Email">
+    <input id="telephone" placeholder="Téléphone">
+    <input id="objectif" placeholder="Objectif du site">
+    <input id="produits" placeholder="Produits / services">
+    <textarea id="message" placeholder="Description détaillée du projet"></textarea>
+    `;
+  }
+
+  if(s=="150"){
+    html = `
+    <input id="prenom" placeholder="Prénom">
+    <input id="nom" placeholder="Nom">
+    <input id="entreprise" placeholder="Nom de l'entreprise">
+    <input id="email" placeholder="Email">
+    <input id="telephone" placeholder="Téléphone">
+
+    <div style="margin-top:10px;">
+      <label>Avez-vous déjà un compte existant ?</label>
+      <select id="existant" onchange="calc()">
+        <option value="">Choisir</option>
+        <option value="oui">Oui</option>
+        <option value="non">Non</option>
+      </select>
+    </div>
+
+    <input id="compte" placeholder="Nom du compte (si existant)">
+    <input id="objectifcm" placeholder="Objectif réseaux sociaux">
+    <textarea id="message" placeholder="Description détaillée du projet"></textarea>
+    `;
+  }
+
+  document.getElementById("formFields").innerHTML = html;
 }
 
-if(s=="150"){
-html = `
-<input id="prenom" placeholder="Prénom">
-<input id="nom" placeholder="Nom">
-<input id="entreprise" placeholder="Nom de l'entreprise">
-<input id="email" placeholder="Email">
-<input id="telephone" placeholder="Téléphone">
-
-<div style="margin-top:10px;">
-<label>Avez-vous déjà un compte existant ?</label>
-<select id="existant" onchange="calc()">
-<option value="">Choisir</option>
-<option value="oui">Oui</option>
-<option value="non">Non</option>
-</select>
-</div>
-
-<input id="compte" placeholder="Nom du compte (si existant)">
-<input id="objectifcm" placeholder="Objectif réseaux sociaux">
-<textarea id="message" placeholder="Description détaillée du projet"></textarea>
-`;
-}
-
-document.getElementById("formFields").innerHTML = html;
-}
-
+/* =========================
+   CALC
+========================= */
 function calc(){
 
-let extra = 0;
+  let extra = 0;
 
-document.querySelectorAll("#options input:checked").forEach(i=>{
-extra += parseInt(i.getAttribute("data")||0);
-});
+  document.querySelectorAll("#options input:checked").forEach(i=>{
+    extra += parseInt(i.getAttribute("data")||0);
+  });
 
-const radio = document.querySelector("#options input[type='radio']:checked");
-if(radio) extra += parseInt(radio.getAttribute("data"));
+  const radio = document.querySelector("#options input[type='radio']:checked");
+  if(radio) extra += parseInt(radio.getAttribute("data"));
 
-let total = base + extra;
-let tva = total * 0.2;
+  let total = base + extra;
+  let tva = total * 0.2;
 
-document.getElementById("total").innerHTML =
-`HT: ${total}€ | TVA: ${tva.toFixed(0)}€ | TTC: ${(total+tva).toFixed(0)}€`;
+  document.getElementById("total").innerHTML =
+  `HT: ${total}€ | TVA: ${tva.toFixed(0)}€ | TTC: ${(total+tva).toFixed(0)}€`;
 }
 
+/* =========================
+   SEND EMAIL
+========================= */
 function sendQuote(){
 
-let service = document.getElementById("service").value;
-let total = document.getElementById("total").innerText;
+  let service = document.getElementById("service").value;
+  let total = document.getElementById("total").innerText;
 
-let data = {
-service: service || "",
-total: total || "",
+  let data = {
+    service: getServiceName(service), // 🔥 FIX ICI
+    total,
 
-prenom: document.getElementById("prenom")?.value || "",
-nom: document.getElementById("nom")?.value || "",
-entreprise: document.getElementById("entreprise")?.value || "",
-email: document.getElementById("email")?.value || "",
-telephone: document.getElementById("telephone")?.value || "",
+    prenom: document.getElementById("prenom")?.value || "",
+    nom: document.getElementById("nom")?.value || "",
+    entreprise: document.getElementById("entreprise")?.value || "",
+    email: document.getElementById("email")?.value || "",
+    telephone: document.getElementById("telephone")?.value || "",
 
-objectif: document.getElementById("objectif")?.value || "",
-produits: document.getElementById("produits")?.value || "",
+    objectif: document.getElementById("objectif")?.value || "",
+    produits: document.getElementById("produits")?.value || "",
 
-existant: document.getElementById("existant")?.value || "non renseigné",
-compte: document.getElementById("compte")?.value || "non renseigné",
-objectifcm: document.getElementById("objectifcm")?.value || "non renseigné",
+    existent: document.getElementById("existant")?.value || "",
+    compte: document.getElementById("compte")?.value || "",
+    objectifcm: document.getElementById("objectifcm")?.value || "",
 
-message: document.getElementById("message")?.value || ""
-};
+    message: document.getElementById("message")?.value || ""
+  };
 
-let sendAdmin = emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data);
-let sendClient = emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data);
+  let sendAdmin = emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data);
+  let sendClient = emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data);
 
-Promise.all([sendAdmin, sendClient])
-.then(()=>{
-document.body.innerHTML = `
-<div style="text-align:center;margin-top:20%;color:white;">
-<h1 style="color:#ffd54a;">Devis envoyé ✔</h1>
-<p>Un email de confirmation vous a été envoyé.</p>
-<button onclick="location.reload()">Retour</button>
-</div>
-`;
-})
-.catch(err=>{
-console.log("EMAILJS FULL ERROR:", err);
-alert(err?.text || JSON.stringify(err));
-});
+  Promise.all([sendAdmin, sendClient])
+  .then(()=>{
+    document.body.innerHTML = `
+    <div style="text-align:center;margin-top:20%;color:white;">
+      <h1 style="color:#ffd54a;">Devis envoyé ✔</h1>
+      <p>Un email de confirmation vous a été envoyé.</p>
+      <button onclick="location.reload()">Retour</button>
+    </div>
+    `;
+  })
+  .catch(err=>{
+    console.log("EMAILJS ERROR:", err);
+    alert(err?.text || JSON.stringify(err));
+  });
 
 }
 
