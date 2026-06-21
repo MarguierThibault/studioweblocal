@@ -5,10 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Web Local</title>
 
-<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 <script>
-emailjs.init("ZnaIdcbmV7R2B1ph");
+document.addEventListener("DOMContentLoaded", () => {
+  emailjs.init("_Y9wyDROWTwY1--zW");
+});
 </script>
 
 <style>
@@ -459,20 +461,20 @@ alert("Choisis une offre");
 return;
 }
 
-const get=id=>document.getElementById(id)?.value||"";
+const get = (id)=>document.getElementById(id)?.value || "";
 
-let serviceName={
+let serviceName = {
 "550":"Site Vitrine",
 "1115":"Site Premium",
 "2500":"Ultra Premium",
 "150":"Community Management"
-}[service];
+}[service] || "";
 
-let data={
-service_name:serviceName,
+let data = {
+service_name: serviceName,
 service,
-total:document.getElementById("total").innerText,
-options:getSelectedOptions(),
+total: document.getElementById("total").innerText,
+options: getSelectedOptions(),
 
 prenom:get("prenom"),
 nom:get("nom"),
@@ -494,14 +496,16 @@ message:get("message"),
 description:get("description")
 };
 
+console.log("EMAILJS DATA:", data); // 👈 DEBUG IMPORTANT
+
 if(!data.email){
 alert("Email obligatoire");
 return;
 }
 
 Promise.all([
-emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data),
-emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data)
+emailjs.send("service_a53gjwo", "template_qw8k1jc", data),
+emailjs.send("service_a53gjwo", "template_ec8v56a", data)
 ])
 .then(()=>{
 document.body.innerHTML=`
@@ -512,10 +516,9 @@ document.body.innerHTML=`
 `;
 })
 .catch(err=>{
-console.log(err);
-alert("Erreur EmailJS");
+console.log("EMAILJS ERROR FULL:", err); // 👈 IMPORTANT
+alert("Erreur EmailJS (voir console)");
 });
-
 }
 
 /* INIT */
