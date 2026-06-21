@@ -441,49 +441,74 @@ function calc(){
 /* =========================
    SEND EMAIL
 ========================= */
-function sendQuote(){
+async function sendQuote() {
 
-  let service = document.getElementById("service").value;
-  let total = document.getElementById("total").innerText;
+  const service = document.getElementById("service").value;
 
-  let data = {
-    service: getServiceName(service), // 🔥 FIX ICI
-    total,
+  const prenom = document.getElementById("prenom")?.value || "";
+  const nom = document.getElementById("nom")?.value || "";
+  const email = document.getElementById("email")?.value || "";
 
-    prenom: document.getElementById("prenom")?.value || "",
-    nom: document.getElementById("nom")?.value || "",
-    entreprise: document.getElementById("entreprise")?.value || "",
-    email: document.getElementById("email")?.value || "",
-    telephone: document.getElementById("telephone")?.value || "",
+  const total = document.getElementById("total").innerText;
 
-    objectif: document.getElementById("objectif")?.value || "",
-    produits: document.getElementById("produits")?.value || "",
+  const options = [];
 
-    existent: document.getElementById("existant")?.value || "",
-    compte: document.getElementById("compte")?.value || "",
-    objectifcm: document.getElementById("objectifcm")?.value || "",
+  document.querySelectorAll("#options input:checked").forEach(i => {
+    const label = i.parentElement.innerText;
 
-    message: document.getElementById("message")?.value || ""
-  };
-
-  let sendAdmin = emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data);
-  let sendClient = emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data);
-
-  Promise.all([sendAdmin, sendClient])
-  .then(()=>{
-    document.body.innerHTML = `
-    <div style="text-align:center;margin-top:20%;color:white;">
-      <h1 style="color:#ffd54a;">Devis envoyé ✔</h1>
-      <p>Un email de confirmation vous a été envoyé.</p>
-      <button onclick="location.reload()">Retour</button>
-    </div>
-    `;
-  })
-  .catch(err=>{
-    console.log("EMAILJS ERROR:", err);
-    alert(err?.text || JSON.stringify(err));
+    if(label.includes("Design")) options.push("design");
+    if(label.includes("SEO")) options.push("seo");
+    if(label.includes("Google Maps")) options.push("maps");
+    if(label.includes("Branding")) options.push("branding");
+    if(label.includes("Conversion")) options.push("conversion");
+    if(label.includes("Ads")) options.push("ads");
+    if(label.includes("Tunnel")) options.push("tunnel");
+    if(label.includes("Automation")) options.push("automation");
+    if(label.includes("Vidéos")) options.push("videos");
+    if(label.includes("Messages")) options.push("messages");
+    if(label.includes("4 posts")) options.push("posts4");
   });
 
+  try {
+
+    const res = await fetch("http://localhost:3000/create-checkout-session", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        service,
+        options,
+        prenom,
+        nom,
+        email,
+        total
+      })
+    });
+
+    const data = await res.json();
+
+    const paymentLink = data.url;
+
+    // ✅ ENVOI EMAIL CLIENT AVEC LINK STRIPE
+    await emailjs.send(
+      "service_a53gjwo",
+      "template_ec8v56a",
+      {
+        prenom,
+        nom,
+        email,
+        service,
+        total,
+        payment_link: paymentLink
+      }
+    );
+
+    // ✅ REDIRECTION STRIPE
+    window.location.href = paymentLink;
+
+  } catch (err) {
+    console.log("ERROR:", err);
+    alert("Erreur paiement / email");
+  }
 }
 
 </script>
