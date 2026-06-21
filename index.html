@@ -9,7 +9,7 @@
 
 <script>
 (function(){
-emailjs.init("ZnaIdcbmV7R2B1ph");
+emailjs.init("_Y9wyDROWTwY1--zW");
 })();
 </script>
 
@@ -298,7 +298,8 @@ Entreprises locales, commerces, marques et indépendants souhaitant une présenc
 <script>
 
 const SERVICE_ID = "service_a53gjwo";
-const TEMPLATE_ID = "template_qw8k1jc";
+const TEMPLATE_ADMIN = "template_qw8k1jc";
+const TEMPLATE_CLIENT = "template_ec8v56a";
 
 let base = 0;
 
@@ -355,7 +356,6 @@ function renderFields(){
 let s = document.getElementById("service").value;
 let html = "";
 
-// POUR TOUS LES SITES WEB (550 / 1115 / 2500)
 if(s=="550" || s=="1115" || s=="2500"){
 html = `
 <input id="prenom" placeholder="Prénom">
@@ -369,7 +369,6 @@ html = `
 `;
 }
 
-// COMMUNITY MANAGEMENT
 if(s=="150"){
 html = `
 <input id="prenom" placeholder="Prénom">
@@ -439,19 +438,8 @@ objectifcm: document.getElementById("objectifcm")?.value || "",
 message: document.getElementById("message")?.value || ""
 };
 
-// EMAIL ADMIN
-let sendAdmin = emailjs.send(
-SERVICE_ID,
-"template_qw8k1jc",
-data
-);
-
-// EMAIL CLIENT
-let sendClient = emailjs.send(
-SERVICE_ID,
-"template_ec8v56a",
-data
-);
+let sendAdmin = emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data);
+let sendClient = emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data);
 
 Promise.all([sendAdmin, sendClient])
 .then(()=>{
