@@ -732,41 +732,87 @@ function getSelectedOptions(){
   return opts.join(", ");
 }
 
-function sendQuote(){
+async function sendQuote() {
   let service = document.getElementById("service").value;
-  if(!service){ alert("Choisis une offre"); return; }
+  if (!service) { alert("Choisis une offre"); return; }
 
-  const get = id => document.getElementById(id)?.value||"";
+  const get = id => document.getElementById(id)?.value || "";
 
-  let serviceName = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","150":"Community Management"}[service]||"";
-  let totalText = document.querySelector("#total .total-amt")?.textContent||"0€";
+  let serviceNames = {
+    "550": "Site Vitrine",
+    "1115": "Site Premium",
+    "2500": "Ultra Premium",
+    "150": "Community Management"
+  };
+  let serviceName = serviceNames[service] || "";
+
+  let amount = parseInt(
+    document.querySelector("#total .total-amt")
+      ?.textContent?.replace("€", "") || "0"
+  );
+
+  let isRecurring = service === "150";
+
+  let paymentLink = "";
+  try {
+    const res = await fetch("/.netlify/functions/create-payment", {
+      method: "POST",
+      body: JSON.stringify({
+        amount,
+        description: serviceName + " — " + getSelectedOptions(),
+        isRecurring,
+      }),
+    });
+    const data = await res.json();
+    paymentLink = data.url || "";
+  } catch (e) {
+    console.error("Stripe error:", e);
+  }
 
   let data = {
-    service_name:serviceName, service, total:totalText,
-    options:getSelectedOptions(),
-    prenom:get("prenom"), nom:get("nom"), email:get("email"), telephone:get("telephone"),
-    entreprise:get("entreprise"), adresse:get("adresse"), ville:get("ville"), codepostal:get("codepostal"),
-    secteur:get("secteur"), objectif:get("objectif"), produits:get("produits"), concurrents:get("concurrents"),
-    aCompte:get("aCompte"), nomcompte:get("nomcompte"), objectifcm:get("objectifcm"),
-    contenu:get("contenu"), message:get("message"), description:get("description")
+    service_name: serviceName,
+    service,
+    total: amount + "€",
+    options: getSelectedOptions(),
+    payment_link: paymentLink,
+    prenom: get("prenom"),
+    nom: get("nom"),
+    email: get("email"),
+    telephone: get("telephone"),
+    entreprise: get("entreprise"),
+    adresse: get("adresse"),
+    ville: get("ville"),
+    codepostal: get("codepostal"),
+    secteur: get("secteur"),
+    objectif: get("objectif"),
+    produits: get("produits"),
+    concurrents: get("concurrents"),
+    aCompte: get("aCompte"),
+    nomcompte: get("nomcompte"),
+    objectifcm: get("objectifcm"),
+    contenu: get("contenu"),
+    message: get("message"),
+    description: get("description"),
   };
 
-  console.log("EMAILJS DATA:", data);
-  if(!data.email){ alert("Email obligatoire"); return; }
+  if (!data.email) { alert("Email obligatoire"); return; }
 
   Promise.all([
-    emailjs.send("service_a53gjwo","template_qw8k1jc",data),
-    emailjs.send("service_a53gjwo","template_ec8v56a",data)
+    emailjs.send("service_a53gjwo", "template_qw8k1jc", data),
+    emailjs.send("service_a53gjwo", "template_ec8v56a", data),
   ])
-  .then(()=>{
-    document.body.innerHTML=`
+  .then(() => {
+    document.body.innerHTML = `
     <div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;">
       <h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1>
       <p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p>
-      <button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button>
+      <button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;">Retour</button>
     </div>`;
   })
-  .catch(err=>{ console.log("EMAILJS ERROR FULL:",err); alert("Erreur EmailJS (voir console)"); });
+  .catch(err => {
+    console.log("EMAILJS ERROR:", err);
+    alert("Erreur envoi (voir console)");
+  });
 }
 
 /* INIT */
