@@ -19,7 +19,6 @@ exports.handler = async (event) => {
       statusCode: 200,
       body: JSON.stringify({ url: paymentLink.url }),
     };
-
   } catch (err) {
     return {
       statusCode: 500,
