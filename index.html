@@ -117,8 +117,8 @@ h3 { font-size: 1.2rem; }
 
 .hero__photo {
   position: absolute; inset: 0;
-  background: url("https://images.unsplash.com/photo-1518770660439-4636190af475?w=1600&q=80") center/cover no-repeat;
-  filter: brightness(0.12) saturate(0.4);
+  background: url("images/hero.png") center/cover no-repeat;
+  filter: brightness(0.45);
   z-index: 0;
 }
 
@@ -132,6 +132,10 @@ h3 { font-size: 1.2rem; }
 
 .hero__inner {
   position: relative; z-index: 2; width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero__pill {
@@ -163,9 +167,10 @@ h3 { font-size: 1.2rem; }
 .hero__sub {
   color: var(--muted); font-size: 1.12rem;
   max-width: 520px; margin-bottom: 40px;
+  text-align: center;
 }
 
-.hero__cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+.hero__cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; }
 
 /* ===========================
    BUTTONS
@@ -471,7 +476,7 @@ h3 { font-size: 1.2rem; }
       <!-- VITRINE -->
       <div class="card reveal">
         <div class="card__img">
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=600&q=80" alt="Site Vitrine">
+          <img src="images/vitrine.png" alt="Site Vitrine">
         </div>
         <div class="card__body">
           <p class="card__name">Site Vitrine</p>
@@ -492,7 +497,7 @@ h3 { font-size: 1.2rem; }
       <!-- PREMIUM -->
       <div class="card reveal" style="transition-delay:.1s">
         <div class="card__img">
-          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=600&q=80" alt="Site Premium">
+          <img src="images/premium.png" alt="Site Premium">
         </div>
         <div class="card__body">
           <p class="card__name">Site Premium</p>
@@ -514,7 +519,7 @@ h3 { font-size: 1.2rem; }
       <!-- ULTRA PREMIUM -->
       <div class="card reveal" style="transition-delay:.2s">
         <div class="card__img">
-          <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=600&q=80" alt="Ultra Premium">
+          <img src="images/ultra.png" alt="Ultra Premium">
         </div>
         <div class="card__body">
           <p class="card__name">Ultra Premium</p>
@@ -535,7 +540,7 @@ h3 { font-size: 1.2rem; }
       <!-- COMMUNITY MANAGEMENT -->
       <div class="card reveal" style="transition-delay:.3s">
         <div class="card__img">
-          <img src="https://images.unsplash.com/photo-1611162616475-46b635cb6868?w=600&q=80" alt="Community Management">
+          <img src="images/community.png" alt="Community Management">
         </div>
         <div class="card__body">
           <p class="card__name">Community Management</p>
@@ -732,87 +737,41 @@ function getSelectedOptions(){
   return opts.join(", ");
 }
 
-async function sendQuote() {
+function sendQuote(){
   let service = document.getElementById("service").value;
-  if (!service) { alert("Choisis une offre"); return; }
+  if(!service){ alert("Choisis une offre"); return; }
 
-  const get = id => document.getElementById(id)?.value || "";
+  const get = id => document.getElementById(id)?.value||"";
 
-  let serviceNames = {
-    "550": "Site Vitrine",
-    "1115": "Site Premium",
-    "2500": "Ultra Premium",
-    "150": "Community Management"
-  };
-  let serviceName = serviceNames[service] || "";
-
-  let amount = parseInt(
-    document.querySelector("#total .total-amt")
-      ?.textContent?.replace("€", "") || "0"
-  );
-
-  let isRecurring = service === "150";
-
-  let paymentLink = "";
-  try {
-    const res = await fetch("/.netlify/functions/create-payment", {
-      method: "POST",
-      body: JSON.stringify({
-        amount,
-        description: serviceName + " — " + getSelectedOptions(),
-        isRecurring,
-      }),
-    });
-    const data = await res.json();
-    paymentLink = data.url || "";
-  } catch (e) {
-    console.error("Stripe error:", e);
-  }
+  let serviceName = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","150":"Community Management"}[service]||"";
+  let totalText = document.querySelector("#total .total-amt")?.textContent||"0€";
 
   let data = {
-    service_name: serviceName,
-    service,
-    total: amount + "€",
-    options: getSelectedOptions(),
-    payment_link: paymentLink,
-    prenom: get("prenom"),
-    nom: get("nom"),
-    email: get("email"),
-    telephone: get("telephone"),
-    entreprise: get("entreprise"),
-    adresse: get("adresse"),
-    ville: get("ville"),
-    codepostal: get("codepostal"),
-    secteur: get("secteur"),
-    objectif: get("objectif"),
-    produits: get("produits"),
-    concurrents: get("concurrents"),
-    aCompte: get("aCompte"),
-    nomcompte: get("nomcompte"),
-    objectifcm: get("objectifcm"),
-    contenu: get("contenu"),
-    message: get("message"),
-    description: get("description"),
+    service_name:serviceName, service, total:totalText,
+    options:getSelectedOptions(),
+    prenom:get("prenom"), nom:get("nom"), email:get("email"), telephone:get("telephone"),
+    entreprise:get("entreprise"), adresse:get("adresse"), ville:get("ville"), codepostal:get("codepostal"),
+    secteur:get("secteur"), objectif:get("objectif"), produits:get("produits"), concurrents:get("concurrents"),
+    aCompte:get("aCompte"), nomcompte:get("nomcompte"), objectifcm:get("objectifcm"),
+    contenu:get("contenu"), message:get("message"), description:get("description")
   };
 
-  if (!data.email) { alert("Email obligatoire"); return; }
+  console.log("EMAILJS DATA:", data);
+  if(!data.email){ alert("Email obligatoire"); return; }
 
   Promise.all([
-    emailjs.send("service_a53gjwo", "template_qw8k1jc", data),
-    emailjs.send("service_a53gjwo", "template_ec8v56a", data),
+    emailjs.send("service_a53gjwo","template_qw8k1jc",data),
+    emailjs.send("service_a53gjwo","template_ec8v56a",data)
   ])
-  .then(() => {
-    document.body.innerHTML = `
+  .then(()=>{
+    document.body.innerHTML=`
     <div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;">
       <h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1>
       <p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p>
-      <button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;">Retour</button>
+      <button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button>
     </div>`;
   })
-  .catch(err => {
-    console.log("EMAILJS ERROR:", err);
-    alert("Erreur envoi (voir console)");
-  });
+  .catch(err=>{ console.log("EMAILJS ERROR FULL:",err); alert("Erreur EmailJS (voir console)"); });
 }
 
 /* INIT */
