@@ -9,12 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 
+<!-- EmailJS chargé une seule fois, ici -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  emailjs.init("_Y9wyDROWTwY1--zW");
-});
-</script>
 
 <style>
 /* ===========================
@@ -79,7 +75,6 @@ h3 { font-size: 1.2rem; }
 .wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
 .sec  { padding: 100px 0; }
 .sec--sm { padding: 64px 0; }
-
 .sec-head { margin-bottom: 56px; }
 
 .divider {
@@ -189,6 +184,10 @@ h3 { font-size: 1.2rem; }
   background: #ffe279; transform: translateY(-2px);
   box-shadow: 0 12px 30px rgba(255,213,74,.22);
 }
+.btn--gold:disabled {
+  opacity: .65; cursor: not-allowed; transform: none;
+  box-shadow: none;
+}
 .btn--ghost {
   background: transparent; color: var(--text);
   border: 1px solid var(--violet-border);
@@ -214,12 +213,8 @@ h3 { font-size: 1.2rem; }
   background: radial-gradient(circle, rgba(124,107,255,.1) 0%, transparent 70%);
   pointer-events: none;
 }
-
 .impact__title { color: var(--gold); margin-bottom: 28px; }
-
-.impact p {
-  color: var(--muted); max-width: 720px; margin-bottom: 14px;
-}
+.impact p { color: var(--muted); max-width: 720px; margin-bottom: 14px; }
 
 .stats-row {
   display: grid;
@@ -250,8 +245,6 @@ h3 { font-size: 1.2rem; }
   position: relative;
   transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
-
-/* Gradient border glow — the signature element */
 .card::before {
   content: ""; position: absolute; inset: 0;
   border-radius: var(--r); padding: 1px;
@@ -268,10 +261,7 @@ h3 { font-size: 1.2rem; }
   box-shadow: 0 28px 64px rgba(0,0,0,.45), 0 0 40px rgba(124,107,255,.09);
   border-color: transparent;
 }
-
-.card__img {
-  position: relative; height: 178px; overflow: hidden;
-}
+.card__img { position: relative; height: 178px; overflow: hidden; }
 .card__img img {
   width: 100%; height: 100%; object-fit: cover;
   filter: brightness(.7) saturate(.75);
@@ -282,9 +272,7 @@ h3 { font-size: 1.2rem; }
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(to bottom, transparent 30%, var(--bg-card) 100%);
 }
-
 .card__body { padding: 20px 22px 26px; }
-
 .card__name {
   font-family: var(--font-head); font-size: 1.18rem; font-weight: 700;
   margin-bottom: 5px;
@@ -299,7 +287,6 @@ h3 { font-size: 1.2rem; }
   color: #fff; font-family: var(--font-mono); font-size: 9.5px;
   letter-spacing: .1em; padding: 4px 13px; border-radius: 20px;
 }
-
 .field-lbl {
   font-family: var(--font-mono); font-size: 9.5px;
   letter-spacing: .12em; text-transform: uppercase;
@@ -327,7 +314,6 @@ h3 { font-size: 1.2rem; }
   background: radial-gradient(circle, rgba(255,213,74,.06) 0%, transparent 70%);
   pointer-events: none;
 }
-
 .fi, .ft, .fs {
   width: 100%; padding: 13px 16px;
   background: rgba(255,255,255,.04);
@@ -349,17 +335,14 @@ h3 { font-size: 1.2rem; }
   background-color: rgba(255,255,255,.04);
 }
 .fs option { background: #0d0d20; }
-
 .fg { margin-bottom: 14px; }
 .fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-
 .fh {
   font-family: var(--font-head); font-size: .95rem; font-weight: 600;
   color: var(--text); margin: 26px 0 8px;
   padding-bottom: 8px;
   border-bottom: 1px solid var(--violet-border);
 }
-
 .option {
   display: flex; justify-content: space-between; align-items: center;
   background: rgba(255,255,255,.025);
@@ -385,6 +368,17 @@ h3 { font-size: 1.2rem; }
 .total-amt {
   font-family: var(--font-mono); font-size: 1.9rem; font-weight: 500; color: var(--gold);
 }
+
+/* ── Barre de statut sous le bouton ── */
+#quote-status {
+  margin-top: 14px;
+  font-family: var(--font-mono); font-size: .82rem;
+  text-align: center; min-height: 22px;
+  transition: opacity .3s;
+}
+#quote-status.loading { color: var(--violet); }
+#quote-status.error   { color: #ff6b6b; }
+#quote-status.ok      { color: #57e389; }
 
 /* ===========================
    SCROLL REVEAL
@@ -415,7 +409,6 @@ h3 { font-size: 1.2rem; }
   <div class="hero__photo"></div>
   <div class="grid-bg"></div>
   <div class="hero__overlay"></div>
-
   <div class="wrap hero__inner">
     <div class="hero__pill">Studio Web Local</div>
     <h1 class="hero__title">Sites web qui transforment<br>vos visiteurs en clients</h1>
@@ -433,7 +426,6 @@ h3 { font-size: 1.2rem; }
     <div class="impact reveal">
       <span class="mono-label">Pourquoi digitaliser ?</span>
       <h2 class="impact__title">Pourquoi un site web est indispensable ?</h2>
-
       <p>Une entreprise sans site internet perd aujourd'hui une part importante de clients potentiels à cause d'un manque de visibilité et de crédibilité en ligne.</p>
       <p>En moyenne, 30% à 60% des prospects comparent plusieurs concurrents et choisissent plus facilement une entreprise disposant d'un site clair et professionnel.</p>
       <p>Un site web sert de base de confiance et améliore fortement la perception de votre activité dès la première visite.</p>
@@ -442,7 +434,6 @@ h3 { font-size: 1.2rem; }
       <p>Il permet aussi de centraliser toutes vos informations importantes (services, prix, contact, avis).</p>
       <p>Contrairement aux réseaux sociaux, votre site vous appartient totalement et reste actif en continu.</p>
       <p>C'est un outil essentiel pour structurer votre acquisition client et vous différencier durablement.</p>
-
       <div class="stats-row">
         <div class="stat">
           <span class="stat__n">+60%</span>
@@ -464,20 +455,16 @@ h3 { font-size: 1.2rem; }
 <!-- ═══════════════════════ OFFRES ═══════════════════════ -->
 <section class="sec">
   <div class="wrap">
-
     <div class="sec-head reveal">
       <span class="mono-label">Nos formules</span>
       <h2>Nos offres</h2>
       <div class="divider"></div>
     </div>
-
     <div class="cards">
 
       <!-- VITRINE -->
       <div class="card reveal">
-        <div class="card__img">
-          <img src="images/vitrine.png" alt="Site Vitrine">
-        </div>
+        <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"></div>
         <div class="card__body">
           <p class="card__name">Site Vitrine</p>
           <p class="card__price">550€ → 750€</p>
@@ -496,9 +483,7 @@ h3 { font-size: 1.2rem; }
 
       <!-- PREMIUM -->
       <div class="card reveal" style="transition-delay:.1s">
-        <div class="card__img">
-          <img src="images/premium.png" alt="Site Premium">
-        </div>
+        <div class="card__img"><img src="images/premium.png" alt="Site Premium"></div>
         <div class="card__body">
           <p class="card__name">Site Premium</p>
           <p class="card__price">1115€ → 1400€</p>
@@ -518,9 +503,7 @@ h3 { font-size: 1.2rem; }
 
       <!-- ULTRA PREMIUM -->
       <div class="card reveal" style="transition-delay:.2s">
-        <div class="card__img">
-          <img src="images/ultra.png" alt="Ultra Premium">
-        </div>
+        <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"></div>
         <div class="card__body">
           <p class="card__name">Ultra Premium</p>
           <p class="card__price">2500€ → 4000€</p>
@@ -539,9 +522,7 @@ h3 { font-size: 1.2rem; }
 
       <!-- COMMUNITY MANAGEMENT -->
       <div class="card reveal" style="transition-delay:.3s">
-        <div class="card__img">
-          <img src="images/community.png" alt="Community Management">
-        </div>
+        <div class="card__img"><img src="images/community.png" alt="Community Management"></div>
         <div class="card__body">
           <p class="card__name">Community Management</p>
           <p class="card__price">150€ → 430€/mois</p>
@@ -565,7 +546,6 @@ h3 { font-size: 1.2rem; }
 <!-- ═══════════════════════ DEVIS ═══════════════════════ -->
 <section class="sec">
   <div class="wrap">
-
     <div class="sec-head reveal">
       <span class="mono-label">Obtenir un devis</span>
       <h2>Devis personnalisé</h2>
@@ -573,7 +553,6 @@ h3 { font-size: 1.2rem; }
     </div>
 
     <div class="quote-box reveal">
-
       <div class="fg">
         <select id="service" class="fs" onchange="setBase()">
           <option value="">Choisir une offre</option>
@@ -592,10 +571,16 @@ h3 { font-size: 1.2rem; }
         <span class="total-amt">0€</span>
       </div>
 
-      <button class="btn btn--gold" style="width:100%;justify-content:center;padding:16px;font-size:1rem;" onclick="sendQuote()">
+      <button
+        id="sendBtn"
+        class="btn btn--gold"
+        style="width:100%;justify-content:center;padding:16px;font-size:1rem;"
+        onclick="sendQuote()"
+      >
         Envoyer le devis &nbsp;→
       </button>
 
+      <div id="quote-status"></div>
     </div>
   </div>
 </section>
@@ -613,52 +598,66 @@ h3 { font-size: 1.2rem; }
   </div>
 </section>
 
-<!-- ════════════════════════════════════════════════
-     SCRIPTS — logic preserved 100%, only CSS classes updated
-════════════════════════════════════════════════ -->
+<!-- ═══════════════════════════════════════════════
+     SCRIPTS
+═══════════════════════════════════════════════ -->
 <script>
-const SERVICE_ID    = "service_a53gjwo";
+// ── Config EmailJS ────────────────────────────────────────────
+const SERVICE_ID      = "service_a53gjwo";
 const TEMPLATE_ADMIN  = "template_qw8k1jc";
 const TEMPLATE_CLIENT = "template_ec8v56a";
 
 emailjs.init("ZnaIdcbmV7R2B1ph");
 
+// ── Noms d'offres ─────────────────────────────────────────────
+const SERVICE_NAMES = {
+  "550":  "Site Vitrine",
+  "1115": "Site Premium",
+  "2500": "Ultra Premium",
+  "150":  "Community Management"
+};
+
+// ── Calcul du total ───────────────────────────────────────────
 let base = 0;
 
 function calc(){
   let total = base;
-  document.querySelectorAll("#options input").forEach(el=>{
-    if(el.checked) total += parseInt(el.dataset.value||0);
+  document.querySelectorAll("#options input").forEach(el => {
+    if(el.checked) total += parseInt(el.dataset.value || 0);
   });
   const a = document.querySelector("#total .total-amt");
   if(a) a.textContent = total + "€";
 }
 
 function setBase(){
-  base = parseInt(document.getElementById("service").value||0);
-  renderOptions(); renderFields(); calc();
+  base = parseInt(document.getElementById("service").value || 0);
+  renderOptions();
+  renderFields();
+  calc();
 }
 
+// ── Options selon l'offre ─────────────────────────────────────
 function renderOptions(){
-  let s = document.getElementById("service").value, html = "";
+  const s = document.getElementById("service").value;
+  let html = "";
 
-  if(s==="150") html=`
+  if(s === "150") html = `
     <div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
     <div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data-value="80" onchange="calc()"></div>
     <div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div>
     <div class="option"><span>Messages (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div>`;
 
-  if(s==="550") html=`
+  if(s === "550") html = `
     <div class="option"><span>Design (+80€)</span><input type="checkbox" data-value="80" onchange="calc()"></div>
     <div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div>
     <div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data-value="30" onchange="calc()"></div>`;
 
-  if(s==="1115") html=`
+  if(s === "1115") html = `
     <div class="option"><span>Branding (+120€)</span><input type="checkbox" data-value="120" onchange="calc()"></div>
     <div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div>
     <div class="option"><span>Conversion (+75€)</span><input type="checkbox" data-value="75" onchange="calc()"></div>`;
 
-  if(s==="2500") html=`
+  if(s === "2500") html = `
     <div class="option"><span>Ads (+600€)</span><input type="checkbox" data-value="600" onchange="calc()"></div>
     <div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data-value="500" onchange="calc()"></div>
     <div class="option"><span>Automation (+400€)</span><input type="checkbox" data-value="400" onchange="calc()"></div>`;
@@ -666,11 +665,11 @@ function renderOptions(){
   document.getElementById("options").innerHTML = html;
 }
 
+// ── Champs de formulaire selon l'offre ────────────────────────
 function renderFields(){
-  let s = document.getElementById("service").value;
+  const s = document.getElementById("service").value;
 
-  function common(){
-    return `
+  const common = () => `
     <p class="fh">Informations entreprise</p>
     <div class="fg2">
       <div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div>
@@ -687,20 +686,21 @@ function renderFields(){
     </div>
     <div class="fg"><input id="codepostal" class="fi" placeholder="Code postal"></div>
     <p class="fh">Projet</p>
-    <div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>
-    `;
-  }
+    <div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>`;
 
   let html = "";
 
-  if(s==="550"||s==="1115"||s==="2500") html = common()+`
+  if(s === "550" || s === "1115" || s === "2500"){
+    html = common() + `
     <p class="fh">Informations site web</p>
     <div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div>
     <div class="fg"><textarea id="produits" class="ft" placeholder="Produits / services + prix"></textarea></div>
     <div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal"></div>
     <div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents"></div>`;
+  }
 
-  if(s==="150") html=`
+  if(s === "150"){
+    html = `
     <p class="fh">Informations entreprise</p>
     <div class="fg2">
       <div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div>
@@ -725,63 +725,149 @@ function renderFields(){
     <div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div>
     <div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div>
     <div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
+  }
 
   document.getElementById("formFields").innerHTML = html;
 }
 
+// ── Options sélectionnées (texte) ─────────────────────────────
 function getSelectedOptions(){
-  let opts=[];
-  document.querySelectorAll("#options input").forEach(el=>{
+  const opts = [];
+  document.querySelectorAll("#options input").forEach(el => {
     if(el.checked) opts.push(el.parentElement.querySelector("span").innerText);
   });
   return opts.join(", ");
 }
 
-function sendQuote(){
-  let service = document.getElementById("service").value;
-  if(!service){ alert("Choisis une offre"); return; }
+// ── Helpers UI ────────────────────────────────────────────────
+const get = id => document.getElementById(id)?.value || "";
 
-  const get = id => document.getElementById(id)?.value||"";
-
-  let serviceName = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","150":"Community Management"}[service]||"";
-  let totalText = document.querySelector("#total .total-amt")?.textContent||"0€";
-
-  let data = {
-    service_name:serviceName, service, total:totalText,
-    options:getSelectedOptions(),
-    prenom:get("prenom"), nom:get("nom"), email:get("email"), telephone:get("telephone"),
-    entreprise:get("entreprise"), adresse:get("adresse"), ville:get("ville"), codepostal:get("codepostal"),
-    secteur:get("secteur"), objectif:get("objectif"), produits:get("produits"), concurrents:get("concurrents"),
-    aCompte:get("aCompte"), nomcompte:get("nomcompte"), objectifcm:get("objectifcm"),
-    contenu:get("contenu"), message:get("message"), description:get("description")
-  };
-
-  console.log("EMAILJS DATA:", data);
-  if(!data.email){ alert("Email obligatoire"); return; }
-
-  Promise.all([
-    emailjs.send("service_a53gjwo","template_qw8k1jc",data),
-    emailjs.send("service_a53gjwo","template_ec8v56a",data)
-  ])
-  .then(()=>{
-    document.body.innerHTML=`
-    <div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;">
-      <h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1>
-      <p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p>
-      <button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button>
-    </div>`;
-  })
-  .catch(err=>{ console.log("EMAILJS ERROR FULL:",err); alert("Erreur EmailJS (voir console)"); });
+function setStatus(msg, type = "loading"){
+  const el = document.getElementById("quote-status");
+  el.textContent = msg;
+  el.className = type;
 }
 
-/* INIT */
+function lockBtn(loading = true){
+  const btn = document.getElementById("sendBtn");
+  btn.disabled = loading;
+  btn.innerHTML = loading
+    ? "⏳ Génération du lien de paiement…"
+    : "Envoyer le devis &nbsp;→";
+}
+
+// ── Envoi du devis ────────────────────────────────────────────
+async function sendQuote(){
+
+  // 1. Validation basique
+  const service = document.getElementById("service").value;
+  if(!service){ alert("Choisis une offre"); return; }
+
+  const email = get("email");
+  if(!email){ alert("L'email est obligatoire"); return; }
+
+  const serviceName  = SERVICE_NAMES[service] || "";
+  const totalText    = document.querySelector("#total .total-amt")?.textContent || "0€";
+  const totalAmount  = parseInt(totalText) || 0;
+  const isMonthly    = service === "150";   // Community Management = abonnement mensuel
+  const optionsTxt   = getSelectedOptions();
+
+  // 2. Préparer les données communes
+  const data = {
+    service_name : serviceName,
+    service,
+    total        : totalText,
+    options      : optionsTxt,
+    payment_link : "",   // sera rempli après l'appel Netlify
+    prenom       : get("prenom"),
+    nom          : get("nom"),
+    email,
+    telephone    : get("telephone"),
+    entreprise   : get("entreprise"),
+    adresse      : get("adresse"),
+    ville        : get("ville"),
+    codepostal   : get("codepostal"),
+    secteur      : get("secteur"),
+    objectif     : get("objectif"),
+    produits     : get("produits"),
+    concurrents  : get("concurrents"),
+    aCompte      : get("aCompte"),
+    nomcompte    : get("nomcompte"),
+    objectifcm   : get("objectifcm"),
+    contenu      : get("contenu"),
+    message      : get("message"),
+    description  : get("description")
+  };
+
+  console.log("Données devis :", data);
+
+  // 3. Appel à la Netlify Function pour créer le lien Stripe
+  lockBtn(true);
+  setStatus("⏳ Création du lien de paiement Stripe…", "loading");
+
+  try {
+    const res = await fetch("/.netlify/functions/create-payment", {
+      method  : "POST",
+      headers : { "Content-Type": "application/json" },
+      body    : JSON.stringify({
+        amount       : totalAmount,
+        service_name : serviceName,
+        options      : optionsTxt,
+        is_monthly   : isMonthly
+      })
+    });
+
+    const json = await res.json();
+
+    if(!res.ok || !json.url){
+      throw new Error(json.error || `Erreur serveur ${res.status}`);
+    }
+
+    data.payment_link = json.url;
+    setStatus("✅ Lien créé — envoi de l'email…", "ok");
+
+  } catch(err){
+    console.error("Netlify function error:", err);
+    lockBtn(false);
+    setStatus(`❌ Erreur : ${err.message}`, "error");
+    return;
+  }
+
+  // 4. Envoi des deux emails via EmailJS
+  try {
+    await Promise.all([
+      emailjs.send(SERVICE_ID, TEMPLATE_ADMIN,  data),
+      emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data)
+    ]);
+
+    // 5. Succès : remplace la page
+    document.body.innerHTML = `
+      <div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;">
+        <h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1>
+        <p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p>
+        <button
+          onclick="location.reload()"
+          style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;"
+        >Retour</button>
+      </div>`;
+
+  } catch(err){
+    console.error("EmailJS error:", err);
+    lockBtn(false);
+    setStatus("❌ Erreur lors de l'envoi de l'email (voir console)", "error");
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────
 setBase();
 
-/* SCROLL REVEAL */
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); obs.unobserve(e.target); } });
-},{ threshold:.07 });
-document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+// ── Scroll reveal ─────────────────────────────────────────────
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add("in"); obs.unobserve(e.target); }
+  });
+}, { threshold: .07 });
+document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
 </script>
 </body>
 </html>
