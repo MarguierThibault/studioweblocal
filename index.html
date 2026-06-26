@@ -98,9 +98,50 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   .cards{grid-template-columns:1fr}
   .hero{min-height:82vh}
 }
+#particles{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:1;
+}
+
+.particle{
+  position:absolute;
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#7cc4ff,#b5e4ff);
+  box-shadow:
+    0 0 6px #7cc4ff,
+    0 0 12px #7cc4ff,
+    0 0 20px rgba(124,196,255,.8);
+  animation:particleFloat linear forwards;
+}
+
+@keyframes particleFloat{
+  from{
+    transform:translateY(100vh);
+    opacity:0;
+  }
+
+  15%{
+    opacity:1;
+  }
+
+  to{
+    transform:translateY(-10vh);
+    opacity:0;
+  }
+}
 </style>
 </head>
 <body>
+
+<div id="particles"></div>
 
 <section class="hero">
   <div class="hero__photo"></div>
@@ -408,6 +449,34 @@ const obs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); obs.unobserve(e.target); } });
 },{threshold:.07});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
+
+const particlesContainer = document.getElementById("particles");
+
+function createParticle(){
+  const p = document.createElement("div");
+
+  p.classList.add("particle");
+
+  const size = Math.random() * 5 + 2;
+
+  p.style.width = size + "px";
+  p.style.height = size + "px";
+
+  p.style.left = Math.random() * window.innerWidth + "px";
+
+  const duration = Math.random() * 8 + 6;
+
+  p.style.animationDuration = duration + "s";
+
+  particlesContainer.appendChild(p);
+
+  setTimeout(() => {
+    p.remove();
+  }, duration * 1000);
+}
+
+setInterval(createParticle, 180);
+
 </script>
 </body>
 </html>
