@@ -4,407 +4,104 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Studio Web Local</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-
-<!-- EmailJS chargé une seule fois, ici -->
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-
 <style>
-/* ===========================
-   DESIGN TOKENS
-=========================== */
 :root {
-  --bg:           #05050f;
-  --bg-card:      #0b0b1d;
-  --bg-card-2:    #10102b;
-  --gold:         #ffd54a;
-  --gold-soft:    rgba(255,213,74,0.1);
-  --gold-border:  rgba(255,213,74,0.2);
-  --violet:       #7c6bff;
-  --violet-glow:  rgba(124,107,255,0.14);
-  --violet-border:rgba(124,107,255,0.28);
-  --text:         #eaeaf4;
-  --muted:        #8888aa;
-  --font-head:    'Space Grotesk', sans-serif;
-  --font-body:    'Inter', sans-serif;
-  --font-mono:    'DM Mono', monospace;
-  --r:            16px;
-  --r-sm:         10px;
+  --bg:#05050f;--bg-card:#0b0b1d;--gold:#ffd54a;--gold-soft:rgba(255,213,74,0.1);
+  --gold-border:rgba(255,213,74,0.2);--violet:#7c6bff;--violet-glow:rgba(124,107,255,0.14);
+  --violet-border:rgba(124,107,255,0.28);--text:#eaeaf4;--muted:#8888aa;
+  --font-head:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;
+  --font-mono:'DM Mono',monospace;--r:16px;--r-sm:10px;
 }
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.65;
-  overflow-x: hidden;
-}
-
-/* ===========================
-   TYPOGRAPHY
-=========================== */
-h1, h2, h3 {
-  font-family: var(--font-head);
-  font-weight: 700;
-  line-height: 1.15;
-}
-h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); }
-h2 { font-size: clamp(1.7rem, 3.5vw, 2.6rem); }
-h3 { font-size: 1.2rem; }
-
-.mono-label {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--violet);
-  margin-bottom: 14px;
-}
-
-/* ===========================
-   LAYOUT
-=========================== */
-.wrap { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
-.sec  { padding: 100px 0; }
-.sec--sm { padding: 64px 0; }
-.sec-head { margin-bottom: 56px; }
-
-.divider {
-  width: 48px; height: 3px;
-  background: linear-gradient(90deg, var(--violet), var(--gold));
-  border-radius: 3px;
-  margin: 14px 0 0;
-}
-
-/* ===========================
-   ANIMATED GRID BG
-=========================== */
-.grid-bg {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(124,107,255,0.055) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(124,107,255,0.055) 1px, transparent 1px);
-  background-size: 56px 56px;
-  animation: gpulse 9s ease-in-out infinite;
-}
-@keyframes gpulse {
-  0%,100% { opacity:.5 } 50% { opacity:1 }
-}
-
-/* ===========================
-   HERO
-=========================== */
-.hero {
-  position: relative;
-  min-height: 90vh;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-}
-
-.hero__photo {
-  position: absolute; inset: 0;
-  background: url("images/hero.png") center/cover no-repeat;
-  filter: brightness(0.45);
-  z-index: 0;
-}
-
-.hero__overlay {
-  position: absolute; inset: 0; z-index: 1;
-  background:
-    radial-gradient(ellipse 90% 70% at 50% -5%, rgba(124,107,255,0.22) 0%, transparent 65%),
-    linear-gradient(180deg, rgba(5,5,15,0) 40%, var(--bg) 100%);
-}
-.hero .grid-bg { z-index: 1; }
-
-.hero__inner {
-  position: relative; z-index: 2; width: 100%;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.hero__pill {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--font-mono); font-size: 11px;
-  letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--gold);
-  background: var(--gold-soft);
-  border: 1px solid var(--gold-border);
-  padding: 7px 18px; border-radius: 40px;
-  margin-bottom: 30px;
-}
-.hero__pill::before {
-  content: "";
-  width: 6px; height: 6px;
-  background: var(--gold); border-radius: 50%;
-  animation: blink 2.2s ease-in-out infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.15} }
-
-.hero__title {
-  max-width: 840px;
-  margin-bottom: 20px;
-  background: linear-gradient(135deg, #fff 40%, rgba(255,213,74,.95) 100%);
-  -webkit-background-clip: text; background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.hero__sub {
-  color: var(--muted); font-size: 1.12rem;
-  max-width: 520px; margin-bottom: 40px;
-  text-align: center;
-}
-
-.hero__cta { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; justify-content: center; }
-
-/* ===========================
-   BUTTONS
-=========================== */
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 13px 26px; border-radius: var(--r-sm);
-  font-family: var(--font-head); font-weight: 600; font-size: .9rem;
-  cursor: pointer; border: none; text-decoration: none;
-  transition: all .22s ease;
-}
-.btn--gold {
-  background: var(--gold); color: #0a0a0a;
-}
-.btn--gold:hover {
-  background: #ffe279; transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(255,213,74,.22);
-}
-.btn--gold:disabled {
-  opacity: .65; cursor: not-allowed; transform: none;
-  box-shadow: none;
-}
-.btn--ghost {
-  background: transparent; color: var(--text);
-  border: 1px solid var(--violet-border);
-}
-.btn--ghost:hover {
-  background: var(--violet-glow); border-color: var(--violet);
-}
-
-/* ===========================
-   IMPACT BLOCK
-=========================== */
-.impact {
-  background: var(--bg-card);
-  border: 1px solid var(--violet-border);
-  border-radius: 20px;
-  padding: 56px 56px 48px;
-  position: relative; overflow: hidden;
-}
-.impact::before {
-  content: ""; position: absolute;
-  top: -100px; right: -100px;
-  width: 300px; height: 300px;
-  background: radial-gradient(circle, rgba(124,107,255,.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-.impact__title { color: var(--gold); margin-bottom: 28px; }
-.impact p { color: var(--muted); max-width: 720px; margin-bottom: 14px; }
-
-.stats-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin-top: 44px;
-  padding-top: 40px;
-  border-top: 1px solid var(--violet-border);
-}
-.stat { text-align: center; }
-.stat__n {
-  display: block;
-  font-family: var(--font-mono); font-size: 2.2rem; font-weight: 500;
-  color: var(--gold); letter-spacing: -0.02em;
-}
-.stat__d { font-size: .82rem; color: var(--muted); margin-top: 4px; }
-
-/* ===========================
-   CARDS GRID
-=========================== */
-.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(255px,1fr)); gap: 22px; }
-
-.card {
-  background: var(--bg-card);
-  border-radius: var(--r);
-  border: 1px solid rgba(255,255,255,.05);
-  overflow: hidden;
-  position: relative;
-  transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-}
-.card::before {
-  content: ""; position: absolute; inset: 0;
-  border-radius: var(--r); padding: 1px;
-  background: linear-gradient(135deg, var(--violet) 0%, transparent 50%, var(--gold) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask-composite: exclude;
-  opacity: 0; transition: opacity .3s ease;
-  pointer-events: none;
-}
-.card:hover::before { opacity: 1; }
-.card:hover {
-  transform: translateY(-7px);
-  box-shadow: 0 28px 64px rgba(0,0,0,.45), 0 0 40px rgba(124,107,255,.09);
-  border-color: transparent;
-}
-.card__img { position: relative; height: 178px; overflow: hidden; }
-.card__img img {
-  width: 100%; height: 100%; object-fit: cover;
-  filter: brightness(.7) saturate(.75);
-  transition: transform .5s ease, filter .3s ease;
-}
-.card:hover .card__img img { transform: scale(1.06); filter: brightness(.85) saturate(1); }
-.card__img::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(to bottom, transparent 30%, var(--bg-card) 100%);
-}
-.card__body { padding: 20px 22px 26px; }
-.card__name {
-  font-family: var(--font-head); font-size: 1.18rem; font-weight: 700;
-  margin-bottom: 5px;
-}
-.card__price {
-  font-family: var(--font-mono); font-size: 1.05rem; font-weight: 500;
-  color: var(--gold); margin-bottom: 14px;
-}
-.card__badge {
-  display: inline-block; margin-bottom: 16px;
-  background: linear-gradient(90deg, var(--violet), #a78bff);
-  color: #fff; font-family: var(--font-mono); font-size: 9.5px;
-  letter-spacing: .1em; padding: 4px 13px; border-radius: 20px;
-}
-.field-lbl {
-  font-family: var(--font-mono); font-size: 9.5px;
-  letter-spacing: .12em; text-transform: uppercase;
-  color: var(--violet); display: block; margin-bottom: 3px;
-}
-.field-txt {
-  font-size: .86rem; color: var(--muted);
-  line-height: 1.55; margin-bottom: 13px;
-}
-
-/* ===========================
-   QUOTE FORM
-=========================== */
-.quote-box {
-  background: var(--bg-card);
-  border: 1px solid var(--violet-border);
-  border-radius: 20px;
-  padding: 48px;
-  position: relative; overflow: hidden;
-}
-.quote-box::after {
-  content: ""; position: absolute;
-  bottom: -120px; left: -120px;
-  width: 340px; height: 340px;
-  background: radial-gradient(circle, rgba(255,213,74,.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-.fi, .ft, .fs {
-  width: 100%; padding: 13px 16px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.09);
-  border-radius: var(--r-sm);
-  color: var(--text); font-family: var(--font-body); font-size: .88rem;
-  transition: border-color .2s, box-shadow .2s;
-  outline: none;
-}
-.fi:focus, .ft:focus, .fs:focus {
-  border-color: var(--violet);
-  box-shadow: 0 0 0 3px var(--violet-glow);
-}
-.ft { min-height: 96px; resize: vertical; }
-.fs {
-  appearance: none; -webkit-appearance: none; cursor: pointer;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%238888aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat; background-position: right 14px center; background-size: 18px;
-  background-color: rgba(255,255,255,.04);
-}
-.fs option { background: #0d0d20; }
-.fg { margin-bottom: 14px; }
-.fg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.fh {
-  font-family: var(--font-head); font-size: .95rem; font-weight: 600;
-  color: var(--text); margin: 26px 0 8px;
-  padding-bottom: 8px;
-  border-bottom: 1px solid var(--violet-border);
-}
-.option {
-  display: flex; justify-content: space-between; align-items: center;
-  background: rgba(255,255,255,.025);
-  padding: 11px 16px; margin: 6px 0; border-radius: var(--r-sm);
-  border: 1px solid rgba(255,255,255,.055);
-  cursor: pointer; transition: background .2s, border-color .2s;
-}
-.option:hover { background: var(--violet-glow); border-color: var(--violet-border); }
-.option span { flex: 1; font-size: .88rem; color: var(--muted); }
-.option input { width: 18px; height: 18px; accent-color: var(--violet); cursor: pointer; margin: 0; }
-
-.total-bar {
-  display: flex; justify-content: space-between; align-items: center;
-  background: linear-gradient(135deg, rgba(124,107,255,.1), rgba(255,213,74,.07));
-  border: 1px solid var(--violet-border);
-  border-radius: var(--r);
-  padding: 18px 24px; margin: 22px 0;
-}
-.total-lbl {
-  font-family: var(--font-mono); font-size: .75rem;
-  letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
-}
-.total-amt {
-  font-family: var(--font-mono); font-size: 1.9rem; font-weight: 500; color: var(--gold);
-}
-
-/* ── Barre de statut sous le bouton ── */
-#quote-status {
-  margin-top: 14px;
-  font-family: var(--font-mono); font-size: .82rem;
-  text-align: center; min-height: 22px;
-  transition: opacity .3s;
-}
-#quote-status.loading { color: var(--violet); }
-#quote-status.error   { color: #ff6b6b; }
-#quote-status.ok      { color: #57e389; }
-
-/* ===========================
-   SCROLL REVEAL
-=========================== */
-.reveal {
-  opacity: 0; transform: translateY(26px);
-  transition: opacity .7s ease, transform .7s ease;
-}
-.reveal.in { opacity: 1; transform: none; }
-
-/* ===========================
-   RESPONSIVE
-=========================== */
-@media (max-width:768px) {
-  .impact { padding: 28px 22px 24px; }
-  .stats-row { grid-template-columns: 1fr; gap: 10px; }
-  .quote-box { padding: 26px 18px; }
-  .fg2 { grid-template-columns: 1fr; }
-  .cards { grid-template-columns: 1fr; }
-  .hero { min-height: 82vh; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.65;overflow-x:hidden}
+h1,h2,h3{font-family:var(--font-head);font-weight:700;line-height:1.15}
+h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3{font-size:1.2rem}
+.mono-label{display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--violet);margin-bottom:14px}
+.wrap{max-width:1160px;margin:0 auto;padding:0 28px}
+.sec{padding:100px 0}.sec--sm{padding:64px 0}.sec-head{margin-bottom:56px}
+.divider{width:48px;height:3px;background:linear-gradient(90deg,var(--violet),var(--gold));border-radius:3px;margin:14px 0 0}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(124,107,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(124,107,255,.055) 1px,transparent 1px);background-size:56px 56px;animation:gpulse 9s ease-in-out infinite}
+@keyframes gpulse{0%,100%{opacity:.5}50%{opacity:1}}
+.hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden}
+.hero__photo{position:absolute;inset:0;background:url("images/hero.png") center/cover no-repeat;filter:brightness(.45);z-index:0}
+.hero__overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 90% 70% at 50% -5%,rgba(124,107,255,.22) 0%,transparent 65%),linear-gradient(180deg,rgba(5,5,15,0) 40%,var(--bg) 100%)}
+.hero .grid-bg{z-index:1}
+.hero__inner{position:relative;z-index:2;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero__pill{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:11px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);border:1px solid var(--gold-border);padding:7px 18px;border-radius:40px;margin-bottom:30px}
+.hero__pill::before{content:"";width:6px;height:6px;background:var(--gold);border-radius:50%;animation:blink 2.2s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.15}}
+.hero__title{max-width:840px;margin-bottom:20px;background:linear-gradient(135deg,#fff 40%,rgba(255,213,74,.95) 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero__sub{color:var(--muted);font-size:1.12rem;max-width:520px;margin-bottom:40px;text-align:center}
+.hero__cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center;justify-content:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 26px;border-radius:var(--r-sm);font-family:var(--font-head);font-weight:600;font-size:.9rem;cursor:pointer;border:none;text-decoration:none;transition:all .22s ease}
+.btn--gold{background:var(--gold);color:#0a0a0a}
+.btn--gold:hover{background:#ffe279;transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,213,74,.22)}
+.btn--gold:disabled{opacity:.65;cursor:not-allowed;transform:none;box-shadow:none}
+.btn--ghost{background:transparent;color:var(--text);border:1px solid var(--violet-border)}
+.btn--ghost:hover{background:var(--violet-glow);border-color:var(--violet)}
+.impact{background:var(--bg-card);border:1px solid var(--violet-border);border-radius:20px;padding:56px 56px 48px;position:relative;overflow:hidden}
+.impact::before{content:"";position:absolute;top:-100px;right:-100px;width:300px;height:300px;background:radial-gradient(circle,rgba(124,107,255,.1) 0%,transparent 70%);pointer-events:none}
+.impact__title{color:var(--gold);margin-bottom:28px}
+.impact p{color:var(--muted);max-width:720px;margin-bottom:14px}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px;padding-top:40px;border-top:1px solid var(--violet-border)}
+.stat{text-align:center}
+.stat__n{display:block;font-family:var(--font-mono);font-size:2.2rem;font-weight:500;color:var(--gold);letter-spacing:-.02em}
+.stat__d{font-size:.82rem;color:var(--muted);margin-top:4px}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:22px}
+.card{background:var(--bg-card);border-radius:var(--r);border:1px solid rgba(255,255,255,.05);overflow:hidden;position:relative;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.card::before{content:"";position:absolute;inset:0;border-radius:var(--r);padding:1px;background:linear-gradient(135deg,var(--violet) 0%,transparent 50%,var(--gold) 100%);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity .3s ease;pointer-events:none}
+.card:hover::before{opacity:1}
+.card:hover{transform:translateY(-7px);box-shadow:0 28px 64px rgba(0,0,0,.45),0 0 40px rgba(124,107,255,.09);border-color:transparent}
+.card__img{position:relative;height:178px;overflow:hidden}
+.card__img img{width:100%;height:100%;object-fit:cover;filter:brightness(.7) saturate(.75);transition:transform .5s ease,filter .3s ease}
+.card:hover .card__img img{transform:scale(1.06);filter:brightness(.85) saturate(1)}
+.card__img::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,var(--bg-card) 100%)}
+.card__body{padding:20px 22px 26px}
+.card__name{font-family:var(--font-head);font-size:1.18rem;font-weight:700;margin-bottom:5px}
+.card__price{font-family:var(--font-mono);font-size:1.05rem;font-weight:500;color:var(--gold);margin-bottom:14px}
+.card__badge{display:inline-block;margin-bottom:16px;background:linear-gradient(90deg,var(--violet),#a78bff);color:#fff;font-family:var(--font-mono);font-size:9.5px;letter-spacing:.1em;padding:4px 13px;border-radius:20px}
+.field-lbl{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);display:block;margin-bottom:3px}
+.field-txt{font-size:.86rem;color:var(--muted);line-height:1.55;margin-bottom:13px}
+.quote-box{background:var(--bg-card);border:1px solid var(--violet-border);border-radius:20px;padding:48px;position:relative;overflow:hidden}
+.quote-box::after{content:"";position:absolute;bottom:-120px;left:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(255,213,74,.06) 0%,transparent 70%);pointer-events:none}
+.fi,.ft,.fs{width:100%;padding:13px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-body);font-size:.88rem;transition:border-color .2s,box-shadow .2s;outline:none}
+.fi:focus,.ft:focus,.fs:focus{border-color:var(--violet);box-shadow:0 0 0 3px var(--violet-glow)}
+.ft{min-height:96px;resize:vertical}
+.fs{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%238888aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;background-color:rgba(255,255,255,.04)}
+.fs option{background:#0d0d20}
+.fg{margin-bottom:14px}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fh{font-family:var(--font-head);font-size:.95rem;font-weight:600;color:var(--text);margin:26px 0 8px;padding-bottom:8px;border-bottom:1px solid var(--violet-border)}
+.option{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.025);padding:11px 16px;margin:6px 0;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.055);cursor:pointer;transition:background .2s,border-color .2s}
+.option:hover{background:var(--violet-glow);border-color:var(--violet-border)}
+.option span{flex:1;font-size:.88rem;color:var(--muted)}
+.option input{width:18px;height:18px;accent-color:var(--violet);cursor:pointer;margin:0}
+.total-bar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,rgba(124,107,255,.1),rgba(255,213,74,.07));border:1px solid var(--violet-border);border-radius:var(--r);padding:18px 24px;margin:22px 0}
+.total-lbl{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.total-amt{font-family:var(--font-mono);font-size:1.9rem;font-weight:500;color:var(--gold)}
+#quote-status{margin-top:14px;font-family:var(--font-mono);font-size:.82rem;text-align:center;min-height:22px;transition:opacity .3s}
+#quote-status.loading{color:var(--violet)}
+#quote-status.error{color:#ff6b6b}
+#quote-status.ok{color:#57e389}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media(max-width:768px){
+  .impact{padding:28px 22px 24px}
+  .stats-row{grid-template-columns:1fr;gap:10px}
+  .quote-box{padding:26px 18px}
+  .fg2{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .hero{min-height:82vh}
 }
 </style>
 </head>
 <body>
 
-<!-- ═══════════════════════ HERO ═══════════════════════ -->
 <section class="hero">
   <div class="hero__photo"></div>
   <div class="grid-bg"></div>
@@ -420,7 +117,6 @@ h3 { font-size: 1.2rem; }
   </div>
 </section>
 
-<!-- ═══════════════════════ POURQUOI ═══════════════════════ -->
 <section class="sec">
   <div class="wrap">
     <div class="impact reveal">
@@ -435,24 +131,14 @@ h3 { font-size: 1.2rem; }
       <p>Contrairement aux réseaux sociaux, votre site vous appartient totalement et reste actif en continu.</p>
       <p>C'est un outil essentiel pour structurer votre acquisition client et vous différencier durablement.</p>
       <div class="stats-row">
-        <div class="stat">
-          <span class="stat__n">+60%</span>
-          <span class="stat__d">de visibilité globale<br>SEO + Google + réseaux</span>
-        </div>
-        <div class="stat">
-          <span class="stat__n">+40%</span>
-          <span class="stat__d">de demandes clients<br>sites optimisés conversion</span>
-        </div>
-        <div class="stat">
-          <span class="stat__n">+25%</span>
-          <span class="stat__d">de contacts sup.<br>sites locaux simples</span>
-        </div>
+        <div class="stat"><span class="stat__n">+60%</span><span class="stat__d">de visibilité globale<br>SEO + Google + réseaux</span></div>
+        <div class="stat"><span class="stat__n">+40%</span><span class="stat__d">de demandes clients<br>sites optimisés conversion</span></div>
+        <div class="stat"><span class="stat__n">+25%</span><span class="stat__d">de contacts sup.<br>sites locaux simples</span></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ OFFRES ═══════════════════════ -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -461,89 +147,55 @@ h3 { font-size: 1.2rem; }
       <div class="divider"></div>
     </div>
     <div class="cards">
-
-      <!-- VITRINE -->
       <div class="card reveal">
         <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"></div>
         <div class="card__body">
-          <p class="card__name">Site Vitrine</p>
-          <p class="card__price">550€ → 750€</p>
-          <span class="field-lbl">Description</span>
-          <p class="field-txt">Site vitrine professionnel conçu pour présenter clairement votre activité, inspirer confiance et générer des prises de contact locales.</p>
-          <span class="field-lbl">Contenu</span>
-          <p class="field-txt">Pages essentielles, présentation services, Google Maps, optimisation mobile et structure orientée conversion.</p>
-          <span class="field-lbl">Résultat</span>
-          <p class="field-txt">+15% à +25% de contacts supplémentaires et meilleure visibilité locale.</p>
-          <span class="field-lbl">Options</span>
-          <p class="field-txt">Design personnalisé, SEO local, optimisation contenu, Google Maps renforcé.</p>
-          <span class="field-lbl">Pour qui</span>
-          <p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales.</p>
+          <p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
+          <span class="field-lbl">Description</span><p class="field-txt">Site vitrine professionnel conçu pour présenter clairement votre activité, inspirer confiance et générer des prises de contact locales.</p>
+          <span class="field-lbl">Contenu</span><p class="field-txt">Pages essentielles, présentation services, Google Maps, optimisation mobile et structure orientée conversion.</p>
+          <span class="field-lbl">Résultat</span><p class="field-txt">+15% à +25% de contacts supplémentaires et meilleure visibilité locale.</p>
+          <span class="field-lbl">Options</span><p class="field-txt">Design personnalisé, SEO local, optimisation contenu, Google Maps renforcé.</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales.</p>
         </div>
       </div>
-
-      <!-- PREMIUM -->
       <div class="card reveal" style="transition-delay:.1s">
         <div class="card__img"><img src="images/premium.png" alt="Site Premium"></div>
         <div class="card__body">
-          <p class="card__name">Site Premium</p>
-          <p class="card__price">1115€ → 1400€</p>
+          <p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p>
           <span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
-          <span class="field-lbl">Description</span>
-          <p class="field-txt">Site premium orienté acquisition client, image de marque et performance commerciale.</p>
-          <span class="field-lbl">Contenu</span>
-          <p class="field-txt">Multi-pages, structure avancée, branding, optimisation SEO et parcours utilisateur optimisé.</p>
-          <span class="field-lbl">Résultat</span>
-          <p class="field-txt">+25% à +40% de demandes clients et meilleure conversion globale.</p>
-          <span class="field-lbl">Options</span>
-          <p class="field-txt">Branding complet, SEO avancé, optimisation conversion, pages supplémentaires.</p>
-          <span class="field-lbl">Pour qui</span>
-          <p class="field-txt">Entreprises en développement, services professionnels, structures établies.</p>
+          <span class="field-lbl">Description</span><p class="field-txt">Site premium orienté acquisition client, image de marque et performance commerciale.</p>
+          <span class="field-lbl">Contenu</span><p class="field-txt">Multi-pages, structure avancée, branding, optimisation SEO et parcours utilisateur optimisé.</p>
+          <span class="field-lbl">Résultat</span><p class="field-txt">+25% à +40% de demandes clients et meilleure conversion globale.</p>
+          <span class="field-lbl">Options</span><p class="field-txt">Branding complet, SEO avancé, optimisation conversion, pages supplémentaires.</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement, services professionnels, structures établies.</p>
         </div>
       </div>
-
-      <!-- ULTRA PREMIUM -->
       <div class="card reveal" style="transition-delay:.2s">
         <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"></div>
         <div class="card__body">
-          <p class="card__name">Ultra Premium</p>
-          <p class="card__price">2500€ → 4000€</p>
-          <span class="field-lbl">Description</span>
-          <p class="field-txt">Solution haut de gamme sur mesure avec stratégie digitale complète et automatisation avancée.</p>
-          <span class="field-lbl">Contenu</span>
-          <p class="field-txt">Site sur mesure, tunnel de conversion, SEO avancé, automation et stratégie digitale complète.</p>
-          <span class="field-lbl">Résultat</span>
-          <p class="field-txt">Jusqu'à +60% de visibilité globale et forte augmentation des ventes.</p>
-          <span class="field-lbl">Options</span>
-          <p class="field-txt">Publicité, tunnel de vente, automation marketing, stratégie complète.</p>
-          <span class="field-lbl">Pour qui</span>
-          <p class="field-txt">Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
+          <p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
+          <span class="field-lbl">Description</span><p class="field-txt">Solution haut de gamme sur mesure avec stratégie digitale complète et automatisation avancée.</p>
+          <span class="field-lbl">Contenu</span><p class="field-txt">Site sur mesure, tunnel de conversion, SEO avancé, automation et stratégie digitale complète.</p>
+          <span class="field-lbl">Résultat</span><p class="field-txt">Jusqu'à +60% de visibilité globale et forte augmentation des ventes.</p>
+          <span class="field-lbl">Options</span><p class="field-txt">Publicité, tunnel de vente, automation marketing, stratégie complète.</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
         </div>
       </div>
-
-      <!-- COMMUNITY MANAGEMENT -->
       <div class="card reveal" style="transition-delay:.3s">
         <div class="card__img"><img src="images/community.png" alt="Community Management"></div>
         <div class="card__body">
-          <p class="card__name">Community Management</p>
-          <p class="card__price">150€ → 430€/mois</p>
-          <span class="field-lbl">Description</span>
-          <p class="field-txt">Gestion complète des réseaux sociaux pour développer votre visibilité, votre image et votre engagement client.</p>
-          <span class="field-lbl">Contenu</span>
-          <p class="field-txt">Création de contenu photo/vidéo, gestion des publications, interactions et stratégie éditoriale.</p>
-          <span class="field-lbl">Résultat</span>
-          <p class="field-txt">+30% à +60% de visibilité et engagement selon la stratégie appliquée.</p>
-          <span class="field-lbl">Options</span>
-          <p class="field-txt">Posts réguliers, vidéos, gestion messages, stratégie de contenu personnalisée.</p>
-          <span class="field-lbl">Pour qui</span>
-          <p class="field-txt">Entreprises locales, commerces, marques et indépendants souhaitant une présence active.</p>
+          <p class="card__name">Community Management</p><p class="card__price">150€ → 430€/mois</p>
+          <span class="field-lbl">Description</span><p class="field-txt">Gestion complète des réseaux sociaux pour développer votre visibilité, votre image et votre engagement client.</p>
+          <span class="field-lbl">Contenu</span><p class="field-txt">Création de contenu photo/vidéo, gestion des publications, interactions et stratégie éditoriale.</p>
+          <span class="field-lbl">Résultat</span><p class="field-txt">+30% à +60% de visibilité et engagement selon la stratégie appliquée.</p>
+          <span class="field-lbl">Options</span><p class="field-txt">Posts réguliers, vidéos, gestion messages, stratégie de contenu personnalisée.</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces, marques et indépendants souhaitant une présence active.</p>
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ DEVIS ═══════════════════════ -->
 <section class="sec">
   <div class="wrap">
     <div class="sec-head reveal">
@@ -551,7 +203,6 @@ h3 { font-size: 1.2rem; }
       <h2>Devis personnalisé</h2>
       <div class="divider"></div>
     </div>
-
     <div class="quote-box reveal">
       <div class="fg">
         <select id="service" class="fs" onchange="setBase()">
@@ -562,30 +213,20 @@ h3 { font-size: 1.2rem; }
           <option value="150">Community Management</option>
         </select>
       </div>
-
       <div id="options"></div>
       <div id="formFields"></div>
-
       <div class="total-bar" id="total">
         <span class="total-lbl">Total estimé</span>
         <span class="total-amt">0€</span>
       </div>
-
-      <button
-        id="sendBtn"
-        class="btn btn--gold"
-        style="width:100%;justify-content:center;padding:16px;font-size:1rem;"
-        onclick="sendQuote()"
-      >
+      <button id="sendBtn" class="btn btn--gold" style="width:100%;justify-content:center;padding:16px;font-size:1rem;" onclick="sendQuote()">
         Envoyer le devis &nbsp;→
       </button>
-
       <div id="quote-status"></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ CONTACT ═══════════════════════ -->
 <section class="sec--sm" style="text-align:center">
   <div class="wrap">
     <span class="mono-label">Nous contacter</span>
@@ -598,276 +239,175 @@ h3 { font-size: 1.2rem; }
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════════
-     SCRIPTS
-═══════════════════════════════════════════════ -->
 <script>
-// ── Config EmailJS ────────────────────────────────────────────
 const SERVICE_ID      = "service_a53gjwo";
 const TEMPLATE_ADMIN  = "template_qw8k1jc";
 const TEMPLATE_CLIENT = "template_ec8v56a";
 
-emailjs.init("ZnaIdcbmV7R2B1ph");
+emailjs.init("_Y9wyDROWTwY1--zW");
 
-// ── Noms d'offres ─────────────────────────────────────────────
-const SERVICE_NAMES = {
-  "550":  "Site Vitrine",
-  "1115": "Site Premium",
-  "2500": "Ultra Premium",
-  "150":  "Community Management"
-};
+const SERVICE_NAMES = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","150":"Community Management"};
 
-// ── Calcul du total ───────────────────────────────────────────
 let base = 0;
 
 function calc(){
   let total = base;
-  document.querySelectorAll("#options input").forEach(el => {
-    if(el.checked) total += parseInt(el.dataset.value || 0);
+  document.querySelectorAll("#options input").forEach(el=>{
+    if(el.checked) total += parseInt(el.dataset.value||0);
   });
   const a = document.querySelector("#total .total-amt");
-  if(a) a.textContent = total + "€";
+  if(a) a.textContent = total+"€";
 }
 
 function setBase(){
-  base = parseInt(document.getElementById("service").value || 0);
-  renderOptions();
-  renderFields();
-  calc();
+  base = parseInt(document.getElementById("service").value||0);
+  renderOptions(); renderFields(); calc();
 }
 
-// ── Options selon l'offre ─────────────────────────────────────
 function renderOptions(){
   const s = document.getElementById("service").value;
   let html = "";
-
-  if(s === "150") html = `
+  if(s==="150") html=`
     <div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
     <div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data-value="80" onchange="calc()"></div>
     <div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div>
     <div class="option"><span>Messages (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div>`;
-
-  if(s === "550") html = `
+  if(s==="550") html=`
     <div class="option"><span>Design (+80€)</span><input type="checkbox" data-value="80" onchange="calc()"></div>
     <div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div>
     <div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data-value="30" onchange="calc()"></div>`;
-
-  if(s === "1115") html = `
+  if(s==="1115") html=`
     <div class="option"><span>Branding (+120€)</span><input type="checkbox" data-value="120" onchange="calc()"></div>
     <div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div>
     <div class="option"><span>Conversion (+75€)</span><input type="checkbox" data-value="75" onchange="calc()"></div>`;
-
-  if(s === "2500") html = `
+  if(s==="2500") html=`
     <div class="option"><span>Ads (+600€)</span><input type="checkbox" data-value="600" onchange="calc()"></div>
     <div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data-value="500" onchange="calc()"></div>
     <div class="option"><span>Automation (+400€)</span><input type="checkbox" data-value="400" onchange="calc()"></div>`;
-
   document.getElementById("options").innerHTML = html;
 }
 
-// ── Champs de formulaire selon l'offre ────────────────────────
 function renderFields(){
   const s = document.getElementById("service").value;
-
-  const common = () => `
+  const common = ()=>`
     <p class="fh">Informations entreprise</p>
-    <div class="fg2">
-      <div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div>
-      <div class="fg"><input id="nom" class="fi" placeholder="Nom"></div>
-    </div>
-    <div class="fg2">
-      <div class="fg"><input id="email" class="fi" placeholder="Email"></div>
-      <div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div>
-    </div>
+    <div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div>
+    <div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div>
     <div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div>
-    <div class="fg2">
-      <div class="fg"><input id="adresse" class="fi" placeholder="Adresse complète"></div>
-      <div class="fg"><input id="ville" class="fi" placeholder="Ville"></div>
-    </div>
+    <div class="fg2"><div class="fg"><input id="adresse" class="fi" placeholder="Adresse complète"></div><div class="fg"><input id="ville" class="fi" placeholder="Ville"></div></div>
     <div class="fg"><input id="codepostal" class="fi" placeholder="Code postal"></div>
     <p class="fh">Projet</p>
     <div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>`;
-
   let html = "";
-
-  if(s === "550" || s === "1115" || s === "2500"){
-    html = common() + `
+  if(s==="550"||s==="1115"||s==="2500") html=common()+`
     <p class="fh">Informations site web</p>
     <div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div>
     <div class="fg"><textarea id="produits" class="ft" placeholder="Produits / services + prix"></textarea></div>
     <div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal"></div>
     <div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents"></div>`;
-  }
-
-  if(s === "150"){
-    html = `
+  if(s==="150") html=`
     <p class="fh">Informations entreprise</p>
-    <div class="fg2">
-      <div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div>
-      <div class="fg"><input id="nom" class="fi" placeholder="Nom"></div>
-    </div>
-    <div class="fg2">
-      <div class="fg"><input id="email" class="fi" placeholder="Email"></div>
-      <div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div>
-    </div>
+    <div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div>
+    <div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div>
     <div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div>
     <div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div>
     <p class="fh">Réseaux sociaux</p>
-    <div class="fg">
-      <select id="aCompte" class="fs">
-        <option value="">Avez-vous déjà un compte ?</option>
-        <option value="oui">Oui</option>
-        <option value="non">Non</option>
-      </select>
-    </div>
+    <div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà un compte ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div>
     <div class="fg"><input id="nomcompte" class="fi" placeholder="Nom du compte"></div>
     <p class="fh">Stratégie</p>
     <div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div>
     <div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div>
     <div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
-  }
-
   document.getElementById("formFields").innerHTML = html;
 }
 
-// ── Options sélectionnées (texte) ─────────────────────────────
 function getSelectedOptions(){
-  const opts = [];
-  document.querySelectorAll("#options input").forEach(el => {
+  const opts=[];
+  document.querySelectorAll("#options input").forEach(el=>{
     if(el.checked) opts.push(el.parentElement.querySelector("span").innerText);
   });
   return opts.join(", ");
 }
 
-// ── Helpers UI ────────────────────────────────────────────────
-const get = id => document.getElementById(id)?.value || "";
+const get = id => document.getElementById(id)?.value||"";
 
-function setStatus(msg, type = "loading"){
+function setStatus(msg, type="loading"){
   const el = document.getElementById("quote-status");
-  el.textContent = msg;
-  el.className = type;
+  el.textContent = msg; el.className = type;
 }
 
-function lockBtn(loading = true){
+function lockBtn(loading=true){
   const btn = document.getElementById("sendBtn");
   btn.disabled = loading;
-  btn.innerHTML = loading
-    ? "⏳ Génération du lien de paiement…"
-    : "Envoyer le devis &nbsp;→";
+  btn.innerHTML = loading ? "⏳ Génération du lien de paiement…" : "Envoyer le devis &nbsp;→";
 }
 
-// ── Envoi du devis ────────────────────────────────────────────
 async function sendQuote(){
-
-  // 1. Validation basique
   const service = document.getElementById("service").value;
   if(!service){ alert("Choisis une offre"); return; }
-
   const email = get("email");
   if(!email){ alert("L'email est obligatoire"); return; }
 
-  const serviceName  = SERVICE_NAMES[service] || "";
-  const totalText    = document.querySelector("#total .total-amt")?.textContent || "0€";
-  const totalAmount  = parseInt(totalText) || 0;
-  const isMonthly    = service === "150";   // Community Management = abonnement mensuel
-  const optionsTxt   = getSelectedOptions();
+  const serviceName = SERVICE_NAMES[service]||"";
+  const totalText   = document.querySelector("#total .total-amt")?.textContent||"0€";
+  const totalAmount = parseInt(totalText)||0;
+  const isMonthly   = service==="150";
+  const optionsTxt  = getSelectedOptions();
 
-  // 2. Préparer les données communes
   const data = {
-    service_name : serviceName,
-    service,
-    total        : totalText,
-    options      : optionsTxt,
-    payment_link : "",   // sera rempli après l'appel Netlify
-    prenom       : get("prenom"),
-    nom          : get("nom"),
-    email,
-    telephone    : get("telephone"),
-    entreprise   : get("entreprise"),
-    adresse      : get("adresse"),
-    ville        : get("ville"),
-    codepostal   : get("codepostal"),
-    secteur      : get("secteur"),
-    objectif     : get("objectif"),
-    produits     : get("produits"),
-    concurrents  : get("concurrents"),
-    aCompte      : get("aCompte"),
-    nomcompte    : get("nomcompte"),
-    objectifcm   : get("objectifcm"),
-    contenu      : get("contenu"),
-    message      : get("message"),
-    description  : get("description")
+    service_name:serviceName, service, total:totalText, options:optionsTxt,
+    payment_link:"",
+    prenom:get("prenom"), nom:get("nom"), email, telephone:get("telephone"),
+    entreprise:get("entreprise"), adresse:get("adresse"), ville:get("ville"), codepostal:get("codepostal"),
+    secteur:get("secteur"), objectif:get("objectif"), produits:get("produits"), concurrents:get("concurrents"),
+    aCompte:get("aCompte"), nomcompte:get("nomcompte"), objectifcm:get("objectifcm"),
+    contenu:get("contenu"), message:get("message"), description:get("description")
   };
 
-  console.log("Données devis :", data);
-
-  // 3. Appel à la Netlify Function pour créer le lien Stripe
   lockBtn(true);
-  setStatus("⏳ Création du lien de paiement Stripe…", "loading");
+  setStatus("⏳ Création du lien de paiement Stripe…","loading");
 
   try {
-    const res = await fetch("/.netlify/functions/create-payment", {
-      method  : "POST",
-      headers : { "Content-Type": "application/json" },
-      body    : JSON.stringify({
-        amount       : totalAmount,
-        service_name : serviceName,
-        options      : optionsTxt,
-        is_monthly   : isMonthly
-      })
+    const res = await fetch("/.netlify/functions/create-payment",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({amount:totalAmount, service_name:serviceName, options:optionsTxt, is_monthly:isMonthly})
     });
-
     const json = await res.json();
-
-    if(!res.ok || !json.url){
-      throw new Error(json.error || `Erreur serveur ${res.status}`);
-    }
-
+    if(!res.ok||!json.url) throw new Error(json.error||`Erreur serveur ${res.status}`);
     data.payment_link = json.url;
-    setStatus("✅ Lien créé — envoi de l'email…", "ok");
-
+    setStatus("✅ Lien créé — envoi de l'email…","ok");
   } catch(err){
-    console.error("Netlify function error:", err);
+    console.error("Netlify function error:",err);
     lockBtn(false);
-    setStatus(`❌ Erreur : ${err.message}`, "error");
+    setStatus(`❌ Erreur : ${err.message}`,"error");
     return;
   }
 
-  // 4. Envoi des deux emails via EmailJS
   try {
     await Promise.all([
       emailjs.send(SERVICE_ID, TEMPLATE_ADMIN,  data),
       emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data)
     ]);
-
-    // 5. Succès : remplace la page
-    document.body.innerHTML = `
+    document.body.innerHTML=`
       <div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;">
         <h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1>
         <p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p>
-        <button
-          onclick="location.reload()"
-          style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;"
-        >Retour</button>
+        <button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button>
       </div>`;
-
   } catch(err){
-    console.error("EmailJS error:", err);
+    console.error("EmailJS error:",err);
     lockBtn(false);
-    setStatus("❌ Erreur lors de l'envoi de l'email (voir console)", "error");
+    setStatus("❌ Erreur lors de l'envoi de l'email (voir console)","error");
   }
 }
 
-// ── Init ──────────────────────────────────────────────────────
 setBase();
 
-// ── Scroll reveal ─────────────────────────────────────────────
-const obs = new IntersectionObserver(entries => {
-  entries.forEach(e => {
-    if(e.isIntersecting){ e.target.classList.add("in"); obs.unobserve(e.target); }
-  });
-}, { threshold: .07 });
-document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); obs.unobserve(e.target); } });
+},{threshold:.07});
+document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 </script>
 </body>
 </html>
