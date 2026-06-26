@@ -1,28 +1,7 @@
 {
-  "name": "studioweblocal",
+  "name": "studio-web-local",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MarguierThibault/studioweblocal.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/MarguierThibault/studioweblocal/issues"
-  },
-  "homepage": "https://github.com/MarguierThibault/studioweblocal#readme",
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "stripe": "^22.2.3"
+    "stripe": "^14.0.0"
   }
 }
