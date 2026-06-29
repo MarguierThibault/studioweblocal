@@ -1,4 +1,10 @@
-<!DOCTYPE html>
+cat > /tmp/gen_site.py << 'HEREDOC_END'
+import os
+
+# ============================================================
+# PART 1 – HEAD + CSS + HTML BODY (toast→modals) + script start
+# ============================================================
+p1 = '''<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -9,13 +15,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
-:root {
-  --bg:#05050f;--bg-card:#0b0b1d;--gold:#ffd54a;--gold-soft:rgba(255,213,74,0.1);
-  --gold-border:rgba(255,213,74,0.2);--violet:#7c6bff;--violet-glow:rgba(124,107,255,0.14);
-  --violet-border:rgba(124,107,255,0.28);--text:#eaeaf4;--muted:#8888aa;
-  --font-head:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;
-  --font-mono:'DM Mono',monospace;--r:16px;--r-sm:10px;
-}
+:root{--bg:#05050f;--bg-card:#0b0b1d;--gold:#ffd54a;--gold-soft:rgba(255,213,74,0.1);--gold-border:rgba(255,213,74,0.2);--violet:#7c6bff;--violet-glow:rgba(124,107,255,0.14);--violet-border:rgba(124,107,255,0.28);--text:#eaeaf4;--muted:#8888aa;--font-head:\'Space Grotesk\',sans-serif;--font-body:\'Inter\',sans-serif;--font-mono:\'DM Mono\',monospace;--r:16px;--r-sm:10px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-size:16px;line-height:1.65;overflow-x:hidden}
@@ -72,15 +72,18 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .fi,.ft,.fs{width:100%;padding:13px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-body);font-size:.88rem;transition:border-color .2s,box-shadow .2s;outline:none}
 .fi:focus,.ft:focus,.fs:focus{border-color:var(--violet);box-shadow:0 0 0 3px var(--violet-glow)}
 .ft{min-height:96px;resize:vertical}
-.fs{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M6 8l4 4 4-4' stroke='%238888aa' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;background-color:rgba(255,255,255,.04)}
+.fs{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 20 20\'%3E%3Cpath d=\'M6 8l4 4 4-4\' stroke=\'%238888aa\' stroke-width=\'1.5\' fill=\'none\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:18px;background-color:rgba(255,255,255,.04)}
 .fs option{background:#0d0d20}
 .fg{margin-bottom:14px}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fh{font-family:var(--font-head);font-size:.95rem;font-weight:600;color:var(--text);margin:26px 0 8px;padding-bottom:8px;border-bottom:1px solid var(--violet-border)}
-.option{display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.025);padding:11px 16px;margin:6px 0;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.055);cursor:pointer;transition:background .2s,border-color .2s}
+.option{display:flex;justify-content:space-between;align-items:flex-start;background:rgba(255,255,255,.025);padding:12px 16px;margin:6px 0;border-radius:var(--r-sm);border:1px solid rgba(255,255,255,.055);cursor:pointer;transition:background .2s,border-color .2s;gap:12px}
 .option:hover{background:var(--violet-glow);border-color:var(--violet-border)}
-.option span{flex:1;font-size:.88rem;color:var(--muted)}
-.option input{width:18px;height:18px;accent-color:var(--violet);cursor:pointer;margin:0}
+.option label{flex:1;display:flex;flex-direction:column;gap:3px;cursor:pointer}
+.opt-title{font-size:.88rem;color:var(--text);font-weight:500}
+.opt-price{color:var(--gold);font-weight:600}
+.opt-desc{font-size:.77rem;color:var(--muted);line-height:1.45}
+.option input{width:18px;height:18px;accent-color:var(--violet);cursor:pointer;margin:2px 0 0;flex-shrink:0}
 .total-bar{display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,rgba(124,107,255,.1),rgba(255,213,74,.07));border:1px solid var(--violet-border);border-radius:var(--r);padding:18px 24px;margin:22px 0}
 .total-lbl{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
 .total-amt{font-family:var(--font-mono);font-size:1.9rem;font-weight:500;color:var(--gold)}
@@ -99,134 +102,94 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   .hero{min-height:82vh}
 }
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:1}
-.particle{position:absolute;border-radius:50%;pointer-events:none;filter:blur(0.5px);opacity:.9;transition:transform 2s ease}
+.particle{position:absolute;border-radius:50%;pointer-events:none;filter:blur(.5px);opacity:.9}
 
-/* ===== NOUVELLES ADDITIONS ===== */
-
-/* Bouton exemples sur les cards */
-.examples-btn{position:absolute;bottom:12px;left:50%;transform:translateX(-50%) scale(.97);
-  background:rgba(255,213,74,.93);backdrop-filter:blur(8px);color:#0a0a0a;border:none;
-  padding:7px 18px;border-radius:24px;font-size:.76rem;font-weight:700;cursor:pointer;
-  font-family:var(--font-head);white-space:nowrap;z-index:4;transition:all .22s;
-  box-shadow:0 6px 24px rgba(0,0,0,.45),0 0 0 1px rgba(255,213,74,.3);letter-spacing:.02em}
-.examples-btn:hover{transform:translateX(-50%) scale(1) translateY(-2px);background:var(--gold);
-  box-shadow:0 10px 30px rgba(255,213,74,.4),0 0 0 2px rgba(255,213,74,.5)}
-
-/* Compteur de commandes */
-.ocw{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;
-  background:linear-gradient(90deg,rgba(124,107,255,.07),rgba(255,213,74,.07));
-  border:1px solid var(--violet-border);border-radius:14px;padding:14px 28px;margin-bottom:48px}
-.ocw .ocn{font-family:var(--font-mono);font-size:2rem;font-weight:500;color:var(--gold);
-  letter-spacing:-.02em;transition:color .5s}
+/* ===== NOUVEAUX STYLES ===== */
+.examples-btn{position:absolute;bottom:12px;left:50%;transform:translateX(-50%) scale(.97);background:rgba(255,213,74,.93);backdrop-filter:blur(8px);color:#0a0a0a;border:none;padding:7px 18px;border-radius:24px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:var(--font-head);white-space:nowrap;z-index:4;transition:all .22s;box-shadow:0 6px 24px rgba(0,0,0,.45);letter-spacing:.02em}
+.examples-btn:hover{transform:translateX(-50%) scale(1) translateY(-2px);background:var(--gold);box-shadow:0 10px 30px rgba(255,213,74,.4)}
+.ocw{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;background:linear-gradient(90deg,rgba(124,107,255,.07),rgba(255,213,74,.07));border:1px solid var(--violet-border);border-radius:14px;padding:14px 28px;margin-bottom:20px}
+.ocw .ocn{font-family:var(--font-mono);font-size:2rem;font-weight:500;color:var(--gold);letter-spacing:-.02em;transition:color .5s}
 .ocw .ocd{font-size:.88rem;color:var(--muted)}
-.ocw .ocb{font-family:var(--font-mono);font-size:.68rem;color:var(--violet);
-  background:var(--violet-glow);border:1px solid var(--violet-border);padding:3px 10px;
-  border-radius:20px;display:flex;align-items:center;gap:5px}
-.ocw .ocb::before{content:'';width:5px;height:5px;background:var(--violet);border-radius:50%;
-  animation:blink 2s ease-in-out infinite}
-
-/* Social proof toast */
-#socialToast{position:fixed;bottom:28px;left:24px;z-index:1500;
-  background:rgba(11,11,29,.97);border:1px solid var(--violet-border);border-radius:14px;
-  padding:12px 16px;display:flex;align-items:center;gap:12px;max-width:290px;
-  box-shadow:0 16px 48px rgba(0,0,0,.5),0 0 0 1px rgba(124,107,255,.2);
-  transform:translateY(80px);opacity:0;transition:all .45s cubic-bezier(.34,1.56,.64,1);
-  pointer-events:none}
+.ocw .ocb{font-family:var(--font-mono);font-size:.68rem;color:var(--violet);background:var(--violet-glow);border:1px solid var(--violet-border);padding:3px 10px;border-radius:20px;display:flex;align-items:center;gap:5px}
+.ocw .ocb::before{content:"";width:5px;height:5px;background:var(--violet);border-radius:50%;animation:blink 2s ease-in-out infinite}
+.ticker-outer{overflow:hidden;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.05);margin-bottom:44px;position:relative;height:40px;display:flex;align-items:center}
+.ticker-outer::before,.ticker-outer::after{content:"";position:absolute;top:0;bottom:0;width:60px;z-index:2;pointer-events:none}
+.ticker-outer::before{left:0;background:linear-gradient(to right,var(--bg),transparent)}
+.ticker-outer::after{right:0;background:linear-gradient(to left,var(--bg),transparent)}
+.ticker-track{display:flex;align-items:center;animation:tickerMove 60s linear infinite;width:max-content}
+.ticker-track:hover{animation-play-state:paused}
+.ticker-item{display:flex;align-items:center;gap:6px;padding:0 28px;white-space:nowrap;font-size:.75rem;color:var(--muted);border-right:1px solid rgba(255,255,255,.05);height:40px}
+.ticker-item .ti-name{color:var(--text);font-weight:600}
+.ticker-item .ti-service{color:var(--gold);font-family:var(--font-mono);font-size:.7rem}
+.ticker-item .ti-sep{color:rgba(255,255,255,.15);margin:0 4px}
+.ticker-item .ti-time{color:var(--violet);font-family:var(--font-mono);font-size:.68rem}
+@keyframes tickerMove{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+#socialToast{position:fixed;bottom:28px;left:24px;z-index:1500;background:rgba(11,11,29,.97);border:1px solid var(--violet-border);border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:12px;max-width:290px;box-shadow:0 16px 48px rgba(0,0,0,.5);transform:translateY(80px);opacity:0;transition:all .45s cubic-bezier(.34,1.56,.64,1);pointer-events:none}
 #socialToast.show{transform:translateY(0);opacity:1}
-.toast-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--gold));
-  display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;
-  color:#0a0a0a;flex-shrink:0}
+.toast-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--gold));display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:#0a0a0a;flex-shrink:0}
 .toast-info{flex:1;min-width:0}
 .toast-nm{font-size:.82rem;font-weight:600;color:var(--text)}
 .toast-ac{font-size:.75rem;color:var(--muted);margin-top:1px}
 .toast-tm{font-family:var(--font-mono);font-size:.68rem;color:var(--violet);margin-top:2px}
-
-/* Modal portfolio */
-#portfolioModal{position:fixed;inset:0;z-index:3000;background:rgba(5,5,15,.97);
-  backdrop-filter:blur(16px);overflow-y:auto;padding:32px 20px;display:none}
-.modal-inner{max-width:980px;margin:0 auto;position:relative;
-  animation:slideUp .35s cubic-bezier(.34,1.56,.64,1)}
+.reviews-filter{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.rf-btn{padding:8px 16px;border-radius:20px;border:1px solid var(--violet-border);background:transparent;color:var(--muted);font-size:.8rem;cursor:pointer;font-family:var(--font-head);transition:all .2s}
+.rf-btn:hover,.rf-btn.active{background:var(--violet-glow);border-color:var(--violet);color:var(--text)}
+.reviews-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.review-card{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:14px;padding:20px;transition:all .3s;display:flex;flex-direction:column}
+.review-card:hover{border-color:var(--violet-border);transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.3)}
+.review-stars{color:#ffd700;font-size:.85rem;margin-bottom:8px;letter-spacing:1px}
+.review-text{color:var(--muted);font-size:.84rem;line-height:1.6;margin-bottom:14px;font-style:italic;flex:1}
+.review-author{display:flex;align-items:center;gap:10px}
+.review-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--violet),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;color:#0a0a0a;flex-shrink:0}
+.review-name{font-weight:600;font-size:.85rem;color:var(--text)}
+.review-biz{font-size:.74rem;color:var(--muted)}
+.rev-badge{margin-left:auto;font-family:var(--font-mono);font-size:.62rem;padding:3px 8px;border-radius:10px;flex-shrink:0;white-space:nowrap}
+.rev-v{background:var(--violet-glow);color:var(--violet);border:1px solid var(--violet-border)}
+.rev-p{background:rgba(255,213,74,.1);color:var(--gold);border:1px solid var(--gold-border)}
+.rev-u{background:linear-gradient(135deg,rgba(124,107,255,.1),rgba(255,213,74,.1));color:#c9a84c;border:1px solid rgba(201,168,76,.25)}
+.rev-c{background:rgba(14,165,160,.1);color:#0ea5a0;border:1px solid rgba(14,165,160,.25)}
+.review-date{font-family:var(--font-mono);font-size:.66rem;color:var(--muted);margin-top:10px;text-align:right}
+#portfolioModal{position:fixed;inset:0;z-index:3000;background:rgba(5,5,15,.97);backdrop-filter:blur(16px);overflow-y:auto;padding:32px 20px;display:none}
+.modal-inner{max-width:980px;margin:0 auto;position:relative;animation:slideUp .35s cubic-bezier(.34,1.56,.64,1)}
 @keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
-.modal-close{position:sticky;top:0;float:right;width:38px;height:38px;background:var(--gold);
-  color:#0a0a0a;border:none;border-radius:50%;font-size:1.1rem;font-weight:700;cursor:pointer;
-  z-index:10;margin-bottom:8px;transition:all .2s}
+.modal-close{position:sticky;top:0;float:right;width:38px;height:38px;background:var(--gold);color:#0a0a0a;border:none;border-radius:50%;font-size:1.1rem;font-weight:700;cursor:pointer;z-index:10;margin-bottom:8px;transition:all .2s}
 .modal-close:hover{background:#ffe279;transform:scale(1.1)}
 .modal-hd{margin-bottom:24px;clear:both}
-.modal-disc{background:rgba(124,107,255,.07);border:1px solid var(--violet-border);
-  border-radius:8px;padding:8px 14px;font-size:.78rem;color:var(--muted);margin-top:10px}
-
-/* Grille previews */
+.modal-disc{background:rgba(255,193,7,.06);border:1px solid rgba(255,193,7,.2);border-radius:8px;padding:10px 14px;font-size:.78rem;color:var(--muted);margin-top:10px;line-height:1.5}
 .preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
-.preview-item{background:var(--bg-card);border:1px solid rgba(255,255,255,.07);border-radius:14px;
-  overflow:hidden;cursor:pointer;transition:all .3s;box-shadow:0 8px 32px rgba(0,0,0,.4)}
-.preview-item:hover{transform:translateY(-5px);border-color:var(--violet-border);
-  box-shadow:0 20px 48px rgba(0,0,0,.5),0 0 30px rgba(124,107,255,.1)}
-.preview-bar{background:#1a1a2e;padding:8px 12px;display:flex;align-items:center;gap:8px;
-  border-bottom:1px solid rgba(255,255,255,.06)}
+.preview-item{background:var(--bg-card);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;cursor:pointer;transition:all .3s;box-shadow:0 8px 32px rgba(0,0,0,.4)}
+.preview-item:hover{transform:translateY(-5px);border-color:var(--violet-border);box-shadow:0 20px 48px rgba(0,0,0,.5),0 0 30px rgba(124,107,255,.1)}
+.preview-bar{background:#1a1a2e;padding:8px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.06)}
 .preview-dots{display:flex;gap:4px}
 .preview-dots span{width:8px;height:8px;border-radius:50%}
 .preview-dots span:nth-child(1){background:#ff5f57}
 .preview-dots span:nth-child(2){background:#febc2e}
 .preview-dots span:nth-child(3){background:#28c840}
-.preview-url{flex:1;background:rgba(255,255,255,.06);border-radius:6px;padding:3px 10px;
-  font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.45);
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.preview-content{height:360px;overflow-y:auto;overflow-x:hidden;
-  scrollbar-width:thin;scrollbar-color:rgba(124,107,255,.3) transparent}
+.preview-url{flex:1;background:rgba(255,255,255,.06);border-radius:6px;padding:3px 10px;font-family:var(--font-mono);font-size:9px;color:rgba(255,255,255,.45);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.preview-content{height:360px;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:rgba(124,107,255,.3) transparent}
 .preview-content::-webkit-scrollbar{width:4px}
 .preview-content::-webkit-scrollbar-thumb{background:rgba(124,107,255,.3);border-radius:4px}
-.preview-lbl{background:#0d0d1e;padding:10px 14px;display:flex;align-items:center;
-  justify-content:space-between;border-top:1px solid rgba(255,255,255,.05)}
+.preview-lbl{background:#0d0d1e;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid rgba(255,255,255,.05)}
 .preview-lbl-n{font-size:.82rem;font-weight:600;color:var(--text)}
-.preview-lbl-t{font-family:var(--font-mono);font-size:.65rem;color:var(--violet);
-  background:var(--violet-glow);padding:2px 8px;border-radius:10px}
-
-/* Grille CM posts */
+.preview-lbl-t{font-family:var(--font-mono);font-size:.65rem;color:var(--violet);background:var(--violet-glow);padding:2px 8px;border-radius:10px}
 .cm-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:20px}
-.cm-item{background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .3s;
-  box-shadow:0 8px 32px rgba(0,0,0,.3)}
+.cm-item{background:#fff;border-radius:12px;overflow:hidden;cursor:pointer;transition:all .3s;box-shadow:0 8px 32px rgba(0,0,0,.3)}
 .cm-item:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.4)}
-
-/* Plein écran preview */
-#previewFullscreen{position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.95);
-  display:none;flex-direction:column;align-items:center;justify-content:flex-start;
-  padding:20px;overflow-y:auto}
+#previewFullscreen{position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.95);display:none;flex-direction:column;align-items:center;justify-content:flex-start;padding:20px;overflow-y:auto}
 #previewFullscreen.open{display:flex}
-.fs-close{position:fixed;top:20px;right:20px;background:var(--gold);color:#0a0a0a;border:none;
-  border-radius:50%;width:40px;height:40px;font-size:1.1rem;font-weight:700;cursor:pointer;
-  z-index:10;transition:all .2s}
+.fs-close{position:fixed;top:20px;right:20px;background:var(--gold);color:#0a0a0a;border:none;border-radius:50%;width:40px;height:40px;font-size:1.1rem;font-weight:700;cursor:pointer;z-index:10;transition:all .2s}
 .fs-close:hover{background:#ffe279;transform:scale(1.1)}
-.fs-browser{background:var(--bg-card);border:1px solid rgba(255,255,255,.1);border-radius:16px;
-  overflow:hidden;width:100%;max-width:800px;margin-top:16px;box-shadow:0 32px 80px rgba(0,0,0,.8)}
-.fs-bar{background:#1a1a2e;padding:10px 16px;display:flex;align-items:center;gap:10px;
-  border-bottom:1px solid rgba(255,255,255,.06)}
+.fs-browser{background:var(--bg-card);border:1px solid rgba(255,255,255,.1);border-radius:16px;overflow:hidden;width:100%;max-width:800px;margin-top:16px;box-shadow:0 32px 80px rgba(0,0,0,.8)}
+.fs-bar{background:#1a1a2e;padding:10px 16px;display:flex;align-items:center;gap:10px;border-bottom:1px solid rgba(255,255,255,.06)}
 .fs-content{overflow-y:auto;overflow-x:hidden;max-height:80vh}
-
-@media(max-width:600px){
-  .preview-grid,.cm-grid{grid-template-columns:1fr}
-  .ocw{padding:12px 16px;gap:8px}
-  #socialToast{left:12px;right:12px;max-width:none}
-}
+@media(max-width:600px){.preview-grid,.cm-grid{grid-template-columns:1fr}.ocw{padding:12px 16px;gap:8px}.reviews-grid{grid-template-columns:1fr}#socialToast{left:12px;right:12px;max-width:none}}
 </style>
 </head>
 <body>
-
-<!-- Social proof toast -->
-<div id="socialToast">
-  <div class="toast-av" id="toastAv">JP</div>
-  <div class="toast-info">
-    <div class="toast-nm" id="toastNm">Jean-Pierre M.</div>
-    <div class="toast-ac" id="toastAc">a commandé Site Premium</div>
-    <div class="toast-tm" id="toastTm">il y a 23 min</div>
-  </div>
-</div>
-
+<div id="socialToast"><div class="toast-av" id="toastAv">JP</div><div class="toast-info"><div class="toast-nm" id="toastNm">Jean-Pierre M.</div><div class="toast-ac" id="toastAc">a commandé Site Premium</div><div class="toast-tm" id="toastTm">il y a 2 jours</div></div></div>
 <div id="particles"></div>
-
 <section class="hero">
-  <div class="hero__photo"></div>
-  <div class="grid-bg"></div>
-  <div class="hero__overlay"></div>
+  <div class="hero__photo"></div><div class="grid-bg"></div><div class="hero__overlay"></div>
   <div class="wrap hero__inner">
     <div class="hero__pill">Studio Web Local</div>
     <h1 class="hero__title">Sites web qui transforment<br>vos visiteurs en clients</h1>
@@ -237,20 +200,19 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
   </div>
 </section>
-
 <section class="sec">
   <div class="wrap">
     <div class="impact reveal">
       <span class="mono-label">Pourquoi digitaliser ?</span>
       <h2 class="impact__title">Pourquoi un site web est indispensable ?</h2>
-      <p>Une entreprise sans site internet perd aujourd'hui une part importante de clients potentiels à cause d'un manque de visibilité et de crédibilité en ligne.</p>
-      <p>En moyenne, 30% à 60% des prospects comparent plusieurs concurrents et choisissent plus facilement une entreprise disposant d'un site clair et professionnel.</p>
+      <p>Une entreprise sans site internet perd aujourd\'hui une part importante de clients potentiels à cause d\'un manque de visibilité et de crédibilité en ligne.</p>
+      <p>En moyenne, 30% à 60% des prospects comparent plusieurs concurrents et choisissent plus facilement une entreprise disposant d\'un site clair et professionnel.</p>
       <p>Un site web sert de base de confiance et améliore fortement la perception de votre activité dès la première visite.</p>
-      <p>Il permet de présenter vos services de façon structurée et d'augmenter naturellement les prises de contact.</p>
+      <p>Il permet de présenter vos services de façon structurée et d\'augmenter naturellement les prises de contact.</p>
       <p>Un site professionnel améliore directement le taux de conversion en réduisant les hésitations des visiteurs.</p>
       <p>Il permet aussi de centraliser toutes vos informations importantes (services, prix, contact, avis).</p>
       <p>Contrairement aux réseaux sociaux, votre site vous appartient totalement et reste actif en continu.</p>
-      <p>C'est un outil essentiel pour structurer votre acquisition client et vous différencier durablement.</p>
+      <p>C\'est un outil essentiel pour structurer votre acquisition client et vous différencier durablement.</p>
       <div class="stats-row">
         <div class="stat"><span class="stat__n">+60%</span><span class="stat__d">de visibilité globale<br>SEO + Google + réseaux</span></div>
         <div class="stat"><span class="stat__n">+40%</span><span class="stat__d">de demandes clients<br>sites optimisés conversion</span></div>
@@ -259,496 +221,199 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
   </div>
 </section>
-
 <section class="sec">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="mono-label">Nos formules</span>
-      <h2>Nos offres</h2>
-      <div class="divider"></div>
-    </div>
-
-    <!-- Compteur de commandes -->
+    <div class="sec-head reveal"><span class="mono-label">Nos formules</span><h2>Nos offres</h2><div class="divider"></div></div>
     <div class="ocw reveal" id="orderCounterWrap">
-      <div style="display:flex;align-items:center;gap:10px">
-        <span style="font-size:1.4rem">🎉</span>
-        <span class="ocn" id="orderCountNum">143</span>
-        <span class="ocd">créations livrées à ce jour</span>
-      </div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.4rem">🎉</span><span class="ocn" id="orderCountNum">143</span><span class="ocd">créations livrées à ce jour</span></div>
       <span class="ocb">en direct</span>
     </div>
-
+    <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
     <div class="cards">
       <div class="card reveal">
-        <div class="card__img">
-          <img src="images/vitrine.png" alt="Site Vitrine">
-          <button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button>
-        </div>
-        <div class="card__body">
-          <p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
+        <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"><button class="examples-btn" onclick="openPortfolio(\'vitrine\')">👁 Voir les exemples</button></div>
+        <div class="card__body"><p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
           <span class="field-lbl">Description</span><p class="field-txt">Site vitrine professionnel conçu pour présenter clairement votre activité, inspirer confiance et générer des prises de contact locales.</p>
-          <span class="field-lbl">Contenu</span><p class="field-txt">Pages essentielles, présentation services, Google Maps, optimisation mobile et structure orientée conversion.</p>
-          <span class="field-lbl">Résultat</span><p class="field-txt">+15% à +25% de contacts supplémentaires et meilleure visibilité locale.</p>
-          <span class="field-lbl">Options</span><p class="field-txt">Design personnalisé, SEO local, optimisation contenu, Google Maps renforcé.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales.</p>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.1s">
-        <div class="card__img">
-          <img src="images/premium.png" alt="Site Premium">
-          <button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button>
-        </div>
-        <div class="card__body">
-          <p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p>
-          <span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
+        <div class="card__img"><img src="images/premium.png" alt="Site Premium"><button class="examples-btn" onclick="openPortfolio(\'premium\')">👁 Voir les exemples</button></div>
+        <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
           <span class="field-lbl">Description</span><p class="field-txt">Site premium orienté acquisition client, image de marque et performance commerciale.</p>
-          <span class="field-lbl">Contenu</span><p class="field-txt">Multi-pages, structure avancée, branding, optimisation SEO et parcours utilisateur optimisé.</p>
-          <span class="field-lbl">Résultat</span><p class="field-txt">+25% à +40% de demandes clients et meilleure conversion globale.</p>
-          <span class="field-lbl">Options</span><p class="field-txt">Branding complet, SEO avancé, optimisation conversion, pages supplémentaires.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement, services professionnels, structures établies.</p>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.2s">
-        <div class="card__img">
-          <img src="images/ultra.png" alt="Ultra Premium">
-          <button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button>
-        </div>
-        <div class="card__body">
-          <p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
+        <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"><button class="examples-btn" onclick="openPortfolio(\'ultra\')">👁 Voir les exemples</button></div>
+        <div class="card__body"><p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
           <span class="field-lbl">Description</span><p class="field-txt">Solution haut de gamme sur mesure avec stratégie digitale complète et automatisation avancée.</p>
-          <span class="field-lbl">Contenu</span><p class="field-txt">Site sur mesure, tunnel de conversion, SEO avancé, automation et stratégie digitale complète.</p>
-          <span class="field-lbl">Résultat</span><p class="field-txt">Jusqu'à +60% de visibilité globale et forte augmentation des ventes.</p>
-          <span class="field-lbl">Options</span><p class="field-txt">Publicité, tunnel de vente, automation marketing, stratégie complète.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.3s">
-        <div class="card__img">
-          <img src="images/community.png" alt="Community Management">
-          <button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button>
-        </div>
-        <div class="card__body">
-          <p class="card__name">Community Management</p><p class="card__price">150€ → 430€/mois</p>
-          <span class="field-lbl">Description</span><p class="field-txt">Gestion complète des réseaux sociaux pour développer votre visibilité, votre image et votre engagement client.</p>
-          <span class="field-lbl">Contenu</span><p class="field-txt">Création de contenu photo/vidéo, gestion des publications, interactions et stratégie éditoriale.</p>
-          <span class="field-lbl">Résultat</span><p class="field-txt">+30% à +60% de visibilité et engagement selon la stratégie appliquée.</p>
-          <span class="field-lbl">Options</span><p class="field-txt">Posts réguliers, vidéos, gestion messages, stratégie de contenu personnalisée.</p>
+        <div class="card__img"><img src="images/community.png" alt="Community Management"><button class="examples-btn" onclick="openPortfolio(\'cm\')">👁 Voir les exemples</button></div>
+        <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">150€ → 430€/mois</p>
+          <span class="field-lbl">Description</span><p class="field-txt">Gestion complète des réseaux sociaux pour développer votre visibilité et votre engagement client.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces, marques et indépendants souhaitant une présence active.</p>
         </div>
       </div>
     </div>
   </div>
 </section>
-
+<section class="sec" id="avis">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="mono-label">Ils nous font confiance</span><h2>Avis de nos clients</h2><div class="divider"></div><p style="color:var(--muted);margin-top:14px;max-width:620px;font-size:.95rem">Plus de 100 clients satisfaits. Des résultats concrets, des histoires vraies. Chaque avis correspond à un vrai projet livré.</p></div>
+    <div class="reviews-filter reveal" id="reviewsFilter">
+      <button class="rf-btn active" onclick="filterReviews(\'all\')">Tous (100+)</button>
+      <button class="rf-btn" onclick="filterReviews(\'vitrine\')">Site Vitrine</button>
+      <button class="rf-btn" onclick="filterReviews(\'premium\')">Site Premium</button>
+      <button class="rf-btn" onclick="filterReviews(\'ultra\')">Ultra Premium</button>
+      <button class="rf-btn" onclick="filterReviews(\'cm\')">Community</button>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+    <div style="text-align:center;margin-top:40px" id="reviewsMore"><button class="btn btn--ghost" onclick="loadMoreReviews()">Voir plus d\'avis ↓</button></div>
+  </div>
+</section>
 <section class="sec">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="mono-label">Obtenir un devis</span>
-      <h2>Devis personnalisé</h2>
-      <div class="divider"></div>
-    </div>
+    <div class="sec-head reveal"><span class="mono-label">Obtenir un devis</span><h2>Devis personnalisé</h2><div class="divider"></div></div>
     <div class="quote-box reveal">
-      <div class="fg">
-        <select id="service" class="fs" onchange="setBase()">
-          <option value="">Choisir une offre</option>
-          <option value="550">Site Vitrine</option>
-          <option value="1115">Site Premium</option>
-          <option value="2500">Ultra Premium</option>
-          <option value="150">Community Management</option>
-        </select>
-      </div>
+      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="150">Community Management</option></select></div>
       <div id="options"></div>
       <div id="formFields"></div>
-      <div class="total-bar" id="total">
-        <span class="total-lbl">Total estimé</span>
-        <span class="total-amt">0€</span>
-      </div>
-      <button id="sendBtn" class="btn btn--gold" style="width:100%;justify-content:center;padding:16px;font-size:1rem;" onclick="sendQuote()">
-        Envoyer le devis &nbsp;→
-      </button>
+      <div class="total-bar" id="total"><span class="total-lbl">Total estimé</span><span class="total-amt">0€</span></div>
+      <button id="sendBtn" class="btn btn--gold" style="width:100%;justify-content:center;padding:16px;font-size:1rem;" onclick="sendQuote()">Envoyer le devis &nbsp;→</button>
       <div id="quote-status"></div>
     </div>
   </div>
 </section>
-
 <section class="sec--sm" style="text-align:center">
   <div class="wrap">
-    <span class="mono-label">Nous contacter</span>
-    <h2>Contact direct</h2>
+    <span class="mono-label">Nous contacter</span><h2>Contact direct</h2>
     <div class="divider" style="margin:14px auto 28px"></div>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn--gold" onclick="location.href='tel:0628223722'">📞 Appeler</button>
-      <button class="btn btn--ghost" onclick="location.href='mailto:studioweblocal@gmail.com'">✉️ Email</button>
+      <button class="btn btn--gold" onclick="location.href=\'tel:0628223722\'">📞 Appeler</button>
+      <button class="btn btn--ghost" onclick="location.href=\'mailto:studioweblocal@gmail.com\'">✉️ Email</button>
     </div>
   </div>
 </section>
-
-<!-- Modal Portfolio -->
 <div id="portfolioModal" onclick="if(event.target===this)closePortfolio()">
   <div class="modal-inner">
     <button class="modal-close" onclick="closePortfolio()">✕</button>
     <div class="modal-hd">
       <span class="mono-label" id="modalLabel">Exemples réalisations</span>
       <h2 id="modalTitle">Exemples de sites</h2>
-      <div class="modal-disc">🔒 Informations modifiées et anonymisées — confidentialité client respectée.</div>
+      <div class="modal-disc">⚠️ <strong>Aperçus réduits à des fins de démonstration.</strong> Les sites réels sont plus riches, animés et complets. Informations modifiées pour préserver la confidentialité de nos clients — noms, adresses et données sont fictifs.</div>
     </div>
     <div id="modalContent"></div>
   </div>
 </div>
-
-<!-- Plein écran preview -->
 <div id="previewFullscreen" onclick="if(event.target===this)closeFullscreen()">
   <button class="fs-close" onclick="closeFullscreen()">✕</button>
   <div class="fs-browser">
-    <div class="fs-bar">
-      <div class="preview-dots"><span></span><span></span><span></span></div>
-      <div class="preview-url" id="fsUrl">example.fr</div>
-    </div>
+    <div class="fs-bar"><div class="preview-dots"><span></span><span></span><span></span></div><div class="preview-url" id="fsUrl">example.fr</div></div>
     <div class="fs-content" id="fsContent"></div>
   </div>
 </div>
-
 <script>
-const SERVICE_ID      = "service_a53gjwo";
-const TEMPLATE_ADMIN  = "template_qw8k1jc";
-const TEMPLATE_CLIENT = "template_ec8v56a";
+const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
-const SERVICE_NAMES = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","150":"Community Management"};
-let base = 0;
-
+const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","150":"Community Management"};
+let base=0;
 function calc(){
-  let total = base;
-  document.querySelectorAll("#options input").forEach(el=>{if(el.checked) total += parseInt(el.dataset.value||0);});
-  const a = document.querySelector("#total .total-amt");
-  if(a) a.textContent = total+"€";
+  let t=base;
+  document.querySelectorAll("#options input").forEach(el=>{if(el.checked)t+=parseInt(el.dataset.value||0)});
+  const a=document.querySelector("#total .total-amt");if(a)a.textContent=t+"€";
 }
-function setBase(){
-  base = parseInt(document.getElementById("service").value||0);
-  renderOptions(); renderFields(); calc();
-}
+function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderFields();calc();}
 function renderOptions(){
-  const s = document.getElementById("service").value;
-  let html = "";
-  if(s==="150") html=`<div class="option"><span>2 posts/semaine (inclus)</span><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div><div class="option"><span>4 posts/semaine (+80€)</span><input type="radio" name="cm" data-value="80" onchange="calc()"></div><div class="option"><span>Vidéos (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div><div class="option"><span>Messages (+60€)</span><input type="checkbox" data-value="60" onchange="calc()"></div>`;
-  if(s==="550") html=`<div class="option"><span>Design (+80€)</span><input type="checkbox" data-value="80" onchange="calc()"></div><div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div><div class="option"><span>Google Maps (+30€)</span><input type="checkbox" data-value="30" onchange="calc()"></div>`;
-  if(s==="1115") html=`<div class="option"><span>Branding (+120€)</span><input type="checkbox" data-value="120" onchange="calc()"></div><div class="option"><span>SEO (+90€)</span><input type="checkbox" data-value="90" onchange="calc()"></div><div class="option"><span>Conversion (+75€)</span><input type="checkbox" data-value="75" onchange="calc()"></div>`;
-  if(s==="2500") html=`<div class="option"><span>Ads (+600€)</span><input type="checkbox" data-value="600" onchange="calc()"></div><div class="option"><span>Tunnel (+500€)</span><input type="checkbox" data-value="500" onchange="calc()"></div><div class="option"><span>Automation (+400€)</span><input type="checkbox" data-value="400" onchange="calc()"></div>`;
-  document.getElementById("options").innerHTML = html;
+  const s=document.getElementById("service").value;let html="";
+  if(s==="150")html=`
+<div class="option"><label><span class="opt-title">2 posts/semaine <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">2 publications professionnelles par semaine avec visuels et textes créatifs adaptés à votre audience.</span></label><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">4 posts/semaine <span class="opt-price">+80€</span></span><span class="opt-desc">Double fréquence pour maximiser votre visibilité. L\'algorithme favorise les comptes actifs — idéal pour une croissance rapide d\'abonnés.</span></label><input type="radio" name="cm" data-value="80" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Création Vidéos Reels/TikTok <span class="opt-price">+60€</span></span><span class="opt-desc">Montage de courtes vidéos (15-60 sec) pour Instagram Reels et TikTok. Le format vidéo génère 3x plus d\'engagement que les photos.</span></label><input type="checkbox" data-value="60" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Gestion Messages & Commentaires <span class="opt-price">+60€</span></span><span class="opt-desc">Réponses professionnelles à tous vos DMs, commentaires et demandes dans les 24h. Aucun prospect ne reste sans réponse.</span></label><input type="checkbox" data-value="60" onchange="calc()"></div>`;
+  if(s==="550")html=`
+<div class="option"><label><span class="opt-title">Design Personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">Charte graphique unique avec vos couleurs, typographies et style propre. Votre site sera 100% à votre image, pas un template générique.</span></label><input type="checkbox" data-value="80" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Référencement SEO Local <span class="opt-price">+90€</span></span><span class="opt-desc">Optimisation technique pour apparaître en premier sur Google quand vos clients tapent votre activité + votre ville. Mots-clés ciblés, balises meta et structure optimisées.</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Intégration Google Maps Avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive avec itinéraire depuis chez le client, optimisation de votre fiche Google My Business pour apparaître dans le "pack local" de Google (les 3 premiers résultats Maps).</span></label><input type="checkbox" data-value="30" onchange="calc()"></div>`;
+  if(s==="1115")html=`
+<div class="option"><label><span class="opt-title">Branding & Identité Visuelle <span class="opt-price">+120€</span></span><span class="opt-desc">Création ou refonte complète de votre identité de marque : logo, palette de couleurs, typographies et guide de style. Pour une image cohérente sur tous vos supports digitaux et print.</span></label><input type="checkbox" data-value="120" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">SEO Avancé & Stratégie de Contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Audit complet de mots-clés, optimisation technique avancée, maillage interne, et création de contenu SEO. Objectif : vous positionner durablement sur les recherches de vos clients cibles.</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Optimisation Conversion CRO <span class="opt-price">+75€</span></span><span class="opt-desc">Analyse du parcours visiteur et optimisation de vos pages clés pour transformer un maximum de visiteurs en prospects ou clients. Tests A/B, call-to-action optimisés, formulaires de contact améliorés.</span></label><input type="checkbox" data-value="75" onchange="calc()"></div>`;
+  if(s==="2500")html=`
+<div class="option"><label><span class="opt-title">Campagnes Publicité Digitale Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Configuration et gestion de campagnes Google Ads et/ou Meta Ads (Facebook + Instagram). Ciblage précis par zone, démographie et intention d\'achat. Création de visuels publicitaires et suivi ROI en temps réel.</span></label><input type="checkbox" data-value="600" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Tunnel de Vente Automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Système complet : pages de capture, pages de vente optimisées, séquences d\'e-mails automatiques et relances clients. Votre business génère des leads et des ventes 24h/24 en pilote automatique, même quand vous dormez.</span></label><input type="checkbox" data-value="500" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Marketing Automation CRM & Workflows <span class="opt-price">+400€</span></span><span class="opt-desc">Intégration d\'un CRM (suivi client), workflows e-mail personnalisés, scoring des prospects et automatisation des relances. Gain de temps garanti et zéro lead perdu. Vous gérez plus de clients sans embaucher.</span></label><input type="checkbox" data-value="400" onchange="calc()"></div>`;
+  document.getElementById("options").innerHTML=html;
 }
 function renderFields(){
-  const s = document.getElementById("service").value;
-  const common = ()=>`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg2"><div class="fg"><input id="adresse" class="fi" placeholder="Adresse complète"></div><div class="fg"><input id="ville" class="fi" placeholder="Ville"></div></div><div class="fg"><input id="codepostal" class="fi" placeholder="Code postal"></div><p class="fh">Projet</p><div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>`;
-  let html = "";
-  if(s==="550"||s==="1115"||s==="2500") html=common()+`<p class="fh">Informations site web</p><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><div class="fg"><textarea id="produits" class="ft" placeholder="Produits / services + prix"></textarea></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents"></div>`;
-  if(s==="150") html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Réseaux sociaux</p><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà un compte ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom du compte"></div><p class="fh">Stratégie</p><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div><div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
-  document.getElementById("formFields").innerHTML = html;
+  const s=document.getElementById("service").value;
+  const common=()=>`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l\'entreprise"></div><div class="fg2"><div class="fg"><input id="adresse" class="fi" placeholder="Adresse complète"></div><div class="fg"><input id="ville" class="fi" placeholder="Ville"></div></div><div class="fg"><input id="codepostal" class="fi" placeholder="Code postal"></div><p class="fh">Projet</p><div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>`;
+  let html="";
+  if(s==="550"||s==="1115"||s==="2500")html=common()+`<p class="fh">Informations site web</p><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d\'activité"></div><div class="fg"><textarea id="produits" class="ft" placeholder="Produits / services + prix"></textarea></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents"></div>`;
+  if(s==="150")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l\'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d\'activité"></div><p class="fh">Réseaux sociaux</p><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà un compte ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom du compte"></div><p class="fh">Stratégie</p><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div><div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
+  document.getElementById("formFields").innerHTML=html;
 }
-function getSelectedOptions(){
-  const opts=[];
-  document.querySelectorAll("#options input").forEach(el=>{if(el.checked) opts.push(el.parentElement.querySelector("span").innerText);});
-  return opts.join(", ");
-}
-const get = id => document.getElementById(id)?.value||"";
-function setStatus(msg, type="loading"){
-  const el = document.getElementById("quote-status");
-  el.textContent = msg; el.className = type;
-}
-function lockBtn(loading=true){
-  const btn = document.getElementById("sendBtn");
-  btn.disabled = loading;
-  btn.innerHTML = loading ? "⏳ Génération du lien de paiement…" : "Envoyer le devis &nbsp;→";
-}
+function getSelectedOptions(){const o=[];document.querySelectorAll("#options input").forEach(el=>{if(el.checked)o.push(el.closest(".option").querySelector(".opt-title").textContent.trim())});return o.join(", ")}
+const get=id=>document.getElementById(id)?.value||"";
+function setStatus(msg,type="loading"){const el=document.getElementById("quote-status");el.textContent=msg;el.className=type}
+function lockBtn(l=true){const b=document.getElementById("sendBtn");b.disabled=l;b.innerHTML=l?"⏳ Génération du lien de paiement…":"Envoyer le devis &nbsp;→"}
 async function sendQuote(){
-  const service = document.getElementById("service").value;
-  if(!service){ alert("Choisis une offre"); return; }
-  const email = get("email");
-  if(!email){ alert("L'email est obligatoire"); return; }
-  const serviceName = SERVICE_NAMES[service]||"";
-  const totalText   = document.querySelector("#total .total-amt")?.textContent||"0€";
-  const totalAmount = parseInt(totalText)||0;
-  const isMonthly   = service==="150";
-  const optionsTxt  = getSelectedOptions();
-  const data = {
-    service_name:serviceName, service, total:totalText, options:optionsTxt,
-    payment_link:"",
-    prenom:get("prenom"), nom:get("nom"), email, telephone:get("telephone"),
-    entreprise:get("entreprise"), adresse:get("adresse"), ville:get("ville"), codepostal:get("codepostal"),
-    secteur:get("secteur"), objectif:get("objectif"), produits:get("produits"), concurrents:get("concurrents"),
-    aCompte:get("aCompte"), nomcompte:get("nomcompte"), objectifcm:get("objectifcm"),
-    contenu:get("contenu"), message:get("message"), description:get("description")
-  };
-  lockBtn(true);
-  setStatus("⏳ Création du lien de paiement Stripe…","loading");
-  try {
-    const res = await fetch("/.netlify/functions/create-payment",{
-      method:"POST",
-      headers:{"Content-Type":"application/json"},
-      body:JSON.stringify({amount:totalAmount, service_name:serviceName, options:optionsTxt, is_monthly:isMonthly})
-    });
-    const json = await res.json();
-    if(!res.ok||!json.url) throw new Error(json.error||`Erreur serveur ${res.status}`);
-    data.payment_link = json.url;
-    setStatus("✅ Lien créé — envoi de l'email…","ok");
-  } catch(err){
-    console.error("Netlify function error:",err);
-    lockBtn(false);
-    setStatus(`❌ Erreur : ${err.message}`,"error");
-    return;
-  }
-  try {
-    await Promise.all([
-      emailjs.send(SERVICE_ID, TEMPLATE_ADMIN,  data),
-      emailjs.send(SERVICE_ID, TEMPLATE_CLIENT, data)
-    ]);
+  const service=document.getElementById("service").value;
+  if(!service){alert("Choisis une offre");return}
+  const email=get("email");if(!email){alert("L\'email est obligatoire");return}
+  const serviceName=SERVICE_NAMES[service]||"",totalText=document.querySelector("#total .total-amt")?.textContent||"0€",totalAmount=parseInt(totalText)||0,isMonthly=service==="150",optionsTxt=getSelectedOptions();
+  const data={service_name:serviceName,service,total:totalText,options:optionsTxt,payment_link:"",prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),message:get("message"),description:get("description")};
+  lockBtn(true);setStatus("⏳ Création du lien de paiement Stripe…","loading");
+  try{
+    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:totalAmount,service_name:serviceName,options:optionsTxt,is_monthly:isMonthly})});
+    const json=await res.json();
+    if(!res.ok||!json.url)throw new Error(json.error||`Erreur serveur ${res.status}`);
+    data.payment_link=json.url;setStatus("✅ Lien créé — envoi de l\'email…","ok");
+  }catch(err){console.error("Netlify:",err);lockBtn(false);setStatus(`❌ Erreur : ${err.message}`,"error");return}
+  try{
+    await Promise.all([emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data),emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data)]);
     incrementOrder();
-    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button></div>`;
-  } catch(err){
-    console.error("EmailJS error:",err);
-    lockBtn(false);
-    setStatus("❌ Erreur lors de l'envoi de l'email (voir console)","error");
-  }
+    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:\'Space Grotesk\',sans-serif;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:\'Space Grotesk\',sans-serif;">Retour</button></div>`;
+  }catch(err){console.error("EmailJS:",err);lockBtn(false);setStatus("❌ Erreur envoi email","error")}
 }
 setBase();
-const obs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add("in");
-      obs.unobserve(e.target);
-      if(e.target.id==='orderCounterWrap') setTimeout(animateOrderCounter, 200);
-    }
-  });
-},{threshold:.07});
+const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target);if(e.target.id==="orderCounterWrap")setTimeout(animateOrderCounter,200)}})},{threshold:.07});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-
-const particlesContainer = document.getElementById("particles");
-function createParticle(){
-  const p = document.createElement("div");
-  p.className = "particle";
-  const size = Math.random()*6+4;
-  p.style.width = size+"px"; p.style.height = size+"px";
-  let x = Math.random()*window.innerWidth;
-  let y = Math.random()*window.innerHeight;
-  p.style.left = x+"px"; p.style.top = y+"px";
-  const blue = 180+Math.random()*75;
-  const violet = 150+Math.random()*60;
-  p.style.background = `radial-gradient(circle,rgba(${blue},230,255,1) 0%,rgba(${violet},150,255,.7) 60%,transparent 100%)`;
-  p.style.boxShadow = `0 0 10px rgba(120,190,255,.9),0 0 20px rgba(120,190,255,.5),0 0 35px rgba(170,120,255,.3)`;
-  particlesContainer.appendChild(p);
-  let angle = Math.random()*Math.PI*2;
-  let speed = 0.2+Math.random()*0.4;
-  function animate(){
-    angle += (Math.random()-.5)*.03;
-    x += Math.cos(angle)*speed; y += Math.sin(angle)*speed;
-    if(x<-20) x=window.innerWidth+20; if(x>window.innerWidth+20) x=-20;
-    if(y<-20) y=window.innerHeight+20; if(y>window.innerHeight+20) y=-20;
-    p.style.left=x+"px"; p.style.top=y+"px";
-    requestAnimationFrame(animate);
-  }
-  animate();
+const pc=document.getElementById("particles");
+function mkParticle(){
+  const p=document.createElement("div");p.className="particle";
+  const sz=Math.random()*6+4;p.style.width=sz+"px";p.style.height=sz+"px";
+  let x=Math.random()*window.innerWidth,y=Math.random()*window.innerHeight;
+  p.style.left=x+"px";p.style.top=y+"px";
+  const bl=180+Math.random()*75,vi=150+Math.random()*60;
+  p.style.background=`radial-gradient(circle,rgba(${bl},230,255,1) 0%,rgba(${vi},150,255,.7) 60%,transparent 100%)`;
+  p.style.boxShadow="0 0 10px rgba(120,190,255,.9),0 0 20px rgba(120,190,255,.5)";
+  pc.appendChild(p);
+  let angle=Math.random()*Math.PI*2,speed=.2+Math.random()*.4;
+  function anim(){angle+=(Math.random()-.5)*.03;x+=Math.cos(angle)*speed;y+=Math.sin(angle)*speed;if(x<-20)x=window.innerWidth+20;if(x>window.innerWidth+20)x=-20;if(y<-20)y=window.innerHeight+20;if(y>window.innerHeight+20)y=-20;p.style.left=x+"px";p.style.top=y+"px";requestAnimationFrame(anim)}
+  anim();
 }
-for(let i=0;i<6;i++) createParticle();
-
-/* ===== COMPTEUR DE COMMANDES ===== */
-const ORDER_BASE = 143;
-let orderCount;
-try { orderCount = Math.max(ORDER_BASE, parseInt(localStorage.getItem('swl_orders'))||ORDER_BASE); }
-catch(e){ orderCount = ORDER_BASE; }
+for(let i=0;i<6;i++)mkParticle();
+const ORDER_BASE=143;
+let orderCount;try{orderCount=Math.max(ORDER_BASE,parseInt(localStorage.getItem("swl_orders"))||ORDER_BASE)}catch(e){orderCount=ORDER_BASE}
 function animateOrderCounter(){
-  const el = document.getElementById('orderCountNum');
-  if(!el) return;
-  const target = orderCount;
-  const start = Math.max(0, target-12);
-  const dur = 1400;
-  const t0 = performance.now();
-  function step(now){
-    const p = Math.min((now-t0)/dur,1);
-    const e = 1-Math.pow(1-p,3);
-    el.textContent = Math.round(start+(target-start)*e);
-    if(p<1) requestAnimationFrame(step);
-  }
+  const el=document.getElementById("orderCountNum");if(!el)return;
+  const target=orderCount,start=Math.max(0,target-12),dur=1400,t0=performance.now();
+  function step(now){const p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(start+(target-start)*e);if(p<1)requestAnimationFrame(step)}
   requestAnimationFrame(step);
 }
 function incrementOrder(){
-  orderCount++;
-  try{ localStorage.setItem('swl_orders', orderCount); }catch(e){}
-  const el = document.getElementById('orderCountNum');
-  if(el){
-    el.textContent = orderCount;
-    el.style.color = '#57e389';
-    setTimeout(()=>{ el.style.color=''; },1400);
-  }
+  orderCount++;try{localStorage.setItem("swl_orders",orderCount)}catch(e){}
+  const el=document.getElementById("orderCountNum");
+  if(el){el.textContent=orderCount;el.style.color="#57e389";setTimeout(()=>{el.style.color=""},1400)}
 }
+'''
 
-/* ===== SOCIAL PROOF TOAST ===== */
-const toastData = [
-  {nm:"Jean-Pierre M.",ac:"Site Premium",tm:"il y a 23 min",av:"JP"},
-  {nm:"Samira K.",ac:"Ultra Premium",tm:"il y a 1h",av:"SK"},
-  {nm:"Thomas B.",ac:"Site Vitrine",tm:"il y a 2h",av:"TB"},
-  {nm:"Marie-Laure V.",ac:"Community Management",tm:"il y a 4h",av:"MV"},
-  {nm:"Antoine D.",ac:"Site Premium",tm:"il y a 5h",av:"AD"},
-  {nm:"Claire F.",ac:"Ultra Premium",tm:"il y a 1 jour",av:"CF"},
-  {nm:"Maxime R.",ac:"Site Vitrine",tm:"il y a 1 jour",av:"MR"},
-  {nm:"Isabelle C.",ac:"Site Premium",tm:"il y a 2 jours",av:"IC"},
-  {nm:"Karim B.",ac:"Ultra Premium",tm:"il y a 2 jours",av:"KB"},
-  {nm:"Sophie N.",ac:"Community Management",tm:"il y a 3 jours",av:"SN"},
-  {nm:"Léa T.",ac:"Site Vitrine",tm:"il y a 3 jours",av:"LT"},
-  {nm:"Pierre M.",ac:"Site Premium",tm:"il y a 4 jours",av:"PM"}
-];
-let toastIdx = Math.floor(Math.random()*toastData.length);
-function showToast(){
-  const d = toastData[toastIdx%toastData.length]; toastIdx++;
-  const toast = document.getElementById('socialToast');
-  document.getElementById('toastAv').textContent = d.av;
-  document.getElementById('toastNm').textContent = d.nm;
-  document.getElementById('toastAc').textContent = 'a commandé '+d.ac;
-  document.getElementById('toastTm').textContent = d.tm;
-  toast.classList.add('show');
-  setTimeout(()=>{
-    toast.classList.remove('show');
-    setTimeout(showToast, 28000+Math.random()*22000);
-  },5000);
-}
-setTimeout(showToast, 8000+Math.random()*6000);
-
-/* ===== DONNÉES PORTFOLIO ===== */
-const portfolioData = {
-  vitrine: [
-    {
-      name:"Martin Plomberie", url:"martin-plomberie.fr", tag:"Artisan local",
-      html:`<div style="font-family:Inter,sans-serif;background:#0b1a2e;min-height:100%"><div style="background:#0d1f3c;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #ff6b35"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;background:#ff6b35;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px">🔧</div><div><div style="color:#fff;font-weight:700;font-size:10px">MARTIN PLOMBERIE</div><div style="color:rgba(255,255,255,.4);font-size:7px">Île-de-France • 24h/24</div></div></div><div style="background:#ff6b35;color:#fff;padding:5px 10px;border-radius:6px;font-size:8px;font-weight:700">📞 Urgence</div></div><div style="background:linear-gradient(160deg,#0f2440,#0b1a2e);padding:18px 14px"><div style="font-size:7px;color:#ff6b35;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">🏆 Certifié RGE</div><div style="color:#fff;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:6px">Votre plombier<br>de confiance</div><div style="color:rgba(255,255,255,.5);font-size:7.5px;margin-bottom:12px">Intervention en 1h • Devis gratuit • Garantie 2 ans</div><div style="display:flex;gap:8px"><div style="background:#ff6b35;color:#fff;padding:6px 12px;border-radius:7px;font-size:8px;font-weight:700">📞 Urgence 24h/24</div><div style="border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:6px 12px;border-radius:7px;font-size:8px">Devis gratuit</div></div></div><div style="padding:12px 14px;background:#0b1a2e"><div style="font-size:7px;color:#ff6b35;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Nos services</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px"><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,107,53,.18);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">🚰</div><div style="color:#fff;font-size:8px;font-weight:700">Fuites & Dépannage</div><div style="color:rgba(255,255,255,.4);font-size:6.5px">Intervention 1h</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,107,53,.18);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">🛁</div><div style="color:#fff;font-size:8px;font-weight:700">Salle de bain</div><div style="color:rgba(255,255,255,.4);font-size:6.5px">Rénovation complète</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,107,53,.18);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">🔥</div><div style="color:#fff;font-size:8px;font-weight:700">Chaudière</div><div style="color:rgba(255,255,255,.4);font-size:6.5px">Entretien & install.</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,107,53,.18);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">⭐</div><div style="color:#fff;font-size:8px;font-weight:700">+200 avis 5★</div><div style="color:rgba(255,255,255,.4);font-size:6.5px">Note: 4.9/5</div></div></div><div style="background:rgba(255,107,53,.08);border:1px solid rgba(255,107,53,.15);border-radius:7px;padding:8px 10px"><div style="color:#ffd700;font-size:8px;margin-bottom:3px">★★★★★</div><div style="font-size:7.5px;color:rgba(255,255,255,.7);font-style:italic">"Intervention rapide, travail soigné. Je recommande !"</div><div style="font-size:6.5px;color:rgba(255,255,255,.3);margin-top:3px">— Sophie T., Levallois-Perret</div></div></div><div style="background:#060f1d;padding:8px 14px;display:flex;justify-content:space-between"><div style="color:rgba(255,255,255,.2);font-size:6px">© 2024 Martin Plomberie • 92600</div><div style="color:#ff6b35;font-size:7px;font-weight:600">Zones: 92·75·78</div></div></div>`
-    },
-    {
-      name:"Boulangerie du Moulin", url:"boulangerie-du-moulin.fr", tag:"Commerce local",
-      html:`<div style="font-family:Inter,sans-serif;background:#faf4e8;min-height:100%"><div style="background:#3d2212;padding:10px 14px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><div style="font-size:18px">🥖</div><div><div style="color:#f5c842;font-weight:700;font-size:10px;letter-spacing:.04em">BOULANGERIE DU MOULIN</div><div style="color:rgba(245,200,66,.5);font-size:7px">Artisanale depuis 1987</div></div></div><div style="background:#f5c842;color:#3d2212;padding:5px 10px;border-radius:6px;font-size:8px;font-weight:700">Horaires</div></div><div style="background:linear-gradient(160deg,#5c3317,#3d2212);padding:18px 14px;position:relative;overflow:hidden"><div style="position:absolute;right:-20px;top:-20px;width:100px;height:100px;background:rgba(245,200,66,.08);border-radius:50%"></div><div style="font-size:7px;color:#f5c842;letter-spacing:.1em;margin-bottom:5px">Fait maison chaque matin</div><div style="color:#faf4e8;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:6px">Le pain comme<br>avant-hier</div><div style="color:rgba(250,244,232,.5);font-size:7.5px;margin-bottom:12px">Farines bio • Levain naturel • Cuisson au feu de bois</div><div style="display:flex;gap:8px"><div style="background:#f5c842;color:#3d2212;padding:6px 12px;border-radius:7px;font-size:8px;font-weight:700">📍 Nous trouver</div><div style="border:1px solid rgba(250,244,232,.25);color:rgba(250,244,232,.8);padding:6px 12px;border-radius:7px;font-size:8px">Commander</div></div></div><div style="padding:12px 14px;background:#faf4e8"><div style="font-size:7px;color:#7a4a2e;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:700">Nos spécialités</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px"><div style="background:#fff;border-radius:7px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08)"><div style="font-size:16px;margin-bottom:3px">🥖</div><div style="color:#3d2212;font-size:7.5px;font-weight:700">Pain Bio</div><div style="color:#9a7a5e;font-size:6.5px">3,20€</div></div><div style="background:#fff;border-radius:7px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08)"><div style="font-size:16px;margin-bottom:3px">🥐</div><div style="color:#3d2212;font-size:7.5px;font-weight:700">Viennoiseries</div><div style="color:#9a7a5e;font-size:6.5px">dès 1,40€</div></div><div style="background:#fff;border-radius:7px;padding:8px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.08)"><div style="font-size:16px;margin-bottom:3px">🎂</div><div style="color:#3d2212;font-size:7.5px;font-weight:700">Pâtisseries</div><div style="color:#9a7a5e;font-size:6.5px">sur commande</div></div></div><div style="background:#fff;border-radius:8px;padding:10px 12px;border-left:3px solid #f5c842;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="color:#3d2212;font-size:8px;font-weight:700;margin-bottom:4px">🕐 Horaires d'ouverture</div><div style="display:flex;justify-content:space-between;margin-bottom:2px"><div style="font-size:7px;color:#7a4a2e">Lun–Ven</div><div style="font-size:7px;color:#3d2212;font-weight:600">6h30 – 20h00</div></div><div style="display:flex;justify-content:space-between"><div style="font-size:7px;color:#7a4a2e">Sam–Dim</div><div style="font-size:7px;color:#3d2212;font-weight:600">6h30 – 14h00</div></div></div></div><div style="background:#3d2212;padding:8px 14px;text-align:center"><div style="color:rgba(245,200,66,.4);font-size:6px">📍 12 Rue du Moulin, 63000 Clermont-Ferrand</div></div></div>`
-    },
-    {
-      name:"Studio Léane Coiffure", url:"studio-leane-coiffure.fr", tag:"Salon de beauté",
-      html:`<div style="font-family:Inter,sans-serif;background:#0a0a0a;min-height:100%"><div style="background:#111;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,77,139,.2)"><div><div style="color:#fff;font-weight:700;font-size:11px;letter-spacing:.12em">LÉANE COIFFURE</div><div style="color:rgba(255,255,255,.3);font-size:7px;letter-spacing:.04em">Studio • Rouen</div></div><div style="background:#ff4d8b;color:#fff;padding:5px 12px;border-radius:20px;font-size:8px;font-weight:700">Réserver</div></div><div style="background:linear-gradient(160deg,#111,#0a0a0a);padding:22px 14px;text-align:center"><div style="display:inline-block;border:1px solid rgba(255,77,139,.3);border-radius:20px;padding:3px 10px;font-size:7px;color:#ff4d8b;letter-spacing:.1em;margin-bottom:10px">STUDIO DE COIFFURE</div><div style="color:#fff;font-size:16px;font-weight:700;line-height:1.2;margin-bottom:8px">Révélez votre<br>beauté naturelle</div><div style="color:rgba(255,255,255,.4);font-size:7.5px;margin-bottom:14px">Colorations végétales • Coupes tendances • Soins kératine</div><div style="background:#ff4d8b;color:#fff;display:inline-block;padding:7px 20px;border-radius:20px;font-size:8.5px;font-weight:700">📅 Prendre RDV</div></div><div style="padding:12px 14px"><div style="font-size:7px;color:#ff4d8b;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;font-weight:600">Nos prestations</div><div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px"><div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:7px;padding:8px 12px"><div><div style="color:#fff;font-size:8px;font-weight:600">Coupe Femme</div><div style="color:rgba(255,255,255,.3);font-size:6.5px">Shampoing, coupe, coiffage</div></div><div style="color:#ff4d8b;font-size:9px;font-weight:700">45€</div></div><div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:7px;padding:8px 12px"><div><div style="color:#fff;font-size:8px;font-weight:600">Coloration végétale</div><div style="color:rgba(255,255,255,.3);font-size:6.5px">100% naturelle, longue durée</div></div><div style="color:#ff4d8b;font-size:9px;font-weight:700">75€</div></div><div style="display:flex;justify-content:space-between;align-items:center;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:7px;padding:8px 12px"><div><div style="color:#fff;font-size:8px;font-weight:600">Soin Kératine</div><div style="color:rgba(255,255,255,.3);font-size:6.5px">Lissage & brillance durable</div></div><div style="color:#ff4d8b;font-size:9px;font-weight:700">120€</div></div></div><div style="background:rgba(255,77,139,.08);border:1px solid rgba(255,77,139,.2);border-radius:7px;padding:8px 10px;text-align:center"><div style="color:#ff4d8b;font-size:8px;font-weight:700;margin-bottom:2px">★★★★★ 4.8/5</div><div style="color:rgba(255,255,255,.5);font-size:7px;font-style:italic">"Léane est une vraie artiste ! Je repars toujours ravie."</div></div></div><div style="background:#111;padding:8px 14px;text-align:center;border-top:1px solid rgba(255,255,255,.05)"><div style="color:rgba(255,255,255,.2);font-size:6px">© 2024 Studio Léane Coiffure • 76000 Rouen</div></div></div>`
-    },
-    {
-      name:"Renard Électricité", url:"renard-electricite.fr", tag:"Artisan qualifié",
-      html:`<div style="font-family:Inter,sans-serif;background:#0e0e1a;min-height:100%"><div style="background:#161622;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #ffc107"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;background:#ffc107;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px">⚡</div><div><div style="color:#fff;font-weight:700;font-size:10px">RENARD ÉLECTRICITÉ</div><div style="color:rgba(255,255,255,.35);font-size:7px">Grenoble • Qualifelec</div></div></div><div style="background:#ffc107;color:#0e0e1a;padding:5px 10px;border-radius:6px;font-size:8px;font-weight:700">📞 Appeler</div></div><div style="background:linear-gradient(160deg,#1a1a28,#0e0e1a);padding:18px 14px"><div style="font-size:7px;color:#ffc107;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">⚡ Qualifié Qualifelec</div><div style="color:#fff;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:6px">Électricien<br>de confiance</div><div style="color:rgba(255,255,255,.45);font-size:7.5px;margin-bottom:12px">Mise aux normes • Dépannage • Rénovation électrique</div><div style="display:flex;gap:8px"><div style="background:#ffc107;color:#0e0e1a;padding:6px 12px;border-radius:7px;font-size:8px;font-weight:700">⚡ Urgence 24h/24</div><div style="border:1px solid rgba(255,255,255,.2);color:rgba(255,255,255,.8);padding:6px 12px;border-radius:7px;font-size:8px">Devis gratuit</div></div></div><div style="padding:12px 14px"><div style="font-size:7px;color:#ffc107;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Nos services</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px"><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,193,7,.15);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">🔌</div><div style="color:#fff;font-size:8px;font-weight:700">Tableau Élec.</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">Mise aux normes</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,193,7,.15);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">💡</div><div style="color:#fff;font-size:8px;font-weight:700">Éclairage LED</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">& domotique</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,193,7,.15);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">🏠</div><div style="color:#fff;font-size:8px;font-weight:700">Rénovation</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">Neuf & ancien</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,193,7,.15);border-radius:7px;padding:8px"><div style="font-size:14px;margin-bottom:3px">⚡</div><div style="color:#fff;font-size:8px;font-weight:700">Dépannage</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">Intervention 2h</div></div></div><div style="background:rgba(255,193,7,.08);border:1px solid rgba(255,193,7,.15);border-radius:7px;padding:8px 10px;text-align:center"><div style="color:#ffc107;font-size:8px;font-weight:700">✅ Devis gratuit en 24h</div><div style="color:rgba(255,255,255,.4);font-size:7px;margin-top:2px">Zones: Grenoble, Voiron, Vif, Vizille</div></div></div><div style="background:#0a0a14;padding:8px 14px;display:flex;justify-content:space-between"><div style="color:rgba(255,255,255,.2);font-size:6px">© 2024 Renard Électricité • 38000</div><div style="color:#ffc107;font-size:7px;font-weight:600">Qualifelec ✓</div></div></div>`
-    },
-    {
-      name:"Lefèvre Peinture", url:"lefevre-peinture.fr", tag:"Artisan peintre",
-      html:`<div style="font-family:Inter,sans-serif;background:#f8faff;min-height:100%"><div style="background:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #2b9de8;box-shadow:0 1px 4px rgba(0,0,0,.06)"><div style="display:flex;align-items:center;gap:8px"><div style="width:26px;height:26px;background:#2b9de8;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px">🎨</div><div><div style="color:#1a2035;font-weight:700;font-size:10px">LEFÈVRE PEINTURE</div><div style="color:#888;font-size:7px">Artisan qualifié • Bordeaux</div></div></div><div style="background:#2b9de8;color:#fff;padding:5px 10px;border-radius:6px;font-size:8px;font-weight:700">Devis gratuit</div></div><div style="background:linear-gradient(160deg,#e8f4ff,#f0f8ff);padding:18px 14px"><div style="font-size:7px;color:#2b9de8;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">🏆 Artisan Qualibat</div><div style="color:#1a2035;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:6px">Peinture intérieure<br>& extérieure</div><div style="color:#666;font-size:7.5px;margin-bottom:12px">Particuliers & professionnels • Devis rapide • Travaux soignés</div><div style="display:flex;gap:8px"><div style="background:#2b9de8;color:#fff;padding:6px 12px;border-radius:7px;font-size:8px;font-weight:700">📋 Devis gratuit</div><div style="border:1px solid #dde8f5;color:#1a2035;padding:6px 12px;border-radius:7px;font-size:8px;background:#fff">📞 Appeler</div></div></div><div style="padding:12px 14px"><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px"><div style="background:#fff;border:1px solid #e8f0f8;border-radius:8px;padding:9px;box-shadow:0 2px 6px rgba(0,0,0,.05)"><div style="font-size:14px;margin-bottom:3px">🏠</div><div style="color:#1a2035;font-size:8px;font-weight:700">Intérieur</div><div style="color:#888;font-size:6.5px;margin-top:1px">Chambres, salon, cuisine</div></div><div style="background:#fff;border:1px solid #e8f0f8;border-radius:8px;padding:9px;box-shadow:0 2px 6px rgba(0,0,0,.05)"><div style="font-size:14px;margin-bottom:3px">🏢</div><div style="color:#1a2035;font-size:8px;font-weight:700">Extérieur</div><div style="color:#888;font-size:6.5px;margin-top:1px">Façades & ravalement</div></div><div style="background:#fff;border:1px solid #e8f0f8;border-radius:8px;padding:9px;box-shadow:0 2px 6px rgba(0,0,0,.05)"><div style="font-size:14px;margin-bottom:3px">🛠</div><div style="color:#1a2035;font-size:8px;font-weight:700">Rénovation</div><div style="color:#888;font-size:6.5px;margin-top:1px">Avant/après garanti</div></div><div style="background:#fff;border:1px solid #e8f0f8;border-radius:8px;padding:9px;box-shadow:0 2px 6px rgba(0,0,0,.05)"><div style="font-size:14px;margin-bottom:3px">✅</div><div style="color:#1a2035;font-size:8px;font-weight:700">Garantie décennale</div><div style="color:#888;font-size:6.5px;margin-top:1px">Assurance incluse</div></div></div><div style="background:#f0f8ff;border:1px solid #dde8f8;border-radius:8px;padding:8px 12px"><div style="color:#2b9de8;font-size:8px;font-weight:700;margin-bottom:3px">★★★★★ Excellent travail !</div><div style="font-size:7px;color:#666;font-style:italic">"Lefèvre Peinture a transformé notre appartement. Propre, soigné et dans les délais."</div><div style="font-size:6.5px;color:#aaa;margin-top:2px">— Pierre D., Bordeaux</div></div></div><div style="background:#fff;border-top:1px solid #e8edf5;padding:8px 14px;text-align:center"><div style="color:#aaa;font-size:6px">© 2024 Lefèvre Peinture • 33000 Bordeaux • Artisan Qualibat</div></div></div>`
-    }
-  ],
-  premium: [
-    {
-      name:"Cabinet Dr. Morin Dentiste", url:"cabinet-dr-morin.fr", tag:"Cabinet médical",
-      html:`<div style="font-family:Inter,sans-serif;background:#fff;min-height:100%"><div style="background:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid #0ea5a0;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="display:flex;align-items:center;gap:8px"><div style="width:28px;height:28px;background:#0ea5a0;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px">🦷</div><div><div style="color:#0d2035;font-weight:700;font-size:10px;letter-spacing:.03em">CABINET DR. MORIN</div><div style="color:#888;font-size:7px">Dentiste • Nantes</div></div></div><div style="background:#0ea5a0;color:#fff;padding:5px 10px;border-radius:6px;font-size:8px;font-weight:700">Prendre RDV</div></div><div style="background:linear-gradient(160deg,#e8f8f8,#f0fafa);padding:18px 14px"><div style="font-size:7px;color:#0ea5a0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Docteur Caroline Morin</div><div style="color:#0d2035;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:6px">Votre sourire,<br>notre priorité</div><div style="color:#666;font-size:7.5px;margin-bottom:12px">Soins conservateurs • Implantologie • Orthodontie invisible</div><div style="display:flex;gap:8px"><div style="background:#0ea5a0;color:#fff;padding:7px 14px;border-radius:7px;font-size:8px;font-weight:700">📅 RDV en ligne</div><div style="border:1px solid #cce8e8;color:#0d2035;padding:7px 12px;border-radius:7px;font-size:8px">Urgences</div></div></div><div style="padding:12px 14px"><div style="font-size:7px;color:#0ea5a0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Nos soins</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:10px"><div style="background:#f0fafa;border:1px solid #cce8e8;border-radius:8px;padding:9px;text-align:center"><div style="font-size:14px;margin-bottom:3px">😁</div><div style="color:#0d2035;font-size:7.5px;font-weight:700">Blanchiment</div><div style="color:#888;font-size:6px;margin-top:1px">dès 280€</div></div><div style="background:#f0fafa;border:1px solid #cce8e8;border-radius:8px;padding:9px;text-align:center"><div style="font-size:14px;margin-bottom:3px">🦷</div><div style="color:#0d2035;font-size:7.5px;font-weight:700">Implants</div><div style="color:#888;font-size:6px;margin-top:1px">Consultation offerte</div></div><div style="background:#f0fafa;border:1px solid #cce8e8;border-radius:8px;padding:9px;text-align:center"><div style="font-size:14px;margin-bottom:3px">😬</div><div style="color:#0d2035;font-size:7.5px;font-weight:700">Orthodontie</div><div style="color:#888;font-size:6px;margin-top:1px">Enfants & adultes</div></div></div><div style="margin-bottom:10px"><div style="font-size:7px;color:#0ea5a0;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Notre équipe</div><div style="display:flex;gap:10px"><div style="text-align:center;flex:1"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0ea5a0,#0d8080);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff">👩‍⚕️</div><div style="font-size:7px;color:#0d2035;font-weight:600">Dr. Morin</div><div style="font-size:6px;color:#888">Dentiste</div></div><div style="text-align:center;flex:1"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0ea5a0,#0d8080);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff">👨‍⚕️</div><div style="font-size:7px;color:#0d2035;font-weight:600">Dr. Leclerc</div><div style="font-size:6px;color:#888">Orthodontiste</div></div><div style="text-align:center;flex:1"><div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#0ea5a0,#0d8080);margin:0 auto 4px;display:flex;align-items:center;justify-content:center;font-size:16px;color:#fff">👩‍⚕️</div><div style="font-size:7px;color:#0d2035;font-weight:600">Mme Torres</div><div style="font-size:6px;color:#888">Assistante</div></div></div></div><div style="background:#f0fafa;border:1px solid #cce8e8;border-radius:8px;padding:8px 10px;text-align:center"><div style="color:#0ea5a0;font-size:8px;font-weight:700">⭐ 4.9/5 • 312 avis Google</div><div style="color:#888;font-size:6.5px;margin-top:1px">"Équipe professionnelle, soins indolores, top !"</div></div></div><div style="background:#0d2035;padding:8px 14px;display:flex;justify-content:space-between"><div style="color:rgba(255,255,255,.3);font-size:6px">© 2024 Cabinet Dr. Morin • 44000 Nantes</div><div style="color:#0ea5a0;font-size:7px;font-weight:600">Secteur 1 ✓</div></div></div>`
-    },
-    {
-      name:"Prestige Immobilier", url:"prestige-immobilier.fr", tag:"Agence immo",
-      html:`<div style="font-family:Inter,sans-serif;background:#0d1b35;min-height:100%"><div style="background:#0a1628;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,175,55,.2)"><div><div style="color:#d4af37;font-weight:700;font-size:10px;letter-spacing:.12em">PRESTIGE IMMOBILIER</div><div style="color:rgba(255,255,255,.3);font-size:7px;letter-spacing:.04em">Paris & Île-de-France</div></div><div style="border:1px solid rgba(212,175,55,.4);color:#d4af37;padding:5px 12px;border-radius:4px;font-size:8px;font-weight:700">Nos biens</div></div><div style="background:linear-gradient(160deg,#0f2240,#0d1b35);padding:18px 14px"><div style="font-size:7px;color:#d4af37;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Depuis 2008</div><div style="color:#fff;font-size:16px;font-weight:700;line-height:1.2;margin-bottom:7px">L'immobilier<br>de prestige</div><div style="color:rgba(255,255,255,.45);font-size:7.5px;margin-bottom:12px">Transaction • Location • Gestion de patrimoine</div><div style="display:flex;gap:8px"><div style="background:#d4af37;color:#0d1b35;padding:7px 14px;border-radius:4px;font-size:8px;font-weight:700">Estimer mon bien</div><div style="border:1px solid rgba(212,175,55,.25);color:rgba(255,255,255,.7);padding:7px 12px;border-radius:4px;font-size:8px">Contact</div></div></div><div style="padding:12px 14px"><div style="font-size:7px;color:#d4af37;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Biens en exclusivité</div><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px"><div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.15);border-radius:8px;padding:9px;display:flex;gap:8px;align-items:center"><div style="width:40px;height:40px;border-radius:6px;background:linear-gradient(135deg,#1a3058,#263d6e);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🏙</div><div style="flex:1"><div style="color:#fff;font-size:8px;font-weight:700">Appartement T4 • Paris 16e</div><div style="color:rgba(255,255,255,.4);font-size:6.5px">120m² • Vue dégagée • Cave</div></div><div style="color:#d4af37;font-size:9px;font-weight:700">1,2M€</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.15);border-radius:8px;padding:9px;display:flex;gap:8px;align-items:center"><div style="width:40px;height:40px;border-radius:6px;background:linear-gradient(135deg,#1a4030,#266050);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🏡</div><div style="flex:1"><div style="color:#fff;font-size:8px;font-weight:700">Maison de caractère • Versailles</div><div style="color:rgba(255,255,255,.4);font-size:6.5px">280m² • Jardin 800m² • Piscine</div></div><div style="color:#d4af37;font-size:9px;font-weight:700">2,4M€</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.15);border-radius:8px;padding:9px;display:flex;gap:8px;align-items:center"><div style="width:40px;height:40px;border-radius:6px;background:linear-gradient(135deg,#2a1a40,#3d2860);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🏢</div><div style="flex:1"><div style="color:#fff;font-size:8px;font-weight:700">Loft industriel • Marais</div><div style="color:rgba(255,255,255,.4);font-size:6.5px">95m² • Terrasse 30m² • DPE A</div></div><div style="color:#d4af37;font-size:9px;font-weight:700">890K€</div></div></div><div style="background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.15);border-radius:7px;padding:8px 12px;text-align:center"><div style="color:#d4af37;font-size:8px;font-weight:700">+840 biens vendus • 12 ans d'expertise</div><div style="color:rgba(255,255,255,.35);font-size:6.5px;margin-top:1px">Accompagnement personnalisé de A à Z</div></div></div><div style="background:#080f1f;padding:8px 14px;text-align:center"><div style="color:rgba(212,175,55,.3);font-size:6px">© 2024 Prestige Immobilier • Paris & IDF</div></div></div>`
-    },
-    {
-      name:"Studio Bertrand Architectes", url:"studio-bertrand-archi.fr", tag:"Architecture",
-      html:`<div style="font-family:Inter,sans-serif;background:#fafafa;min-height:100%"><div style="background:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #e8e8e8"><div><div style="color:#111;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase">STUDIO BERTRAND</div><div style="color:#999;font-size:7px;letter-spacing:.05em">Architecture & Design • Strasbourg</div></div><div style="border:1px solid #111;color:#111;padding:5px 12px;border-radius:2px;font-size:8px;font-weight:700;letter-spacing:.04em">Contact</div></div><div style="position:relative;background:#111;padding:22px 14px;overflow:hidden"><div style="position:absolute;right:0;top:0;width:80px;height:80px;border-left:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)"></div><div style="font-size:7px;color:rgba(255,255,255,.4);letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Architecture d'intérieur</div><div style="color:#fff;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:8px">Former l'espace,<br>révéler la lumière</div><div style="border:1px solid rgba(255,255,255,.3);color:#fff;display:inline-block;padding:6px 14px;border-radius:2px;font-size:8px;font-weight:600;letter-spacing:.04em">Voir nos projets</div></div><div style="padding:12px 14px;background:#fafafa"><div style="font-size:7px;color:#999;letter-spacing:.12em;text-transform:uppercase;margin-bottom:10px">Réalisations</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:10px"><div style="background:linear-gradient(135deg,#c8d0d8,#b0bac8);aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px">🏠</div><div style="background:linear-gradient(135deg,#b8c0c8,#a0aab8);aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px">🏢</div><div style="background:linear-gradient(135deg,#c0c8b8,#a8b8a8);aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px">🌿</div><div style="background:linear-gradient(135deg,#d8c8b8,#c0b0a0);aspect-ratio:1;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:20px">🪑</div></div><div style="display:flex;gap:12px;padding:10px 0;border-top:1px solid #e8e8e8;border-bottom:1px solid #e8e8e8;margin-bottom:10px"><div style="text-align:center;flex:1"><div style="font-size:14px;font-weight:700;color:#111">48</div><div style="font-size:6.5px;color:#999">projets livrés</div></div><div style="text-align:center;flex:1;border-left:1px solid #e8e8e8"><div style="font-size:14px;font-weight:700;color:#111">12</div><div style="font-size:6.5px;color:#999">ans expérience</div></div><div style="text-align:center;flex:1;border-left:1px solid #e8e8e8"><div style="font-size:14px;font-weight:700;color:#111">5★</div><div style="font-size:6.5px;color:#999">note moyenne</div></div></div><div style="font-size:7px;color:#666;font-style:italic;text-align:center;line-height:1.5">"Bertrand a entièrement conçu notre maison. Résultat époustouflant."</div></div><div style="background:#111;padding:8px 14px;text-align:center"><div style="color:rgba(255,255,255,.25);font-size:6px">© 2024 Studio Bertrand Architectes • 67000 Strasbourg</div></div></div>`
-    },
-    {
-      name:"MoveCoaching", url:"movecoaching.fr", tag:"Coaching & Fitness",
-      html:`<div style="font-family:Inter,sans-serif;background:#0a0a0a;min-height:100%"><div style="background:#111;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,69,0,.2)"><div style="display:flex;align-items:center;gap:6px"><div style="width:26px;height:26px;background:#ff4500;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:13px">💪</div><div><div style="color:#fff;font-weight:700;font-size:11px;letter-spacing:.06em">MOVECOACHING</div><div style="color:rgba(255,255,255,.35);font-size:7px">Coach certifié BPJEPS</div></div></div><div style="background:#ff4500;color:#fff;padding:5px 12px;border-radius:5px;font-size:8px;font-weight:700">Démarrer</div></div><div style="background:linear-gradient(160deg,#1a0a0a,#0a0a0a);padding:18px 14px;position:relative;overflow:hidden"><div style="position:absolute;right:-10px;top:0;width:80px;height:80px;background:radial-gradient(circle,rgba(255,69,0,.2),transparent 70%)"></div><div style="font-size:7px;color:#ff4500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px">Transformation garantie</div><div style="color:#fff;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:6px">Forge ton corps,<br>libère ton mental</div><div style="color:rgba(255,255,255,.45);font-size:7.5px;margin-bottom:12px">Coaching sportif personnalisé • Nutrition • Suivi hebdo</div><div style="display:flex;gap:8px"><div style="background:#ff4500;color:#fff;padding:7px 14px;border-radius:5px;font-size:8px;font-weight:700">🔥 Consultation offerte</div><div style="border:1px solid rgba(255,69,0,.3);color:rgba(255,255,255,.7);padding:7px 12px;border-radius:5px;font-size:8px">Résultats</div></div></div><div style="padding:12px 14px"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:10px"><div style="text-align:center;border:1px solid rgba(255,69,0,.2);border-radius:8px;padding:9px;background:rgba(255,69,0,.05)"><div style="color:#ff4500;font-size:15px;font-weight:700">-12kg</div><div style="color:rgba(255,255,255,.4);font-size:6.5px;margin-top:2px">perte moyenne</div></div><div style="text-align:center;border:1px solid rgba(255,69,0,.2);border-radius:8px;padding:9px;background:rgba(255,69,0,.05)"><div style="color:#ff4500;font-size:15px;font-weight:700">3 mois</div><div style="color:rgba(255,255,255,.4);font-size:6.5px;margin-top:2px">pour transformer</div></div><div style="text-align:center;border:1px solid rgba(255,69,0,.2);border-radius:8px;padding:9px;background:rgba(255,69,0,.05)"><div style="color:#ff4500;font-size:15px;font-weight:700">97%</div><div style="color:rgba(255,255,255,.4);font-size:6.5px;margin-top:2px">satisfaits</div></div></div><div style="font-size:7px;color:#ff4500;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Programmes</div><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px"><div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:7px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:8px;font-weight:600">Starter Pack</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">4 semaines • 8 séances</div></div><div style="color:#ff4500;font-size:9px;font-weight:700">249€</div></div><div style="background:rgba(255,69,0,.08);border:1px solid rgba(255,69,0,.25);border-radius:7px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#fff;font-size:8px;font-weight:600">Transformation 3 mois</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">12 sem. • coaching + nutrition</div></div><div style="color:#ff4500;font-size:9px;font-weight:700">590€</div></div></div><div style="background:rgba(255,69,0,.08);border:1px solid rgba(255,69,0,.2);border-radius:7px;padding:8px 10px;text-align:center"><div style="color:rgba(255,255,255,.6);font-size:7.5px;font-style:italic">"En 3 mois avec Antoine, j'ai perdu 14kg et retrouvé confiance en moi."</div><div style="color:#ff4500;font-size:7px;font-weight:600;margin-top:2px">— Laura M.</div></div></div><div style="background:#080808;padding:8px 14px;text-align:center"><div style="color:rgba(255,255,255,.15);font-size:6px">© 2024 MoveCoaching • Lyon • Antoine Durand BPJEPS</div></div></div>`
-    },
-    {
-      name:"Restaurant Le Jardin", url:"restaurant-le-jardin.fr", tag:"Restaurant gastronomique",
-      html:`<div style="font-family:Inter,sans-serif;background:#0a1f0e;min-height:100%"><div style="background:#0d2412;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,175,55,.2)"><div><div style="color:#f5e8c8;font-weight:700;font-size:11px;letter-spacing:.1em">RESTAURANT LE JARDIN</div><div style="color:rgba(212,175,55,.5);font-size:7px;letter-spacing:.05em">Cuisine Française • Bordeaux</div></div><div style="border:1px solid rgba(212,175,55,.35);color:#d4af37;padding:5px 10px;border-radius:4px;font-size:8px;font-weight:700">Réserver</div></div><div style="background:linear-gradient(160deg,#132e18,#0a1f0e);padding:22px 14px;position:relative;overflow:hidden"><div style="position:absolute;right:0;top:0;bottom:0;width:40px;background:linear-gradient(to left,rgba(212,175,55,.03),transparent)"></div><div style="font-size:7px;color:#d4af37;letter-spacing:.15em;text-transform:uppercase;margin-bottom:6px">Gastronomie française</div><div style="color:#f5e8c8;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:7px">L'art du bien<br>manger</div><div style="color:rgba(245,232,200,.4);font-size:7.5px;margin-bottom:14px">Produits du terroir • Chef étoilé • Cave à vins</div><div style="display:flex;gap:8px"><div style="background:#d4af37;color:#0a1f0e;padding:7px 14px;border-radius:4px;font-size:8px;font-weight:700">📅 Réserver une table</div><div style="border:1px solid rgba(245,232,200,.2);color:rgba(245,232,200,.7);padding:7px 12px;border-radius:4px;font-size:8px">Notre carte</div></div></div><div style="padding:12px 14px"><div style="font-size:7px;color:#d4af37;letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Notre carte</div><div style="display:flex;flex-direction:column;gap:6px;margin-bottom:10px"><div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><div style="color:#f5e8c8;font-size:8.5px;font-weight:600">Foie gras de canard</div><div style="color:rgba(245,232,200,.35);font-size:6.5px">Chutney de figues maison</div></div><div style="color:#d4af37;font-size:9px;font-weight:700">24€</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.05)"><div><div style="color:#f5e8c8;font-size:8.5px;font-weight:600">Filet de bœuf Rossini</div><div style="color:rgba(245,232,200,.35);font-size:6.5px">Truffe noire & sauce Périgueux</div></div><div style="color:#d4af37;font-size:9px;font-weight:700">38€</div></div><div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0"><div><div style="color:#f5e8c8;font-size:8.5px;font-weight:600">Soufflé au Grand Marnier</div><div style="color:rgba(245,232,200,.35);font-size:6.5px">Glace vanille bourbon</div></div><div style="color:#d4af37;font-size:9px;font-weight:700">16€</div></div></div><div style="background:rgba(212,175,55,.07);border:1px solid rgba(212,175,55,.15);border-radius:7px;padding:8px 12px;display:flex;justify-content:space-between;align-items:center"><div><div style="color:#d4af37;font-size:8px;font-weight:700">Menu Dégustation</div><div style="color:rgba(245,232,200,.4);font-size:6.5px">7 services • accords vins</div></div><div style="color:#d4af37;font-size:12px;font-weight:700">89€</div></div></div><div style="background:#060e08;padding:8px 14px;text-align:center"><div style="color:rgba(245,232,200,.2);font-size:6px">© 2024 Restaurant Le Jardin • 33000 Bordeaux • ⭐ Guide Michelin</div></div></div>`
-    }
-  ],
-  ultra: [
-    {
-      name:"Lumière Paris Cosmétiques", url:"lumiere-paris.fr", tag:"E-commerce luxe",
-      html:`<div style="font-family:Inter,sans-serif;background:#fafaf8;min-height:100%"><div style="background:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #f0ece4"><div><div style="color:#1a1a1a;font-weight:300;font-size:11px;letter-spacing:.25em;text-transform:uppercase">LUMIÈRE PARIS</div><div style="color:#c9a84c;font-size:7px;letter-spacing:.1em;font-weight:600">COSMÉTIQUES</div></div><div style="border:1px solid #c9a84c;color:#c9a84c;padding:5px 12px;border-radius:2px;font-size:7.5px;font-weight:700;letter-spacing:.08em">SHOP</div></div><div style="background:#1a1a1a;padding:24px 14px;text-align:center;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:linear-gradient(160deg,rgba(201,168,76,.08),transparent 60%)"></div><div style="position:relative;z-index:1"><div style="font-size:6px;color:rgba(201,168,76,.6);letter-spacing:.25em;text-transform:uppercase;margin-bottom:10px">NOUVELLE COLLECTION</div><div style="font-size:28px;margin-bottom:6px">✨</div><div style="color:#fff;font-size:14px;font-weight:300;letter-spacing:.1em;line-height:1.3;margin-bottom:4px">SÉRUM D'OR</div><div style="color:rgba(255,255,255,.4);font-size:7px;letter-spacing:.06em;margin-bottom:12px">Soin visage intensif • 30ml</div><div style="color:#c9a84c;font-size:12px;font-weight:600;margin-bottom:12px">185€</div><div style="border:1px solid rgba(201,168,76,.4);color:#c9a84c;display:inline-block;padding:7px 20px;border-radius:2px;font-size:8px;font-weight:600;letter-spacing:.1em">DÉCOUVRIR</div></div></div><div style="padding:12px 14px;background:#fafaf8"><div style="font-size:6.5px;color:#999;letter-spacing:.15em;text-transform:uppercase;margin-bottom:10px">BESTSELLERS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px"><div style="background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="background:linear-gradient(135deg,#f8f0e0,#f0e4c8);height:60px;display:flex;align-items:center;justify-content:center;font-size:22px">🌹</div><div style="padding:8px"><div style="color:#1a1a1a;font-size:7.5px;font-weight:600">Huile de Rose</div><div style="color:#c9a84c;font-size:8px;font-weight:700;margin-top:1px">95€</div></div></div><div style="background:#fff;border-radius:4px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)"><div style="background:linear-gradient(135deg,#e8f4f0,#d4ece4);height:60px;display:flex;align-items:center;justify-content:center;font-size:22px">💫</div><div style="padding:8px"><div style="color:#1a1a1a;font-size:7.5px;font-weight:600">Crème Perle</div><div style="color:#c9a84c;font-size:8px;font-weight:700;margin-top:1px">130€</div></div></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center"><div style="padding:8px"><div style="font-size:14px;margin-bottom:3px">🌿</div><div style="font-size:6.5px;color:#666;font-weight:600">100% Naturel</div></div><div style="padding:8px"><div style="font-size:14px;margin-bottom:3px">🐰</div><div style="font-size:6.5px;color:#666;font-weight:600">Cruelty Free</div></div><div style="padding:8px"><div style="font-size:14px;margin-bottom:3px">✈️</div><div style="font-size:6.5px;color:#666;font-weight:600">Livraison offerte</div></div></div></div><div style="background:#1a1a1a;padding:8px 14px;text-align:center"><div style="color:rgba(255,255,255,.2);font-size:6px;letter-spacing:.1em">© 2024 LUMIÈRE PARIS • COSMÉTIQUES DE LUXE</div></div></div>`
-    },
-    {
-      name:"Nexus Platform", url:"nexus-platform.io", tag:"SaaS Tech",
-      html:`<div style="font-family:Inter,sans-serif;background:#080817;min-height:100%"><div style="background:#0c0c20;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(79,158,255,.15)"><div style="display:flex;align-items:center;gap:6px"><div style="width:22px;height:22px;background:linear-gradient(135deg,#4f9eff,#8b5cf6);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:700">N</div><div style="color:#fff;font-weight:700;font-size:11px;letter-spacing:.06em">NEXUS</div></div><div style="display:flex;gap:6px;align-items:center"><div style="color:rgba(255,255,255,.4);font-size:8px">Se connecter</div><div style="background:linear-gradient(135deg,#4f9eff,#8b5cf6);color:#fff;padding:5px 10px;border-radius:5px;font-size:8px;font-weight:700">Essai gratuit</div></div></div><div style="padding:20px 14px;position:relative;overflow:hidden"><div style="position:absolute;top:-30px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(79,158,255,.15),transparent 70%)"></div><div style="position:absolute;bottom:-10px;right:-20px;width:120px;height:120px;background:radial-gradient(circle,rgba(139,92,246,.12),transparent 70%)"></div><div style="position:relative;z-index:1"><div style="font-size:7px;color:#4f9eff;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;font-weight:600">🚀 IA-Powered Platform</div><div style="color:#fff;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:6px">Automatisez votre<br>croissance</div><div style="color:rgba(255,255,255,.45);font-size:7.5px;margin-bottom:14px">CRM intelligent • Analytics • Automatisation marketing</div><div style="display:flex;gap:8px;margin-bottom:12px"><div style="background:linear-gradient(135deg,#4f9eff,#8b5cf6);color:#fff;padding:7px 14px;border-radius:6px;font-size:8px;font-weight:700">Essai gratuit 14j</div><div style="border:1px solid rgba(79,158,255,.25);color:rgba(255,255,255,.7);padding:7px 12px;border-radius:6px;font-size:8px">Démo live</div></div><div style="display:flex;align-items:center;gap:6px"><div style="display:flex"><div style="width:18px;height:18px;border-radius:50%;background:#4f9eff;border:2px solid #080817"></div><div style="width:18px;height:18px;border-radius:50%;background:#8b5cf6;border:2px solid #080817;margin-left:-6px"></div><div style="width:18px;height:18px;border-radius:50%;background:#06b6d4;border:2px solid #080817;margin-left:-6px"></div></div><div style="color:rgba(255,255,255,.4);font-size:7px">+2 400 entreprises nous font confiance</div></div></div></div><div style="padding:10px 14px"><div style="display:flex;flex-direction:column;gap:5px;margin-bottom:10px"><div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(79,158,255,.05);border:1px solid rgba(79,158,255,.1);border-radius:6px"><div style="font-size:14px;flex-shrink:0">🤖</div><div style="flex:1"><div style="color:#fff;font-size:8px;font-weight:600">IA Conversationnelle</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">Chatbot intelligent 24h/24</div></div><div style="color:#4f9eff;font-size:7px;font-weight:600;background:rgba(79,158,255,.1);padding:2px 6px;border-radius:10px">NEW</div></div><div style="display:flex;align-items:center;gap:8px;padding:8px;background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.1);border-radius:6px"><div style="font-size:14px;flex-shrink:0">📊</div><div><div style="color:#fff;font-size:8px;font-weight:600">Analytics temps réel</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">Dashboards personnalisables</div></div></div></div><div style="background:linear-gradient(135deg,rgba(79,158,255,.1),rgba(139,92,246,.1));border:1px solid rgba(79,158,255,.2);border-radius:8px;padding:10px 12px;text-align:center"><div style="font-size:7px;color:rgba(255,255,255,.5);margin-bottom:4px;letter-spacing:.06em">À PARTIR DE</div><div style="font-size:20px;font-weight:700;color:#fff">49€<span style="font-size:9px;font-weight:400;color:rgba(255,255,255,.4)">/mois</span></div></div></div><div style="background:#050510;padding:8px 14px;text-align:center"><div style="color:rgba(255,255,255,.15);font-size:6px">© 2024 Nexus Platform SAS • Paris, France</div></div></div>`
-    },
-    {
-      name:"Hôtel du Lac Boutique", url:"hotel-du-lac-annecy.fr", tag:"Hôtellerie luxe",
-      html:`<div style="font-family:Inter,sans-serif;background:#1c1812;min-height:100%"><div style="background:#161208;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(232,213,163,.12)"><div><div style="color:#e8d5a3;font-weight:300;font-size:11px;letter-spacing:.2em;text-transform:uppercase">HÔTEL DU LAC</div><div style="color:rgba(232,213,163,.4);font-size:7px;letter-spacing:.08em">Collection Boutique</div></div><div style="border:1px solid rgba(232,213,163,.3);color:#e8d5a3;padding:5px 10px;border-radius:2px;font-size:8px;letter-spacing:.06em">Réserver</div></div><div style="background:linear-gradient(160deg,#2a2218,#1c1812);padding:22px 14px;position:relative;overflow:hidden;text-align:center"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(232,213,163,.06),transparent 60%)"></div><div style="position:relative;z-index:1"><div style="font-size:28px;margin-bottom:8px">🏔️</div><div style="font-size:7px;color:#e8d5a3;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;opacity:.7">Annecy, Haute-Savoie</div><div style="color:#f5ede0;font-size:16px;font-weight:300;letter-spacing:.06em;line-height:1.3;margin-bottom:8px">L'élégance<br>au bord du lac</div><div style="color:rgba(245,237,224,.35);font-size:7.5px;margin-bottom:14px">5 suites • Spa • Restaurant gastronomique</div><div style="display:inline-flex;gap:8px"><div style="background:#e8d5a3;color:#1c1812;padding:7px 16px;border-radius:2px;font-size:8px;font-weight:700;letter-spacing:.05em">Voir les suites</div><div style="border:1px solid rgba(232,213,163,.25);color:rgba(232,213,163,.8);padding:7px 12px;border-radius:2px;font-size:8px">Expériences</div></div></div></div><div style="padding:12px 14px"><div style="font-size:6.5px;color:rgba(232,213,163,.5);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px">NOS SUITES</div><div style="display:flex;flex-direction:column;gap:7px;margin-bottom:10px"><div style="background:rgba(255,255,255,.04);border:1px solid rgba(232,213,163,.1);border-radius:6px;padding:10px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:8px"><div style="font-size:18px">🛏</div><div><div style="color:#f5ede0;font-size:8px;font-weight:600">Suite Lac</div><div style="color:rgba(245,237,224,.35);font-size:6.5px">Vue panoramique • 55m²</div></div></div><div><div style="color:#e8d5a3;font-size:9px;font-weight:700;text-align:right">420€</div><div style="color:rgba(232,213,163,.4);font-size:6px;text-align:right">la nuit</div></div></div><div style="background:rgba(232,213,163,.06);border:1px solid rgba(232,213,163,.15);border-radius:6px;padding:10px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:8px"><div style="font-size:18px">🌅</div><div><div style="color:#f5ede0;font-size:8px;font-weight:600">Suite Prestige</div><div style="color:rgba(245,237,224,.35);font-size:6.5px">Terrasse privée • Jacuzzi • 85m²</div></div></div><div><div style="color:#e8d5a3;font-size:9px;font-weight:700;text-align:right">680€</div><div style="color:rgba(232,213,163,.4);font-size:6px;text-align:right">la nuit</div></div></div></div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;text-align:center"><div style="padding:8px;border:1px solid rgba(232,213,163,.08);border-radius:6px"><div style="font-size:14px;margin-bottom:3px">🧖</div><div style="color:rgba(245,237,224,.6);font-size:6.5px">Spa & Bien-être</div></div><div style="padding:8px;border:1px solid rgba(232,213,163,.08);border-radius:6px"><div style="font-size:14px;margin-bottom:3px">🍽</div><div style="color:rgba(245,237,224,.6);font-size:6.5px">Restaurant ★</div></div><div style="padding:8px;border:1px solid rgba(232,213,163,.08);border-radius:6px"><div style="font-size:14px;margin-bottom:3px">🚤</div><div style="color:rgba(245,237,224,.6);font-size:6.5px">Activités lac</div></div></div></div><div style="background:#0e0a06;padding:8px 14px;text-align:center"><div style="color:rgba(232,213,163,.2);font-size:6px;letter-spacing:.08em">© 2024 HÔTEL DU LAC • ANNECY • ☆☆☆☆☆</div></div></div>`
-    },
-    {
-      name:"Cabinet Moreau Avocats", url:"moreau-avocats.fr", tag:"Cabinet d'avocats",
-      html:`<div style="font-family:Inter,sans-serif;background:#0c1744;min-height:100%"><div style="background:#091336;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(201,168,76,.15)"><div><div style="color:#c9a84c;font-weight:700;font-size:10px;letter-spacing:.1em">CABINET MOREAU</div><div style="color:rgba(255,255,255,.3);font-size:7px;letter-spacing:.04em">Avocats • Paris</div></div><div style="border:1px solid rgba(201,168,76,.35);color:#c9a84c;padding:5px 10px;border-radius:3px;font-size:8px;font-weight:700;letter-spacing:.04em">Contact</div></div><div style="background:linear-gradient(160deg,#111e4a,#0c1744);padding:18px 14px"><div style="font-size:7px;color:#c9a84c;letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px">Depuis 1985</div><div style="color:#fff;font-size:15px;font-weight:700;line-height:1.2;margin-bottom:7px">Défendons<br>vos intérêts</div><div style="color:rgba(255,255,255,.45);font-size:7.5px;margin-bottom:12px">Droit des affaires • Droit social • Contentieux</div><div style="display:flex;gap:8px"><div style="background:#c9a84c;color:#0c1744;padding:7px 14px;border-radius:3px;font-size:8px;font-weight:700">Consultation</div><div style="border:1px solid rgba(201,168,76,.25);color:rgba(255,255,255,.7);padding:7px 12px;border-radius:3px;font-size:8px">Nos expertises</div></div></div><div style="padding:12px 14px"><div style="font-size:7px;color:#c9a84c;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;font-weight:600">Nos domaines</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px"><div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:6px;padding:8px"><div style="font-size:14px;margin-bottom:3px">⚖️</div><div style="color:#fff;font-size:8px;font-weight:700">Droit des Affaires</div><div style="color:rgba(255,255,255,.35);font-size:6.5px;margin-top:1px">Fusions, acquisitions</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:6px;padding:8px"><div style="font-size:14px;margin-bottom:3px">👔</div><div style="color:#fff;font-size:8px;font-weight:700">Droit Social</div><div style="color:rgba(255,255,255,.35);font-size:6.5px;margin-top:1px">Contrats, litiges</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:6px;padding:8px"><div style="font-size:14px;margin-bottom:3px">🏛</div><div style="color:#fff;font-size:8px;font-weight:700">Contentieux</div><div style="color:rgba(255,255,255,.35);font-size:6.5px;margin-top:1px">Tribunaux & arbitrage</div></div><div style="background:rgba(255,255,255,.04);border:1px solid rgba(201,168,76,.12);border-radius:6px;padding:8px"><div style="font-size:14px;margin-bottom:3px">🌍</div><div style="color:#fff;font-size:8px;font-weight:700">International</div><div style="color:rgba(255,255,255,.35);font-size:6.5px;margin-top:1px">Contrats transfrontaliers</div></div></div><div style="background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.15);border-radius:8px;padding:10px 12px"><div style="display:grid;grid-template-columns:1fr 1fr 1fr;text-align:center;gap:4px"><div><div style="color:#c9a84c;font-size:14px;font-weight:700">18</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">avocats</div></div><div style="border-left:1px solid rgba(201,168,76,.15);border-right:1px solid rgba(201,168,76,.15)"><div style="color:#c9a84c;font-size:14px;font-weight:700">38</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">ans expertise</div></div><div><div style="color:#c9a84c;font-size:14px;font-weight:700">+1200</div><div style="color:rgba(255,255,255,.35);font-size:6.5px">dossiers</div></div></div></div></div><div style="background:#060c20;padding:8px 14px;text-align:center"><div style="color:rgba(255,255,255,.15);font-size:6px">© 2024 Cabinet Moreau & Associés • 75008 Paris • Barreau de Paris</div></div></div>`
-    },
-    {
-      name:"Éclat Joaillerie", url:"eclat-joaillerie.fr", tag:"E-commerce luxe",
-      html:`<div style="font-family:Inter,sans-serif;background:#0a0a0a;min-height:100%"><div style="background:#0d0d0d;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,168,67,.12)"><div><div style="color:#d4a843;font-weight:300;font-size:12px;letter-spacing:.28em;text-transform:uppercase">ÉCLAT</div><div style="color:rgba(212,168,67,.4);font-size:7px;letter-spacing:.12em">JOAILLERIE</div></div><div style="display:flex;gap:10px;align-items:center"><span style="color:rgba(255,255,255,.3);font-size:10px">🛒</span><span style="color:rgba(255,255,255,.3);font-size:10px">♡</span></div></div><div style="background:#111;padding:22px 14px;text-align:center;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 100%,rgba(212,168,67,.06),transparent 60%)"></div><div style="position:relative;z-index:1"><div style="font-size:32px;margin-bottom:6px;filter:drop-shadow(0 0 12px rgba(212,168,67,.4))">💍</div><div style="font-size:7px;color:rgba(212,168,67,.6);letter-spacing:.2em;text-transform:uppercase;margin-bottom:4px">COLLECTION ÉTÉ 2024</div><div style="color:#fff;font-size:15px;font-weight:300;letter-spacing:.1em;line-height:1.3;margin-bottom:4px">L'INFINI</div><div style="color:rgba(255,255,255,.4);font-size:7px;letter-spacing:.06em;margin-bottom:14px">Or 18 carats • Diamants naturels</div><div style="display:inline-flex;gap:8px"><div style="background:#d4a843;color:#0a0a0a;padding:7px 16px;border-radius:2px;font-size:8px;font-weight:700;letter-spacing:.08em">EXPLORER</div><div style="border:1px solid rgba(212,168,67,.25);color:rgba(212,168,67,.8);padding:7px 12px;border-radius:2px;font-size:8px;letter-spacing:.04em">Personnaliser</div></div></div></div><div style="padding:12px 14px"><div style="font-size:6.5px;color:rgba(212,168,67,.5);letter-spacing:.18em;text-transform:uppercase;margin-bottom:10px">COLLECTIONS</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:12px"><div style="background:#111;border-radius:4px;overflow:hidden;border:1px solid rgba(212,168,67,.08)"><div style="height:50px;background:linear-gradient(135deg,#1a1a0a,#2a2410);display:flex;align-items:center;justify-content:center;font-size:20px">💍</div><div style="padding:8px"><div style="color:#f5f0e8;font-size:7.5px;font-weight:600;letter-spacing:.04em">Bagues</div><div style="color:#d4a843;font-size:7.5px;margin-top:1px">dès 890€</div></div></div><div style="background:#111;border-radius:4px;overflow:hidden;border:1px solid rgba(212,168,67,.08)"><div style="height:50px;background:linear-gradient(135deg,#1a0a1a,#2a1430);display:flex;align-items:center;justify-content:center;font-size:20px">📿</div><div style="padding:8px"><div style="color:#f5f0e8;font-size:7.5px;font-weight:600;letter-spacing:.04em">Colliers</div><div style="color:#d4a843;font-size:7.5px;margin-top:1px">dès 650€</div></div></div></div><div style="display:flex;flex-direction:column;gap:5px"><div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)"><div style="font-size:12px">🔒</div><div style="color:rgba(255,255,255,.45);font-size:7px">Certificat d'authenticité inclus</div></div><div style="display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04)"><div style="font-size:12px">✈️</div><div style="color:rgba(255,255,255,.45);font-size:7px">Livraison mondiale sécurisée offerte</div></div><div style="display:flex;align-items:center;gap:8px;padding:6px 0"><div style="font-size:12px">♾️</div><div style="color:rgba(255,255,255,.45);font-size:7px">Garantie à vie • Retouches gratuites</div></div></div></div><div style="background:#050505;padding:8px 14px;text-align:center;border-top:1px solid rgba(212,168,67,.06)"><div style="color:rgba(212,168,67,.2);font-size:6px;letter-spacing:.12em">© 2024 ÉCLAT JOAILLERIE • PARIS • GENÈVE • DUBAI</div></div></div>`
-    }
-  ],
-  cm: [
-    {
-      name:"Boulangerie des Halles", url:"instagram.com/boulangerie_des_halles", tag:"Post Instagram",
-      html:`<div style="font-family:Inter,sans-serif;background:#fff;max-width:320px;margin:0 auto"><div style="padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0f0f0"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);display:flex;align-items:center;justify-content:center;font-size:14px">🥖</div><div><div style="font-size:8px;font-weight:700;color:#1a1a1a">boulangerie_des_halles</div><div style="font-size:7px;color:#888">Clermont-Ferrand, Auvergne</div></div><div style="margin-left:auto;font-size:10px;color:#888">•••</div></div><div style="width:100%;aspect-ratio:1;background:linear-gradient(160deg,#3d2212 0%,#8b5e3c 50%,#5c3317 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 30%,rgba(245,200,66,.25),transparent 60%)"></div><div style="text-align:center;position:relative;z-index:1;padding:16px"><div style="font-size:44px;margin-bottom:6px">🥖</div><div style="background:rgba(245,200,66,.9);color:#3d2212;padding:4px 14px;border-radius:4px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px;display:inline-block">NOUVEAUTÉ DU JOUR</div><div style="color:#faf4e8;font-size:13px;font-weight:700;margin-bottom:4px">Pain de Campagne<br>au Levain</div><div style="color:rgba(250,244,232,.65);font-size:8px">Farine T80 • Levain naturel • Feu de bois</div></div></div><div style="padding:8px 12px;display:flex;gap:12px;border-bottom:1px solid #f5f5f5"><span style="font-size:18px">❤️</span><span style="font-size:18px">💬</span><span style="font-size:18px">↗️</span><span style="font-size:18px;margin-left:auto">🔖</span></div><div style="padding:5px 12px"><div style="font-size:7.5px;font-weight:700;color:#1a1a1a">2 847 j'aime</div></div><div style="padding:3px 12px 6px"><span style="font-size:7.5px;font-weight:700;color:#1a1a1a">boulangerie_des_halles</span><span style="font-size:7.5px;color:#444"> 🥖 Notre pain de campagne au levain naturel est de retour ! Précommandez avant 18h pour le lendemain matin 🌿 #artisan #boulangerie #painmaison #levain #bio</span></div><div style="padding:2px 12px 10px"><div style="font-size:6.5px;color:#8e8e8e;text-transform:uppercase;letter-spacing:.06em">il y a 3 heures</div></div></div>`
-    },
-    {
-      name:"FitPro Coaching", url:"instagram.com/fitpro.coaching", tag:"Post Instagram",
-      html:`<div style="font-family:Inter,sans-serif;background:#fff;max-width:320px;margin:0 auto"><div style="padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0f0f0"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#111,#333);display:flex;align-items:center;justify-content:center;font-size:14px;border:2px solid #ff4500">💪</div><div><div style="font-size:8px;font-weight:700;color:#1a1a1a">fitpro.coaching</div><div style="font-size:7px;color:#888">Coach certifié BPJEPS</div></div><div style="margin-left:auto;background:#ff4500;color:#fff;font-size:6.5px;font-weight:700;padding:3px 7px;border-radius:10px">SUIVRE</div></div><div style="width:100%;aspect-ratio:1;background:linear-gradient(160deg,#0a0a0a,#1a1a1a);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,rgba(255,69,0,.15),transparent 70%)"></div><div style="text-align:center;position:relative;z-index:1;padding:16px;width:100%"><div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px"><div style="background:rgba(255,255,255,.06);border-radius:8px;padding:10px"><div style="color:rgba(255,255,255,.4);font-size:7.5px;margin-bottom:4px;letter-spacing:.06em">AVANT</div><div style="font-size:20px;font-weight:700;color:#fff">78 kg</div><div style="width:100%;height:3px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:6px"></div></div><div style="background:rgba(255,69,0,.12);border:1px solid rgba(255,69,0,.3);border-radius:8px;padding:10px"><div style="color:#ff4500;font-size:7.5px;margin-bottom:4px;letter-spacing:.06em">APRÈS</div><div style="font-size:20px;font-weight:700;color:#fff">66 kg</div><div style="width:100%;height:3px;background:#ff4500;border-radius:2px;margin-top:6px"></div></div></div><div style="color:#ff4500;font-size:10px;font-weight:700;letter-spacing:.04em">−12 kg en 3 mois 🔥</div><div style="color:rgba(255,255,255,.5);font-size:7.5px;margin-top:4px;margin-bottom:10px">Programme personnalisé + nutrition</div><div style="background:#ff4500;color:#fff;display:inline-block;padding:7px 18px;border-radius:4px;font-size:8.5px;font-weight:700;letter-spacing:.04em">COMMENCE MAINTENANT →</div></div></div><div style="padding:8px 12px;display:flex;gap:12px;border-bottom:1px solid #f5f5f5"><span style="font-size:18px">❤️</span><span style="font-size:18px">💬</span><span style="font-size:18px">↗️</span><span style="font-size:18px;margin-left:auto">🔖</span></div><div style="padding:5px 12px"><div style="font-size:7.5px;font-weight:700;color:#1a1a1a">1 234 j'aime</div></div><div style="padding:3px 12px 6px"><span style="font-size:7.5px;font-weight:700;color:#1a1a1a">fitpro.coaching</span><span style="font-size:7.5px;color:#444"> 🔥 Résultat réel de Laura après 3 mois ! Prise en charge complète : programme sport + plan nutrition 💪 DM pour démarrer. #coaching #fitness #resultats #transformation</span></div><div style="padding:2px 12px 10px"><div style="font-size:6.5px;color:#8e8e8e;text-transform:uppercase;letter-spacing:.06em">il y a 6 heures</div></div></div>`
-    },
-    {
-      name:"Restaurant La Terrasse", url:"instagram.com/restaurant.laterrasse", tag:"Post Instagram",
-      html:`<div style="font-family:Inter,sans-serif;background:#fff;max-width:320px;margin:0 auto"><div style="padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #f0f0f0"><div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#0a2010,#1a4020);display:flex;align-items:center;justify-content:center;font-size:14px">🍽</div><div><div style="font-size:8px;font-weight:700;color:#1a1a1a">restaurant.laterrasse</div><div style="font-size:7px;color:#888">Cuisine française • Lyon 2e</div></div><div style="margin-left:auto;font-size:10px;color:#888">•••</div></div><div style="width:100%;aspect-ratio:1;background:linear-gradient(160deg,#0a2010,#1a4020,#0d2818);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden"><div style="position:absolute;inset:0;background:radial-gradient(ellipse at 40% 40%,rgba(212,175,55,.15),transparent 60%)"></div><div style="text-align:center;position:relative;z-index:1;padding:14px"><div style="font-size:8px;color:rgba(212,175,55,.8);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px">Plat du jour</div><div style="font-size:22px;font-weight:700;color:#f5e8c8;line-height:1.2;margin-bottom:8px">Filet de bar,<br>risotto aux cèpes</div><div style="color:rgba(245,232,200,.5);font-size:8px;margin-bottom:14px">Produits frais du marché • Fait maison</div><div style="display:inline-block;border:1px solid rgba(212,175,55,.4);color:#d4af37;padding:6px 16px;border-radius:4px;font-size:9px;font-weight:600;letter-spacing:.05em">22€ boisson incluse</div><div style="margin-top:14px;font-size:26px">🍽️</div></div></div><div style="padding:8px 12px;display:flex;gap:12px;border-bottom:1px solid #f5f5f5"><span style="font-size:18px">❤️</span><span style="font-size:18px">💬</span><span style="font-size:18px">↗️</span><span style="font-size:18px;margin-left:auto">🔖</span></div><div style="padding:5px 12px"><div style="font-size:7.5px;font-weight:700;color:#1a1a1a">892 j'aime</div></div><div style="padding:3px 12px 6px"><span style="font-size:7.5px;font-weight:700;color:#1a1a1a">restaurant.laterrasse</span><span style="font-size:7.5px;color:#444"> 🌿 Notre plat du jour : filet de bar grillé et son risotto crémeux aux cèpes. Réservez votre table pour profiter du menu déjeuner 🍷 #restaurant #gastronomie #platdujour #cuisine #lyon</span></div><div style="padding:2px 12px 10px"><div style="font-size:6.5px;color:#8e8e8e;text-transform:uppercase;letter-spacing:.06em">il y a 2 heures</div></div></div>`
-    }
-  ]
-};
-
-/* ===== FONCTIONS PORTFOLIO ===== */
-function openPortfolio(type){
-  const modal = document.getElementById('portfolioModal');
-  const content = document.getElementById('modalContent');
-  const title = document.getElementById('modalTitle');
-  const label = document.getElementById('modalLabel');
-  const data = portfolioData[type];
-  const titles = {vitrine:'Exemples — Site Vitrine',premium:'Exemples — Site Premium',ultra:'Exemples — Ultra Premium',cm:'Exemples — Community Management'};
-  const labels = {vitrine:'Réalisations clients',premium:'Réalisations clients',ultra:'Réalisations clients',cm:'Posts réseaux sociaux'};
-  title.textContent = titles[type]||'Exemples';
-  label.textContent = labels[type]||'Réalisations';
-  if(type==='cm'){
-    content.className='cm-grid';
-    content.innerHTML = data.map((item,i)=>`<div class="cm-item" onclick="showFullPreview(${i},'${type}')">${item.html}</div>`).join('');
-  } else {
-    content.className='preview-grid';
-    content.innerHTML = data.map((item,i)=>`
-      <div class="preview-item" onclick="showFullPreview(${i},'${type}')">
-        <div class="preview-bar">
-          <div class="preview-dots"><span></span><span></span><span></span></div>
-          <div class="preview-url">${item.url}</div>
-        </div>
-        <div class="preview-content">${item.html}</div>
-        <div class="preview-lbl">
-          <span class="preview-lbl-n">${item.name}</span>
-          <span class="preview-lbl-t">${item.tag}</span>
-        </div>
-      </div>`).join('');
-  }
-  modal.style.display='block';
-  document.body.style.overflow='hidden';
-}
-
-function closePortfolio(){
-  document.getElementById('portfolioModal').style.display='none';
-  document.body.style.overflow='';
-}
-
-function showFullPreview(index, type){
-  const item = portfolioData[type][index];
-  const fs = document.getElementById('previewFullscreen');
-  document.getElementById('fsUrl').textContent = item.url;
-  document.getElementById('fsContent').innerHTML = type==='cm'
-    ? `<div style="display:flex;justify-content:center;padding:20px;background:#0a0a0a;">${item.html}</div>`
-    : item.html;
-  fs.classList.add('open');
-}
-
-function closeFullscreen(){
-  document.getElementById('previewFullscreen').classList.remove('open');
-}
-
-document.addEventListener('keydown', e=>{
-  if(e.key==='Escape'){ closeFullscreen(); closePortfolio(); }
-});
-</script>
-</body>
-</html>
+with open('/tmp/p1', 'w', encoding='utf-8') as f:
+    f.write(p1)
+print(f"Part 1: {len(p1):,} chars")
+HEREDOC_END
+python3 /tmp/gen_site.py
