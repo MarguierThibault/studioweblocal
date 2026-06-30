@@ -231,28 +231,28 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
     <div class="cards">
       <div class="card reveal">
-        <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"><button class="examples-btn" onclick="openPortfolio(\'vitrine\')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
           <span class="field-lbl">Description</span><p class="field-txt">Site vitrine professionnel conçu pour présenter clairement votre activité, inspirer confiance et générer des prises de contact locales.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales.</p>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.1s">
-        <div class="card__img"><img src="images/premium.png" alt="Site Premium"><button class="examples-btn" onclick="openPortfolio(\'premium\')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/premium.png" alt="Site Premium"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
           <span class="field-lbl">Description</span><p class="field-txt">Site premium orienté acquisition client, image de marque et performance commerciale.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement, services professionnels, structures établies.</p>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.2s">
-        <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"><button class="examples-btn" onclick="openPortfolio(\'ultra\')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
           <span class="field-lbl">Description</span><p class="field-txt">Solution haut de gamme sur mesure avec stratégie digitale complète et automatisation avancée.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.3s">
-        <div class="card__img"><img src="images/community.png" alt="Community Management"><button class="examples-btn" onclick="openPortfolio(\'cm\')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/community.png" alt="Community Management"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">150€ → 430€/mois</p>
           <span class="field-lbl">Description</span><p class="field-txt">Gestion complète des réseaux sociaux pour développer votre visibilité et votre engagement client.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces, marques et indépendants souhaitant une présence active.</p>
@@ -265,14 +265,14 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   <div class="wrap">
     <div class="sec-head reveal"><span class="mono-label">Ils nous font confiance</span><h2>Avis de nos clients</h2><div class="divider"></div><p style="color:var(--muted);margin-top:14px;max-width:620px;font-size:.95rem">Plus de 100 clients satisfaits. Des résultats concrets, des histoires vraies. Chaque avis correspond à un vrai projet livré.</p></div>
     <div class="reviews-filter reveal" id="reviewsFilter">
-      <button class="rf-btn active" onclick="filterReviews(\'all\')">Tous (100+)</button>
-      <button class="rf-btn" onclick="filterReviews(\'vitrine\')">Site Vitrine</button>
-      <button class="rf-btn" onclick="filterReviews(\'premium\')">Site Premium</button>
-      <button class="rf-btn" onclick="filterReviews(\'ultra\')">Ultra Premium</button>
-      <button class="rf-btn" onclick="filterReviews(\'cm\')">Community</button>
+      <button class="rf-btn active" onclick="filterReviews('all')">Tous (100+)</button>
+      <button class="rf-btn" onclick="filterReviews('vitrine')">Site Vitrine</button>
+      <button class="rf-btn" onclick="filterReviews('premium')">Site Premium</button>
+      <button class="rf-btn" onclick="filterReviews('ultra')">Ultra Premium</button>
+      <button class="rf-btn" onclick="filterReviews('cm')">Community</button>
     </div>
     <div class="reviews-grid" id="reviewsGrid"></div>
-    <div style="text-align:center;margin-top:40px" id="reviewsMore"><button class="btn btn--ghost" onclick="loadMoreReviews()">Voir plus d\'avis ↓</button></div>
+    <div style="text-align:center;margin-top:40px" id="reviewsMore"><button class="btn btn--ghost" onclick="loadMoreReviews()">Voir plus d'avis ↓</button></div>
   </div>
 </section>
 <section class="sec">
@@ -293,8 +293,8 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <span class="mono-label">Nous contacter</span><h2>Contact direct</h2>
     <div class="divider" style="margin:14px auto 28px"></div>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn--gold" onclick="location.href=\'tel:0628223722\'">📞 Appeler</button>
-      <button class="btn btn--ghost" onclick="location.href=\'mailto:studioweblocal@gmail.com\'">✉️ Email</button>
+      <button class="btn btn--gold" onclick="location.href='tel:0628223722'">📞 Appeler</button>
+      <button class="btn btn--ghost" onclick="location.href='mailto:studioweblocal@gmail.com'">✉️ Email</button>
     </div>
   </div>
 </section>
@@ -410,10 +410,6 @@ function incrementOrder(){
   const el=document.getElementById("orderCountNum");
   if(el){el.textContent=orderCount;el.style.color="#57e389";setTimeout(()=>{el.style.color=""},1400)}
 }
-'''
-
-with open('/tmp/p1', 'w', encoding='utf-8') as f:
-    f.write(p1)
-print(f"Part 1: {len(p1):,} chars")
-HEREDOC_END
-python3 /tmp/gen_site.py
+</script>
+</body>
+</html>
