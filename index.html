@@ -684,291 +684,541 @@ function showToast(){
   },5000);
 }
 
-/* ===== PORTFOLIO (catalogue complet) ===== */
-const PORTFOLIO_DATA = {
-  vitrine: [
-    { name: "Cabinet de Kinésithérapie Forme", tag: "Santé / Médical", url: "kinesitherapie-forme.fr", layout: "medical", desc: "Design épuré blanc et vert canard, rassurant avec boutons Doctolib/Appel." },
-    { name: "Atelier de Serrurerie B.R.", tag: "Artisanat / Urgence", url: "serrurerie-depannage24.fr", layout: "emergency", desc: "Interface sombre et rouge alerte, pensée pour la conversion mobile en 10 secondes." },
-    { name: "Salon de Coiffure l'Aura", tag: "Esthétique / Luxe", url: "salon-laura.fr", layout: "elegant", desc: "Teintes nude et beige. Focus visuel haut de gamme et tarifs transparents." },
-    { name: "Cabinet d'Avocats Laurent", tag: "Services Juridiques", url: "avocats-laurent.fr", layout: "legal", desc: "Bleu nuit et dorures. Structure sobre valorisant l'expertise et la prise de contact." },
-    { name: "Garage Auto Plus", tag: "Automobile / Local", url: "garage-auto-plus.fr", layout: "garage", desc: "Gris anthracite et orange mécanique. Intégration Google Maps et demande de devis." }
-  ],
-  premium: [
-    { name: "Finances Pro Conseil", tag: "Cabinet de Conseil B2B", url: "proconseil-finance.fr", layout: "corporate-clean", desc: "Style institutionnel bleu/blanc. Landing page avec aimant à leads (Ebook offert)." },
-    { name: "Élite Coaching Performance", tag: "Infopreneuriat / Sport", url: "elitecoaching.fr", layout: "high-conversion", desc: "Marketing agressif noir et jaune fluo. Avis clients massifs et compte à rebours." },
-    { name: "Eco-Stay Immo", tag: "Tourisme / Immobilier", url: "ecostay-villas.com", layout: "eco-travel", desc: "Nuances vert forêt et crème. Mise en valeur de gîtes éco-responsables avec grille de réservation." },
-    { name: "SaaS FlowMetrics", tag: "Logiciel / Analytics", url: "flowmetrics.io", layout: "saas-landing", desc: "Mode sombre violet électrique. Graphiques interactifs factices et tableaux de prix." },
-    { name: "Resto Gastronomique L'Étoile", tag: "Restauration Premium", url: "letoile-gastronomie.fr", layout: "gastro-luxury", desc: "Fond noir mat et écriture or rose. Menu interactif fluide et module de réservation de table." }
-  ],
-  ultra: [
-    { name: "Aetherium Chronicles", tag: "Gaming Hub / Dark Fantasy", url: "aetherium-chronicles.com", layout: "dark-fantasy-dungeon", desc: "Ambiance donjon médiéval sombre, lueurs violettes et textures de pierres magiques." },
-    { name: "Neo-Vanguard Corp", tag: "Tech / Cyberpunk / Web3", url: "neovanguard.io", layout: "premium-tech", desc: "Design ultra-futuriste avec néons cyan, lignes de code dynamiques et grille technologique." },
-    { name: "Studio Obsidian 3D", tag: "Studio d'Art & Blender", url: "obsidian3d.studio", layout: "blender-studio", desc: "Charcoal et vert émeraude. Showcase immersif pour artistes 3D et concepteurs d'assets." },
-    { name: "Horlogerie Chronos", tag: "E-Commerce de Luxe", url: "chronos-luxe.ch", layout: "luxury-watch", desc: "Minimalisme suisse noir et blanc pur. Animations fluides au scroll et fiches produits épurées." },
-    { name: "Meta-Architects", tag: "Cabinet d'Architecture", url: "meta-architects.fr", layout: "brutalist-arch", desc: "Style brutaliste gris béton et orange fluo. Typographies massives et galeries plein écran." }
-  ],
-  cm: [
-    { name: "Stratégie Verticale TikTok", tag: "Croissance Format Court", url: "dashboard-tiktok-media", layout: "social-tiktok", desc: "Dashboard noir/cyan/rose simulant des millions de vues et l'acquisition de leads." },
-    { name: "Branding Unique Instagram", tag: "Identité Visuelle / Esthétique", url: "instagram-feed-planner", layout: "social-insta", desc: "Aperçu de grille éditoriale Instagram harmonisée avec charte graphique pastel." },
-    { name: "B2B Authority LinkedIn", tag: "Ghostwriting Dirigeants", url: "linkedin-authority-pack", layout: "social-linkedin", desc: "Aperçu de carrousels à fort engagement et lignes d'accroches pour briser l'algorithme." },
-    { name: "Crypto Buzz X / Twitter", tag: "Growth Web3 & Tech", url: "x-growth-strategy", layout: "social-x", desc: "Analyse de threads viraux, metrics de reach organique et raids communautaires planifiés." },
-    { name: "Multi-Channel Dashboard ROI", tag: "Tunnel de Vente Global", url: "global-roi-tracker", layout: "social-roi", desc: "Vue d'ensemble des statistiques publicitaires (Meta Ads, TikTok Ads) avec calcul de ROI." }
-  ]
-};
+// =========================================================================
+    // 1. CONFIGURATION DU PORTFOLIO (Données structurelles)
+    // =========================================================================
+    const PORTFOLIO_DATA = {
+      vitrine: [
+        { name: "Maison Privé - Haute Kinésithérapie", tag: "Vitrine • Site simple, infos claires", url: "kine-elite-paris.fr", layout: "vitrine-1", desc: "Nav + hero + informations pratiques (adresse, horaires, tarif). Une entrée en douceur, légèrement animée, sans surcharge." },
+        { name: "Serrurerie d'Art & Haute Sécurité", tag: "Vitrine • Site simple, infos claires", url: "ateliers-vanguard.fr", layout: "vitrine-2", desc: "Plan technique filaire, bandeau de disponibilité live, informations d'intervention immédiatement visibles." },
+        { name: "L'Aura • Haute Coiffure Botanique", tag: "Vitrine • Site simple, infos claires", url: "laura-haute-coiffure.fr", layout: "vitrine-3", desc: "Matière organique, forme qui respire doucement, tarifs et horaires affichés sans détour." },
+        { name: "Laurent & Associés • Cabinet Privé", tag: "Vitrine • Site simple, infos claires", url: "laurent-associes.com", layout: "vitrine-4", desc: "La typographie comme structure : articles numérotés, chiffres clés, aucune fioriture superflue." },
+        { name: "Maison Figard • Artisan Boulanger", tag: "Vitrine • Site simple, infos claires", url: "boulangerie-figard-demo.fr", layout: "vitrine-5", desc: "Mise en page façon planche BD, infos d'ouverture et prix visibles en un coup d'œil." }
+      ],
+      premium: [
+        { name: "Finances Pro Conseil", tag: "Premium • Site riche et interactif", url: "proconseil-finance.fr", layout: "premium-1", desc: "Architecture éditoriale avec capture de leads, preuve sociale et micro-interactions sur le formulaire." },
+        { name: "Élite Coaching Performance", tag: "Premium • Site riche et interactif", url: "elitecoaching.fr", layout: "premium-2", desc: "Attitude sportive, badge d'urgence pulsé, CTA lumineux et compteurs de résultats." },
+        { name: "Plomberie & Sanitaire Express", tag: "Premium • Site riche et interactif", url: "alloplombier-expert.fr", layout: "premium-3", desc: "Parcours en 3 étapes qui se révèlent en cascade, indicateur de disponibilité en direct." },
+        { name: "Legoupil Structures • Modulaire", tag: "Premium • Site riche et interactif", url: "legoupil-structures-demo.fr", layout: "premium-4", desc: "Plan isométrique flottant, annotations techniques, double preuve chiffrée." },
+        { name: "Resto L'Étoile Gastronomique", tag: "Premium • Site riche et interactif", url: "letoile-gastronomie.fr", layout: "premium-5", desc: "Mise en scène façon joaillerie, halo lumineux pulsé autour du plat signature." }
+      ],
+      ultra: [
+        { name: "Aetherium Chronicles", tag: "Ultra • Expérience animée complète", url: "aetherium-game.com", layout: "ultra-1", desc: "Particules qui s'élèvent, titre en dégradé mouvant, plateformes flottantes, hero de site jouable à part entière." },
+        { name: "Neo-Vanguard Corp", tag: "Ultra • Expérience animée complète", url: "neovanguard.io", layout: "ultra-2", desc: "Scanlines, terminal qui tape en direct, chapitres qui se révèlent un à un — un vrai poste de commande." },
+        { name: "Studio Obsidian 3D", tag: "Ultra • Expérience animée complète", url: "obsidian3d.studio", layout: "ultra-3", desc: "Une pièce unique qui tourne lentement sur elle-même, exposée seule comme dans une galerie." },
+        { name: "Horlogerie Chronos Swiss", tag: "Ultra • Expérience animée complète", url: "chronos-luxe.ch", layout: "ultra-4", desc: "Un vrai cadran dont les aiguilles avancent en temps réel — la précision comme signature." },
+        { name: "Meta-Architects", tag: "Ultra • Expérience animée complète", url: "meta-architects.fr", layout: "ultra-5", desc: "Blocs typographiques qui s'empilent à l'entrée, comme une structure en construction." }
+      ],
+      cm: [
+        { name: "Curation Esthétique Instagram", tag: "CM • Rendu de post réel", url: "insta-brand-feed", layout: "cm-1", desc: "Reproduction fidèle d'un post Instagram publié : header, image, likes animés, légende et hashtags." },
+        { name: "Carrousels d'Autorité LinkedIn", tag: "CM • Rendu de post réel", url: "linkedin-authority", layout: "cm-2", desc: "Vrai post LinkedIn : profil, carrousel à points, réactions empilées, barre d'actions complète." },
+        { name: "Threads de Capture X / Twitter", tag: "CM • Rendu de post réel", url: "x-viral-threads", layout: "cm-3", desc: "Tweet tel qu'il apparaîtrait dans le fil, avec certification, réponses et compteurs d'engagement." },
+        { name: "Matrice de Tunnels TikTok", tag: "CM • Rendu de post réel", url: "tiktok-funnels", layout: "cm-4", desc: "Cadre téléphone avec interface TikTok réelle : colonne d'actions, disque son qui tourne, défilement du titre." },
+        { name: "Command Center Multi-Canal ROI", tag: "CM • Rendu de post réel", url: "global-roi-dashboard", layout: "cm-5", desc: "Capture d'un vrai outil interne : barre de navigateur, sidebar, KPI et courbe qui se dessine." }
+      ]
+    };
 
-function openPortfolio(category){
-  const modal=document.getElementById("portfolioModal");
-  const grid=document.getElementById("portfolioGrid")||document.getElementById("modalContent");
-  const title=document.getElementById("modalTitle");
-  const label=document.getElementById("modalLabel");
-  const projects=PORTFOLIO_DATA[category]||[];
-  if(!modal||!grid||!title||!label)return;
+    // =========================================================================
+    // 2. MOTEUR DE RENDU DES MAQUETTES LIVE
+    // =========================================================================
+    function openFullscreen(name, url, layout) {
+      const fs = document.getElementById('previewFullscreen');
+      document.getElementById('fsUrl').innerText = `https://${url}`;
+      let html = '';
 
-  const categoryTitles={
-    vitrine:"Formule Site Vitrine — Nos 5 Réalisations Locales",
-    premium:"Formule Site Premium — Nos 5 Tunnels de Conversion",
-    ultra:"Formule Ultra Premium — Nos 5 Expériences Immersives",
-    cm:"Community Management — Nos 5 Stratégies de Croissance"
-  };
+      // Bibliothèque d'animations partagée par toutes les maquettes.
+      // Réinjectée à chaque ouverture ; sans effet sur les perfs car le
+      // contenu précédent (et son <style>) est remplacé à chaque appel.
+      const ANIM_STYLES = `<style>
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+        @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 rgba(255,255,255,0)}50%{box-shadow:0 0 22px var(--glow,rgba(255,63,142,.5))}}
+        @keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+        @keyframes drawLine{to{stroke-dashoffset:0}}
+        @keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-100%)}}
+        @keyframes blinkCursor{0%,49%{opacity:1}50%,100%{opacity:0}}
+        @keyframes rise{0%{transform:translateY(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(-160px);opacity:0}}
+        @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes heartPop{0%{transform:scale(1)}30%{transform:scale(1.3)}60%{transform:scale(.95)}100%{transform:scale(1)}}
+        .fu{opacity:0;animation:fadeUp .6s ease forwards}
+      </style>`;
 
-  const categoryLabels={
-    vitrine:"Exemples de sites vitrines",
-    premium:"Exemples de sites premium",
-    ultra:"Exemples d'expériences ultra premium",
-    cm:"Exemples de stratégies social media"
-  };
+      switch (layout) {
+        // =====================================================================
+        // OFFRE VITRINE — site simple : nav + hero + informations pratiques,
+        // une ou deux animations discrètes (entrée en fondu, léger flottement)
+        // =====================================================================
 
-  title.textContent=categoryTitles[category]||"Nos Réalisations";
-  label.textContent=categoryLabels[category]||"Exemples";
-  grid.innerHTML=projects.map(proj=>`<div class="preview-item" onclick="openFullscreen('${proj.name.replace(/'/g,"\\'")}', '${proj.url}', '${proj.layout}')" style="cursor:pointer; background:#111126; border:1px solid rgba(255,255,255,0.05); border-radius:12px; overflow:hidden; transition:transform 0.2s, border-color 0.2s;">
-    <div class="preview-bar" style="background:#181832; padding:8px 14px; display:flex; align-items:center; gap:8px; border-bottom:1px solid rgba(255,255,255,0.05);">
-      <div class="preview-dots" style="display:flex; gap:5px;"><span style="width:8px; height:8px; background:#ff5f56; border-radius:50%;"></span><span style="width:8px; height:8px; background:#ffbd2e; border-radius:50%;"></span><span style="width:8px; height:8px; background:#27c93f; border-radius:50%;"></span></div>
-      <div class="preview-url" style="color:#7e7ea3; font-size:0.75rem; font-family:monospace; margin-left:auto;">${escHtml(proj.url)}</div>
-    </div>
-    <div class="preview-content" style="padding:24px; text-align:left; min-height:180px; display:flex; flex-direction:column; justify-content:between;">
-      <div>
-        <span style="font-size:0.7rem; font-family:monospace; text-transform:uppercase; color:#ffd54a; background:rgba(255,213,74,0.1); padding:3px 8px; border-radius:4px; font-weight:600;">${escHtml(proj.tag)}</span>
-        <h4 style="font-size:1.1rem; color:#fff; margin:12px 0 6px; font-weight:600;">${escHtml(proj.name)}</h4>
-        <p style="font-size:0.8rem; color:#8888aa; line-height:1.4; margin-bottom:16px;">${escHtml(proj.desc)}</p>
-      </div>
-      <span style="font-size:0.75rem; color:#7c6bff; font-weight:600; display:inline-flex; align-items:center; gap:6px;">Lancer le site de démonstration →</span>
-    </div>
-  </div>`).join("");
+        case 'vitrine-1':
+          html = `${ANIM_STYLES}
+            <div style="background:#FAF7F0; color:#243529; font-family:'Georgia', serif; max-width:850px; margin:0 auto; border-radius:20px; overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 50px; border-bottom:1px solid #E4DDC8; font-family:'Space Grotesk', sans-serif;">
+                <span style="font-size:0.85rem; font-weight:700; letter-spacing:1px;">KINÉ ÉLITE</span>
+                <button style="background:#1D2B22; color:#FAF7F0; border:none; padding:9px 18px; border-radius:100px; font-size:0.72rem; font-weight:600; cursor:pointer;">Prendre rendez-vous</button>
+              </div>
+              <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:45px; align-items:center; padding:55px 50px 45px;">
+                <div class="fu" style="animation-delay:.05s;">
+                  <span style="font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:3px; text-transform:uppercase; color:#7C8F7C;">Paris VIII — Sur recommandation médicale</span>
+                  <h1 style="font-size:3rem; font-weight:400; line-height:1.08; margin:18px 0 20px;">La science<br><em style="color:#B87B5C;">du mouvement</em>,<br>sans bruit.</h1>
+                  <p style="font-family:'Space Grotesk', sans-serif; font-size:0.92rem; line-height:1.65; color:#4A5A4C; max-width:400px;">Un athlète, une heure, un diagnostic millimétré. Plateau technique robotisé pour une récupération pensée comme une trajectoire.</p>
+                </div>
+                <div style="width:100%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle at 35% 35%, #E7E0CF, #C7D6C3 65%, #9FB59B); animation:floatY 5s ease-in-out infinite, fadeUp .6s ease forwards; animation-delay:0s,.2s; opacity:0;"></div>
+              </div>
+              <div style="display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid #E4DDC8; font-family:'Space Grotesk', sans-serif;">
+                <div class="fu" style="animation-delay:.3s; padding:22px 50px; border-right:1px solid #E4DDC8;"><div style="font-size:0.68rem; color:#7C8F7C; text-transform:uppercase; letter-spacing:1px;">Adresse</div><div style="font-size:0.88rem; margin-top:6px;">12 rue de la Santé, Paris 8e</div></div>
+                <div class="fu" style="animation-delay:.4s; padding:22px 50px; border-right:1px solid #E4DDC8;"><div style="font-size:0.68rem; color:#7C8F7C; text-transform:uppercase; letter-spacing:1px;">Horaires</div><div style="font-size:0.88rem; margin-top:6px;">Lun–Ven, 8h–19h</div></div>
+                <div class="fu" style="animation-delay:.5s; padding:22px 50px;"><div style="font-size:0.68rem; color:#7C8F7C; text-transform:uppercase; letter-spacing:1px;">Consultation</div><div style="font-size:0.88rem; margin-top:6px;">Dès 90€ — 1h</div></div>
+              </div>
+            </div>`;
+          break;
 
-  modal.style.display="block";
-  document.body.style.overflow="hidden";
-}
+        case 'vitrine-2':
+          html = `${ANIM_STYLES}
+            <div style="background:#181410; color:#EDE6D8; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; border-radius:12px; overflow:hidden; position:relative;">
+              <svg style="position:absolute; right:30px; top:70px; opacity:0.25;" width="220" height="220" viewBox="0 0 220 220">
+                <circle cx="110" cy="110" r="85" fill="none" stroke="#B8863B" stroke-width="1" stroke-dasharray="534" stroke-dashoffset="534" style="animation:drawLine 2.4s ease forwards .3s;"/>
+                <circle cx="110" cy="110" r="40" fill="none" stroke="#B8863B" stroke-width="1" stroke-dasharray="251" stroke-dashoffset="251" style="animation:drawLine 1.6s ease forwards .9s;"/>
+                <line x1="110" y1="25" x2="110" y2="195" stroke="#B8863B" stroke-width="0.5" opacity="0.5"/>
+              </svg>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 45px; border-bottom:1px solid #332C22; font-size:0.72rem; letter-spacing:1px;">
+                <span>ATELIERS VANGUARD</span>
+                <span style="color:#B8863B;">● Ligne ouverte 24/7</span>
+              </div>
+              <div style="padding:55px 45px 45px; position:relative;">
+                <span class="fu" style="animation-delay:.05s; display:block; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; color:#8A7F6C; margin-bottom:18px;">Relevé n°VA—0417 // Blindage &amp; accès</span>
+                <h1 class="fu" style="animation-delay:.15s; font-size:2.6rem; font-weight:700; line-height:1.08; margin:0 0 35px; max-width:520px;">La sécurité pensée comme une mécanique de précision.</h1>
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:#332C22; border:1px solid #332C22;">
+                  <div class="fu" style="animation-delay:.25s; background:#181410; padding:20px;"><span style="color:#B8863B; font-size:0.72rem; font-weight:700;">ZONE</span><p style="font-size:0.8rem; color:#9A9182; margin:8px 0 0;">Paris &amp; petite couronne</p></div>
+                  <div class="fu" style="animation-delay:.35s; background:#181410; padding:20px;"><span style="color:#B8863B; font-size:0.72rem; font-weight:700;">DÉLAI</span><p style="font-size:0.8rem; color:#9A9182; margin:8px 0 0;">Intervention &lt; 15 min</p></div>
+                  <div class="fu" style="animation-delay:.45s; background:#181410; padding:20px;"><span style="color:#B8863B; font-size:0.72rem; font-weight:700;">GARANTIE</span><p style="font-size:0.8rem; color:#9A9182; margin:8px 0 0;">Décennale — toutes poses</p></div>
+                </div>
+                <button class="fu" style="animation-delay:.55s; margin-top:30px; background:transparent; border:1px solid #B8863B; color:#B8863B; padding:13px 26px; font-size:0.78rem; letter-spacing:1px; cursor:pointer;">Lancer une expertise sur plan</button>
+              </div>
+            </div>`;
+          break;
 
-function closePortfolio(){
-  const modal=document.getElementById("portfolioModal");
-  if(modal)modal.style.display="none";
-  document.body.style.overflow="";
-}
+        case 'vitrine-3':
+          html = `${ANIM_STYLES}
+            <div style="background:#F2EAD9; color:#3A2F22; font-family:'Georgia', serif; max-width:850px; margin:0 auto; border-radius:12px; overflow:hidden; position:relative;">
+              <svg style="position:absolute; top:-50px; right:-50px; animation:floatY 6s ease-in-out infinite;" width="260" height="260" viewBox="0 0 320 320" opacity="0.55"><path d="M160 10 C260 40 300 140 260 220 C220 300 100 300 50 220 C0 140 60 -20 160 10Z" fill="#C9AF8E"/></svg>
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:22px 50px; font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; position:relative;">
+                <span>L'AURA</span><span style="color:#8A7455;">Studio botanique</span>
+              </div>
+              <div style="padding:35px 50px 50px; position:relative;">
+                <h1 class="fu" style="animation-delay:.1s; font-size:3.1rem; font-style:italic; font-weight:400; margin:0 0 35px; line-height:1.08; max-width:560px;">Chaque coupe est une écoute de la matière.</h1>
+                <div style="display:grid; grid-template-columns:1fr 1.3fr; gap:40px; align-items:start;">
+                  <div class="fu" style="animation-delay:.25s; background:#3A2F22; color:#F2EAD9; padding:26px; font-family:'Space Grotesk', sans-serif;">
+                    <div style="display:flex; justify-content:space-between; font-size:0.82rem; padding-bottom:12px; margin-bottom:12px; border-bottom:1px solid rgba(242,234,217,.25);"><span>Architecture Coupe</span><span>120€</span></div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.82rem;"><span>Soin Botanique</span><span>95€</span></div>
+                  </div>
+                  <p class="fu" style="animation-delay:.4s; font-size:1rem; line-height:1.75; color:#5A4C38; margin:0;">Teintures exclusivement végétales, coupes à sec morphologiques. Ouvert du mardi au samedi, 10h–19h, sur rendez-vous.</p>
+                </div>
+                <button class="fu" style="animation-delay:.55s; background:transparent; border:1.5px solid #3A2F22; color:#3A2F22; padding:15px 34px; font-family:'Space Grotesk', sans-serif; font-size:0.75rem; letter-spacing:2px; text-transform:uppercase; margin-top:35px; cursor:pointer;">Réserver un temps</button>
+              </div>
+            </div>`;
+          break;
 
-function openFullscreen(name,url,layout){
-  const fs=document.getElementById("previewFullscreen");
-  const fsUrl=document.getElementById("fsUrl");
-  const fsContent=document.getElementById("fsContent");
-  if(!fs||!fsUrl||!fsContent)return;
+        case 'vitrine-4':
+          html = `${ANIM_STYLES}
+            <div style="background:#0C1016; color:#E4E6EA; font-family:'Inter', sans-serif; max-width:850px; margin:0 auto; position:relative; overflow:hidden; border-radius:12px;">
+              <span style="position:absolute; top:-70px; left:-20px; font-size:20rem; font-weight:900; color:rgba(255,255,255,0.03); line-height:1; font-family:'Georgia', serif;">§</span>
+              <div style="position:relative;">
+                <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #232A35; padding:22px 50px; font-size:0.85rem; font-weight:800;">
+                  <span>LAURENT &amp; ASSOCIÉS</span>
+                  <span style="font-size:0.65rem; font-family:monospace; color:#5C6577; border:1px solid #232A35; padding:4px 10px;">DOSSIERS SENSIBLES</span>
+                </div>
+                <div style="padding:50px 50px 40px;">
+                  <div class="fu" style="animation-delay:.1s; display:grid; grid-template-columns:55px 1fr; gap:18px; margin-bottom:10px;">
+                    <span style="font-size:0.72rem; color:#B23A2E; font-weight:700; padding-top:8px;">ART.1</span>
+                    <h1 style="font-size:2.5rem; font-weight:800; line-height:1.14; margin:0; letter-spacing:-1px;">Défense de haute gouvernance et arbitrages sensibles.</h1>
+                  </div>
+                  <div class="fu" style="animation-delay:.25s; display:grid; grid-template-columns:55px 1fr; gap:18px; margin-bottom:40px;">
+                    <span style="font-size:0.72rem; color:#B23A2E; font-weight:700;">ART.2</span>
+                    <p style="font-size:0.9rem; color:#9AA2B0; line-height:1.6; margin:0; max-width:480px;">Litiges d'affaires complexes, protection des actifs immatériels, résolution hors exposition publique.</p>
+                  </div>
+                  <div style="display:flex; gap:1px; background:#232A35;">
+                    <div class="fu" style="animation-delay:.4s; background:#0C1016; padding:18px 24px;"><div style="font-size:1.6rem; font-weight:800;">92%</div><div style="font-size:0.68rem; color:#5C6577;">Résolutions à l'amiable</div></div>
+                    <div class="fu" style="animation-delay:.5s; background:#0C1016; padding:18px 24px;"><div style="font-size:1.6rem; font-weight:800;">25 ans</div><div style="font-size:0.68rem; color:#5C6577;">Auprès de conseils CAC40</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          break;
 
-  fsUrl.textContent=`https://${url}`;
+        case 'vitrine-5':
+          html = `${ANIM_STYLES}
+            <div style="background:#FBE9C8; color:#2E1B0F; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; padding:40px; border-radius:12px;">
+              <div style="display:grid; grid-template-columns:1.3fr 1fr; gap:14px; margin-bottom:14px;">
+                <div class="fu" style="animation-delay:.05s; background:#E8792E; border:4px solid #2E1B0F; padding:32px; position:relative;">
+                  <span style="position:absolute; top:14px; right:16px; font-size:0.68rem; font-weight:900; background:#2E1B0F; color:#FBE9C8; padding:3px 9px; border-radius:20px;">EST. 1984</span>
+                  <h1 style="font-size:2.4rem; font-weight:900; line-height:0.98; text-transform:uppercase; margin:0; color:#FBE9C8;">Le pain a<br>une histoire.</h1>
+                </div>
+                <div class="fu" style="animation-delay:.2s; background:#2E1B0F; border:4px solid #2E1B0F; padding:24px; color:#FBE9C8; display:flex; flex-direction:column; justify-content:center;">
+                  <span style="font-size:2rem; display:inline-block; animation:floatY 2.4s ease-in-out infinite;">🥖</span>
+                  <p style="font-size:0.78rem; line-height:1.4; margin:10px 0 0;">Fermentation lente, 48h sur levain naturel.</p>
+                </div>
+              </div>
+              <div class="fu" style="animation-delay:.35s; display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+                <div style="background:#FFF7E6; border:4px solid #2E1B0F; padding:20px;">
+                  <div style="font-size:0.68rem; text-transform:uppercase; color:#8A5A2E; margin-bottom:8px;">Ouvert aujourd'hui</div>
+                  <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.9rem; margin-bottom:6px;"><span>Tourte de seigle 1kg</span><span>6,80€</span></div>
+                  <div style="display:flex; justify-content:space-between; font-weight:700; font-size:0.9rem;"><span>Flan vanille Madagascar</span><span>5,50€</span></div>
+                </div>
+                <button style="background:#E8792E; border:4px solid #2E1B0F; color:#2E1B0F; font-weight:900; text-transform:uppercase; font-size:0.8rem; cursor:pointer;">Voir les fournils en direct →</button>
+              </div>
+            </div>`;
+          break;
 
-  let html="";
-  switch(layout){
-    case "medical":
-      html=`<div style="background:#f4f8f6; color:#1e293b; padding:40px; font-family:sans-serif; text-align:left;">
-        <div style="color:#0f766e; font-weight:700; margin-bottom:10px;">🏥 ${escHtml(name)}</div>
-        <h1 style="font-size:2rem; color:#0f172a; margin-bottom:12px;">Vos soins de kinésithérapie personnalisés</h1>
-        <p style="color:#64748b; margin-bottom:20px;">Prenez rendez-vous directement en ligne pour votre rééducation fonctionnelle du sport ou post-opératoire.</p>
-        <button style="background:#0f766e; color:#fff; border:none; padding:12px 24px; border-radius:6px; font-weight:600;">📅 Prendre RDV sur Doctolib</button>
-      </div>`;
-      break;
-    case "emergency":
-      html=`<div style="background:#0b0c10; color:#fff; padding:40px; font-family:sans-serif; text-align:left; border-left:5px solid #ef4444;">
-        <div style="color:#ef4444; font-weight:800; font-size:1.2rem; margin-bottom:8px;">🚨 ${escHtml(name)} - URGENCE 24h/7j</div>
-        <h1 style="font-size:2rem; margin-bottom:10px;">Porte claquée ? Clé cassée ? Intervention en 30 min</h1>
-        <p style="color:#94a3b8; margin-bottom:20px;">Serruriers agréés assurances. Devis transparent annoncé par téléphone avant déplacement.</p>
-        <button style="background:#ef4444; color:#fff; font-size:1.1rem; padding:14px 28px; border:none; font-weight:700; border-radius:4px;">📞 APPELER LE 06 XX XX XX XX</button>
-      </div>`;
-      break;
-    case "elegant":
-      html=`<div style="background:#fdfbf7; color:#3e332e; padding:40px; font-family:serif; text-align:center;">
-        <h1 style="font-size:2.2rem; font-weight:300; letter-spacing:3px; text-transform:uppercase;">${escHtml(name)}</h1>
-        <p style="font-style:italic; color:#8c7a6b; margin-bottom:24px;">L'art capillaire et le soin du cheveu au cœur de votre ville</p>
-        <div style="border-top:1px solid #e6dfd5; border-bottom:1px solid #e6dfd5; padding:16px; max-width:300px; margin:0 auto 24px;">Coupe Signature — 45€<br>Balayage Éclat — 95€</div>
-        <button style="background:#3e332e; color:#fff; border:none; padding:12px 30px; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Réserver un moment</button>
-      </div>`;
-      break;
-    case "legal":
-      html=`<div style="background:#0a192f; color:#cbd5e1; padding:40px; font-family:sans-serif; text-align:left;">
-        <div style="color:#ffd54a; font-weight:600; letter-spacing:1px; margin-bottom:6px;">CABINET D'AVOCATS</div>
-        <h1 style="font-size:2rem; color:#fff; margin-bottom:14px;">Défendre vos intérêts avec rigueur et intégrité</h1>
-        <p style="color:#8892b0; max-width:600px; margin-bottom:24px;">Spécialisés en Droit des Affaires et Droit Social, nous sécurisons vos projets d'entreprise et vos litiges prud'hommaux.</p>
-        <button style="background:transparent; border:1px solid #ffd54a; color:#ffd54a; padding:12px 24px; font-weight:600;">Consulter un Avocat associé</button>
-      </div>`;
-      break;
-    case "garage":
-      html=`<div style="background:#1e293b; color:#f8fafc; padding:40px; font-family:sans-serif; text-align:left;">
-        <h1 style="font-size:1.8rem; color:#ff7a00; font-weight:800;">🛠️ ${escHtml(name)}</h1>
-        <h2 style="font-size:1.4rem; margin:10px 0;">Entretien, réparation toutes marques & diagnostic électronique</h2>
-        <p style="color:#94a3b8; margin-bottom:20px;">Profitez d'un service mécanique professionnel de proximité sans perte de votre garantie constructeur.</p>
-        <button style="background:#ff7a00; color:#fff; border:none; padding:12px 24px; font-weight:700; border-radius:4px;">Demander un devis en ligne</button>
-      </div>`;
-      break;
-    case "corporate-clean":
-      html=`<div style="background:#fff; color:#334155; padding:40px; font-family:sans-serif; text-align:left;">
-        <div style="color:#1e40af; font-weight:700;">PRO CONSEIL</div>
-        <h1 style="font-size:2.2rem; color:#0f172a; margin:12px 0;">Sécurisez la croissance et la fiscalité de votre patrimoine</h1>
-        <p style="color:#64748b; margin-bottom:24px;">Téléchargez notre guide exclusif 2026 sur l'optimisation des holdings d'entreprise.</p>
-        <input type="email" placeholder="Votre adresse email pro" style="padding:12px; width:250px; border:1px solid #cbd5e1; border-radius:4px; margin-right:10px;">
-        <button style="background:#1e40af; color:#fff; border:none; padding:12px 24px; border-radius:4px; font-weight:600;">Recevoir le Guide PDF</button>
-      </div>`;
-      break;
-    case "high-conversion":
-      html=`<div style="background:#000; color:#fff; padding:45px 20px; font-family:sans-serif; text-align:center;">
-        <div style="background:#ffd54a; color:#000; display:inline-block; padding:4px 12px; font-weight:800; margin-bottom:14px; font-size:0.8rem;">ATTENTION : PLACES LIMITÉES</div>
-        <h1 style="font-size:2.4rem; font-weight:900; color:#fff;">EXPLOSEZ VOS OBJECTIFS PHYSIQUES ET MENTAUX EN 90 JOURS</h1>
-        <p style="color:#a0aec0; max-width:550px; margin:12px auto 24px;">Le programme ultime combinant nutrition, haute performance et biohacking.</p>
-        <button style="background:#ffd54a; color:#000; font-size:1.1rem; font-weight:800; padding:16px 32px; border:none; border-radius:50px; box-shadow:0 0 20px rgba(255,213,74,0.4);">REJOINDRE L'ACADÉMIE ÉLITE</button>
-      </div>`;
-      break;
-    case "eco-travel":
-      html=`<div style="background:#f2efe9; color:#2d3a2e; padding:40px; font-family:sans-serif; text-align:left;">
-        <span style="color:#4a6b53; font-weight:600; text-transform:uppercase; font-size:0.8rem;">🌿 Éco-villas de prestige</span>
-        <h1 style="font-size:2rem; color:#1c281d; margin:8px 0 16px;">Déconnexion totale au cœur de la nature sauvage</h1>
-        <p style="color:#556656; max-width:500px; margin-bottom:24px;">Des éco-lodges construits en matériaux durables dotés de piscines naturelles et autonomes en énergie.</p>
-        <button style="background:#4a6b53; color:#fff; border:none; padding:12px 24px; font-weight:600;">Vérifier les disponibilités</button>
-      </div>`;
-      break;
-    case "saas-landing":
-      html=`<div style="background:#090910; color:#fff; padding:40px; font-family:monospace; text-align:left;">
-        <div style="color:#7c6bff;">[v2.1 live analytics]</div>
-        <h1 style="font-size:2rem; font-family:sans-serif; margin:10px 0;">Automate Your Data Streams Without Code</h1>
-        <p style="color:#6b7280; font-family:sans-serif; margin-bottom:20px;">Connect directly to your app, deploy worker nodes, and visualize tracking in real-time.</p>
-        <div style="background:#141425; padding:14px; border:1px solid #222244; border-radius:6px; color:#4ade80; margin-bottom:20px;">$ npm install @flowmetrics/core_nodule</div>
-        <button style="background:#7c6bff; color:#fff; border:none; padding:12px 24px; font-family:sans-serif; font-weight:600; border-radius:4px;">Start 14-day Free Trial</button>
-      </div>`;
-      break;
-    case "gastro-luxury":
-      html=`<div style="background:#121212; color:#e5d5c5; padding:45px; font-family:serif; text-align:center;">
-        <h1 style="font-size:2rem; font-weight:300; letter-spacing:4px; color:#fff;">L'ÉTOILE</h1>
-        <p style="font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:#b39e89; margin-bottom:30px;">Une expérience gastronomique étoilée au guide Michelin</p>
-        <p style="max-width:500px; margin:0 auto 24px; font-family:sans-serif; font-size:0.9rem; line-height:1.6; color:#a3a3a3;">Chaque plat raconte une histoire, née du respect des saisons et de la passion infinie de notre Chef de cuisine.</p>
-        <button style="background:transparent; border:1px solid #b39e89; color:#b39e89; padding:12px 28px; font-family:sans-serif; text-transform:uppercase; font-size:0.8rem; letter-spacing:1px;">Réserver une table</button>
-      </div>`;
-      break;
-    case "dark-fantasy-dungeon":
-      html=`<div style="background:#030308; color:#d1d1e0; padding:50px; font-family:sans-serif; text-align:left; border:1px solid rgba(124,107,255,0.2); position:relative; box-shadow: inset 0 0 30px rgba(124,107,255,0.05);">
-        <div style="color:#ffd54a; font-family:monospace; font-size:0.75rem; letter-spacing:3px; margin-bottom:10px;">// ACCÈS ALPHA UNIQUE</div>
-        <h1 style="font-size:2.6rem; font-weight:800; background:linear-gradient(135deg, #fff 30%, #7c6bff); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">AETHERIUM CHRONICLES</h1>
-        <p style="color:#7e7ea3; max-width:550px; line-height:1.6; margin-bottom:24px;">Explorez le terrifiant Donjon de Lune, collectez des améthystes ancestrales et gérez une armée de plus de 200 créatures dans ce RPG dark fantasy.</p>
-        <div style="display:inline-flex; gap:10px; background:rgba(124,107,255,0.1); border:1px solid rgba(124,107,255,0.2); padding:10px 16px; border-radius:6px; font-size:0.85rem; margin-bottom:24px; color:#a78bff;">🔮 Système d'incantation de sorts optimisé sur Blender 3D & Roblox Engine.</div><br>
-        <button style="background:#ffd54a; color:#000; border:none; padding:14px 28px; font-weight:800; text-transform:uppercase; letter-spacing:1px; box-shadow:0 0 15px #ffd54a;">S'enrôler dans la Guilde</button>
-      </div>`;
-      break;
-    case "premium-tech":
-      html=`<div style="background:#020205; color:#00f2ff; padding:50px; font-family:monospace; text-align:left;">
-        <div style="color:rgba(0,242,255,0.5); font-size:0.8rem; margin-bottom:8px;">&lt;SYSTEM OVERRIDE v4.06&gt;</div>
-        <h1 style="font-size:2.4rem; color:#fff; font-family:sans-serif; font-weight:800; letter-spacing:-1px;">NEO-VANGUARD OPERATING SYSTEM</h1>
-        <p style="color:#64748b; font-family:sans-serif; max-width:550px; line-height:1.5; margin-bottom:24px;">L'infrastructure décentralisée web3 pour sécuriser, automatiser et propulser vos services digitaux à l'échelle mondiale.</p>
-        <div style="display:flex; gap:14px;">
-          <button style="background:#00f2ff; color:#000; font-weight:700; border:none; padding:12px 24px; font-family:sans-serif;">INITIALIZE PROTOCOL</button>
-          <button style="background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:12px 24px; font-family:sans-serif;">VIEW SOURCE</button>
-        </div>
-      </div>`;
-      break;
-    case "blender-studio":
-      html=`<div style="background:#141517; color:#eaedf1; padding:45px; font-family:sans-serif; text-align:left;">
-        <span style="color:#10b981; font-family:monospace; font-weight:600;">[3D PORTFOLIO DISCOVERY]</span>
-        <h1 style="font-size:2.2rem; font-weight:700; margin:8px 0 14px;">Sculpter des mondes imaginaires à l'état pur</h1>
-        <p style="color:#94a3b8; max-width:580px; margin-bottom:24px;">Conception de meshes Low-Poly hautement optimisés, textures procédurales fantastiques et direction artistique de environnements de jeux.</p>
-        <div style="background:#1e2024; border:1px solid #2e3138; padding:20px; border-radius:8px; display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
-          <div>🟢 <strong>Modélisation 3D :</strong> Cycles & Eevee</div>
-          <div>🟢 <strong>Baking :</strong> Cartes de normales 4K</div>
-        </div>
-        <button style="background:#10b981; color:#fff; border:none; padding:12px 24px; font-weight:600; border-radius:4px;">Télécharger l'Asset Pack</button>
-      </div>`;
-      break;
-    case "luxury-watch":
-      html=`<div style="background:#ffffff; color:#000000; padding:50px 20px; font-family:sans-serif; text-align:center;">
-        <h1 style="font-size:2.5rem; font-weight:300; letter-spacing:6px; text-transform:uppercase;">CHRONOS SWISS</h1>
-        <div style="width:40px; height:2px; background:#000; margin:15px auto 25px;"></div>
-        <p style="font-size:1.1rem; max-width:500px; margin:0 auto 30px; font-weight:300; line-height:1.6; color:#333;">L'ingénierie mécanique de haute précision alliée au design intemporel de l'or blanc brossé.</p>
-        <button style="background:#000; color:#fff; border:none; padding:14px 35px; text-transform:uppercase; font-size:0.75rem; letter-spacing:2px; font-weight:600;">Découvrir la Collection Atelier</button>
-      </div>`;
-      break;
-    case "brutalist-arch":
-      html=`<div style="background:#d9d9d9; color:#111111; padding:50px; font-family:sans-serif; text-align:left;">
-        <h1 style="font-size:3.5rem; font-weight:900; line-height:0.9; letter-spacing:-2px; text-transform:uppercase; margin-bottom:20px;">META<br><span style="color:#ff3e00;">ARCHITECTS</span></h1>
-        <p style="font-size:1.05rem; font-weight:700; max-width:450px; margin-bottom:30px; border-left:4px solid #111; padding-left:14px;">Béton brut, structures géométriques massives et optimisation de la lumière industrielle.</p>
-        <button style="background:#ff3e00; color:#fff; border:none; padding:14px 28px; font-weight:800; text-transform:uppercase; font-size:0.85rem;">Voir les chantiers 2026</button>
-      </div>`;
-      break;
-    case "social-tiktok":
-      html=`<div style="background:#010103; color:#fff; padding:35px; font-family:sans-serif; text-align:left;">
-        <div style="color:#fe2c55; font-weight:800; font-size:1.1rem; margin-bottom:16px;">🎵 Séquence de Hooks Viraux Automatisés</div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
-          <div style="background:#121216; padding:16px; border-radius:8px; border:1px solid #222228;"><span style="color:#25f4ee; font-size:1.5rem; font-weight:800;">+1.4M</span><br><span style="font-size:0.75rem; color:#86878b;">Vues ciblées 30j</span></div>
-          <div style="background:#121216; padding:16px; border-radius:8px; border:1px solid #222228;"><span style="color:#fe2c55; font-size:1.5rem; font-weight:800;">14.2%</span><br><span style="font-size:0.75rem; color:#86878b;">Taux de conversion Bio</span></div>
-        </div>
-        <p style="font-size:0.85rem; color:#86878b; font-style:italic;">"L'implémentation de vidéos courtes automatisées a multiplié les leads de nos clients par 4."</p>
-      </div>`;
-      break;
-    case "social-insta":
-      html=`<div style="background:#fff; color:#000; padding:35px; font-family:sans-serif; text-align:left;">
-        <h4 style="margin:0 0 16px; font-size:1rem; font-weight:700; color:#c13584;">📸 Simulation Grille Éditoriale Harmonieuse</h4>
-        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-bottom:20px;">
-          <div style="aspect-ratio:1; background:#f4ebe1; display:flex; align-items:center; justify-content:center; font-size:0.65rem; padding:4px; text-align:center;">Post Produit #1 Mini</div>
-          <div style="aspect-ratio:1; background:#e2d4c9; display:flex; align-items:center; justify-content:center; font-size:0.65rem; padding:4px; text-align:center;">Citation Inspirante</div>
-          <div style="aspect-ratio:1; background:#ebdcd0; display:flex; align-items:center; justify-content:center; font-size:0.65rem; padding:4px; text-align:center;">Backstage Agence</div>
-        </div>
-        <span style="font-size:0.8rem; color:#666;">📊 Planification & Charte Graphique Unifiée</span>
-      </div>`;
-      break;
-    case "social-linkedin":
-      html=`<div style="background:#f3f6f8; color:#1d2226; padding:35px; font-family:sans-serif; text-align:left;">
-        <div style="color:#0a66c2; font-weight:700; margin-bottom:12px;">👔 LinkedIn Personal Branding Pack</div>
-        <div style="background:#fff; padding:16px; border-radius:8px; border:1px solid #e0e0e0; margin-bottom:16px;">
-          <p style="font-weight:700; margin:0 0 6px; font-size:0.9rem;">Thibault Marguier • Entrepreneur B2B</p>
-          <p style="font-size:0.85rem; margin:0; line-height:1.4;">"Arrêtez de vouloir vendre votre produit au premier message. Créez du contenu qui prouve votre expertise, et laissez vos futurs clients venir à vous..." <strong>voir plus</strong></p>
-        </div>
-        <span style="font-size:0.75rem; color:#666;">🔥 Objectif : Générer l'autorité sur votre secteur et attirer les décideurs.</span>
-      </div>`;
-      break;
-    case "social-x":
-      html=`<div style="background:#000; color:#fff; padding:35px; font-family:monospace; text-align:left;">
-        <div style="color:#555; margin-bottom:10px;">// X ALGORITHM RE-ROUTE</div>
-        <h3 style="font-family:sans-serif; font-size:1.1rem; color:#1d9bf0;">⚡ Stratégie de Thread Viral Web3 & Tech</h3>
-        <p style="font-size:0.85rem; color:#cbd5e1; line-height:1.4; margin:12px 0;">Nous rédigeons des structures de threads à forte rétention (Hook d'accroche direct, découpe en 7 étapes, CTA vers votre newsletter).</p>
-        <div style="border-top:1px solid #222; padding-top:10px; font-size:0.8rem; color:#1d9bf0;">📈 240,000 Impressions accumulées en 48h</div>
-      </div>`;
-      break;
-    case "social-roi":
-      html=`<div style="background:#0b0f19; color:#fff; padding:35px; font-family:sans-serif; text-align:left;">
-        <h4 style="color:#10b981; margin:0 0 14px;">🎯 Dashboard de Rentabilité Publicitaire (ROI)</h4>
-        <div style="background:#1e293b; padding:16px; border-radius:6px; border:1px solid rgba(255,255,255,0.05); margin-bottom:14px;">
-          <table style="width:100%; font-size:0.8rem; text-align:left; border-collapse:collapse;">
-            <tr style="color:#64748b; border-bottom:1px solid #334155;"><th style="padding-bottom:6px;">Canal</th><th>Budget</th><th>CA Généré</th><th>ROAS</th></tr>
-            <tr style="border-bottom:1px solid #334155;"><td style="padding:6px 0;">Meta Ads</td><td>1 200€</td><td>4 800€</td><td style="color:#10b981; font-weight:700;">4.0x</td></tr>
-            <tr><td style="padding:6px 0;">TikTok Ads</td><td>800€</td><td>4 160€</td><td style="color:#10b981; font-weight:700;">5.2x</td></tr>
-          </table>
-        </div>
-        <p style="font-size:0.75rem; color:#64748b; margin:0;">Données synchronisées en temps réel via des webhooks personnalisés.</p>
-      </div>`;
-      break;
-    default:
-      html=`<div style="padding:40px; text-align:center; color:var(--muted);">Erreur d'affichage.</div>`;
-  }
 
-  fsContent.innerHTML=html;
-  fs.classList.add("open");
-}
+        // =====================================================================
+        // OFFRE PREMIUM — plus de sections, plus de micro-interactions :
+        // badges vivants, cascades d'apparition, compteurs, halos pulsés
+        // =====================================================================
 
-function closeFullscreen(){
-  const fs=document.getElementById("previewFullscreen");
-  if(fs)fs.classList.remove("open");
-}
+        case 'premium-1':
+          html = `${ANIM_STYLES}
+            <div style="background:#F7F5EE; color:#111C16; font-family:'Georgia', serif; max-width:850px; margin:0 auto; border-radius:12px; overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 50px; border-bottom:1px solid #111C16; font-family:'Space Grotesk', sans-serif; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;">
+                <span>Revue Pro Conseil — N°14</span><span style="color:#5B6E60;">Juillet 2026</span>
+              </div>
+              <div style="padding:50px; display:grid; grid-template-columns:55px 1fr 250px; gap:32px; align-items:start;">
+                <span class="fu" style="animation-delay:.05s; font-size:5rem; font-weight:400; line-height:0.7; color:#111C16;">R</span>
+                <div class="fu" style="animation-delay:.15s;">
+                  <h1 style="font-size:1.8rem; font-weight:400; line-height:1.3; margin:0 0 18px; letter-spacing:-0.3px;">estructurer ses dividendes de holding sans exposer sa gouvernance.</h1>
+                  <p style="font-family:'Space Grotesk', sans-serif; font-size:0.82rem; line-height:1.6; color:#42513F; margin:0 0 20px;">Une lecture de 6 minutes pour comprendre le levier fiscal applicable dès ce trimestre.</p>
+                  <div style="display:flex; gap:18px; font-family:'Space Grotesk', sans-serif; font-size:0.72rem; color:#5B6E60;">
+                    <span>✓ Sans engagement</span><span>✓ 340 dirigeants abonnés</span>
+                  </div>
+                </div>
+                <div class="fu" style="animation-delay:.3s; border-left:2px solid #C4E86B; padding-left:18px; font-family:'Space Grotesk', sans-serif;">
+                  <span style="font-size:0.68rem; text-transform:uppercase; letter-spacing:1px; color:#5B6E60; display:block; margin-bottom:10px;">Recevoir l'analyse</span>
+                  <input type="email" placeholder="dirigeant@votrecie.com" style="width:100%; border:none; border-bottom:1px solid #111C16; background:transparent; padding:8px 0; font-size:0.82rem; margin-bottom:12px; outline:none; box-sizing:border-box;">
+                  <button style="background:#111C16; color:#F7F5EE; border:none; padding:11px 18px; font-size:0.7rem; text-transform:uppercase; letter-spacing:1px; cursor:pointer; width:100%;">Recevoir</button>
+                </div>
+              </div>
+            </div>`;
+          break;
 
+        case 'premium-2':
+          html = `${ANIM_STYLES}
+            <div style="background:#0D0D0D; color:#fff; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; position:relative; overflow:hidden; border-radius:12px;">
+              <div style="position:absolute; inset:0; background:linear-gradient(105deg, transparent 55%, #E10600 55.5%, #E10600 58%, transparent 58.5%);"></div>
+              <div style="position:relative; padding:45px 50px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+                  <span style="font-weight:800; font-size:0.85rem;">ÉLITE COACHING</span>
+                  <span style="background:#E10600; padding:5px 12px; font-size:0.68rem; font-weight:800; text-transform:uppercase; letter-spacing:1px; animation:pulseGlow 2s ease infinite; --glow:rgba(225,6,0,.6);">● Accès Top 1%</span>
+                </div>
+                <h1 class="fu" style="animation-delay:.1s; font-size:3.1rem; font-weight:800; font-style:italic; line-height:0.95; letter-spacing:-1.5px; margin:0 0 22px; max-width:560px; text-transform:uppercase;">Ne vendez plus votre temps.</h1>
+                <p class="fu" style="animation-delay:.25s; color:#9C9C9C; font-size:0.95rem; max-width:420px; margin-bottom:35px; line-height:1.5;">Un écosystème de conversion asynchrone pour bâtir une architecture qui tourne sans vous.</p>
+                <div class="fu" style="animation-delay:.4s; display:flex; align-items:center; gap:20px; margin-bottom:35px;">
+                  <button style="background:#E10600; color:#fff; border:none; padding:15px 32px; font-weight:800; text-transform:uppercase; font-size:0.82rem; letter-spacing:1px; cursor:pointer; clip-path:polygon(0 0,100% 0,94% 100%,0% 100%); animation:pulseGlow 2s ease infinite; --glow:rgba(225,6,0,.5);">Voir la session ▶</button>
+                  <span style="font-family:monospace; font-size:0.72rem; color:#555;">14 MIN — STRATÉGIE</span>
+                </div>
+                <div class="fu" style="animation-delay:.55s; display:flex; gap:1px; background:#262626;">
+                  <div style="background:#0D0D0D; padding:14px 22px;"><div style="font-size:1.3rem; font-weight:800;">312</div><div style="font-size:0.66rem; color:#777;">clients coachés</div></div>
+                  <div style="background:#0D0D0D; padding:14px 22px;"><div style="font-size:1.3rem; font-weight:800;">50K€</div><div style="font-size:0.66rem; color:#777;">CA mensuel moyen visé</div></div>
+                </div>
+              </div>
+            </div>`;
+          break;
+
+        case 'premium-3':
+          html = `${ANIM_STYLES}
+            <div style="background:#fff; color:#0A0A0A; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; border-radius:12px; overflow:hidden;">
+              <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 45px; border-bottom:2px solid #0A0A0A;">
+                <span style="font-weight:800; font-size:1rem;">🔧 Expert Plomberie Rapide</span>
+                <span style="font-size:0.8rem; font-weight:700; color:#0055FF; display:flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#22C55E; display:inline-block; animation:pulseGlow 1.6s ease infinite; --glow:rgba(34,197,94,.7);"></span>Disponible maintenant</span>
+              </div>
+              <div style="padding:40px 45px;">
+                <h1 class="fu" style="animation-delay:.05s; font-size:2.1rem; font-weight:800; line-height:1.15; margin:0 0 30px; max-width:500px;">Une fuite ? On intervient, on répare, on vous dit le prix avant.</h1>
+                <div style="display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid #0A0A0A; border-bottom:2px solid #0A0A0A; margin-bottom:30px;">
+                  <div class="fu" style="animation-delay:.15s; padding:18px; border-right:1px solid #ddd;"><div style="font-weight:800; color:#0055FF; margin-bottom:6px;">1. Appelez</div><div style="font-size:0.78rem; color:#555;">Réponse en moins de 3 min</div></div>
+                  <div class="fu" style="animation-delay:.3s; padding:18px; border-right:1px solid #ddd;"><div style="font-weight:800; color:#0055FF; margin-bottom:6px;">2. Diagnostic</div><div style="font-size:0.78rem; color:#555;">Devis fixe, sans surprise</div></div>
+                  <div class="fu" style="animation-delay:.45s; padding:18px;"><div style="font-weight:800; color:#0055FF; margin-bottom:6px;">3. Intervention</div><div style="font-size:0.78rem; color:#555;">Sur site en 45 min</div></div>
+                </div>
+                <button class="fu" style="animation-delay:.6s; background:#0055FF; color:#fff; border:none; padding:17px; width:100%; font-weight:800; text-transform:uppercase; font-size:0.9rem; cursor:pointer;">Demander une intervention maintenant</button>
+              </div>
+            </div>`;
+          break;
+
+        case 'premium-4':
+          html = `${ANIM_STYLES}
+            <div style="background:#EEF1F5; color:#101820; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; padding:45px; border-radius:12px; position:relative; overflow:hidden;">
+              <svg style="position:absolute; right:35px; top:30px; animation:floatY 5s ease-in-out infinite;" width="240" height="200" viewBox="0 0 260 220">
+                <polygon points="130,10 250,70 250,150 130,210 10,150 10,70" fill="none" stroke="#0EA5B5" stroke-width="1"/>
+                <polygon points="130,10 250,70 130,130 10,70" fill="none" stroke="#0EA5B5" stroke-width="1"/>
+                <line x1="130" y1="130" x2="130" y2="210" stroke="#0EA5B5" stroke-width="1"/>
+              </svg>
+              <span class="fu" style="animation-delay:.05s; display:block; font-family:monospace; font-size:0.7rem; color:#0EA5B5; letter-spacing:1px; margin-bottom:20px;">RÉF. PLAN — LGP/MOD—03</span>
+              <h1 class="fu" style="animation-delay:.15s; font-size:2.1rem; font-weight:800; line-height:1.15; max-width:440px; margin:0 0 26px;">Bâtiments modulaires clés en main, déployés en 4 semaines.</h1>
+              <p class="fu" style="animation-delay:.3s; font-size:0.85rem; color:#4B5866; max-width:400px; line-height:1.5; margin-bottom:30px;">Extension ultra-rapide de vos surfaces de stockage ou de bureaux, sans interruption d'activité.</p>
+              <div class="fu" style="animation-delay:.45s; display:flex; gap:12px; flex-wrap:wrap;">
+                <div style="background:#fff; border:1px solid #D3DAE1; padding:14px 18px; font-size:0.75rem;"><b style="color:#0EA5B5;">Portée libre</b><br>jusqu'à 40 m</div>
+                <div style="background:#fff; border:1px solid #D3DAE1; padding:14px 18px; font-size:0.75rem;"><b style="color:#0EA5B5;">Chiffrage</b><br>sous 48h ouvrées</div>
+                <button style="background:#101820; color:#fff; border:none; padding:14px 20px; font-size:0.75rem; font-weight:700; text-transform:uppercase; cursor:pointer;">Étudier mon plan</button>
+              </div>
+            </div>`;
+          break;
+
+        case 'premium-5':
+          html = `${ANIM_STYLES}
+            <div style="background:#1C0E10; color:#F3E9DC; font-family:'Georgia', serif; max-width:850px; margin:0 auto; padding:55px; border-radius:12px; text-align:center;">
+              <span class="fu" style="animation-delay:.05s; display:block; font-family:'Space Grotesk', sans-serif; font-size:0.65rem; letter-spacing:5px; text-transform:uppercase; color:#C9A24B;">L'Étoile — Table confidentielle</span>
+              <div style="width:120px; height:120px; border-radius:50%; margin:28px auto; background:radial-gradient(circle at 40% 35%, #4A2A24, #1C0E10 70%); box-shadow:0 0 0 1px #C9A24B; animation:pulseGlow 2.6s ease infinite, fadeUp .6s ease forwards; animation-delay:0s,.15s; --glow:rgba(201,162,75,.35); opacity:0;"></div>
+              <h1 class="fu" style="animation-delay:.3s; font-size:2.1rem; font-weight:400; font-style:italic; margin:0 0 24px;">Expérience Quintessence</h1>
+              <p class="fu" style="animation-delay:.4s; font-size:0.85rem; color:#C9BBA9; max-width:400px; margin:0 auto 24px; line-height:1.6;">Sept temps. Compositions marines asymétriques, herbes sauvages, réductions concentrées.</p>
+              <div class="fu" style="animation-delay:.5s; color:#C9A24B; font-weight:600; font-family:'Space Grotesk', sans-serif; font-size:0.95rem; margin-bottom:28px;">145 €</div>
+              <button class="fu" style="animation-delay:.6s; background:transparent; border:1px solid #C9A24B; color:#C9A24B; padding:14px 34px; font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer;">Réserver une table</button>
+            </div>`;
+          break;
+
+
+        // =====================================================================
+        // OFFRE ULTRA — l'expérience complète : particules, dégradés animés,
+        // éléments flottants, éléments mécaniques réels (aiguilles, rotation)
+        // =====================================================================
+
+        case 'ultra-1':
+          html = `${ANIM_STYLES}
+            <div style="background:radial-gradient(ellipse at 30% 0%,#1C0F33 0%,#0B0716 55%,#060309 100%); border-radius:12px; overflow:hidden; position:relative; font-family:'Space Grotesk', sans-serif; color:#E4DBFA; max-width:850px; margin:0 auto;">
+              <div style="position:absolute; inset:0; overflow:hidden; pointer-events:none;">
+                <span style="position:absolute; left:12%; bottom:0; width:4px; height:4px; border-radius:50%; background:#FF7BAE; animation:rise 5s linear infinite;"></span>
+                <span style="position:absolute; left:26%; bottom:0; width:3px; height:3px; border-radius:50%; background:#8F84E8; animation:rise 6.5s linear infinite 1.2s;"></span>
+                <span style="position:absolute; left:41%; bottom:0; width:5px; height:5px; border-radius:50%; background:#FF3F8E; animation:rise 7s linear infinite .6s;"></span>
+                <span style="position:absolute; left:58%; bottom:0; width:3px; height:3px; border-radius:50%; background:#6E63C9; animation:rise 5.8s linear infinite 2s;"></span>
+                <span style="position:absolute; left:73%; bottom:0; width:4px; height:4px; border-radius:50%; background:#FF7BAE; animation:rise 6.2s linear infinite .3s;"></span>
+                <span style="position:absolute; left:88%; bottom:0; width:3px; height:3px; border-radius:50%; background:#8F84E8; animation:rise 7.4s linear infinite 1.7s;"></span>
+              </div>
+              <div style="position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; padding:22px 45px; border-bottom:1px solid rgba(255,255,255,0.06);">
+                <span style="font-weight:800; letter-spacing:1px; font-size:0.9rem;">AETHERIUM <span style="color:#FF3F8E;">CHRONICLES</span></span>
+                <div style="display:flex; gap:22px; font-size:0.72rem; color:#B3A8E0;"><span>Univers</span><span>Créatures</span><span>Alpha</span></div>
+              </div>
+              <div style="position:relative; z-index:1; padding:55px 45px 40px;">
+                <span class="fu" style="animation-delay:0s; display:inline-block; font-family:monospace; font-size:0.66rem; letter-spacing:1px; padding:5px 12px; border-radius:100px; border:1px solid rgba(255,63,142,0.5); color:#FF7BAE; animation:fadeUp .6s ease forwards, pulseGlow 2.4s ease infinite .6s; --glow:rgba(255,63,142,.55);">● ALPHA TESTEUR — PLACES OUVERTES</span>
+                <h1 class="fu" style="animation-delay:.15s; font-size:2.7rem; font-weight:800; line-height:1.05; margin:22px 0 18px; max-width:580px;">
+                  <span style="background:linear-gradient(90deg,#FF3F8E,#8F84E8,#FF3F8E); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:gradientShift 5s ease infinite;">Explorez le Donjon de Lune.</span>
+                </h1>
+                <p class="fu" style="animation-delay:.3s; font-size:0.9rem; color:#B3A8E0; max-width:420px; line-height:1.6; margin-bottom:30px;">200 créatures procédurales, HUD réactif, ressources suivies en temps réel.</p>
+                <button class="fu" style="animation-delay:.45s; background:#FF3F8E; color:#fff; border:none; padding:14px 28px; font-weight:800; font-size:0.8rem; cursor:pointer; border-radius:8px; animation:pulseGlow 2.4s ease infinite; --glow:rgba(255,63,142,.5);">Rejoindre l'alpha ▶</button>
+                <div style="display:flex; align-items:flex-end; gap:18px; height:120px; margin-top:40px;">
+                  <div style="width:100px; height:60px; background:linear-gradient(160deg,#6E63C9,#332B63); transform:skewX(-15deg); border:1px solid #8F84E8; border-radius:4px; animation:floatY 4.2s ease-in-out infinite;"></div>
+                  <div style="width:100px; height:100px; background:linear-gradient(160deg,#FF3F8E,#7A1F49); transform:skewX(-15deg); border:1px solid #FF7BAE; border-radius:4px; animation:floatY 4.2s ease-in-out infinite .5s;"></div>
+                  <div style="width:100px; height:78px; background:linear-gradient(160deg,#6E63C9,#332B63); transform:skewX(-15deg); border:1px solid #8F84E8; border-radius:4px; animation:floatY 4.2s ease-in-out infinite 1s;"></div>
+                </div>
+              </div>
+              <div style="position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(255,255,255,0.06);">
+                <div class="fu" style="animation-delay:.6s; padding:20px 45px; border-right:1px solid rgba(255,255,255,0.06);"><div style="font-size:1.3rem; font-weight:800;">200+</div><div style="font-size:0.68rem; color:#8A7EC0;">créatures jouables</div></div>
+                <div class="fu" style="animation-delay:.7s; padding:20px 45px; border-right:1px solid rgba(255,255,255,0.06);"><div style="font-size:1.3rem; font-weight:800;">14K</div><div style="font-size:0.68rem; color:#8A7EC0;">testeurs alpha</div></div>
+                <div class="fu" style="animation-delay:.8s; padding:20px 45px;"><div style="font-size:1.3rem; font-weight:800;">v1.0.4</div><div style="font-size:0.68rem; color:#8A7EC0;">build stable</div></div>
+              </div>
+            </div>`;
+          break;
+
+        case 'ultra-2':
+          html = `${ANIM_STYLES}
+            <div style="background:#04070C; color:#DDE6EC; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; border-radius:12px; padding:50px; position:relative; overflow:hidden;">
+              <div style="position:absolute; inset:0; background:repeating-linear-gradient(0deg, rgba(0,242,255,0.02) 0px, rgba(0,242,255,0.02) 1px, transparent 1px, transparent 3px); pointer-events:none;"></div>
+              <div style="position:relative;">
+                <span class="fu" style="animation-delay:0s; font-family:monospace; font-size:0.7rem; color:#00F2FF; letter-spacing:1px;">[GATEWAY_ESTABLISHED // NODE_PARIS]</span>
+                <h1 class="fu" style="animation-delay:.12s; font-size:2.4rem; font-weight:800; line-height:1.1; max-width:540px; margin:20px 0 35px;">Neo-Vanguard : l'infrastructure racontée en quatre chapitres.</h1>
+                <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:35px;">
+                  <div class="fu" style="animation-delay:.25s; border-top:2px solid #00F2FF; padding-top:12px;"><span style="font-family:monospace; font-size:0.66rem; color:#00F2FF;">CH.01</span><p style="font-size:0.74rem; color:#8A97A3; line-height:1.5; margin-top:6px;">Souveraineté des données</p></div>
+                  <div class="fu" style="animation-delay:.35s; border-top:2px solid #1F3340; padding-top:12px;"><span style="font-family:monospace; font-size:0.66rem; color:#4E6470;">CH.02</span><p style="font-size:0.74rem; color:#8A97A3; line-height:1.5; margin-top:6px;">Tunnels asynchrones</p></div>
+                  <div class="fu" style="animation-delay:.45s; border-top:2px solid #1F3340; padding-top:12px;"><span style="font-family:monospace; font-size:0.66rem; color:#4E6470;">CH.03</span><p style="font-size:0.74rem; color:#8A97A3; line-height:1.5; margin-top:6px;">Calcul haute densité</p></div>
+                  <div class="fu" style="animation-delay:.55s; border-top:2px solid #1F3340; padding-top:12px;"><span style="font-family:monospace; font-size:0.66rem; color:#4E6470;">CH.04</span><p style="font-size:0.74rem; color:#8A97A3; line-height:1.5; margin-top:6px;">Automatisation totale</p></div>
+                </div>
+                <div class="fu" style="animation-delay:.7s; background:#070C13; border:1px solid #1F3340; padding:20px; font-family:monospace; font-size:0.78rem; color:#4ADE80;">
+                  <span style="color:#5F737F;">$</span> deploy --target=cluster_alpha --verbose<br>
+                  <span style="color:#00F2FF;">[OK]</span> Synchronisation effectuée en 0.42ms.<span style="animation:blinkCursor 1s step-end infinite;">▌</span>
+                </div>
+              </div>
+            </div>`;
+          break;
+
+        case 'ultra-3':
+          html = `${ANIM_STYLES}
+            <div style="background:#0A0A0A; color:#F5F5F0; font-family:sans-serif; max-width:850px; margin:0 auto; padding:55px; border-radius:12px; text-align:center;">
+              <span class="fu" style="animation-delay:0s; font-family:monospace; font-size:0.7rem; color:#B7FF3A; letter-spacing:2px;">STUDIO OBSIDIAN — PIÈCE 07</span>
+              <div style="margin:35px auto; width:190px; height:190px; background:conic-gradient(from 45deg,#B7FF3A,#1A1A1A 40%,#B7FF3A 60%,#1A1A1A 100%); clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%); animation:spinSlow 14s linear infinite, fadeUp .6s ease forwards; animation-delay:0s,.15s; opacity:0;"></div>
+              <h1 class="fu" style="animation-delay:.3s; font-size:1.8rem; font-weight:700; margin:0 0 14px;">La géométrie comme signature.</h1>
+              <p class="fu" style="animation-delay:.42s; color:#8A8A82; font-size:0.85rem; max-width:420px; margin:0 auto; line-height:1.6;">Topologie low-poly, dépliage UV millimétré, texturing procédural — chaque asset est exposé seul, comme une œuvre.</p>
+            </div>`;
+          break;
+
+        case 'ultra-4':
+          html = `${ANIM_STYLES}
+            <div style="background:#FFFFFF; color:#0A0A0A; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; padding:70px 50px; border-radius:12px; text-align:center;">
+              <span class="fu" style="animation-delay:0s; font-size:0.68rem; letter-spacing:6px; text-transform:uppercase; color:#9A9A9A;">Manufacture Chronos Swiss</span>
+              <div class="fu" style="animation-delay:.15s; width:140px; height:140px; border-radius:50%; border:1px solid #0A0A0A; margin:35px auto; position:relative;">
+                <span style="position:absolute; top:11px; left:50%; transform:translateX(-50%); font-size:0.6rem;">12</span>
+                <span style="position:absolute; bottom:11px; left:50%; transform:translateX(-50%); font-size:0.6rem;">6</span>
+                <span style="position:absolute; top:50%; right:11px; transform:translateY(-50%); font-size:0.6rem;">3</span>
+                <span style="position:absolute; top:50%; left:11px; transform:translateY(-50%); font-size:0.6rem;">9</span>
+                <div style="position:absolute; top:50%; left:50%; width:2px; height:38px; background:#0A0A0A; transform-origin:bottom center; margin-left:-1px; margin-top:-38px; animation:spinSlow 43200s linear infinite;"></div>
+                <div style="position:absolute; top:50%; left:50%; width:1.5px; height:52px; background:#0A0A0A; transform-origin:bottom center; margin-left:-0.75px; margin-top:-52px; animation:spinSlow 3600s linear infinite;"></div>
+                <span style="position:absolute; top:50%; left:50%; width:5px; height:5px; background:#0A0A0A; border-radius:50%; margin-left:-2.5px; margin-top:-2.5px;"></span>
+              </div>
+              <h1 class="fu" style="animation-delay:.3s; font-size:1.5rem; font-weight:400; max-width:440px; margin:0 auto 30px; line-height:1.5;">La précision helvétique n'a besoin d'aucun ornement pour se faire remarquer.</h1>
+              <button class="fu" style="animation-delay:.45s; background:#0A0A0A; color:#fff; border:none; padding:14px 32px; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; border-radius:0;">Voir les calibres</button>
+            </div>`;
+          break;
+
+        case 'ultra-5':
+          html = `${ANIM_STYLES}
+            <div style="background:#DAD7D0; color:#111111; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; border-radius:12px; overflow:hidden;">
+              <div style="background:#111111; color:#DAD7D0; padding:20px 45px; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;">Manifold Studio — Concepteurs disruptifs</div>
+              <div style="padding:45px;">
+                <h1 style="margin:0 0 8px;">
+                  <span class="fu" style="animation-delay:0s; display:block; font-size:3.1rem; font-weight:900; line-height:0.95; text-transform:uppercase;">META</span>
+                  <span class="fu" style="animation-delay:.15s; display:block; font-size:3.1rem; font-weight:900; line-height:0.95; text-transform:uppercase; background:#FF3E00; color:#111; padding:0 10px; width:fit-content; margin-top:6px;">ARCHITECTS</span>
+                </h1>
+                <p class="fu" style="animation-delay:.3s; font-size:0.95rem; font-weight:600; max-width:440px; margin:30px 0 0; line-height:1.5;">Structures géométriques asymétriques massives, identités numériques brutes pour marques en rupture de marché.</p>
+                <a href="#" class="fu" style="animation-delay:.45s; display:inline-block; margin-top:26px; color:#111; font-weight:800; text-transform:uppercase; font-size:0.78rem; border-bottom:2px solid #FF3E00; padding-bottom:3px; text-decoration:none;">Parcourir les manifestes spatiaux →</a>
+              </div>
+            </div>`;
+          break;
+
+
+        // =====================================================================
+        // COMMUNITY MANAGEMENT — reproductions fidèles d'un post réellement
+        // publié sur chaque plateforme, avec les éléments d'interface attendus
+        // =====================================================================
+
+        case 'cm-1':
+          html = `${ANIM_STYLES}
+            <div style="background:#000; padding:30px; border-radius:12px; display:flex; justify-content:center;">
+              <div class="fu" style="animation-delay:0s; width:380px; background:#fff; border-radius:12px; overflow:hidden; font-family:'Space Grotesk', sans-serif; color:#000;">
+                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px;">
+                  <div style="display:flex; align-items:center; gap:10px;">
+                    <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#E7B49A,#C97D5F);"></div>
+                    <span style="font-size:0.82rem; font-weight:700;">maison.figard</span>
+                  </div>
+                  <span style="font-size:1rem; color:#666;">⋯</span>
+                </div>
+                <div style="width:100%; aspect-ratio:1; background:linear-gradient(135deg,#F3D9C4,#E8792E 60%,#2E1B0F); display:flex; align-items:center; justify-content:center; font-size:2rem;">🥖</div>
+                <div style="padding:10px 14px 4px; display:flex; justify-content:space-between; font-size:1.15rem;">
+                  <div style="display:flex; gap:14px;"><span style="display:inline-block; animation:heartPop .5s ease .3s;">❤️</span><span>💬</span><span>↗</span></div>
+                  <span>🔖</span>
+                </div>
+                <div style="padding:0 14px; font-size:0.8rem; font-weight:700;">1 240 mentions J'aime</div>
+                <div style="padding:4px 14px 4px; font-size:0.8rem; line-height:1.4;"><b>maison.figard</b> Le pain a une histoire — et la nôtre commence à 5h du matin. <span style="color:#00376B;">#boulangerieartisanale #levainnaturel</span></div>
+                <div style="padding:0 14px 14px; font-size:0.7rem; color:#8e8e8e; text-transform:uppercase;">Il y a 2 heures</div>
+              </div>
+            </div>`;
+          break;
+
+        case 'cm-2':
+          html = `${ANIM_STYLES}
+            <div style="background:#EEF3F8; padding:30px; border-radius:12px; display:flex; justify-content:center;">
+              <div class="fu" style="animation-delay:0s; width:460px; background:#fff; border-radius:8px; overflow:hidden; font-family:'Space Grotesk', sans-serif; color:#000; box-shadow:0 1px 2px rgba(0,0,0,.08);">
+                <div style="display:flex; gap:10px; padding:14px 16px 8px;">
+                  <div style="width:44px; height:44px; border-radius:50%; background:#111; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:0.8rem;">TM</div>
+                  <div>
+                    <div style="font-weight:700; font-size:0.85rem;">Thibault Marguier</div>
+                    <div style="font-size:0.72rem; color:#666;">Concepteur d'infrastructures web &amp; flux d'acquisition</div>
+                    <div style="font-size:0.68rem; color:#8a8a8a;">2 j • 🌐</div>
+                  </div>
+                </div>
+                <div style="padding:0 16px 12px; font-size:0.82rem; line-height:1.5;">Cessez d'injecter du budget dans des sites vitrines statiques. Vos visiteurs cherchent des réponses instantanées. Bâtissez des tunnels asynchrones agressifs. <span style="color:#0a66c2;">…voir plus</span></div>
+                <div style="background:#0066C2; color:#fff; padding:26px 16px; text-align:center; font-weight:700; font-size:0.85rem;">Les 5 failles critiques qui tuent vos conversions [PDF]</div>
+                <div style="display:flex; justify-content:center; gap:5px; padding:8px;"><span style="width:5px; height:5px; border-radius:50%; background:#0a66c2;"></span><span style="width:5px; height:5px; border-radius:50%; background:#c9d6e3;"></span><span style="width:5px; height:5px; border-radius:50%; background:#c9d6e3;"></span></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:8px 16px; border-top:1px solid #eee; font-size:0.7rem; color:#666;">
+                  <span>👍❤️👏 1 240</span><span>189 commentaires • 74 partages</span>
+                </div>
+                <div style="display:flex; justify-content:space-around; padding:6px 0; border-top:1px solid #eee; font-size:0.75rem; color:#555; font-weight:600;">
+                  <span>👍 J'aime</span><span>💬 Commenter</span><span>↗ Republier</span><span>✉ Envoyer</span>
+                </div>
+              </div>
+            </div>`;
+          break;
+
+        case 'cm-3':
+          html = `${ANIM_STYLES}
+            <div style="background:#000; padding:30px; border-radius:12px; display:flex; justify-content:center;">
+              <div class="fu" style="animation-delay:0s; width:460px; background:#000; color:#E7E9EA; font-family:'Space Grotesk', sans-serif; padding:16px; border:1px solid #2F3336; border-radius:12px;">
+                <div style="display:flex; gap:10px;">
+                  <div style="width:40px; height:40px; border-radius:50%; background:#1D9BF0; flex-shrink:0;"></div>
+                  <div style="flex:1;">
+                    <div style="display:flex; gap:5px; align-items:center; font-size:0.82rem;"><b>Thibault Marguier</b><span style="color:#1D9BF0;">✔</span><span style="color:#71767B;">@thibault_web · 3h</span></div>
+                    <p style="font-size:0.85rem; line-height:1.5; margin:6px 0 10px;">1/ Comment j'ai automatisé la capture de clients locaux pour générer 45 leads qualifiés par semaine sans publicité payante.</p>
+                    <p style="font-size:0.85rem; line-height:1.5; margin:0 0 12px; color:#a7abb0;">Une faille d'architecture bête que 95% des agences ignorent. Démonstration technique dans ce fil 🧵</p>
+                    <div style="display:flex; justify-content:space-between; color:#71767B; font-size:0.75rem; max-width:340px;">
+                      <span>💬 189</span><span>🔁 74</span><span>❤️ 1,2K</span><span>📊 48K</span><span>↗</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          break;
+
+        case 'cm-4':
+          html = `${ANIM_STYLES}
+            <div style="background:#000; padding:30px; border-radius:12px; display:flex; justify-content:center;">
+              <div class="fu" style="animation-delay:0s; width:220px; height:390px; background:linear-gradient(160deg,#1a1a1a,#3a0f1f 60%,#000); border-radius:22px; position:relative; overflow:hidden; font-family:'Space Grotesk', sans-serif; color:#fff; border:6px solid #111;">
+                <div style="position:absolute; top:10px; left:0; right:0; text-align:center; font-size:0.6rem; color:#ccc;">Abonnements · Pour toi</div>
+                <div style="position:absolute; right:8px; bottom:70px; display:flex; flex-direction:column; align-items:center; gap:14px;">
+                  <div style="width:32px; height:32px; border-radius:50%; background:#fe2c55;"></div>
+                  <div style="text-align:center; font-size:0.6rem;">❤️<br>128K</div>
+                  <div style="text-align:center; font-size:0.6rem;">💬<br>3 402</div>
+                  <div style="text-align:center; font-size:0.6rem;">↗<br>9 811</div>
+                  <div style="width:22px; height:22px; border-radius:50%; background:conic-gradient(#333,#111); animation:spinSlow 3s linear infinite;"></div>
+                </div>
+                <div style="position:absolute; bottom:14px; left:12px; right:60px; font-size:0.66rem; overflow:hidden;">
+                  <div style="font-weight:700; margin-bottom:4px;">@artisan.figard</div>
+                  <div style="white-space:nowrap; overflow:hidden;"><span style="display:inline-block; animation:marquee 6s linear infinite;">🎵 Son original — Maison Figard&nbsp;&nbsp;&nbsp;&nbsp;🎵 Son original — Maison Figard</span></div>
+                </div>
+              </div>
+            </div>`;
+          break;
+
+        case 'cm-5':
+          html = `${ANIM_STYLES}
+            <div style="background:#F1F0EC; padding:20px; border-radius:12px;">
+              <div class="fu" style="animation-delay:0s; background:#fff; border-radius:10px; overflow:hidden; border:1px solid #E3E0D6; font-family:'Space Grotesk', sans-serif; color:#161A17; max-width:780px; margin:0 auto;">
+                <div style="display:flex; align-items:center; gap:8px; padding:10px 16px; border-bottom:1px solid #E3E0D6; background:#FAFAF7;">
+                  <span style="width:9px; height:9px; border-radius:50%; background:#FF5F57;"></span>
+                  <span style="width:9px; height:9px; border-radius:50%; background:#FEBC2E;"></span>
+                  <span style="width:9px; height:9px; border-radius:50%; background:#28C840;"></span>
+                  <span style="margin-left:14px; font-size:0.68rem; color:#8a8f89; background:#fff; border:1px solid #E3E0D6; border-radius:6px; padding:3px 10px;">app.roi-center.io/dashboard</span>
+                </div>
+                <div style="display:flex;">
+                  <div style="width:120px; border-right:1px solid #E3E0D6; padding:16px 12px; font-size:0.7rem; color:#6B7268;">
+                    <div style="font-weight:700; color:#0E8A57; margin-bottom:14px;">● Vue globale</div>
+                    <div style="margin-bottom:10px;">Campagnes</div>
+                    <div style="margin-bottom:10px;">Canaux</div>
+                    <div>Rapports</div>
+                  </div>
+                  <div style="flex:1; padding:20px;">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:18px;">
+                      <div class="fu" style="animation-delay:.1s; background:#fff; border:1px solid #E3E0D6; padding:16px;">
+                        <div style="font-size:1.3rem; font-weight:800;">4.8x</div>
+                        <div style="font-size:0.7rem; color:#6B7268; margin-top:4px;">Meta Ads — 1 500€ investis, 310 leads.</div>
+                      </div>
+                      <div class="fu" style="animation-delay:.2s; background:#fff; border:1px solid #E3E0D6; padding:16px;">
+                        <div style="font-size:1.3rem; font-weight:800;">5.2x</div>
+                        <div style="font-size:0.7rem; color:#6B7268; margin-top:4px;">TikTok — 850€ investis, 195 leads.</div>
+                      </div>
+                    </div>
+                    <svg class="fu" style="animation-delay:.35s;" width="100%" height="70" viewBox="0 0 320 70">
+                      <polyline points="0,55 40,48 80,50 120,30 160,34 200,18 240,22 280,8 320,12" fill="none" stroke="#0E8A57" stroke-width="2" stroke-dasharray="420" stroke-dashoffset="420" style="animation:drawLine 1.4s ease forwards .5s;"/>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </div>`;
+          break;
+
+        default:
+          html = `<div style="padding:40px; text-align:center; color:#666;">Structure non trouvée.</div>`;
+      }
+
+      document.getElementById('fsContent').innerHTML = html;
+      fs.style.display = 'flex';
+    }
+
+    function closeFullscreen() {
+      document.getElementById('previewFullscreen').style.display = 'none';
+    }
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeFullscreen();closePortfolio();}});
 
 /* ===== COMPTEUR GLOBAL (tente une synchro serveur, sinon repli local) ===== */
