@@ -721,9 +721,7 @@ function showToast(){
     // =========================================================================
     // 2. MOTEUR DE RENDU DES MAQUETTES LIVE
     // =========================================================================
-    function openFullscreen(name, url, layout) {
-      const fs = document.getElementById('previewFullscreen');
-      document.getElementById('fsUrl').innerText = `https://${url}`;
+    function getLayoutHTML(layout) {
       let html = '';
 
       // Bibliothèque d'animations partagée par toutes les maquettes.
@@ -1212,21 +1210,25 @@ function showToast(){
           html = `<div style="padding:40px; text-align:center; color:#666;">Structure non trouvée.</div>`;
       }
 
-      document.getElementById('fsContent').innerHTML = html;
-      document.querySelectorAll('#fsContent button').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-        e.stopPropagation();
+      return html;
+    }
 
-       window.open(`preview.html?site=${encodeURIComponent(url)}`, "_blank");
-    });
-});
-      fs.style.display = 'flex';
+    function openFullscreen(name, url, layout) {
+      const fs = document.getElementById('previewFullscreen');
+      document.getElementById('fsUrl').innerText = `https://${url}`;
+      document.getElementById('fsContent').innerHTML = getLayoutHTML(layout);
+      fs.classList.add('open');
     }
 
     function closeFullscreen() {
-      document.getElementById('previewFullscreen').style.display = 'none';
+      document.getElementById('previewFullscreen').classList.remove('open');
     }
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeFullscreen();closePortfolio();}});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Escape"){
+    if(document.getElementById("previewFullscreen").classList.contains("open")){closeFullscreen();}
+    else{closePortfolio();}
+  }
+});
 
 /* ===== COMPTEUR GLOBAL (tente une synchro serveur, sinon repli local) ===== */
 async function initOrderCounter(){
@@ -1249,29 +1251,39 @@ async function initOrderCounter(){
   initOrderCounter();
   setTimeout(showToast,7000+Math.random()*5000);
 })();
+const PORTFOLIO_LABELS = { vitrine: "Site Vitrine", premium: "Site Premium", ultra: "Ultra Premium", cm: "Community Management" };
+
+function escAttr(s){ return escHtml(s).replace(/"/g, "&quot;"); }
+
+// Construit une carte d'aperçu (mini-navigateur pour vitrine/premium/ultra, carte "post" pour cm)
+// en réutilisant la vraie maquette de getLayoutHTML, réduite visuellement.
+function buildPortfolioItem(item, isCm){
+  const thumb = `<div style="width:850px;transform:scale(.33);transform-origin:top left;pointer-events:none;">${getLayoutHTML(item.layout)}</div>`;
+  if(isCm){
+    return `<div class="cm-item" data-name="${escAttr(item.name)}" data-url="${escAttr(item.url)}" data-layout="${escAttr(item.layout)}">${thumb}</div>`;
+  }
+  return `<div class="preview-item" data-name="${escAttr(item.name)}" data-url="${escAttr(item.url)}" data-layout="${escAttr(item.layout)}">
+    <div class="preview-bar"><div class="preview-dots"><span></span><span></span><span></span></div><div class="preview-url">${escHtml(item.url)}</div></div>
+    <div class="preview-content">${thumb}</div>
+    <div class="preview-lbl"><span class="preview-lbl-n">${escHtml(item.name)}</span><span class="preview-lbl-t">${escHtml(item.tag)}</span></div>
+  </div>`;
+}
+
 function openPortfolio(type){
-
+  const items = PORTFOLIO_DATA[type] || [];
+  const isCm = type === 'cm';
+  document.getElementById("modalTitle").textContent = "Exemples — " + (PORTFOLIO_LABELS[type] || "Réalisations");
+  const modalContent = document.getElementById("modalContent");
+  modalContent.innerHTML = `<div class="${isCm ? 'cm-grid' : 'preview-grid'}">${items.map(it => buildPortfolioItem(it, isCm)).join('')}</div>`;
+  modalContent.querySelectorAll('[data-layout]').forEach(el=>{
+    el.addEventListener('click', () => openFullscreen(el.dataset.name, el.dataset.url, el.dataset.layout));
+  });
   document.getElementById("portfolioModal").style.display = "block";
-
-  const fs = document.getElementById("previewFullscreen");
-  fs.classList.add("open");
-
-  document.getElementById("fsUrl").textContent = "exemple-site.fr";
-
-  document.getElementById("fsContent").innerHTML = `
-    <div style="background:#fff;color:#111;padding:40px">
-      <h1>Exemple de site</h1>
-      <p>Contenu de démonstration. Toutes les informations sont anonymisées.</p>
-    </div>
-  `;
+  document.getElementById("portfolioModal").scrollTop = 0;
 }
 
 function closePortfolio(){
     document.getElementById("portfolioModal").style.display="none";
-    document.getElementById("previewFullscreen").classList.remove("open");
-}
-
-function closeFullscreen(){
     document.getElementById("previewFullscreen").classList.remove("open");
 }
 </script>
