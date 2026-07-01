@@ -7,16 +7,52 @@ const CORS = {
   'Content-Type': 'application/json'
 };
 
+let fallbackReviews = [];
+
+function getStoreSafe() {
+  try {
+    return getStore('swl-reviews');
+  } catch (e) {
+    return null;
+  }
+}
+
+async function loadReviews(store) {
+  if (!store) return fallbackReviews;
+  try {
+    const d = await store.get('list');
+    if (d) {
+      const parsed = JSON.parse(d);
+      if (Array.isArray(parsed)) {
+        fallbackReviews = parsed;
+        return parsed;
+      }
+    }
+  } catch (e) {}
+  return fallbackReviews;
+}
+
+async function saveReviews(store, reviews) {
+  if (store) {
+    try {
+      await store.set('list', JSON.stringify(reviews));
+      fallbackReviews = reviews;
+      return true;
+    } catch (e) {
+      fallbackReviews = reviews;
+      return false;
+    }
+  }
+  fallbackReviews = reviews;
+  return false;
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') return { statusCode: 200, headers: CORS, body: '' };
   try {
-    const store = getStore('swl-reviews');
+    const store = getStoreSafe();
     if (event.httpMethod === 'GET') {
-      let reviews = [];
-      try {
-        const d = await store.get('list');
-        if (d) reviews = JSON.parse(d);
-      } catch (e) {}
+      const reviews = await loadReviews(store);
       return { statusCode: 200, headers: CORS, body: JSON.stringify({ reviews }) };
     }
 
@@ -26,11 +62,7 @@ exports.handler = async (event) => {
       if (!n || !biz || !cat || !txt || !stars) {
         return { statusCode: 400, headers: CORS, body: JSON.stringify({ error: 'Champs manquants' }) };
       }
-      let reviews = [];
-      try {
-        const d = await store.get('list');
-        if (d) reviews = JSON.parse(d);
-      } catch (e) {}
+      const reviews = await loadReviews(store);
       const r = {
         n: String(n).substring(0, 50),
         av: String(av || '?').substring(0, 2).toUpperCase(),
@@ -42,8 +74,12 @@ exports.handler = async (event) => {
         isNew: true
       };
       reviews.unshift(r);
-      await store.set('list', JSON.stringify(reviews));
-      return { statusCode: 200, headers: CORS, body: JSON.stringify({ success: true, review: r, total: reviews.length }) };
+      const persisted = await saveReviews(store, reviews);
+      return {
+        statusCode: 200,
+        headers: CORS,
+        body: JSON.stringify({ success: true, review: r, total: reviews.length, fallback: !persisted })
+      };
     }
 
     return { statusCode: 405, headers: CORS, body: JSON.stringify({ error: 'Method Not Allowed' }) };

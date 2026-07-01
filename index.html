@@ -538,8 +538,20 @@ function daysAgoLabel(d){
 const CAT_LABEL={vitrine:"Site Vitrine",premium:"Site Premium",ultra:"Ultra Premium",cm:"Community Management"};
 const CAT_BADGE={vitrine:"rev-v",premium:"rev-p",ultra:"rev-u",cm:"rev-c"};
 const REVIEW_CATEGORY_BY_SERVICE={550:"vitrine",1115:"premium",2500:"ultra",150:"cm"};
+const REVIEW_STORAGE_KEY="swl_local_reviews";
 let reviewsFromServer=[];
 function escHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function loadLocalReviews(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(REVIEW_STORAGE_KEY)||"[]");
+    return Array.isArray(parsed)?parsed:[];
+  }catch(e){
+    return [];
+  }
+}
+function saveLocalReviews(list){
+  try{localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(list.slice(0,100)))}catch(e){}
+}
 function reviewTone(r){
   if(r.stars>=5)return "Très satisfait";
   if(r.stars===4)return "Satisfait";
@@ -554,7 +566,8 @@ function reviewCard(r){
 }
 function getAllReviews(){
   const staticReviews=Array.isArray(REVIEWS_DATA)?REVIEWS_DATA:[];
-  return [...reviewsFromServer, ...staticReviews];
+  const localReviews=loadLocalReviews();
+  return [...reviewsFromServer, ...localReviews, ...staticReviews];
 }
 function syncReviewOffer(){
   const serviceSelect=document.getElementById("service");
@@ -618,20 +631,23 @@ function showLessReviews(){
   renderReviews(false);
 }
 async function loadReviewsFromServer(){
+  let reviews=[];
   try{
     const res=await fetch("/.netlify/functions/reviews");
-    if(!res.ok)return;
-    const json=await res.json();
-    const reviews=Array.isArray(json.reviews)?json.reviews:[];
-    reviewsFromServer=reviews.map(r=>({
-      ...r,
-      cat: ['vitrine','premium','ultra','cm'].includes(r.cat)?r.cat:'vitrine',
-      stars: Math.max(1, Math.min(5, Number(r.stars)||5)),
-      days: Number(r.days)||1,
-      av: String(r.av||'?').substring(0,2).toUpperCase()
-    }));
-    renderReviews(true);
-  }catch(e){console.error("Reviews load error:",e);}
+    if(res.ok){
+      const json=await res.json();
+      reviews=Array.isArray(json.reviews)?json.reviews:[];
+    }
+  }catch(e){console.warn("Reviews load error:",e);}
+  const localReviews=loadLocalReviews();
+  reviewsFromServer=[...localReviews, ...reviews].map(r=>({
+    ...r,
+    cat: ['vitrine','premium','ultra','cm'].includes(r.cat)?r.cat:'vitrine',
+    stars: Math.max(1, Math.min(5, Number(r.stars)||5)),
+    days: Number(r.days)||1,
+    av: String(r.av||'?').substring(0,2).toUpperCase()
+  }));
+  renderReviews(true);
 }
 async function submitReview(event){
   event.preventDefault();
@@ -644,21 +660,23 @@ async function submitReview(event){
   const payload={n:name,av:name.split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase(),biz:business,cat:offer,txt:text,stars};
   try{
     const res=await fetch("/.netlify/functions/reviews",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const json=await res.json();
-    if(!res.ok||!json.success)throw new Error(json.error||"Impossible d'enregistrer l'avis");
-    reviewsFromServer.unshift({
-      ...payload,
-      days:1,
-      isNew:true
-    });
-    closeReviewForm();
-    document.getElementById("reviewForm").reset();
-    renderReviews(true);
-    const btn=document.getElementById("toggleReviewsBtn");
-    if(btn)btn.textContent="Afficher plus d'avis ↓";
+    const json=await res.json().catch(()=>({}));
+    if(!res.ok && !json.success){
+      console.warn(json.error||"Impossible d'enregistrer l'avis côté serveur, sauvegarde locale utilisée");
+    }
   }catch(err){
-    alert(err.message);
+    console.warn("Review submission fallback:",err);
   }
+  const localReview={...payload,days:1,isNew:true,source:"local"};
+  const localReviews=loadLocalReviews();
+  localReviews.unshift(localReview);
+  saveLocalReviews(localReviews);
+  reviewsFromServer.unshift(localReview);
+  closeReviewForm();
+  document.getElementById("reviewForm").reset();
+  renderReviews(true);
+  const btn=document.getElementById("toggleReviewsBtn");
+  if(btn)btn.textContent="Afficher plus d'avis ↓";
 }
 
 /* ===== TICKER DEFILANT ===== */
