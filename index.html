@@ -245,6 +245,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div class="card reveal">
         <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
+          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Un site simple, moderne et professionnel pour présenter votre activité, rassurer vos prospects et faciliter les prises de contact.</p>
           <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +35% de visibilité locale, +20% de confiance client et +15% de prises de contact grâce à une présence plus professionnelle.</p>
           <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Design moderne, pages clés optimisées, formulaire de contact, intégration Google Maps et structure prête pour le référencement local.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales.</p>
@@ -253,6 +254,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div class="card reveal" style="transition-delay:.1s">
         <div class="card__img"><img src="images/premium.png" alt="Site Premium"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
+          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Un site sur mesure pensé pour convertir vos visiteurs en prospects qualifiés grâce à un design soigné et une structure optimisée.</p>
           <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +45% de visibilité Google, +25% de leads qualifiés et +30% d’amélioration du taux de conversion sur les visiteurs.</p>
           <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Site sur mesure, stratégie de contenu, sections de conversion, optimisation UX/UI, intégrations métiers et accompagnement pour mieux capter les prospects.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement, services professionnels, structures établies.</p>
@@ -261,6 +263,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div class="card reveal" style="transition-delay:.2s">
         <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
+          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Une expérience digitale complète et ambitieuse, avec une stratégie plus poussée pour renforcer votre image, votre visibilité et votre acquisition.</p>
           <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +60% de notoriété, +40% de génération de leads qualifiés et une croissance digitale durable sur plusieurs canaux.</p>
           <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Experience digitale sur mesure, branding renforcé, stratégie conversion, automatisation, intégrations avancées et accompagnement marketing à long terme.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
@@ -269,6 +272,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div class="card reveal" style="transition-delay:.3s">
         <div class="card__img"><img src="images/community.png" alt="Community Management"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">150€ → 430€/mois</p>
+          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Une gestion régulière de votre présence sur les réseaux pour garder une image dynamique, engager votre audience et développer votre visibilité.</p>
           <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +50% d’engagement, +30% de visibilité sur les réseaux et une meilleure rétention de votre audience.</p>
           <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Création de contenu, publication régulière, animation de communauté, réponses aux messages, gestion de votre image et suivi de la croissance.</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces, marques et indépendants souhaitant une présence active.</p>
@@ -310,8 +314,8 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
     <div class="reviews-grid" id="reviewsGrid"></div>
     <div style="text-align:center;margin-top:40px" id="reviewsMore">
-      <button class="btn btn--ghost" id="toggleReviewsBtn" onclick="toggleReviews()">Afficher plus d'avis ↓</button>
-      <button class="btn btn--ghost" id="collapseReviewsBtn" onclick="toggleReviews()" style="display:none">Afficher moins d'avis ↑</button>
+      <button class="btn btn--ghost" id="toggleReviewsBtn" onclick="showMoreReviews()">Afficher plus d'avis ↓</button>
+      <button class="btn btn--ghost" id="collapseReviewsBtn" onclick="showLessReviews()" style="display:none">Afficher moins d'avis ↑</button>
     </div>
   </div>
 </section>
@@ -507,7 +511,6 @@ function closeReviewForm(){
 }
 let currentFilter="all",reviewsShown=0;
 const REVIEWS_BATCH=6;
-let reviewsExpanded=false;
 function getFilteredReviews(){
   const list=getAllReviews();
   return currentFilter==="all"?list:list.filter(r=>r.cat===currentFilter);
@@ -515,22 +518,20 @@ function getFilteredReviews(){
 function renderReviews(reset){
   const grid=document.getElementById("reviewsGrid");if(!grid)return;
   const list=getFilteredReviews();
-  if(reset){grid.innerHTML="";reviewsShown=0;reviewsExpanded=false}
-  const limit=reviewsExpanded?list.length:Math.min(REVIEWS_BATCH,list.length);
-  const next=list.slice(reviewsShown,limit);
-  grid.insertAdjacentHTML("beforeend",next.map(reviewCard).join(""));
-  reviewsShown=limit;
+  if(reset){grid.innerHTML="";reviewsShown=Math.min(REVIEWS_BATCH,list.length)}
+  const next=list.slice(0,reviewsShown);
+  grid.innerHTML=next.map(reviewCard).join("");
   const more=document.getElementById("reviewsMore");
   const toggleBtn=document.getElementById("toggleReviewsBtn");
   const collapseBtn=document.getElementById("collapseReviewsBtn");
   if(more)more.style.display=list.length>REVIEWS_BATCH?"block":"none";
   if(toggleBtn){
     toggleBtn.textContent="Afficher plus d'avis ↓";
-    toggleBtn.style.display=reviewsExpanded||list.length<=REVIEWS_BATCH?"none":"inline-flex";
+    toggleBtn.style.display=list.length>reviewsShown?"inline-flex":"none";
   }
   if(collapseBtn){
     collapseBtn.textContent="Afficher moins d'avis ↑";
-    collapseBtn.style.display=reviewsExpanded&&list.length>REVIEWS_BATCH?"inline-flex":"none";
+    collapseBtn.style.display=reviewsShown>REVIEWS_BATCH?"inline-flex":"none";
   }
 }
 function filterReviews(cat,btn){
@@ -540,12 +541,15 @@ function filterReviews(cat,btn){
   if(target)target.classList.add("active");
   renderReviews(true);
 }
-function toggleReviews(){
-  reviewsExpanded=!reviewsExpanded;
-  const grid=document.getElementById("reviewsGrid");
-  if(!grid)return;
-  grid.innerHTML="";
-  reviewsShown=0;
+function showMoreReviews(){
+  const list=getFilteredReviews();
+  reviewsShown=Math.min(list.length,reviewsShown+REVIEWS_BATCH);
+  renderReviews(false);
+}
+function showLessReviews(){
+  const list=getFilteredReviews();
+  const base=Math.min(REVIEWS_BATCH,list.length);
+  reviewsShown=Math.max(base,reviewsShown-REVIEWS_BATCH);
   renderReviews(false);
 }
 async function loadReviewsFromServer(){
