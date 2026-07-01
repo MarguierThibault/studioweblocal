@@ -1213,6 +1213,12 @@ function showToast(){
       }
 
       document.getElementById('fsContent').innerHTML = html;
+      document.querySelectorAll('#fsContent button').forEach(button => {
+  button.addEventListener('click', () => {
+    alert('Bouton cliqué !');
+    // ou ton action
+  });
+});
       fs.style.display = 'flex';
     }
 
