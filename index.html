@@ -418,8 +418,8 @@ async function sendQuote(){
     data.payment_link=json.url;setStatus("✅ Lien créé — envoi de l'email…","ok");
   }catch(err){console.error("Netlify:",err);lockBtn(false);setStatus(`❌ Erreur : ${err.message}`,"error");return}
   try{
-    await Promise.all([emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data),emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data)]);
     await incrementOrder();
+    await Promise.all([emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data),emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data)]);
     document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button></div>`;
   }catch(err){console.error("EmailJS:",err);lockBtn(false);setStatus("❌ Erreur envoi email","error")}
 }
@@ -513,16 +513,31 @@ const REVIEW_CATEGORY_BY_SERVICE={550:"vitrine",1115:"premium",2500:"ultra",150:
 const REVIEW_STORAGE_KEY="swl_local_reviews";
 let reviewsFromServer=[];
 function escHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function normalizeReviewText(value){return String(value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim()}
+function makeReviewKey(r){
+  return `${normalizeReviewText(r?.n)}::${normalizeReviewText(r?.biz)}::${normalizeReviewText(r?.txt)}::${normalizeReviewText(r?.cat||"vitrine")}::${Number(r?.stars)||0}`;
+}
+function dedupeReviews(list){
+  const unique=[];const seen=new Set();
+  (Array.isArray(list)?list:[]).forEach(r=>{
+    const key=makeReviewKey(r);
+    if(!seen.has(key)){
+      seen.add(key);
+      unique.push(r);
+    }
+  });
+  return unique;
+}
 function loadLocalReviews(){
   try{
     const parsed=JSON.parse(localStorage.getItem(REVIEW_STORAGE_KEY)||"[]");
-    return Array.isArray(parsed)?parsed:[];
+    return dedupeReviews(Array.isArray(parsed)?parsed:[]);
   }catch(e){
     return [];
   }
 }
 function saveLocalReviews(list){
-  try{localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(list.slice(0,100)))}catch(e){}
+  try{localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(dedupeReviews(list).slice(0,100)))}catch(e){}
 }
 function reviewTone(r){
   if(r.stars>=5)return "Très satisfait";
@@ -536,10 +551,27 @@ function reviewCard(r){
   const tone=reviewTone(r);
   return '<div class="review-card"><div class="review-stars">'+stars+'</div><div style="font-size:.72rem;color:var(--violet);font-family:var(--font-mono);margin-bottom:8px">'+escHtml(tone)+'</div><p class="review-text">"'+escHtml(r.txt)+'"</p><div class="review-author"><div class="review-avatar">'+r.av+'</div><div><div class="review-name">'+escHtml(r.n)+'</div><div class="review-biz">'+escHtml(r.biz)+'</div></div><span class="rev-badge '+CAT_BADGE[r.cat]+'">'+CAT_LABEL[r.cat]+'</span></div><div class="review-date">'+daysAgoLabel(r.days)+'</div></div>';
 }
+function mergeReviews(...sources){
+  const unique=[];const seen=new Set();
+  sources.flat().filter(Boolean).forEach(r=>{
+    const key=makeReviewKey(r);
+    if(!seen.has(key)){
+      seen.add(key);
+      unique.push({
+        ...r,
+        cat: ['vitrine','premium','ultra','cm'].includes(r.cat)?r.cat:'vitrine',
+        stars: Math.max(1, Math.min(5, Number(r.stars)||5)),
+        days: Number(r.days)||1,
+        av: String(r.av||'?').substring(0,2).toUpperCase()
+      });
+    }
+  });
+  return unique;
+}
 function getAllReviews(){
   const staticReviews=Array.isArray(REVIEWS_DATA)?REVIEWS_DATA:[];
   const localReviews=loadLocalReviews();
-  return [...reviewsFromServer, ...localReviews, ...staticReviews];
+  return mergeReviews(reviewsFromServer, localReviews, staticReviews);
 }
 function syncReviewOffer(){
   const serviceSelect=document.getElementById("service");
@@ -625,13 +657,7 @@ async function loadReviewsFromServer(){
     }
   }catch(e){console.warn("Reviews load error:",e);}
   const localReviews=loadLocalReviews();
-  reviewsFromServer=[...localReviews, ...reviews].map(r=>({
-    ...r,
-    cat: ['vitrine','premium','ultra','cm'].includes(r.cat)?r.cat:'vitrine',
-    stars: Math.max(1, Math.min(5, Number(r.stars)||5)),
-    days: Number(r.days)||1,
-    av: String(r.av||'?').substring(0,2).toUpperCase()
-  }));
+  reviewsFromServer=mergeReviews(reviews, localReviews);
   renderReviews(true);
 }
 async function submitReview(event){
@@ -643,20 +669,21 @@ async function submitReview(event){
   const text=document.getElementById("reviewText").value.trim();
   if(!name||!business||!text)return;
   const payload={n:name,av:name.split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase(),biz:business,cat:offer,txt:text,stars};
+  let savedReview={...payload,days:1,isNew:true,source:"local"};
   try{
     const res=await fetch("/.netlify/functions/reviews",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const json=await res.json().catch(()=>({}));
-    if(!res.ok && !json.success){
-      console.warn(json.error||"Impossible d'enregistrer l'avis côté serveur, sauvegarde locale utilisée");
+    if(res.ok&&json.success&&json.review){
+      savedReview={...json.review,days:Number(json.review.days)||1,isNew:true,source:"server"};
     }
   }catch(err){
     console.warn("Review submission fallback:",err);
   }
-  const localReview={...payload,days:1,isNew:true,source:"local"};
   const localReviews=loadLocalReviews();
-  localReviews.unshift(localReview);
+  const alreadyExists=localReviews.some(existing=>makeReviewKey(existing)===makeReviewKey(savedReview));
+  if(!alreadyExists){localReviews.unshift(savedReview);} 
   saveLocalReviews(localReviews);
-  reviewsFromServer.unshift(localReview);
+  reviewsFromServer=mergeReviews([savedReview], reviewsFromServer, localReviews);
   closeReviewForm();
   document.getElementById("reviewForm").reset();
   renderReviews(true);

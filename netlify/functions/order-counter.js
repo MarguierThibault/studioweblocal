@@ -14,26 +14,59 @@ const CORS = {
   'Content-Type': 'application/json'
 };
 
+let fallbackCount = BASE_COUNT;
+
+function getStoreSafe() {
+  try {
+    return getStore("studio-web-local-counters");
+  } catch (e) {
+    return null;
+  }
+}
+
+async function readCount(store) {
+  if (!store) return fallbackCount;
+  try {
+    const current = await store.get('orders_total');
+    const parsed = current ? parseInt(current, 10) : NaN;
+    if (!Number.isNaN(parsed)) {
+      fallbackCount = parsed;
+      return parsed;
+    }
+  } catch (e) {}
+  return fallbackCount;
+}
+
+async function writeCount(store, count) {
+  if (store) {
+    try {
+      await store.set('orders_total', String(count));
+      fallbackCount = count;
+      return count;
+    } catch (e) {}
+  }
+  fallbackCount = count;
+  return count;
+}
+
 exports.handler = async (event) => {
   if (event.httpMethod === 'OPTIONS') {
     return { statusCode: 200, headers: CORS, body: '' };
   }
 
   try {
-    const store = getStore('studio-web-local-counters');
+    const store = getStoreSafe();
 
     if (event.httpMethod === 'GET') {
-      const current = await store.get('orders_total');
-      const count = current ? parseInt(current, 10) : BASE_COUNT;
+      const count = await readCount(store);
       return { statusCode: 200, headers: CORS, body: JSON.stringify({ count }) };
     }
 
     if (event.httpMethod === 'POST') {
-      const current = await store.get('orders_total');
-      let count = current ? parseInt(current, 10) : BASE_COUNT;
-      count += 1;
-      await store.set('orders_total', String(count));
-      return { statusCode: 200, headers: CORS, body: JSON.stringify({ count }) };
+      const count = await readCount(store);
+      const nextCount = count + 1;
+      await writeCount(store, nextCount);
+      return { statusCode: 200, headers: CORS, body: JSON.stringify({ count: nextCount }) };
     }
 
     return { statusCode: 405, headers: CORS, body: JSON.stringify({ error: 'Method Not Allowed' }) };

@@ -9,9 +9,30 @@ const CORS = {
 
 let fallbackReviews = [];
 
+function normalizeReviewText(value) {
+  return String(value || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, ' ').trim();
+}
+
+function makeReviewKey(review) {
+  return `${normalizeReviewText(review?.n)}::${normalizeReviewText(review?.biz)}::${normalizeReviewText(review?.txt)}::${normalizeReviewText(review?.cat || 'vitrine')}::${Number(review?.stars) || 0}`;
+}
+
+function dedupeReviews(list) {
+  const unique = [];
+  const seen = new Set();
+  (Array.isArray(list) ? list : []).forEach((review) => {
+    const key = makeReviewKey(review);
+    if (!seen.has(key)) {
+      seen.add(key);
+      unique.push(review);
+    }
+  });
+  return unique;
+}
+
 function getStoreSafe() {
   try {
-    return getStore('swl-reviews');
+    return getStore("swl-reviews");
   } catch (e) {
     return null;
   }
@@ -73,12 +94,18 @@ exports.handler = async (event) => {
         days: 1,
         isNew: true
       };
-      reviews.unshift(r);
-      const persisted = await saveReviews(store, reviews);
+      const existingIndex = reviews.findIndex((item) => makeReviewKey(item) === makeReviewKey(r));
+      if (existingIndex >= 0) {
+        reviews.splice(existingIndex, 1, r);
+      } else {
+        reviews.unshift(r);
+      }
+      const deduped = dedupeReviews(reviews);
+      const persisted = await saveReviews(store, deduped);
       return {
         statusCode: 200,
         headers: CORS,
-        body: JSON.stringify({ success: true, review: r, total: reviews.length, fallback: !persisted })
+        body: JSON.stringify({ success: true, review: r, total: deduped.length, fallback: !persisted })
       };
     }
 
