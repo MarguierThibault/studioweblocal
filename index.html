@@ -1250,46 +1250,29 @@ async function initOrderCounter(){
   setTimeout(showToast,7000+Math.random()*5000);
 })();
 function openPortfolio(type){
-  const modal = document.getElementById("portfolioModal");
-  const title = document.getElementById("modalTitle");
-  const content = document.getElementById("modalContent");
 
-  const titres = {
-    vitrine: "Exemples de Sites Vitrine",
-    premium: "Exemples de Sites Premium",
-    ultra: "Exemples Ultra Premium",
-    cm: "Exemples Community Management"
-  };
+  document.getElementById("portfolioModal").style.display = "block";
 
-  title.textContent = titres[type] || "Exemples";
+  const fs = document.getElementById("previewFullscreen");
+  fs.classList.add("open");
 
-  content.innerHTML = `
-    <div style="padding:40px;text-align:center">
-      <h3 style="margin-bottom:15px;">Exemple de site</h3>
-      <p style="color:#aaa;margin-bottom:20px;">
-        Les aperçus présentés sont volontairement simplifiés et anonymisés afin de préserver
-        la confidentialité de nos clients.
-      </p>
+  document.getElementById("fsUrl").textContent = "exemple-site.fr";
 
-      <button class="btn btn--gold" onclick="openFullscreen()">
-        👁 Ouvrir l'aperçu
-      </button>
+  document.getElementById("fsContent").innerHTML = `
+    <div style="background:#fff;color:#111;padding:40px">
+      <h1>Exemple de site</h1>
+      <p>Contenu de démonstration. Toutes les informations sont anonymisées.</p>
     </div>
   `;
-
-  modal.style.display = "flex";
 }
 
 function closePortfolio(){
-  document.getElementById("portfolioModal").style.display = "none";
-}
-
-function openFullscreen(){
-  document.getElementById("previewFullscreen").classList.add("open");
+    document.getElementById("portfolioModal").style.display="none";
+    document.getElementById("previewFullscreen").classList.remove("open");
 }
 
 function closeFullscreen(){
-  document.getElementById("previewFullscreen").classList.remove("open");
+    document.getElementById("previewFullscreen").classList.remove("open");
 }
 </script>
 </body>
