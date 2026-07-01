@@ -1213,11 +1213,12 @@ function showToast(){
       }
 
       document.getElementById('fsContent').innerHTML = html;
-      document.querySelectorAll('#fsContent button').forEach(button => {
-  button.addEventListener('click', () => {
-    alert('Bouton cliqué !');
-    // ou ton action
-  });
+      document.querySelectorAll('#fsContent button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+
+       window.open(`preview.html?site=${encodeURIComponent(url)}`, "_blank");
+    });
 });
       fs.style.display = 'flex';
     }
