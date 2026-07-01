@@ -466,37 +466,6 @@ async function incrementOrder(){
 const REVIEWS_DATA=[{"n":"Fabien Roussel","av":"FR","biz":"Boucherie Charcuterie Tradition","cat":"cm","txt":"On a enfin des posts qui ressemblent vraiment à notre activité. Les messages sont réguliers, simples à relayer, et ça aide à garder une vraie présence sur les réseaux.","days":166,"stars":5},{"n":"Laurent H.","av":"LH","biz":"Studio de Coaching Sportif Forme+","cat":"premium","txt":"Le site donne tout de suite une image plus claire et plus professionnelle. Les gens comprennent mieux ce qu'on propose, et on a eu plus de demandes depuis la mise en ligne.","days":90,"stars":5},{"n":"Samuel N.","av":"SN","biz":"Clinique Vétérinaire Vie Animale","cat":"premium","txt":"Le rendu est propre, moderne et rassurant. C'est un site qui colle bien à notre activité, et ça aide beaucoup à gagner en confiance auprès des patients.","days":54,"stars":5},{"n":"Sarah B.","av":"SB","biz":"Cabinet Esthétique Visage","cat":"cm","txt":"On n'a plus besoin de penser à tout chaque jour. Les publications sont bien faites, régulières, et ça nous fait gagner du temps sans perdre en qualité.","days":174,"stars":5},{"n":"Rose I.","av":"RI","biz":"Garage Auto Plus","cat":"vitrine","txt":"Le site est simple, clair et vraiment utile pour nos clients. Grâce à la visibilité locale, on reçoit plus de demandes et des prospects plus qualifiés.","days":54,"stars":5},{"n":"Agathe C.","av":"AC","biz":"Maçonnerie Générale","cat":"vitrine","txt":"Le site nous donne une image plus sérieuse en ligne. Les clients comprennent vite ce qu'on fait et nous contactent plus facilement.","days":29,"stars":4},{"n":"Maxime Moreau","av":"MM","biz":"Salon de Coiffure Tendance","cat":"cm","txt":"Le contenu est toujours cohérent avec l'image du salon. Ça aide beaucoup à garder une présence active sur Instagram et TikTok sans avoir à tout faire soi-même.","days":13,"stars":5},{"n":"Delphine E.","av":"DE","biz":"Centre de Bien-être Sérénité","cat":"premium","txt":"On voulait quelque chose de calme et de propre, et c'est exactement ce qu'on a trouvé. Le site reflète bien notre univers et donne une vraie impression de qualité.","days":41,"stars":5},{"n":"Nicolas P.","av":"NP","biz":"Restaurant La Table d'Emile","cat":"vitrine","txt":"Le site a vraiment aidé à mieux nous faire connaître. Les gens trouvent plus facilement notre adresse, nos horaires et notre carte, ce qui a été très utile.","days":22,"stars":5},{"n":"Mina K.","av":"MK","biz":"Pâtisserie Maison Lune","cat":"premium","txt":"Le site a donné plus de caractère à notre boutique. On a enfin une vraie identité en ligne, plus cohérente avec ce qu'on veut transmettre au quotidien.","days":17,"stars":5},{"n":"Julien B.","av":"JB","biz":"Agence Immobilière Horizon","cat":"ultra","txt":"Le rendu est très propre et très réfléchi. Le site donne une vraie impression de sérieux, ce qui aide vraiment à rassurer les prospects.","days":33,"stars":5},{"n":"Claire D.","av":"CD","biz":"Atelier de Joaillerie Orane","cat":"ultra","txt":"Le site a un vrai style, et ça change tout. On sent une vraie cohérence entre l'image de marque et ce que les clients découvrent en ligne.","days":12,"stars":5}];
 
 const TICKER_DATA=[{"n":"Karim Mercier","s":"Community Management","d":"il y a 2 jours"},{"n":"Gabriel Roussel","s":"Community Management","d":"il y a 5 jours"},{"n":"Bastien Roussel","s":"Ultra Premium","d":"il y a 1 semaine"},{"n":"Sébastien B.","s":"Site Vitrine","d":"il y a 1 semaine"},{"n":"Frédéric Blanc","s":"Site Premium","d":"il y a 1 semaine"},{"n":"Samuel M.","s":"Site Premium","d":"il y a 1 semaine"},{"n":"Quentin C.","s":"Site Premium","d":"il y a 2 semaines"},{"n":"Inès Roussel","s":"Community Management","d":"il y a 2 semaines"},{"n":"Quentin N.","s":"Community Management","d":"il y a 2 semaines"},{"n":"Océane Y.","s":"Site Premium","d":"il y a 2 semaines"},{"n":"Romain Lefevre","s":"Community Management","d":"il y a 2 semaines"},{"n":"Loïc D.","s":"Community Management","d":"il y a 3 semaines"},{"n":"Enzo Dupuis","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Aurélie A.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Benjamin J.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Emma Dupuis","s":"Community Management","d":"il y a 1 mois"},{"n":"Tom E.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Laurent Mercier","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Valérie G.","s":"Community Management","d":"il y a 1 mois"},{"n":"Florian Q.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Loïc M.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Emma L.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Lina J.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Samuel D.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Jules Blanc","s":"Site Premium","d":"il y a 1 mois"},{"n":"Delphine U.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Léa Dupuis","s":"Site Premium","d":"il y a 1 mois"},{"n":"Aurélie P.","s":"Community Management","d":"il y a 1 mois"},{"n":"Mélanie X.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Fabien Roussel","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Damien O.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Océane Fournier","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Mehdi H.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Frédéric W.","s":"Community Management","d":"il y a 1 mois"},{"n":"Zoé Roussel","s":"Community Management","d":"il y a 1 mois"},{"n":"Mehdi Z.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Enzo Z.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Fabien D.","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Justine Moreau","s":"Ultra Premium","d":"il y a 2 mois"},{"n":"Audrey W.","s":"Community Management","d":"il y a 2 mois"},{"n":"Nadia Lefevre","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Zoé S.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Valérie M.","s":"Ultra Premium","d":"il y a 2 mois"},{"n":"Isabelle Dupuis","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Philippe Dupuis","s":"Site Premium","d":"il y a 2 mois"},{"n":"Romain U.","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Emma H.","s":"Community Management","d":"il y a 2 mois"},{"n":"Stéphane Roussel","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"David U.","s":"Community Management","d":"il y a 2 mois"},{"n":"Jules B.","s":"Community Management","d":"il y a 2 mois"},{"n":"Jade R.","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Vincent M.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Karim P.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Raphaël N.","s":"Site Premium","d":"il y a 3 mois"},{"n":"Enzo D.","s":"Community Management","d":"il y a 3 mois"}];
-const PORTFOLIO_DATA={
-  vitrine:[
-    {name:"Cabinet de Kinésithérapie Forme",url:"kinesitherapie-forme.fr",tag:"Praticien local",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#0f172a 0%,#111827 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#7dd3fc">Cabinet local</div><div style="padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.12);font-size:8px">Prise de RDV</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Soins, écoute et confiance</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Une page claire, rapide et rassurante pour convertir les visiteurs en patients.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#7dd3fc">Services</div><div style="font-size:10px;margin-top:4px">Rééducation • Massage</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#7dd3fc">Contact</div><div style="font-size:10px;margin-top:4px">Téléphone • Adresse</div></div></div></div>`},
-    {name:"Atelier de serrurerie",url:"atelier-securite.fr",tag:"Artisan local",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#1f2937 0%,#111827 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fbbf24">Intervention rapide</div><div style="padding:4px 8px;border-radius:999px;background:rgba(255,255,255,.12);font-size:8px">24/7</div></div><div style="display:grid;grid-template-columns:1.2fr .8fr;gap:10px;align-items:center"><div><div style="font-size:16px;font-weight:700;margin-bottom:6px">Votre artisan à portée de clic</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Offre claire, services visibles, bouton de devis mis en avant dès l’arrivée.</div></div><div style="background:rgba(255,255,255,.08);border-radius:12px;padding:10px;text-align:center"><div style="font-size:8px;text-transform:uppercase;letter-spacing:.12em;color:#fbbf24">Devis</div><div style="font-size:13px;font-weight:700;margin-top:4px">Gratuit</div></div></div></div>`},
-    {name:"Salon de coiffure Lune",url:"salon-lune.fr",tag:"Beauté & image",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#111827 0%,#1f2937 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#f9a8d4">Réservation</div><div style="padding:4px 8px;border-radius:999px;background:rgba(249,168,212,.16);font-size:8px;color:#f9a8d4">Instant</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Un site qui donne envie de réserver</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Photos, tarifs, services et prise de rendez-vous en un seul parcours fluide.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#f9a8d4">Prestations</div><div style="font-size:10px;margin-top:4px">Coupe • Coloration</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#f9a8d4">Résultat</div><div style="font-size:10px;margin-top:4px">+25% de RDV</div></div></div></div>`},
-    {name:"Cabinet d'avocats Laurent",url:"avocats-laurent.fr",tag:"Services professionnels",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#1e1b4b 0%,#111827 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#c4b5fd">Professionnalisme</div><div style="padding:4px 8px;border-radius:999px;background:rgba(196,181,253,.18);font-size:8px;color:#c4b5fd">Confiance</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Une image sérieuse qui rassure</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Structure pensée pour valoriser l'expertise, les services et les coordonnées de contact.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#c4b5fd">Expertise</div><div style="font-size:10px;margin-top:4px">Droit • Conseil</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#c4b5fd">Objectif</div><div style="font-size:10px;margin-top:4px">Plus de contacts</div></div></div></div>`},
-    {name:"Garage Auto Plus",url:"garage-auto-plus.fr",tag:"Activité locale",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#111827 0%,#0f172a 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fbbf24">Visibilité locale</div><div style="padding:4px 8px;border-radius:999px;background:rgba(251,191,36,.16);font-size:8px;color:#fbbf24">Google Maps</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Un site pensé pour attirer les bons clients</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Horaires, services, photos et prise de contact parfaitement visibles au premier scan.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fbbf24">Services</div><div style="font-size:10px;margin-top:4px">Réparation • Entretien</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fbbf24">Conversion</div><div style="font-size:10px;margin-top:4px">Demande de devis</div></div></div></div>`}
-  ],
-  premium:[
-    {name:"Studio de coiffure Éclat",url:"eclat-coiffure.fr",tag:"Image de marque",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#111827 0%,#1f2937 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#ffd54a">Branding</div><div style="padding:4px 8px;border-radius:999px;background:rgba(255,213,74,.16);font-size:8px;color:#ffd54a">Premium</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:14px"><div style="font-size:17px;font-weight:700;margin-bottom:8px">Un univers cohérent et mémorable</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Design soigné, storytelling, services mis en avant et parcours client optimisé pour générer des réservations.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#ffd54a">Prestations</div><div style="font-size:10px;margin-top:4px">Coupe • Coloration</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#ffd54a">Résultat</div><div style="font-size:10px;margin-top:4px">+30% de réservations</div></div></div></div>`},
-    {name:"Studio de coaching Forme+",url:"formeplus.fr",tag:"Marque & expérience",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#0f172a 0%,#1d4ed8 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#7dd3fc">Transformation</div><div style="padding:4px 8px;border-radius:999px;background:rgba(125,211,252,.16);font-size:8px;color:#7dd3fc">Premium</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Une identité forte et un parcours premium</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Structure claire, contenu orienté bénéfices, témoignages et boutons d'action qui guident le visiteur.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#7dd3fc">Offres</div><div style="font-size:10px;margin-top:4px">Coach • Yoga</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#7dd3fc">Objectif</div><div style="font-size:10px;margin-top:4px">Plus de réservations</div></div></div></div>`},
-    {name:"Clinique dentaire Eden",url:"clinique-eden.fr",tag:"Santé & image",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#0f172a 0%,#134e4a 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#5eead4">Santé</div><div style="padding:4px 8px;border-radius:999px;background:rgba(94,234,212,.16);font-size:8px;color:#5eead4">Prestige</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Une expérience rassurante à chaque étape</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Design soigné, informations claires, parcours vers le rendez-vous et image professionnelle.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#5eead4">Spécialités</div><div style="font-size:10px;margin-top:4px">Implants • Esthétique</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#5eead4">Taux</div><div style="font-size:10px;margin-top:4px">+20% de RDV</div></div></div></div>`},
-    {name:"Agence immobilière Horizon",url:"horizon-immobilier.fr",tag:"Pro & crédibilité",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#111827 0%,#312e81 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#c4b5fd">Immobilier</div><div style="padding:4px 8px;border-radius:999px;background:rgba(196,181,253,.16);font-size:8px;color:#c4b5fd">Premium</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Un site qui inspire confiance en quelques secondes</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Présentation des biens, preuve sociale et appels à l'action intégrés très naturellement.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#c4b5fd">Ventes</div><div style="font-size:10px;margin-top:4px">Biens • Visites</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#c4b5fd">Impact</div><div style="font-size:10px;margin-top:4px">Plus d'appels</div></div></div></div>`},
-    {name:"Restaurant Le Saint-Gabriel",url:"saint-gabriel.fr",tag:"Expérience & réservation",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#1f2937 0%,#0f172a 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fbbf24">Cuisine</div><div style="padding:4px 8px;border-radius:999px;background:rgba(251,191,36,.16);font-size:8px;color:#fbbf24">Réservation</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Un site qui transforme la découverte en réservation</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Image forte, carte, ambiance et réservation mis en avant dans un flux très naturel.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fbbf24">Expérience</div><div style="font-size:10px;margin-top:4px">Ambiance • Carte</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fbbf24">Objectif</div><div style="font-size:10px;margin-top:4px">Plus de réservations</div></div></div></div>`}
-  ],
-  ultra:[
-    {name:"Maison Aurore",url:"maison-aurore.fr",tag:"Luxe & prestige",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#0f172a 0%,#2d1b69 50%,#111827 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#f5d0fe">Ultra premium</div><div style="padding:4px 8px;border-radius:999px;background:rgba(245,208,254,.16);font-size:8px;color:#f5d0fe">Luxe</div></div><div style="background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.05));border:1px solid rgba(255,255,255,.16);border-radius:18px;padding:14px"><div style="font-size:18px;font-weight:700;margin-bottom:8px">Une expérience haut de gamme dès la première impression</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.76)">Design premium, ambiance raffinée, storytelling fort et structure pensée pour une image d'exception.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#f5d0fe">Expérience</div><div style="font-size:10px;margin-top:4px">Immersive • Élégante</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#f5d0fe">Impact</div><div style="font-size:10px;margin-top:4px">Prestige • Conversion</div></div></div></div>`},
-    {name:"Studio de luxe Nox",url:"nox-studio.fr",tag:"Marque premium",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#1a1033 0%,#0f172a 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#ffd54a">Signature</div><div style="padding:4px 8px;border-radius:999px;background:rgba(255,213,74,.16);font-size:8px;color:#ffd54a">Ultra</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Un site pensé pour les marques qui veulent se distinguer</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Éléments raffinés, visuels impactants, hiérarchie forte et expérience utilisateur premium jusqu'au bout.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#ffd54a">Identité</div><div style="font-size:10px;margin-top:4px">Marque • Story</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#ffd54a">Visibilité</div><div style="font-size:10px;margin-top:4px">High-end • Forte</div></div></div></div>`},
-    {name:"Villa Solstice",url:"villa-solstice.fr",tag:"Hôtellerie de luxe",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#1f2937 0%,#111827 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fde68a">Séjour</div><div style="padding:4px 8px;border-radius:999px;background:rgba(253,230,138,.16);font-size:8px;color:#fde68a">Luxury</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Une expérience immersive, élégante et premium</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Atmosphère raffinée, mise en scène soignée et parcours utilisateur très haut de gamme.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fde68a">Prestige</div><div style="font-size:10px;margin-top:4px">Réservation • Séjour</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fde68a">Visibilité</div><div style="font-size:10px;margin-top:4px">Image premium</div></div></div></div>`},
-    {name:"Atelier de joaillerie Orane",url:"orane-joaillerie.fr",tag:"Bijoux & prestige",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#2d1b69 0%,#111827 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#f5d0fe">Bijoux</div><div style="padding:4px 8px;border-radius:999px;background:rgba(245,208,254,.16);font-size:8px;color:#f5d0fe">Élégance</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Une marque qui se vit avant même d'être lue</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Mise en scène raffinée, storytelling, images et rythme de contenu parfaitement maîtrisés.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#f5d0fe">Identité</div><div style="font-size:10px;margin-top:4px">Marque • Prestige</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#f5d0fe">Conversion</div><div style="font-size:10px;margin-top:4px">Réservation • Achat</div></div></div></div>`},
-    {name:"Architecte Claire Dumas",url:"claire-dumas.fr",tag:"Design & architecture",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:linear-gradient(135deg,#0f172a 0%,#1f2937 100%);padding:16px;color:#fff;border-radius:16px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fda4af">Architecture</div><div style="padding:4px 8px;border-radius:999px;background:rgba(253,164,175,.16);font-size:8px;color:#fda4af">Ultra</div></div><div style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:12px"><div style="font-size:16px;font-weight:700;margin-bottom:6px">Un site à la hauteur d'un travail d'exception</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Galerie, storytelling, crédibilité et expérience de navigation très premium.</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px"><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fda4af">Portfolio</div><div style="font-size:10px;margin-top:4px">Projets • Vision</div></div><div style="background:rgba(255,255,255,.08);border-radius:10px;padding:10px"><div style="font-size:7px;text-transform:uppercase;letter-spacing:.12em;color:#fda4af">Impact</div><div style="font-size:10px;margin-top:4px">Prestige • Demandes</div></div></div></div>`}
-  ],
-  cm:[
-    {name:"Ma boutique déco",url:"boutique-deco.fr",tag:"Réseaux sociaux",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:#111827;padding:14px;color:#fff;border-radius:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#34d399">Content créatif</div><div style="font-size:8px;color:#34d399">Instagram</div></div><div style="background:linear-gradient(135deg,#0f766e,#111827);padding:12px;border-radius:12px"><div style="font-size:14px;font-weight:700;margin-bottom:5px">Posts cohérents et engageants</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Mise en scène propre, visuels attractifs et messages pensés pour créer une vraie communauté.</div></div></div>`},
-    {name:"Restaurant local",url:"restaurant-local.fr",tag:"Community",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:#111827;padding:14px;color:#fff;border-radius:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#38bdf8">Engagement</div><div style="font-size:8px;color:#38bdf8">TikTok</div></div><div style="background:linear-gradient(135deg,#0f172a,#1e293b);padding:12px;border-radius:12px"><div style="font-size:14px;font-weight:700;margin-bottom:5px">Un rythme régulier qui fait parler</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Contenus réguliers, visuels dynamiques et une présence sociale qui donne envie de découvrir l'établissement.</div></div></div>`},
-    {name:"Salon beauté Élodie",url:"elodie-beaute.fr",tag:"Création de contenu",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:#111827;padding:14px;color:#fff;border-radius:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#f9a8d4">Reels</div><div style="font-size:8px;color:#f9a8d4">TikTok</div></div><div style="background:linear-gradient(135deg,#7c3aed,#111827);padding:12px;border-radius:12px"><div style="font-size:14px;font-weight:700;margin-bottom:5px">Un univers visuel cohérent</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Contenus captés pour mettre en valeur les prestations, les avant/après et les moments de transformation.</div></div></div>`},
-    {name:"Coach sportif Néo",url:"neo-coach.fr",tag:"Community growth",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:#111827;padding:14px;color:#fff;border-radius:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#7dd3fc">Audience</div><div style="font-size:8px;color:#7dd3fc">LinkedIn</div></div><div style="background:linear-gradient(135deg,#1d4ed8,#111827);padding:12px;border-radius:12px"><div style="font-size:14px;font-weight:700;margin-bottom:5px">Des posts pensés pour générer de l'engagement</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Visuels propres, messages simples et cadence régulière pour renforcer la crédibilité.</div></div></div>`},
-    {name:"Café de quartier",url:"cafe-quartier.fr",tag:"Local & fidélisation",html:`<div style="font-family:Inter,sans-serif;min-height:100%;background:#111827;padding:14px;color:#fff;border-radius:14px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px"><div style="font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#fbbf24">Fidélisation</div><div style="font-size:8px;color:#fbbf24">Instagram</div></div><div style="background:linear-gradient(135deg,#92400e,#111827);padding:12px;border-radius:12px"><div style="font-size:14px;font-weight:700;margin-bottom:5px">Une présence sociale qui attire les clients locaux</div><div style="font-size:9px;line-height:1.5;color:rgba(255,255,255,.72)">Contenu chaleureux, moments de vie, promos ciblées et une image fidèle à l'établissement.</div></div></div>`}
-  ]
-};
-
 /* ===== AVIS CLIENTS ===== */
 function daysAgoLabel(d){
   if(d===1)return "il y a 1 jour";
@@ -715,45 +684,292 @@ function showToast(){
   },5000);
 }
 
-/* ===== PORTFOLIO (modal exemples) ===== */
-function openPortfolio(type){
+/* ===== PORTFOLIO (catalogue complet) ===== */
+const PORTFOLIO_DATA = {
+  vitrine: [
+    { name: "Cabinet de Kinésithérapie Forme", tag: "Santé / Médical", url: "kinesitherapie-forme.fr", layout: "medical", desc: "Design épuré blanc et vert canard, rassurant avec boutons Doctolib/Appel." },
+    { name: "Atelier de Serrurerie B.R.", tag: "Artisanat / Urgence", url: "serrurerie-depannage24.fr", layout: "emergency", desc: "Interface sombre et rouge alerte, pensée pour la conversion mobile en 10 secondes." },
+    { name: "Salon de Coiffure l'Aura", tag: "Esthétique / Luxe", url: "salon-laura.fr", layout: "elegant", desc: "Teintes nude et beige. Focus visuel haut de gamme et tarifs transparents." },
+    { name: "Cabinet d'Avocats Laurent", tag: "Services Juridiques", url: "avocats-laurent.fr", layout: "legal", desc: "Bleu nuit et dorures. Structure sobre valorisant l'expertise et la prise de contact." },
+    { name: "Garage Auto Plus", tag: "Automobile / Local", url: "garage-auto-plus.fr", layout: "garage", desc: "Gris anthracite et orange mécanique. Intégration Google Maps et demande de devis." }
+  ],
+  premium: [
+    { name: "Finances Pro Conseil", tag: "Cabinet de Conseil B2B", url: "proconseil-finance.fr", layout: "corporate-clean", desc: "Style institutionnel bleu/blanc. Landing page avec aimant à leads (Ebook offert)." },
+    { name: "Élite Coaching Performance", tag: "Infopreneuriat / Sport", url: "elitecoaching.fr", layout: "high-conversion", desc: "Marketing agressif noir et jaune fluo. Avis clients massifs et compte à rebours." },
+    { name: "Eco-Stay Immo", tag: "Tourisme / Immobilier", url: "ecostay-villas.com", layout: "eco-travel", desc: "Nuances vert forêt et crème. Mise en valeur de gîtes éco-responsables avec grille de réservation." },
+    { name: "SaaS FlowMetrics", tag: "Logiciel / Analytics", url: "flowmetrics.io", layout: "saas-landing", desc: "Mode sombre violet électrique. Graphiques interactifs factices et tableaux de prix." },
+    { name: "Resto Gastronomique L'Étoile", tag: "Restauration Premium", url: "letoile-gastronomie.fr", layout: "gastro-luxury", desc: "Fond noir mat et écriture or rose. Menu interactif fluide et module de réservation de table." }
+  ],
+  ultra: [
+    { name: "Aetherium Chronicles", tag: "Gaming Hub / Dark Fantasy", url: "aetherium-chronicles.com", layout: "dark-fantasy-dungeon", desc: "Ambiance donjon médiéval sombre, lueurs violettes et textures de pierres magiques." },
+    { name: "Neo-Vanguard Corp", tag: "Tech / Cyberpunk / Web3", url: "neovanguard.io", layout: "premium-tech", desc: "Design ultra-futuriste avec néons cyan, lignes de code dynamiques et grille technologique." },
+    { name: "Studio Obsidian 3D", tag: "Studio d'Art & Blender", url: "obsidian3d.studio", layout: "blender-studio", desc: "Charcoal et vert émeraude. Showcase immersif pour artistes 3D et concepteurs d'assets." },
+    { name: "Horlogerie Chronos", tag: "E-Commerce de Luxe", url: "chronos-luxe.ch", layout: "luxury-watch", desc: "Minimalisme suisse noir et blanc pur. Animations fluides au scroll et fiches produits épurées." },
+    { name: "Meta-Architects", tag: "Cabinet d'Architecture", url: "meta-architects.fr", layout: "brutalist-arch", desc: "Style brutaliste gris béton et orange fluo. Typographies massives et galeries plein écran." }
+  ],
+  cm: [
+    { name: "Stratégie Verticale TikTok", tag: "Croissance Format Court", url: "dashboard-tiktok-media", layout: "social-tiktok", desc: "Dashboard noir/cyan/rose simulant des millions de vues et l'acquisition de leads." },
+    { name: "Branding Unique Instagram", tag: "Identité Visuelle / Esthétique", url: "instagram-feed-planner", layout: "social-insta", desc: "Aperçu de grille éditoriale Instagram harmonisée avec charte graphique pastel." },
+    { name: "B2B Authority LinkedIn", tag: "Ghostwriting Dirigeants", url: "linkedin-authority-pack", layout: "social-linkedin", desc: "Aperçu de carrousels à fort engagement et lignes d'accroches pour briser l'algorithme." },
+    { name: "Crypto Buzz X / Twitter", tag: "Growth Web3 & Tech", url: "x-growth-strategy", layout: "social-x", desc: "Analyse de threads viraux, metrics de reach organique et raids communautaires planifiés." },
+    { name: "Multi-Channel Dashboard ROI", tag: "Tunnel de Vente Global", url: "global-roi-tracker", layout: "social-roi", desc: "Vue d'ensemble des statistiques publicitaires (Meta Ads, TikTok Ads) avec calcul de ROI." }
+  ]
+};
+
+function openPortfolio(category){
   const modal=document.getElementById("portfolioModal");
-  const content=document.getElementById("modalContent");
+  const grid=document.getElementById("portfolioGrid")||document.getElementById("modalContent");
   const title=document.getElementById("modalTitle");
   const label=document.getElementById("modalLabel");
-  const data=PORTFOLIO_DATA[type];
-  if(!data)return;
-  const titles={vitrine:"Exemples — Site Vitrine",premium:"Exemples — Site Premium",ultra:"Exemples — Ultra Premium",cm:"Exemples — Community Management"};
-  const labels={vitrine:"Réalisations clients",premium:"Réalisations clients",ultra:"Réalisations clients",cm:"Posts réseaux sociaux"};
-  title.textContent=titles[type]||"Exemples";
-  label.textContent=labels[type]||"Réalisations";
-  if(type==="cm"){
-    content.className="cm-grid";
-    content.innerHTML=data.map((item,i)=>'<div class="cm-item" onclick="showFullPreview('+i+',\''+type+'\')">'+item.html+"</div>").join("");
-  }else{
-    content.className="preview-grid";
-    content.innerHTML=data.map((item,i)=>'<div class="preview-item" onclick="showFullPreview('+i+',\''+type+'\')"><div class="preview-bar"><div class="preview-dots"><span></span><span></span><span></span></div><div class="preview-url">'+item.url+'</div></div><div class="preview-content">'+item.html+'</div><div class="preview-lbl"><span class="preview-lbl-n">'+item.name+'</span><span class="preview-lbl-t">'+item.tag+"</span></div></div>").join("");
-  }
+  const projects=PORTFOLIO_DATA[category]||[];
+  if(!modal||!grid||!title||!label)return;
+
+  const categoryTitles={
+    vitrine:"Formule Site Vitrine — Nos 5 Réalisations Locales",
+    premium:"Formule Site Premium — Nos 5 Tunnels de Conversion",
+    ultra:"Formule Ultra Premium — Nos 5 Expériences Immersives",
+    cm:"Community Management — Nos 5 Stratégies de Croissance"
+  };
+
+  const categoryLabels={
+    vitrine:"Exemples de sites vitrines",
+    premium:"Exemples de sites premium",
+    ultra:"Exemples d'expériences ultra premium",
+    cm:"Exemples de stratégies social media"
+  };
+
+  title.textContent=categoryTitles[category]||"Nos Réalisations";
+  label.textContent=categoryLabels[category]||"Exemples";
+  grid.innerHTML=projects.map(proj=>`<div class="preview-item" onclick="openFullscreen('${proj.name.replace(/'/g,"\\'")}', '${proj.url}', '${proj.layout}')" style="cursor:pointer; background:#111126; border:1px solid rgba(255,255,255,0.05); border-radius:12px; overflow:hidden; transition:transform 0.2s, border-color 0.2s;">
+    <div class="preview-bar" style="background:#181832; padding:8px 14px; display:flex; align-items:center; gap:8px; border-bottom:1px solid rgba(255,255,255,0.05);">
+      <div class="preview-dots" style="display:flex; gap:5px;"><span style="width:8px; height:8px; background:#ff5f56; border-radius:50%;"></span><span style="width:8px; height:8px; background:#ffbd2e; border-radius:50%;"></span><span style="width:8px; height:8px; background:#27c93f; border-radius:50%;"></span></div>
+      <div class="preview-url" style="color:#7e7ea3; font-size:0.75rem; font-family:monospace; margin-left:auto;">${escHtml(proj.url)}</div>
+    </div>
+    <div class="preview-content" style="padding:24px; text-align:left; min-height:180px; display:flex; flex-direction:column; justify-content:between;">
+      <div>
+        <span style="font-size:0.7rem; font-family:monospace; text-transform:uppercase; color:#ffd54a; background:rgba(255,213,74,0.1); padding:3px 8px; border-radius:4px; font-weight:600;">${escHtml(proj.tag)}</span>
+        <h4 style="font-size:1.1rem; color:#fff; margin:12px 0 6px; font-weight:600;">${escHtml(proj.name)}</h4>
+        <p style="font-size:0.8rem; color:#8888aa; line-height:1.4; margin-bottom:16px;">${escHtml(proj.desc)}</p>
+      </div>
+      <span style="font-size:0.75rem; color:#7c6bff; font-weight:600; display:inline-flex; align-items:center; gap:6px;">Lancer le site de démonstration →</span>
+    </div>
+  </div>`).join("");
+
   modal.style.display="block";
   document.body.style.overflow="hidden";
 }
+
 function closePortfolio(){
-  document.getElementById("portfolioModal").style.display="none";
+  const modal=document.getElementById("portfolioModal");
+  if(modal)modal.style.display="none";
   document.body.style.overflow="";
 }
-function showFullPreview(index,type){
-  const item=PORTFOLIO_DATA[type][index];if(!item)return;
+
+function openFullscreen(name,url,layout){
   const fs=document.getElementById("previewFullscreen");
-  document.getElementById("fsUrl").textContent=item.url;
-  document.getElementById("fsContent").innerHTML=type==="cm"
-    ? '<div style="display:flex;justify-content:center;padding:20px;background:#0a0a0a;">'+item.html+"</div>"
-    : item.html;
+  const fsUrl=document.getElementById("fsUrl");
+  const fsContent=document.getElementById("fsContent");
+  if(!fs||!fsUrl||!fsContent)return;
+
+  fsUrl.textContent=`https://${url}`;
+
+  let html="";
+  switch(layout){
+    case "medical":
+      html=`<div style="background:#f4f8f6; color:#1e293b; padding:40px; font-family:sans-serif; text-align:left;">
+        <div style="color:#0f766e; font-weight:700; margin-bottom:10px;">🏥 ${escHtml(name)}</div>
+        <h1 style="font-size:2rem; color:#0f172a; margin-bottom:12px;">Vos soins de kinésithérapie personnalisés</h1>
+        <p style="color:#64748b; margin-bottom:20px;">Prenez rendez-vous directement en ligne pour votre rééducation fonctionnelle du sport ou post-opératoire.</p>
+        <button style="background:#0f766e; color:#fff; border:none; padding:12px 24px; border-radius:6px; font-weight:600;">📅 Prendre RDV sur Doctolib</button>
+      </div>`;
+      break;
+    case "emergency":
+      html=`<div style="background:#0b0c10; color:#fff; padding:40px; font-family:sans-serif; text-align:left; border-left:5px solid #ef4444;">
+        <div style="color:#ef4444; font-weight:800; font-size:1.2rem; margin-bottom:8px;">🚨 ${escHtml(name)} - URGENCE 24h/7j</div>
+        <h1 style="font-size:2rem; margin-bottom:10px;">Porte claquée ? Clé cassée ? Intervention en 30 min</h1>
+        <p style="color:#94a3b8; margin-bottom:20px;">Serruriers agréés assurances. Devis transparent annoncé par téléphone avant déplacement.</p>
+        <button style="background:#ef4444; color:#fff; font-size:1.1rem; padding:14px 28px; border:none; font-weight:700; border-radius:4px;">📞 APPELER LE 06 XX XX XX XX</button>
+      </div>`;
+      break;
+    case "elegant":
+      html=`<div style="background:#fdfbf7; color:#3e332e; padding:40px; font-family:serif; text-align:center;">
+        <h1 style="font-size:2.2rem; font-weight:300; letter-spacing:3px; text-transform:uppercase;">${escHtml(name)}</h1>
+        <p style="font-style:italic; color:#8c7a6b; margin-bottom:24px;">L'art capillaire et le soin du cheveu au cœur de votre ville</p>
+        <div style="border-top:1px solid #e6dfd5; border-bottom:1px solid #e6dfd5; padding:16px; max-width:300px; margin:0 auto 24px;">Coupe Signature — 45€<br>Balayage Éclat — 95€</div>
+        <button style="background:#3e332e; color:#fff; border:none; padding:12px 30px; font-size:0.8rem; letter-spacing:2px; text-transform:uppercase;">Réserver un moment</button>
+      </div>`;
+      break;
+    case "legal":
+      html=`<div style="background:#0a192f; color:#cbd5e1; padding:40px; font-family:sans-serif; text-align:left;">
+        <div style="color:#ffd54a; font-weight:600; letter-spacing:1px; margin-bottom:6px;">CABINET D'AVOCATS</div>
+        <h1 style="font-size:2rem; color:#fff; margin-bottom:14px;">Défendre vos intérêts avec rigueur et intégrité</h1>
+        <p style="color:#8892b0; max-width:600px; margin-bottom:24px;">Spécialisés en Droit des Affaires et Droit Social, nous sécurisons vos projets d'entreprise et vos litiges prud'hommaux.</p>
+        <button style="background:transparent; border:1px solid #ffd54a; color:#ffd54a; padding:12px 24px; font-weight:600;">Consulter un Avocat associé</button>
+      </div>`;
+      break;
+    case "garage":
+      html=`<div style="background:#1e293b; color:#f8fafc; padding:40px; font-family:sans-serif; text-align:left;">
+        <h1 style="font-size:1.8rem; color:#ff7a00; font-weight:800;">🛠️ ${escHtml(name)}</h1>
+        <h2 style="font-size:1.4rem; margin:10px 0;">Entretien, réparation toutes marques & diagnostic électronique</h2>
+        <p style="color:#94a3b8; margin-bottom:20px;">Profitez d'un service mécanique professionnel de proximité sans perte de votre garantie constructeur.</p>
+        <button style="background:#ff7a00; color:#fff; border:none; padding:12px 24px; font-weight:700; border-radius:4px;">Demander un devis en ligne</button>
+      </div>`;
+      break;
+    case "corporate-clean":
+      html=`<div style="background:#fff; color:#334155; padding:40px; font-family:sans-serif; text-align:left;">
+        <div style="color:#1e40af; font-weight:700;">PRO CONSEIL</div>
+        <h1 style="font-size:2.2rem; color:#0f172a; margin:12px 0;">Sécurisez la croissance et la fiscalité de votre patrimoine</h1>
+        <p style="color:#64748b; margin-bottom:24px;">Téléchargez notre guide exclusif 2026 sur l'optimisation des holdings d'entreprise.</p>
+        <input type="email" placeholder="Votre adresse email pro" style="padding:12px; width:250px; border:1px solid #cbd5e1; border-radius:4px; margin-right:10px;">
+        <button style="background:#1e40af; color:#fff; border:none; padding:12px 24px; border-radius:4px; font-weight:600;">Recevoir le Guide PDF</button>
+      </div>`;
+      break;
+    case "high-conversion":
+      html=`<div style="background:#000; color:#fff; padding:45px 20px; font-family:sans-serif; text-align:center;">
+        <div style="background:#ffd54a; color:#000; display:inline-block; padding:4px 12px; font-weight:800; margin-bottom:14px; font-size:0.8rem;">ATTENTION : PLACES LIMITÉES</div>
+        <h1 style="font-size:2.4rem; font-weight:900; color:#fff;">EXPLOSEZ VOS OBJECTIFS PHYSIQUES ET MENTAUX EN 90 JOURS</h1>
+        <p style="color:#a0aec0; max-width:550px; margin:12px auto 24px;">Le programme ultime combinant nutrition, haute performance et biohacking.</p>
+        <button style="background:#ffd54a; color:#000; font-size:1.1rem; font-weight:800; padding:16px 32px; border:none; border-radius:50px; box-shadow:0 0 20px rgba(255,213,74,0.4);">REJOINDRE L'ACADÉMIE ÉLITE</button>
+      </div>`;
+      break;
+    case "eco-travel":
+      html=`<div style="background:#f2efe9; color:#2d3a2e; padding:40px; font-family:sans-serif; text-align:left;">
+        <span style="color:#4a6b53; font-weight:600; text-transform:uppercase; font-size:0.8rem;">🌿 Éco-villas de prestige</span>
+        <h1 style="font-size:2rem; color:#1c281d; margin:8px 0 16px;">Déconnexion totale au cœur de la nature sauvage</h1>
+        <p style="color:#556656; max-width:500px; margin-bottom:24px;">Des éco-lodges construits en matériaux durables dotés de piscines naturelles et autonomes en énergie.</p>
+        <button style="background:#4a6b53; color:#fff; border:none; padding:12px 24px; font-weight:600;">Vérifier les disponibilités</button>
+      </div>`;
+      break;
+    case "saas-landing":
+      html=`<div style="background:#090910; color:#fff; padding:40px; font-family:monospace; text-align:left;">
+        <div style="color:#7c6bff;">[v2.1 live analytics]</div>
+        <h1 style="font-size:2rem; font-family:sans-serif; margin:10px 0;">Automate Your Data Streams Without Code</h1>
+        <p style="color:#6b7280; font-family:sans-serif; margin-bottom:20px;">Connect directly to your app, deploy worker nodes, and visualize tracking in real-time.</p>
+        <div style="background:#141425; padding:14px; border:1px solid #222244; border-radius:6px; color:#4ade80; margin-bottom:20px;">$ npm install @flowmetrics/core_nodule</div>
+        <button style="background:#7c6bff; color:#fff; border:none; padding:12px 24px; font-family:sans-serif; font-weight:600; border-radius:4px;">Start 14-day Free Trial</button>
+      </div>`;
+      break;
+    case "gastro-luxury":
+      html=`<div style="background:#121212; color:#e5d5c5; padding:45px; font-family:serif; text-align:center;">
+        <h1 style="font-size:2rem; font-weight:300; letter-spacing:4px; color:#fff;">L'ÉTOILE</h1>
+        <p style="font-size:0.8rem; letter-spacing:2px; text-transform:uppercase; color:#b39e89; margin-bottom:30px;">Une expérience gastronomique étoilée au guide Michelin</p>
+        <p style="max-width:500px; margin:0 auto 24px; font-family:sans-serif; font-size:0.9rem; line-height:1.6; color:#a3a3a3;">Chaque plat raconte une histoire, née du respect des saisons et de la passion infinie de notre Chef de cuisine.</p>
+        <button style="background:transparent; border:1px solid #b39e89; color:#b39e89; padding:12px 28px; font-family:sans-serif; text-transform:uppercase; font-size:0.8rem; letter-spacing:1px;">Réserver une table</button>
+      </div>`;
+      break;
+    case "dark-fantasy-dungeon":
+      html=`<div style="background:#030308; color:#d1d1e0; padding:50px; font-family:sans-serif; text-align:left; border:1px solid rgba(124,107,255,0.2); position:relative; box-shadow: inset 0 0 30px rgba(124,107,255,0.05);">
+        <div style="color:#ffd54a; font-family:monospace; font-size:0.75rem; letter-spacing:3px; margin-bottom:10px;">// ACCÈS ALPHA UNIQUE</div>
+        <h1 style="font-size:2.6rem; font-weight:800; background:linear-gradient(135deg, #fff 30%, #7c6bff); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">AETHERIUM CHRONICLES</h1>
+        <p style="color:#7e7ea3; max-width:550px; line-height:1.6; margin-bottom:24px;">Explorez le terrifiant Donjon de Lune, collectez des améthystes ancestrales et gérez une armée de plus de 200 créatures dans ce RPG dark fantasy.</p>
+        <div style="display:inline-flex; gap:10px; background:rgba(124,107,255,0.1); border:1px solid rgba(124,107,255,0.2); padding:10px 16px; border-radius:6px; font-size:0.85rem; margin-bottom:24px; color:#a78bff;">🔮 Système d'incantation de sorts optimisé sur Blender 3D & Roblox Engine.</div><br>
+        <button style="background:#ffd54a; color:#000; border:none; padding:14px 28px; font-weight:800; text-transform:uppercase; letter-spacing:1px; box-shadow:0 0 15px #ffd54a;">S'enrôler dans la Guilde</button>
+      </div>`;
+      break;
+    case "premium-tech":
+      html=`<div style="background:#020205; color:#00f2ff; padding:50px; font-family:monospace; text-align:left;">
+        <div style="color:rgba(0,242,255,0.5); font-size:0.8rem; margin-bottom:8px;">&lt;SYSTEM OVERRIDE v4.06&gt;</div>
+        <h1 style="font-size:2.4rem; color:#fff; font-family:sans-serif; font-weight:800; letter-spacing:-1px;">NEO-VANGUARD OPERATING SYSTEM</h1>
+        <p style="color:#64748b; font-family:sans-serif; max-width:550px; line-height:1.5; margin-bottom:24px;">L'infrastructure décentralisée web3 pour sécuriser, automatiser et propulser vos services digitaux à l'échelle mondiale.</p>
+        <div style="display:flex; gap:14px;">
+          <button style="background:#00f2ff; color:#000; font-weight:700; border:none; padding:12px 24px; font-family:sans-serif;">INITIALIZE PROTOCOL</button>
+          <button style="background:transparent; border:1px solid rgba(255,255,255,0.2); color:#fff; padding:12px 24px; font-family:sans-serif;">VIEW SOURCE</button>
+        </div>
+      </div>`;
+      break;
+    case "blender-studio":
+      html=`<div style="background:#141517; color:#eaedf1; padding:45px; font-family:sans-serif; text-align:left;">
+        <span style="color:#10b981; font-family:monospace; font-weight:600;">[3D PORTFOLIO DISCOVERY]</span>
+        <h1 style="font-size:2.2rem; font-weight:700; margin:8px 0 14px;">Sculpter des mondes imaginaires à l'état pur</h1>
+        <p style="color:#94a3b8; max-width:580px; margin-bottom:24px;">Conception de meshes Low-Poly hautement optimisés, textures procédurales fantastiques et direction artistique de environnements de jeux.</p>
+        <div style="background:#1e2024; border:1px solid #2e3138; padding:20px; border-radius:8px; display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;">
+          <div>🟢 <strong>Modélisation 3D :</strong> Cycles & Eevee</div>
+          <div>🟢 <strong>Baking :</strong> Cartes de normales 4K</div>
+        </div>
+        <button style="background:#10b981; color:#fff; border:none; padding:12px 24px; font-weight:600; border-radius:4px;">Télécharger l'Asset Pack</button>
+      </div>`;
+      break;
+    case "luxury-watch":
+      html=`<div style="background:#ffffff; color:#000000; padding:50px 20px; font-family:sans-serif; text-align:center;">
+        <h1 style="font-size:2.5rem; font-weight:300; letter-spacing:6px; text-transform:uppercase;">CHRONOS SWISS</h1>
+        <div style="width:40px; height:2px; background:#000; margin:15px auto 25px;"></div>
+        <p style="font-size:1.1rem; max-width:500px; margin:0 auto 30px; font-weight:300; line-height:1.6; color:#333;">L'ingénierie mécanique de haute précision alliée au design intemporel de l'or blanc brossé.</p>
+        <button style="background:#000; color:#fff; border:none; padding:14px 35px; text-transform:uppercase; font-size:0.75rem; letter-spacing:2px; font-weight:600;">Découvrir la Collection Atelier</button>
+      </div>`;
+      break;
+    case "brutalist-arch":
+      html=`<div style="background:#d9d9d9; color:#111111; padding:50px; font-family:sans-serif; text-align:left;">
+        <h1 style="font-size:3.5rem; font-weight:900; line-height:0.9; letter-spacing:-2px; text-transform:uppercase; margin-bottom:20px;">META<br><span style="color:#ff3e00;">ARCHITECTS</span></h1>
+        <p style="font-size:1.05rem; font-weight:700; max-width:450px; margin-bottom:30px; border-left:4px solid #111; padding-left:14px;">Béton brut, structures géométriques massives et optimisation de la lumière industrielle.</p>
+        <button style="background:#ff3e00; color:#fff; border:none; padding:14px 28px; font-weight:800; text-transform:uppercase; font-size:0.85rem;">Voir les chantiers 2026</button>
+      </div>`;
+      break;
+    case "social-tiktok":
+      html=`<div style="background:#010103; color:#fff; padding:35px; font-family:sans-serif; text-align:left;">
+        <div style="color:#fe2c55; font-weight:800; font-size:1.1rem; margin-bottom:16px;">🎵 Séquence de Hooks Viraux Automatisés</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+          <div style="background:#121216; padding:16px; border-radius:8px; border:1px solid #222228;"><span style="color:#25f4ee; font-size:1.5rem; font-weight:800;">+1.4M</span><br><span style="font-size:0.75rem; color:#86878b;">Vues ciblées 30j</span></div>
+          <div style="background:#121216; padding:16px; border-radius:8px; border:1px solid #222228;"><span style="color:#fe2c55; font-size:1.5rem; font-weight:800;">14.2%</span><br><span style="font-size:0.75rem; color:#86878b;">Taux de conversion Bio</span></div>
+        </div>
+        <p style="font-size:0.85rem; color:#86878b; font-style:italic;">"L'implémentation de vidéos courtes automatisées a multiplié les leads de nos clients par 4."</p>
+      </div>`;
+      break;
+    case "social-insta":
+      html=`<div style="background:#fff; color:#000; padding:35px; font-family:sans-serif; text-align:left;">
+        <h4 style="margin:0 0 16px; font-size:1rem; font-weight:700; color:#c13584;">📸 Simulation Grille Éditoriale Harmonieuse</h4>
+        <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; margin-bottom:20px;">
+          <div style="aspect-ratio:1; background:#f4ebe1; display:flex; align-items:center; justify-content:center; font-size:0.65rem; padding:4px; text-align:center;">Post Produit #1 Mini</div>
+          <div style="aspect-ratio:1; background:#e2d4c9; display:flex; align-items:center; justify-content:center; font-size:0.65rem; padding:4px; text-align:center;">Citation Inspirante</div>
+          <div style="aspect-ratio:1; background:#ebdcd0; display:flex; align-items:center; justify-content:center; font-size:0.65rem; padding:4px; text-align:center;">Backstage Agence</div>
+        </div>
+        <span style="font-size:0.8rem; color:#666;">📊 Planification & Charte Graphique Unifiée</span>
+      </div>`;
+      break;
+    case "social-linkedin":
+      html=`<div style="background:#f3f6f8; color:#1d2226; padding:35px; font-family:sans-serif; text-align:left;">
+        <div style="color:#0a66c2; font-weight:700; margin-bottom:12px;">👔 LinkedIn Personal Branding Pack</div>
+        <div style="background:#fff; padding:16px; border-radius:8px; border:1px solid #e0e0e0; margin-bottom:16px;">
+          <p style="font-weight:700; margin:0 0 6px; font-size:0.9rem;">Thibault Marguier • Entrepreneur B2B</p>
+          <p style="font-size:0.85rem; margin:0; line-height:1.4;">"Arrêtez de vouloir vendre votre produit au premier message. Créez du contenu qui prouve votre expertise, et laissez vos futurs clients venir à vous..." <strong>voir plus</strong></p>
+        </div>
+        <span style="font-size:0.75rem; color:#666;">🔥 Objectif : Générer l'autorité sur votre secteur et attirer les décideurs.</span>
+      </div>`;
+      break;
+    case "social-x":
+      html=`<div style="background:#000; color:#fff; padding:35px; font-family:monospace; text-align:left;">
+        <div style="color:#555; margin-bottom:10px;">// X ALGORITHM RE-ROUTE</div>
+        <h3 style="font-family:sans-serif; font-size:1.1rem; color:#1d9bf0;">⚡ Stratégie de Thread Viral Web3 & Tech</h3>
+        <p style="font-size:0.85rem; color:#cbd5e1; line-height:1.4; margin:12px 0;">Nous rédigeons des structures de threads à forte rétention (Hook d'accroche direct, découpe en 7 étapes, CTA vers votre newsletter).</p>
+        <div style="border-top:1px solid #222; padding-top:10px; font-size:0.8rem; color:#1d9bf0;">📈 240,000 Impressions accumulées en 48h</div>
+      </div>`;
+      break;
+    case "social-roi":
+      html=`<div style="background:#0b0f19; color:#fff; padding:35px; font-family:sans-serif; text-align:left;">
+        <h4 style="color:#10b981; margin:0 0 14px;">🎯 Dashboard de Rentabilité Publicitaire (ROI)</h4>
+        <div style="background:#1e293b; padding:16px; border-radius:6px; border:1px solid rgba(255,255,255,0.05); margin-bottom:14px;">
+          <table style="width:100%; font-size:0.8rem; text-align:left; border-collapse:collapse;">
+            <tr style="color:#64748b; border-bottom:1px solid #334155;"><th style="padding-bottom:6px;">Canal</th><th>Budget</th><th>CA Généré</th><th>ROAS</th></tr>
+            <tr style="border-bottom:1px solid #334155;"><td style="padding:6px 0;">Meta Ads</td><td>1 200€</td><td>4 800€</td><td style="color:#10b981; font-weight:700;">4.0x</td></tr>
+            <tr><td style="padding:6px 0;">TikTok Ads</td><td>800€</td><td>4 160€</td><td style="color:#10b981; font-weight:700;">5.2x</td></tr>
+          </table>
+        </div>
+        <p style="font-size:0.75rem; color:#64748b; margin:0;">Données synchronisées en temps réel via des webhooks personnalisés.</p>
+      </div>`;
+      break;
+    default:
+      html=`<div style="padding:40px; text-align:center; color:var(--muted);">Erreur d'affichage.</div>`;
+  }
+
+  fsContent.innerHTML=html;
   fs.classList.add("open");
 }
+
 function closeFullscreen(){
-  document.getElementById("previewFullscreen").classList.remove("open");
+  const fs=document.getElementById("previewFullscreen");
+  if(fs)fs.classList.remove("open");
 }
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeFullscreen();closePortfolio()}});
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeFullscreen();closePortfolio();}});
 
 /* ===== COMPTEUR GLOBAL (tente une synchro serveur, sinon repli local) ===== */
 async function initOrderCounter(){
