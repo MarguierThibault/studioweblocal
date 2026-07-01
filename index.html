@@ -1249,6 +1249,48 @@ async function initOrderCounter(){
   initOrderCounter();
   setTimeout(showToast,7000+Math.random()*5000);
 })();
+function openPortfolio(type){
+  const modal = document.getElementById("portfolioModal");
+  const title = document.getElementById("modalTitle");
+  const content = document.getElementById("modalContent");
+
+  const titres = {
+    vitrine: "Exemples de Sites Vitrine",
+    premium: "Exemples de Sites Premium",
+    ultra: "Exemples Ultra Premium",
+    cm: "Exemples Community Management"
+  };
+
+  title.textContent = titres[type] || "Exemples";
+
+  content.innerHTML = `
+    <div style="padding:40px;text-align:center">
+      <h3 style="margin-bottom:15px;">Exemple de site</h3>
+      <p style="color:#aaa;margin-bottom:20px;">
+        Les aperçus présentés sont volontairement simplifiés et anonymisés afin de préserver
+        la confidentialité de nos clients.
+      </p>
+
+      <button class="btn btn--gold" onclick="openFullscreen()">
+        👁 Ouvrir l'aperçu
+      </button>
+    </div>
+  `;
+
+  modal.style.display = "flex";
+}
+
+function closePortfolio(){
+  document.getElementById("portfolioModal").style.display = "none";
+}
+
+function openFullscreen(){
+  document.getElementById("previewFullscreen").classList.add("open");
+}
+
+function closeFullscreen(){
+  document.getElementById("previewFullscreen").classList.remove("open");
+}
 </script>
 </body>
 </html>
