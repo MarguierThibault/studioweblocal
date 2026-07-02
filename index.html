@@ -2698,357 +2698,296 @@ function showToast(){
 </div>`;
           break;
 
-       case 'ultra-2':
+      case 'ultra-2':
           html = `${ANIM_STYLES}
-            <div class="nova-preview">
+            <div class="lex-preview">
 <style>
-.nova-preview{--noir:#08080A;--noir-2:#131316;--noir-3:#1B1B1F;--chrome:#D7DCE3;--chrome-dark:#8B929C;--chrome-shine:#F5F7FA;--rubis:#C4102F;--rubis-vif:#EE1A3F;--cyan:#00E0F5;--cyan-dim:rgba(0,224,245,.14);--blanc:#F5F6F8;
-  font-family:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;background:var(--noir);color:var(--blanc);max-width:1240px;margin:0 auto;overflow:hidden;border-radius:20px;box-shadow:0 40px 110px rgba(0,0,0,.6);position:relative;}
-.nova-preview *{box-sizing:border-box;margin:0;padding:0;}
-.nova-preview a{color:inherit;text-decoration:none;}
-.nova-preview img{max-width:100%;display:block;}
-.nv-carbon{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:34px 34px;z-index:0;}
-.nv-serif{font-family:'Playfair Display','Cormorant Garamond',Georgia,serif;}
-.nv-chrome-text{background:linear-gradient(120deg,var(--chrome-dark) 10%,var(--chrome-shine) 35%,var(--chrome) 50%,var(--chrome-shine) 65%,var(--chrome-dark) 90%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 6s ease infinite;}
-.nv-eyebrow{font-size:.72rem;letter-spacing:.36em;text-transform:uppercase;color:var(--rubis-vif);margin-bottom:16px;display:flex;align-items:center;gap:10px;font-weight:700;}
-.nv-eyebrow::before{content:'';width:28px;height:2px;background:linear-gradient(90deg,var(--rubis-vif),transparent);}
-.nv-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:20px 44px;background:rgba(8,8,10,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(215,220,227,.1);}
-.nv-logo{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.55rem;letter-spacing:.1em;text-transform:uppercase;}
-.nv-logo span{color:var(--rubis-vif);}
-.nv-nav{display:flex;gap:28px;flex-wrap:wrap;}
-.nv-nav a{font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--chrome-dark);font-weight:700;position:relative;padding-bottom:3px;}
-.nv-nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--cyan);transition:width .3s ease;}
-.nv-nav a:hover{color:var(--cyan);}
-.nv-nav a:hover::after{width:100%;}
-.nv-btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 32px;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .35s ease;border-radius:2px;position:relative;overflow:hidden;}
-.nv-btn-red{background:linear-gradient(135deg,var(--rubis-vif),var(--rubis));color:#fff;border:none;box-shadow:0 0 0 rgba(238,26,63,0);}
-.nv-btn-red::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .6s ease;}
-.nv-btn-red:hover::before{left:130%;}
-.nv-btn-red:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(196,16,47,.4);}
-.nv-btn-ghost{background:transparent;border:1px solid rgba(215,220,227,.32);color:var(--blanc);}
-.nv-btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);box-shadow:0 0 20px rgba(0,224,245,.15);}
-.nv-hero{position:relative;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(8,8,10,.55) 0%,rgba(8,8,10,.75) 55%,var(--noir) 100%),url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;padding:76px 40px 60px;overflow:hidden;}
-.nv-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 105%,rgba(196,16,47,.22),transparent 70%),radial-gradient(ellipse 40% 30% at 85% 10%,rgba(0,224,245,.12),transparent 70%);pointer-events:none;}
-.nv-particles span{position:absolute;bottom:0;border-radius:50%;pointer-events:none;}
-.nv-hero-inner{position:relative;z-index:1;max-width:740px;}
-.nv-hero-badge{display:inline-flex;align-items:center;gap:9px;font-family:'Barlow Condensed',sans-serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--cyan);background:var(--cyan-dim);border:1px solid rgba(0,224,245,.32);padding:8px 18px;border-radius:40px;margin-bottom:26px;font-weight:700;}
-.nv-hero-badge i{width:6px;height:6px;border-radius:50%;background:var(--cyan);display:inline-block;animation:pulseGlow 1.8s ease-in-out infinite;--glow:rgba(0,224,245,.8);}
-.nv-hero h1{font-size:clamp(2.7rem,5.8vw,4.6rem);font-weight:800;line-height:1.01;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:22px;}
-.nv-hero h1 em{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;color:var(--rubis-vif);text-transform:none;text-shadow:0 0 26px rgba(238,26,63,.35);}
-.nv-hero p{font-size:1.02rem;color:rgba(245,246,248,.72);max-width:520px;margin:0 auto 38px;line-height:1.75;}
-.nv-hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
-.nv-hero-specs{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.nv-spec-chip{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 22px;background:rgba(19,19,22,.7);backdrop-filter:blur(8px);border:1px solid rgba(215,220,227,.14);border-radius:10px;animation:floatY 4.5s ease-in-out infinite;}
-.nv-spec-chip:nth-child(2){animation-delay:.5s;}
-.nv-spec-chip:nth-child(3){animation-delay:1s;}
-.nv-spec-chip b{font-family:'Barlow Condensed',sans-serif;font-size:1.25rem;color:var(--cyan);font-weight:700;}
-.nv-spec-chip span{font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--chrome-dark);}
-.nv-ticker-wrap{background:var(--noir-2);border-top:1px solid rgba(215,220,227,.08);border-bottom:1px solid rgba(215,220,227,.08);overflow:hidden;position:relative;height:52px;display:flex;align-items:center;}
-.nv-ticker-wrap::before,.nv-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none;}
-.nv-ticker-wrap::before{left:0;background:linear-gradient(to right,var(--noir-2),transparent);}
-.nv-ticker-wrap::after{right:0;background:linear-gradient(to left,var(--noir-2),transparent);}
-.nv-ticker-track{display:flex;align-items:center;gap:0;animation:marquee 32s linear infinite;width:max-content;}
-.nv-ticker-track span{padding:0 34px;white-space:nowrap;font-family:'Barlow Condensed',sans-serif;font-size:.76rem;letter-spacing:.24em;text-transform:uppercase;color:var(--chrome-dark);font-weight:700;border-right:1px solid rgba(215,220,227,.12);}
-.nv-ticker-track span i{color:var(--rubis-vif);font-style:normal;margin-right:8px;}
-.nv-sec{padding:90px 44px;position:relative;}
-.nv-head{max-width:640px;margin-bottom:52px;}
-.nv-head h2{font-size:clamp(1.9rem,3.4vw,2.8rem);font-weight:800;text-transform:uppercase;line-height:1.1;letter-spacing:-.01em;}
-.nv-head h2 em{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;color:var(--rubis-vif);text-transform:none;}
-.nv-head p{color:rgba(245,246,248,.6);margin-top:14px;line-height:1.75;font-size:.98rem;}
-.nv-presentation{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center;}
-.nv-pres-img{aspect-ratio:4/5;border-radius:12px;overflow:hidden;border:1px solid rgba(215,220,227,.16);position:relative;box-shadow:0 30px 60px rgba(0,0,0,.4);}
-.nv-pres-img img{width:100%;height:100%;object-fit:cover;filter:saturate(1.08) contrast(1.08);transition:transform .7s ease;}
-.nv-pres-img:hover img{transform:scale(1.05);}
-.nv-pres-img::after{content:'';position:absolute;inset:0;border:1px solid rgba(0,224,245,.28);border-radius:12px;pointer-events:none;box-shadow:inset 0 0 40px rgba(0,224,245,.06);}
-.nv-pres-badge{position:absolute;top:18px;left:18px;background:rgba(8,8,10,.75);backdrop-filter:blur(6px);border:1px solid rgba(0,224,245,.35);color:var(--cyan);font-family:'Barlow Condensed',sans-serif;font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;padding:7px 14px;border-radius:30px;font-weight:700;}
-.nv-pres-text p{color:rgba(245,246,248,.65);line-height:1.85;margin-bottom:18px;font-size:.98rem;}
-.nv-stats-inline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px;padding-top:28px;border-top:1px solid rgba(215,220,227,.14);}
-.nv-stats-inline div{padding:16px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(215,220,227,.1);border-radius:10px;text-align:center;}
-.nv-stats-inline b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.9rem;color:var(--cyan);font-weight:700;text-shadow:0 0 18px rgba(0,224,245,.3);}
-.nv-stats-inline span{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--chrome-dark);}
-.nv-services{background:var(--noir-2);}
-.nv-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(215,220,227,.08);border:1px solid rgba(215,220,227,.08);border-radius:12px;overflow:hidden;}
-.nv-service-card{background:var(--noir-2);padding:34px 28px;transition:all .35s ease;position:relative;overflow:hidden;}
-.nv-service-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 0%,rgba(0,224,245,.08),transparent 60%);opacity:0;transition:opacity .35s ease;}
-.nv-service-card:hover{background:var(--noir-3);}
-.nv-service-card:hover::before{opacity:1;}
-.nv-service-num{font-family:'Barlow Condensed',sans-serif;font-size:.8rem;color:var(--rubis-vif);font-weight:700;margin-bottom:14px;letter-spacing:.12em;position:relative;}
-.nv-service-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.32rem;font-weight:700;text-transform:uppercase;margin-bottom:10px;color:var(--chrome);position:relative;}
-.nv-service-card p{font-size:.86rem;color:rgba(245,246,248,.52);line-height:1.65;position:relative;}
-.nv-gallery3d{position:relative;perspective:1400px;}
-.nv-g3d-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.nv-g3d-item{position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;transform:rotateY(0deg);transition:transform .5s ease,box-shadow .5s ease;border:1px solid rgba(215,220,227,.14);cursor:pointer;}
-.nv-g3d-item:hover{transform:rotateY(-7deg) scale(1.035);box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(0,224,245,.35);}
-.nv-g3d-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.8) saturate(1.05);transition:filter .4s ease,transform .5s ease;}
-.nv-g3d-item:hover img{filter:brightness(1.02) saturate(1.18);transform:scale(1.06);}
-.nv-g3d-badge{position:absolute;top:14px;right:14px;background:rgba(8,8,10,.7);border:1px solid rgba(0,224,245,.4);color:var(--cyan);font-family:'Barlow Condensed',sans-serif;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:20px;opacity:0;transform:translateY(-6px);transition:all .35s ease;font-weight:700;}
-.nv-g3d-item:hover .nv-g3d-badge{opacity:1;transform:translateY(0);}
-.nv-g3d-item::after{content:attr(data-cap);position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(0deg,rgba(8,8,10,.92),transparent);font-family:'Barlow Condensed',sans-serif;font-size:.92rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--chrome);}
-.nv-avant-apres{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
-.nv-aa-card{position:relative;border-radius:12px;overflow:hidden;border:1px solid rgba(215,220,227,.16);box-shadow:0 24px 50px rgba(0,0,0,.35);}
-.nv-aa-split{position:relative;aspect-ratio:16/10;overflow:hidden;}
-.nv-aa-split img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
-.nv-aa-split .nv-after{clip-path:inset(0 0 0 50%);filter:saturate(1.18) contrast(1.1);}
-.nv-aa-split .nv-before{filter:grayscale(.6) brightness(.72);}
-.nv-aa-divider{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--cyan);box-shadow:0 0 18px rgba(0,224,245,.85);}
-.nv-aa-divider::before{content:'⇔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:38px;height:38px;background:var(--cyan);color:#08080A;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;font-weight:700;animation:pulseGlow 2.2s ease-in-out infinite;--glow:rgba(0,224,245,.6);}
-.nv-aa-labels{display:flex;justify-content:space-between;padding:15px 18px;background:var(--noir-2);}
-.nv-aa-labels span{font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--chrome-dark);font-weight:700;}
-.nv-aa-labels span:last-child{color:var(--cyan);}
-.nv-stats-band{background:linear-gradient(135deg,rgba(238,26,63,.08),rgba(0,224,245,.06));border-top:1px solid rgba(215,220,227,.1);border-bottom:1px solid rgba(215,220,227,.1);}
-.nv-stats-band-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center;}
-.nv-band-stat{padding:26px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(215,220,227,.1);border-radius:12px;}
-.nv-band-num{font-family:'Barlow Condensed',sans-serif;font-size:2.5rem;font-weight:800;color:var(--cyan);text-shadow:0 0 22px rgba(0,224,245,.3);}
-.nv-band-label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--chrome-dark);margin-top:8px;font-weight:700;}
-.nv-avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.nv-avis-card{background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.01));backdrop-filter:blur(6px);border:1px solid rgba(215,220,227,.14);border-radius:12px;padding:30px 26px;transition:transform .3s ease,border-color .3s ease;}
-.nv-avis-card:hover{transform:translateY(-5px);border-color:rgba(0,224,245,.3);}
-.nv-stars{color:var(--rubis-vif);letter-spacing:2px;margin-bottom:16px;font-size:.9rem;}
-.nv-avis-quote{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:1.04rem;line-height:1.6;margin-bottom:20px;color:var(--blanc);}
-.nv-avis-quote::before{content:'“';color:var(--cyan);}
-.nv-avis-quote::after{content:'”';color:var(--cyan);}
-.nv-avis-author{font-size:.84rem;font-weight:700;color:var(--chrome);}
-.nv-avis-role{font-size:.74rem;color:var(--chrome-dark);margin-top:2px;}
-.nv-faq{max-width:780px;}
-.nv-faq details{background:var(--noir-2);border:1px solid rgba(215,220,227,.14);border-radius:8px;padding:18px 22px;margin-bottom:12px;transition:border-color .3s ease;}
-.nv-faq details[open]{border-color:rgba(0,224,245,.3);}
-.nv-faq summary{cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--chrome);}
-.nv-faq summary::-webkit-details-marker{display:none;}
-.nv-faq summary::after{content:'+';color:var(--rubis-vif);font-size:1.4rem;transition:transform .3s ease;}
-.nv-faq details[open] summary::after{transform:rotate(45deg);color:var(--cyan);}
-.nv-faq p{margin-top:12px;color:rgba(245,246,248,.58);font-size:.9rem;line-height:1.65;}
-.nv-contact{background:var(--noir-2);}
-.nv-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
-.nv-contact-line{margin-bottom:20px;}
-.nv-contact-line .label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--rubis-vif);margin-bottom:4px;display:block;font-weight:700;}
-.nv-contact-line .value{font-size:1.04rem;color:var(--chrome);}
-.nv-form{display:flex;flex-direction:column;gap:16px;}
-.nv-form label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--chrome-dark);margin-bottom:6px;display:block;font-weight:700;}
-.nv-form input,.nv-form textarea{width:100%;background:rgba(245,246,248,.04);border:1px solid rgba(215,220,227,.2);border-radius:5px;padding:12px 14px;color:var(--blanc);font-family:inherit;font-size:.9rem;outline:none;transition:all .3s ease;}
-.nv-form input:focus,.nv-form textarea:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(0,224,245,.12);}
-.nv-footer{padding:28px 44px;border-top:1px solid rgba(215,220,227,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--chrome-dark);background:var(--noir);}
-@media(max-width:860px){.nv-presentation,.nv-contact-grid,.nv-avant-apres{grid-template-columns:1fr;}.nv-services-grid,.nv-avis-grid,.nv-g3d-grid,.nv-stats-band-grid{grid-template-columns:1fr 1fr;}.nv-nav{display:none;}.nv-header{padding:16px 22px;}.nv-sec{padding:56px 22px;}.nv-hero-specs{flex-direction:column;align-items:center;}}
-@media(max-width:560px){.nv-services-grid,.nv-avis-grid,.nv-g3d-grid,.nv-stats-band-grid{grid-template-columns:1fr;}}
-</style>
-<div class="nv-carbon"></div>
+.lex-preview{--graphite:#14161A;--graphite-2:#1D2025;--graphite-3:#262A31;--ivoire:#F3EEE4;--or:#C9AD79;--or-vif:#E4C88F;--acier:#3D5A80;--acier-vif:#6E9BC7;--blanc:#F7F5F0;
+  font-family:'Playfair Display',Georgia,serif;background:var(--graphite);color:var(--blanc);max-width:1240px;margin:0 auto;overflow:hidden;border-radius:20px;box-shadow:0 40px 110px rgba(0,0,0,.6);position:relative;}
+.lex-preview *{box-sizing:border-box;margin:0;padding:0;}
+.lex-preview a{color:inherit;text-decoration:none;}
+.lex-preview img{max-width:100%;display:block;}
+.lx-mono{font-family:'JetBrains Mono','IBM Plex Mono','Courier New',monospace;}
+.lx-carbon{position:absolute;inset:0;pointer-events:none;opacity:.4;background-image:linear-gradient(rgba(243,238,228,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(243,238,228,.02) 1px,transparent 1px);background-size:38px 38px;z-index:0;}
+.lx-gold-text{background:linear-gradient(120deg,var(--or) 10%,var(--or-vif) 40%,var(--or) 65%,var(--or-vif) 90%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 7s ease infinite;}
+@keyframes lxLoad{0%{left:-40%;}100%{left:100%;}}
+.lx-loader{position:absolute;inset:0;z-index:300;background:var(--graphite);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .8s ease,visibility .8s ease;}
+.lx-loader.lx-hide{opacity:0;visibility:hidden;pointer-events:none;}
+.lx-loader-mark{font-size:2.1rem;letter-spacing:.1em;color:var(--ivoire);}
+.lx-loader-mark em{font-style:italic;color:var(--or);}
+.lx-loader-bar{width:220px;height:1px;background:rgba(243,238,228,.15);position:relative;overflow:hidden;}
+.lx-loader-bar::after{content:'';position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,var(--or),transparent);animation:lxLoad 1.4s ease-in-out infinite;}
+.lx-loader-sub{font-size:.66rem;letter-spacing:.34em;text-transform:uppercase;color:var(--acier-vif);}
+.lx-eyebrow{font-size:.7rem;letter-spacing:.34em;text-transform:uppercase;color:var(--or);margin-bottom:16px;display:flex;align-items:center;gap:10px;font-weight:700;}
+.lx-eyebrow::before{content:'';width:28px;height:1px;background:linear-gradient(90deg,var(--or),transparent);}
+.lx-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px 44px;background:rgba(20,22,26,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(243,238,228,.08);}
+.lx-logo{font-size:1.4rem;letter-spacing:.14em;text-transform:uppercase;}
+.lx-logo em{font-style:italic;color:var(--or);}
+.lx-nav{display:flex;gap:30px;flex-wrap:wrap;}
+.lx-nav a{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,238,228,.55);font-weight:700;position:relative;padding-bottom:3px;}
+.lx-nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--acier-vif);transition:width .3s ease;}
+.lx-nav a:hover{color:var(--acier-vif);}
+.lx-nav a:hover::after{width:100%;}
+.lx-btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 32px;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .35s ease;border-radius:2px;position:relative;overflow:hidden;}
+.lx-btn-gold{background:linear-gradient(135deg,var(--or-vif),var(--or));color:#14161A;border:none;}
+.lx-btn-gold::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:left .6s ease;}
+.lx-btn-gold:hover::before{left:130%;}
+.lx-btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(201,173,121,.35);}
+.lx-btn-ghost{background:transparent;border:1px solid rgba(243,238,228,.3);color:var(--blanc);}
+.lx-btn-ghost:hover{border-color:var(--acier-vif);color:var(--acier-vif);box-shadow:0 0 20px rgba(110,155,199,.15);}
+.lx-hero{position:relative;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(20,22,26,.6) 0%,rgba(20,22,26,.8) 55%,var(--graphite) 100%),url('https://images.unsplash.com/photo-1505664194779-8beaceb93744?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;padding:76px 40px 60px;overflow:hidden;}
+.lx-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 105%,rgba(201,173,121,.16),transparent 70%),radial-gradient(ellipse 40% 30% at 85% 10%,rgba(110,155,199,.14),transparent 70%);pointer-events:none;}
+.lx-hero-inner{position:relative;z-index:1;max-width:740px;}
+.lx-hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:.24em;text-transform:uppercase;color:var(--acier-vif);background:rgba(110,155,199,.12);border:1px solid rgba(110,155,199,.32);padding:8px 18px;border-radius:40px;margin-bottom:26px;font-weight:700;}
+.lx-hero-badge i{width:6px;height:6px;border-radius:50%;background:var(--acier-vif);display:inline-block;animation:pulseGlow 1.8s ease-in-out infinite;--glow:rgba(110,155,199,.8);}
+.lx-hero h1{font-size:clamp(2.5rem,5.4vw,4.2rem);font-weight:700;line-height:1.08;letter-spacing:-.01em;margin-bottom:22px;}
+.lx-hero h1 em{font-style:italic;font-weight:500;color:var(--or);text-shadow:0 0 26px rgba(201,173,121,.3);}
+.lx-hero p{font-size:1rem;color:rgba(243,238,228,.68);max-width:520px;margin:0 auto 38px;line-height:1.8;}
+.lx-hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
+.lx-hero-specs{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.lx-spec-chip{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 22px;background:rgba(38,42,49,.7);backdrop-filter:blur(8px);border:1px solid rgba(243,238,228,.12);border-radius:10px;animation:floatY 4.5s ease-in-out infinite;}
+.lx-spec-chip:nth-child(2){animation-delay:.5s;}
+.lx-spec-chip:nth-child(3){animation-delay:1s;}
+.lx-spec-chip b{font-size:1.2rem;color:var(--or);font-weight:700;}
+.lx-spec-chip span{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,238,228,.5);}
+.lx-ticker-wrap{background:var(--graphite-2);border-top:1px solid rgba(243,238,228,.08);border-bottom:1px solid rgba(243,238,228,.08);overflow:hidden;position:relative;height:52px;display:flex;align-items:center;}
+.lx-ticker-wrap::before,.lx-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none;}
+.lx-ticker-wrap::before{left:0;background:linear-gradient(to right,var(--graphite-2),transparent);}
+.lx-ticker-wrap::after{right:0;background:linear-gradient(to left,var(--graphite-2),transparent);}
+.lx-ticker-track{display:flex;align-items:center;gap:0;animation:marquee 34s linear infinite;width:max-content;}
+.lx-ticker-track span{padding:0 34px;white-space:nowrap;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(243,238,228,.45);font-weight:700;border-right:1px solid rgba(243,238,228,.1);}
+.lx-ticker-track span i{color:var(--or);font-style:normal;margin-right:8px;}
+.lx-sec{padding:90px 44px;position:relative;}
+.lx-head{max-width:640px;margin-bottom:52px;}
+.lx-head h2{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:700;line-height:1.15;letter-spacing:-.01em;}
+.lx-head h2 em{font-style:italic;font-weight:500;color:var(--or);}
+.lx-head p{color:rgba(243,238,228,.55);margin-top:14px;line-height:1.8;font-size:.96rem;}
+.lx-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(243,238,228,.08);border:1px solid rgba(243,238,228,.08);border-radius:12px;overflow:hidden;}
+.lx-service-card{background:var(--graphite-2);padding:34px 28px;transition:background .35s ease;position:relative;overflow:hidden;}
+.lx-service-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 0%,rgba(110,155,199,.08),transparent 60%);opacity:0;transition:opacity .35s ease;}
+.lx-service-card:hover{background:var(--graphite-3);}
+.lx-service-card:hover::before{opacity:1;}
+.lx-service-num{font-size:.78rem;color:var(--or);font-weight:700;margin-bottom:14px;letter-spacing:.14em;position:relative;}
+.lx-service-card h3{font-size:1.22rem;font-weight:700;margin-bottom:10px;color:var(--ivoire);position:relative;}
+.lx-service-card p{font-size:.85rem;color:rgba(243,238,228,.5);line-height:1.7;position:relative;}
+.lx-g3d-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.lx-g3d-item{position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;transition:transform .5s ease,box-shadow .5s ease;border:1px solid rgba(243,238,228,.12);cursor:pointer;}
+.lx-g3d-item:hover{transform:scale(1.035);box-shadow:0 30px 70px rgba(0,0,0,.55),0 0 0 1px rgba(201,173,121,.4);}
+.lx-g3d-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.78) saturate(1.02);transition:filter .4s ease,transform .5s ease;}
+.lx-g3d-item:hover img{filter:brightness(1) saturate(1.12);transform:scale(1.06);}
+.lx-g3d-item::after{content:attr(data-cap);position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(0deg,rgba(20,22,26,.94),transparent);font-size:.9rem;letter-spacing:.04em;font-weight:700;color:var(--ivoire);}
+.lx-timeline{max-width:820px;position:relative;padding-left:38px;}
+.lx-timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--or),var(--acier-vif));}
+.lx-tl-item{position:relative;padding-bottom:44px;}
+.lx-tl-item:last-child{padding-bottom:0;}
+.lx-tl-dot{position:absolute;left:-38px;top:4px;width:13px;height:13px;border-radius:50%;background:var(--graphite);border:2px solid var(--or);}
+.lx-tl-year{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--acier-vif);font-weight:700;margin-bottom:6px;}
+.lx-tl-item h3{font-size:1.24rem;font-weight:700;color:var(--ivoire);margin-bottom:8px;}
+.lx-tl-item p{font-size:.9rem;color:rgba(243,238,228,.55);line-height:1.7;max-width:560px;}
+.lx-avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.lx-avis-card{background:linear-gradient(160deg,rgba(243,238,228,.035),rgba(243,238,228,.01));backdrop-filter:blur(6px);border:1px solid rgba(243,238,228,.12);border-radius:12px;padding:30px 26px;transition:transform .3s ease,border-color .3s ease;}
+.lx-avis-card:hover{transform:translateY(-5px);border-color:rgba(201,173,121,.35);}
+.lx-stars{color:var(--or);letter-spacing:2px;margin-bottom:16px;font-size:.9rem;}
+.lx-avis-quote{font-style:italic;font-size:1.02rem;line-height:1.65;margin-bottom:20px;color:var(--blanc);}
+.lx-avis-quote::before{content:'"';color:var(--acier-vif);}
+.lx-avis-quote::after{content:'"';color:var(--acier-vif);}
+.lx-avis-author{font-size:.84rem;font-weight:700;color:var(--ivoire);}
+.lx-avis-role{font-size:.72rem;color:rgba(243,238,228,.45);margin-top:2px;}
+.lx-faq{max-width:780px;}
+.lx-faq details{background:var(--graphite-2);border:1px solid rgba(243,238,228,.12);border-radius:8px;padding:18px 22px;margin-bottom:12px;transition:border-color .3s ease;}
+.lx-faq details[open]{border-color:rgba(201,173,121,.35);}
+.lx-faq summary{cursor:pointer;font-size:1.06rem;font-weight:700;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--ivoire);}
+.lx-faq summary::-webkit-details-marker{display:none;}
+.lx-faq summary::after{content:'+';color:var(--or);font-size:1.3rem;transition:transform .3s ease;}
+.lx-faq details[open] summary::after{transform:rotate(45deg);color:var(--acier-vif);}
+.lx-faq p{margin-top:12px;color:rgba(243,238,228,.5);font-size:.88rem;line-height:1.7;}
+.lx-contact{background:var(--graphite-2);}
+.lx-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+.lx-contact-line{margin-bottom:20px;}
+.lx-contact-line .label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:4px;display:block;font-weight:700;}
+.lx-contact-line .value{font-size:1.02rem;color:var(--ivoire);}
+.lx-form{display:flex;flex-direction:column;gap:16px;}
+.lx-form label{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,238,228,.5);margin-bottom:6px;display:block;font-weight:700;}
+.lx-form input,.lx-form textarea{width:100%;background:rgba(243,238,228,.04);border:1px solid rgba(243,238,228,.18);border-radius:5px;padding:12px 14px;color:var(--blanc);font-family:inherit;font-size:.9rem;outline:none;transition:all .3s ease;}
+.lx-form input:focus,.lx-form textarea:focus{border-color:var(--acier-vif);box-shadow:0 0 0 3px rgba(110,155,199,.14);}
+.lx-footer{padding:28px 44px;border-top:1px solid rgba(243,238,228,.08);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.78rem;color:rgba(243,238,228,.45);background:var(--graphite);}
 
-<header class="nv-header">
-  <div class="nv-logo nv-chrome-text">NOVA<span style="-webkit-text-fill-color:var(--rubis-vif);">DRIFT</span></div>
-  <nav class="nv-nav">
-    <a href="#presentation">Showroom</a>
-    <a href="#services">Prestations</a>
-    <a href="#galerie">Galerie</a>
-    <a href="#avant-apres">Avant / Après</a>
+/* --- SCROLL REVEAL SYSTEM --- */
+.lx-rv{opacity:0;transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);will-change:transform,opacity;}
+.lx-rv-l{transform:translateX(-90px);}
+.lx-rv-r{transform:translateX(90px);}
+.lx-rv-up{transform:translateY(60px);}
+.lx-rv-zoom{transform:scale(.82);}
+.lx-rv.lx-in{opacity:1;transform:translate(0,0) scale(1);}
+.lx-rv-stagger.lx-in{transition-delay:var(--d,0s);}
+
+@media(max-width:860px){.lx-contact-grid{grid-template-columns:1fr;}.lx-services-grid,.lx-avis-grid,.lx-g3d-grid{grid-template-columns:1fr 1fr;}.lx-nav{display:none;}.lx-header{padding:16px 22px;}.lx-sec{padding:56px 22px;}.lx-hero-specs{flex-direction:column;align-items:center;}}
+@media(max-width:560px){.lx-services-grid,.lx-avis-grid,.lx-g3d-grid{grid-template-columns:1fr;}}
+</style>
+<div class="lx-carbon"></div>
+
+<div class="lx-loader">
+  <div class="lx-loader-mark">LEX <em>AETERNA</em></div>
+  <div class="lx-loader-bar"></div>
+  <div class="lx-loader-sub lx-mono">Cabinet d'Avocats d'Affaires</div>
+</div>
+
+<header class="lx-header">
+  <div class="lx-logo">LEX <em>AETERNA</em></div>
+  <nav class="lx-nav lx-mono">
+    <a href="#cabinet">Cabinet</a>
+    <a href="#expertises">Expertises</a>
+    <a href="#galerie">Approche</a>
+    <a href="#reperes">Repères</a>
     <a href="#avis">Avis</a>
     <a href="#contact">Contact</a>
   </nav>
-  <a href="#contact" class="nv-btn nv-btn-red">Prendre RDV</a>
+  <a href="#contact" class="lx-btn lx-btn-gold lx-mono">Prendre rendez-vous</a>
 </header>
 
-<section class="nv-hero">
-  <div class="nv-particles">
-    <span style="left:10%;width:4px;height:4px;background:#00E0F5;animation:rise 6s linear infinite;"></span>
-    <span style="left:28%;width:3px;height:3px;background:#EE1A3F;animation:rise 7.5s linear infinite 1s;"></span>
-    <span style="left:46%;width:5px;height:5px;background:#00E0F5;animation:rise 6.8s linear infinite .4s;"></span>
-    <span style="left:64%;width:3px;height:3px;background:#EE1A3F;animation:rise 8s linear infinite 2.2s;"></span>
-    <span style="left:80%;width:4px;height:4px;background:#00E0F5;animation:rise 7s linear infinite .8s;"></span>
-    <span style="left:92%;width:3px;height:3px;background:#EE1A3F;animation:rise 6.4s linear infinite 1.6s;"></span>
-  </div>
-  <div class="nv-hero-inner">
-    <div class="nv-hero-badge"><i></i>Showroom Auto Luxe — Sur rendez-vous</div>
-    <h1 class="fu" style="animation-delay:.05s;">La performance,<br><em>sculptée à la main</em></h1>
-    <p class="fu" style="animation-delay:.2s;">Nova Drift façonne des véhicules d'exception — préparation esthétique, mécanique et détailing haute précision pour ceux qui ne transigent pas.</p>
-    <div class="nv-hero-cta fu" style="animation-delay:.35s;">
-      <a href="#contact" class="nv-btn nv-btn-red">Réserver un créneau</a>
-      <a href="#galerie" class="nv-btn nv-btn-ghost">Voir les réalisations</a>
+<section class="lx-hero" id="cabinet">
+  <div class="lx-hero-inner">
+    <div class="lx-hero-badge lx-mono"><i></i>Cabinet d'Avocats d'Affaires — Sur rendez-vous</div>
+    <h1 class="fu" style="animation-delay:.05s;">L'excellence juridique,<br><em>ciselée avec exigence</em></h1>
+    <p class="fu" style="animation-delay:.2s;">Lex Aeterna accompagne dirigeants, institutions et fonds d'investissement dans leurs enjeux stratégiques les plus complexes, avec une rigueur d'orfèvre.</p>
+    <div class="lx-hero-cta fu" style="animation-delay:.35s;">
+      <a href="#contact" class="lx-btn lx-btn-gold lx-mono">Consultation privée</a>
+      <a href="#expertises" class="lx-btn lx-btn-ghost lx-mono">Nos expertises</a>
     </div>
-    <div class="nv-hero-specs fu" style="animation-delay:.5s;">
-      <div class="nv-spec-chip"><b>620+</b><span>Véhicules traités</span></div>
-      <div class="nv-spec-chip"><b>14 ans</b><span>D'expertise atelier</span></div>
-      <div class="nv-spec-chip"><b>99%</b><span>Clients fidèles</span></div>
+    <div class="lx-hero-specs fu" style="animation-delay:.5s;">
+      <div class="lx-spec-chip"><b>30 ans</b><span>D'expertise cabinet</span></div>
+      <div class="lx-spec-chip"><b>540+</b><span>Dossiers stratégiques</span></div>
+      <div class="lx-spec-chip"><b>4</b><span>Bureaux internationaux</span></div>
     </div>
   </div>
 </section>
 
-<div class="nv-ticker-wrap">
-  <div class="nv-ticker-track">
-    <span><i>◆</i>PRÉPARATION GT ALLEMANDE</span>
-    <span><i>◆</i>DÉTAILING CÉRAMIQUE</span>
-    <span><i>◆</i>REPROGRAMMATION SUR BANC</span>
-    <span><i>◆</i>COVERING INTÉGRAL</span>
-    <span><i>◆</i>FREINAGE CARBONE-CÉRAMIQUE</span>
-    <span><i>◆</i>STOCKAGE CLIMATISÉ</span>
-    <span><i>◆</i>PRÉPARATION GT ALLEMANDE</span>
-    <span><i>◆</i>DÉTAILING CÉRAMIQUE</span>
-    <span><i>◆</i>REPROGRAMMATION SUR BANC</span>
-    <span><i>◆</i>COVERING INTÉGRAL</span>
-    <span><i>◆</i>FREINAGE CARBONE-CÉRAMIQUE</span>
-    <span><i>◆</i>STOCKAGE CLIMATISÉ</span>
+<div class="lx-ticker-wrap">
+  <div class="lx-ticker-track lx-mono">
+    <span><i>◆</i>DROIT DES AFFAIRES</span>
+    <span><i>◆</i>FUSIONS-ACQUISITIONS</span>
+    <span><i>◆</i>CONTENTIEUX INTERNATIONAL</span>
+    <span><i>◆</i>ARBITRAGE COMMERCIAL</span>
+    <span><i>◆</i>PROPRIÉTÉ INTELLECTUELLE</span>
+    <span><i>◆</i>CONFORMITÉ RÉGLEMENTAIRE</span>
+    <span><i>◆</i>DROIT DES AFFAIRES</span>
+    <span><i>◆</i>FUSIONS-ACQUISITIONS</span>
+    <span><i>◆</i>CONTENTIEUX INTERNATIONAL</span>
+    <span><i>◆</i>ARBITRAGE COMMERCIAL</span>
+    <span><i>◆</i>PROPRIÉTÉ INTELLECTUELLE</span>
+    <span><i>◆</i>CONFORMITÉ RÉGLEMENTAIRE</span>
   </div>
 </div>
 
-<section class="nv-sec" id="presentation">
-  <div class="nv-presentation">
-    <div class="nv-pres-img">
-      <span class="nv-pres-badge">Atelier Nova Drift</span>
-      <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=900&auto=format&fit=crop" alt="Showroom Nova Drift">
-    </div>
-    <div class="nv-pres-text">
-      <div class="nv-eyebrow">Notre atelier</div>
-      <h2 class="nv-serif">L'exigence <em>allemande</em>, la précision <em>artisanale</em>.</h2>
-      <p>Nova Drift réunit des techniciens certifiés et des artisans du détailing, dans un atelier climatisé pensé pour révéler chaque ligne de carrosserie.</p>
-      <p>Chaque véhicule est traité comme une pièce unique — diagnostic complet, protocole sur-mesure, contrôle qualité final.</p>
-      <div class="nv-stats-inline">
-        <div><b class="nv-count" data-target="14">0</b><span>Ans d'expertise</span></div>
-        <div><b class="nv-count" data-target="620">0</b><span>Véhicules traités</span></div>
-        <div><b class="nv-count" data-target="99">0</b><span>% Clients fidèles</span></div>
-      </div>
-    </div>
+<section class="lx-sec" id="expertises">
+  <div class="lx-head lx-rv lx-rv-l"><div class="lx-eyebrow lx-mono">Nos expertises</div>
+    <h2>Un conseil sur-mesure, <em>de la stratégie au contentieux</em></h2>
+    <p>Chaque mission est confiée à une équipe d'associés dédiée, alliant vision stratégique et maîtrise technique.</p>
+  </div>
+  <div class="lx-services-grid">
+    <div class="lx-service-card lx-rv lx-rv-l"><div class="lx-service-num lx-mono">01</div><h3>Droit des Affaires</h3><p>Gouvernance, restructurations et opérations à fort enjeu stratégique.</p></div>
+    <div class="lx-service-card lx-rv lx-rv-up"><div class="lx-service-num lx-mono">02</div><h3>Fusions-Acquisitions</h3><p>Structuration, due diligence et négociation de transactions complexes.</p></div>
+    <div class="lx-service-card lx-rv lx-rv-r"><div class="lx-service-num lx-mono">03</div><h3>Contentieux Complexe</h3><p>Représentation devant les juridictions dans les litiges à fort enjeu.</p></div>
+    <div class="lx-service-card lx-rv lx-rv-l"><div class="lx-service-num lx-mono">04</div><h3>Droit Fiscal International</h3><p>Structuration fiscale transfrontalière et gestion des contentieux.</p></div>
+    <div class="lx-service-card lx-rv lx-rv-up"><div class="lx-service-num lx-mono">05</div><h3>Propriété Intellectuelle</h3><p>Protection, valorisation et défense des actifs immatériels.</p></div>
+    <div class="lx-service-card lx-rv lx-rv-r"><div class="lx-service-num lx-mono">06</div><h3>Arbitrage International</h3><p>Résolution de différends commerciaux devant les instances arbitrales.</p></div>
   </div>
 </section>
 
-<section class="nv-sec nv-services" id="services">
-  <div class="nv-head">
-    <div class="nv-eyebrow">Nos prestations</div>
-    <h2>Un protocole complet, <em>de la mécanique au détail</em>.</h2>
-    <p>Chaque prestation est calibrée pour sublimer la performance et la présence visuelle de votre véhicule.</p>
+<section class="lx-sec" id="galerie">
+  <div class="lx-head lx-rv lx-rv-r"><div class="lx-eyebrow lx-mono">Notre approche</div>
+    <h2>L'univers <em>Lex Aeterna</em></h2>
   </div>
-  <div class="nv-services-grid">
-    <div class="nv-service-card"><div class="nv-service-num">01</div><h3>Detailing Haute Précision</h3><p>Correction de peinture, polissage multi-passes et protection céramique longue durée.</p></div>
-    <div class="nv-service-card"><div class="nv-service-num">02</div><h3>Préparation Esthétique</h3><p>Covering, teinte de vitres et personnalisation intérieure sur-mesure.</p></div>
-    <div class="nv-service-card"><div class="nv-service-num">03</div><h3>Reprogrammation Moteur</h3><p>Optimisation performance sur banc, calibrage sécurisé et garanti.</p></div>
-    <div class="nv-service-card"><div class="nv-service-num">04</div><h3>Freinage & Châssis</h3><p>Montage de kits carbone-céramique et suspensions haute performance.</p></div>
-    <div class="nv-service-card"><div class="nv-service-num">05</div><h3>Diagnostic Complet</h3><p>Bilan technique approfondi avant toute préparation ou reprise.</p></div>
-    <div class="nv-service-card"><div class="nv-service-num">06</div><h3>Stockage Climatisé</h3><p>Garde de véhicules d'exception dans un espace sécurisé et surveillé.</p></div>
+  <div class="lx-g3d-grid">
+    <div class="lx-g3d-item lx-rv lx-rv-l" data-cap="Bibliothèque Juridique"><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=700&auto=format&fit=crop" alt="Bibliothèque juridique"></div>
+    <div class="lx-g3d-item lx-rv lx-rv-zoom" data-cap="Salle de Conférence"><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=700&auto=format&fit=crop" alt="Salle de conférence"></div>
+    <div class="lx-g3d-item lx-rv lx-rv-r" data-cap="Bureau des Associés"><img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=700&auto=format&fit=crop" alt="Bureau associés"></div>
+    <div class="lx-g3d-item lx-rv lx-rv-l" data-cap="Salle d'Arbitrage"><img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=700&auto=format&fit=crop" alt="Salle d'arbitrage"></div>
+    <div class="lx-g3d-item lx-rv lx-rv-zoom" data-cap="Archives Historiques"><img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=700&auto=format&fit=crop" alt="Archives"></div>
+    <div class="lx-g3d-item lx-rv lx-rv-r" data-cap="Hall d'Accueil"><img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=700&auto=format&fit=crop" alt="Hall d'accueil"></div>
   </div>
 </section>
 
-<section class="nv-sec" id="galerie">
-  <div class="nv-head">
-    <div class="nv-eyebrow">Galerie 3D</div>
-    <h2>Nos <em>réalisations</em> en showroom</h2>
+<section class="lx-sec" id="reperes">
+  <div class="lx-head lx-rv lx-rv-l"><div class="lx-eyebrow lx-mono">Nos repères</div>
+    <h2>Trois décennies <em>d'engagement</em></h2>
   </div>
-  <div class="nv-gallery3d">
-    <div class="nv-g3d-grid">
-      <div class="nv-g3d-item"><span class="nv-g3d-badge">Voir le détail</span><img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=700&auto=format&fit=crop" alt="Véhicule GT Carbone" data-cap="GT Carbone"></div>
-      <div class="nv-g3d-item" data-cap="Berline Chrome"><span class="nv-g3d-badge">Voir le détail</span><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=700&auto=format&fit=crop" alt="Berline Chrome"></div>
-      <div class="nv-g3d-item" data-cap="Roadster Rubis"><span class="nv-g3d-badge">Voir le détail</span><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=700&auto=format&fit=crop" alt="Roadster Rubis"></div>
-      <div class="nv-g3d-item" data-cap="Coupé Nuit"><span class="nv-g3d-badge">Voir le détail</span><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=700&auto=format&fit=crop" alt="Coupé Nuit"></div>
-      <div class="nv-g3d-item" data-cap="Détail Jantes"><span class="nv-g3d-badge">Voir le détail</span><img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=700&auto=format&fit=crop" alt="Détail jantes"></div>
-      <div class="nv-g3d-item" data-cap="Habitacle Cuir"><span class="nv-g3d-badge">Voir le détail</span><img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=700&auto=format&fit=crop" alt="Habitacle cuir"></div>
+  <div class="lx-timeline">
+    <div class="lx-tl-item lx-rv lx-rv-l"><div class="lx-tl-dot"></div><div class="lx-tl-year lx-mono">1996</div><h3>Fondation du cabinet</h3><p>Lex Aeterna ouvre ses portes à Paris avec une équipe fondatrice de cinq associés.</p></div>
+    <div class="lx-tl-item lx-rv lx-rv-r"><div class="lx-tl-dot"></div><div class="lx-tl-year lx-mono">2006</div><h3>Ouverture du bureau de Genève</h3><p>Extension de l'activité vers le conseil fiscal et patrimonial international.</p></div>
+    <div class="lx-tl-item lx-rv lx-rv-l"><div class="lx-tl-dot"></div><div class="lx-tl-year lx-mono">2014</div><h3>Reconnaissance internationale</h3><p>Classement parmi les cabinets de référence en fusions-acquisitions.</p></div>
+    <div class="lx-tl-item lx-rv lx-rv-r"><div class="lx-tl-dot"></div><div class="lx-tl-year lx-mono">2020</div><h3>Bureau de Singapour</h3><p>Développement du pôle arbitrage international en Asie-Pacifique.</p></div>
+    <div class="lx-tl-item lx-rv lx-rv-l"><div class="lx-tl-dot"></div><div class="lx-tl-year lx-mono">2025</div><h3>Cabinet de l'année</h3><p>Distinction pour l'excellence du conseil en droit des affaires.</p></div>
+  </div>
+</section>
+
+<section class="lx-sec" id="avis">
+  <div class="lx-head lx-rv lx-rv-r"><div class="lx-eyebrow lx-mono">Témoignages</div>
+    <h2>La confiance de <em>nos clients</em></h2>
+  </div>
+  <div class="lx-avis-grid">
+    <div class="lx-avis-card lx-rv lx-rv-l"><div class="lx-stars">★★★★★</div><p class="lx-avis-quote">Une équipe d'une rigueur remarquable, capable de sécuriser les opérations les plus sensibles.</p><div class="lx-avis-author">Directeur Juridique, Groupe Industriel</div><div class="lx-avis-role">Fusion-acquisition</div></div>
+    <div class="lx-avis-card lx-rv lx-rv-up"><div class="lx-stars">★★★★★</div><p class="lx-avis-quote">Un accompagnement stratégique et une disponibilité sans faille tout au long du contentieux.</p><div class="lx-avis-author">Présidente, Fonds d'Investissement</div><div class="lx-avis-role">Contentieux complexe</div></div>
+    <div class="lx-avis-card lx-rv lx-rv-r"><div class="lx-stars">★★★★★</div><p class="lx-avis-quote">Une expertise fiscale internationale d'un niveau rarement égalé.</p><div class="lx-avis-author">CFO, Groupe Technologique</div><div class="lx-avis-role">Structuration fiscale</div></div>
+  </div>
+</section>
+
+<section class="lx-sec">
+  <div class="lx-head lx-rv lx-rv-l"><div class="lx-eyebrow lx-mono">Questions fréquentes</div>
+    <h2>Avant votre <em>consultation</em></h2>
+  </div>
+  <div class="lx-faq">
+    <details open class="lx-rv lx-rv-up"><summary>Comment se déroule un premier rendez-vous ?</summary><p>Un associé référent analyse votre dossier lors d'un entretien confidentiel afin de définir la stratégie la plus adaptée.</p></details>
+    <details class="lx-rv lx-rv-up"><summary>Intervenez-vous à l'international ?</summary><p>Oui, via nos bureaux de Paris, Genève, Singapour et un réseau de correspondants dans plus de 30 juridictions.</p></details>
+    <details class="lx-rv lx-rv-up"><summary>Proposez-vous des honoraires forfaitaires ?</summary><p>Selon la nature du dossier, nous proposons des honoraires au forfait, au succès ou à l'heure, définis en toute transparence.</p></details>
+    <details class="lx-rv lx-rv-up"><summary>Le cabinet traite-t-il les urgences ?</summary><p>Une cellule d'urgence est disponible pour les dossiers à caractère sensible ou à délai contraint.</p></details>
+  </div>
+</section>
+
+<section class="lx-sec lx-contact" id="contact">
+  <div class="lx-contact-grid">
+    <div class="lx-rv lx-rv-l">
+      <div class="lx-eyebrow lx-mono">Contact</div>
+      <h2 style="margin-bottom:20px;">Prendre <em>rendez-vous</em></h2>
+      <div class="lx-contact-line"><span class="label lx-mono">Cabinet</span><span class="value">12 place Vendôme, 75001 Paris</span></div>
+      <div class="lx-contact-line"><span class="label lx-mono">Téléphone</span><span class="value">+33 1 42 00 00 00</span></div>
+      <div class="lx-contact-line"><span class="label lx-mono">Email</span><span class="value">contact@lex-aeterna.fr</span></div>
     </div>
-  </div>
-</section>
-
-<section class="nv-sec" id="avant-apres">
-  <div class="nv-head">
-    <div class="nv-eyebrow">Transformation</div>
-    <h2>Avant / <em>Après</em></h2>
-  </div>
-  <div class="nv-avant-apres">
-    <div class="nv-aa-card">
-      <div class="nv-aa-split">
-        <img class="nv-before" src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?q=80&w=900&auto=format&fit=crop" alt="Avant préparation">
-        <img class="nv-after" src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=900&auto=format&fit=crop" alt="Après préparation">
-        <div class="nv-aa-divider"></div>
-      </div>
-      <div class="nv-aa-labels"><span>Avant</span><span>Après correction peinture</span></div>
-    </div>
-    <div class="nv-aa-card">
-      <div class="nv-aa-split">
-        <img class="nv-before" src="https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=900&auto=format&fit=crop" alt="Avant covering">
-        <img class="nv-after" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=900&auto=format&fit=crop" alt="Après covering">
-        <div class="nv-aa-divider"></div>
-      </div>
-      <div class="nv-aa-labels"><span>Avant</span><span>Après covering intégral</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="nv-stats-band">
-  <div class="nv-sec" style="padding-top:64px;padding-bottom:64px;">
-    <div class="nv-stats-band-grid">
-      <div class="nv-band-stat"><div class="nv-band-num nv-count" data-target="620">0</div><div class="nv-band-label">Véhicules préparés</div></div>
-      <div class="nv-band-stat"><div class="nv-band-num nv-count" data-target="14">0</div><div class="nv-band-label">Ans d'atelier</div></div>
-      <div class="nv-band-stat"><div class="nv-band-num nv-count" data-target="7">0</div><div class="nv-band-label">Baies techniques</div></div>
-      <div class="nv-band-stat"><div class="nv-band-num nv-count" data-target="99">0</div><div class="nv-band-label">% Satisfaction</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="nv-sec" id="avis">
-  <div class="nv-head">
-    <div class="nv-eyebrow">Témoignages</div>
-    <h2>Ce que nos clients <em>en disent</em></h2>
-  </div>
-  <div class="nv-avis-grid">
-    <div class="nv-avis-card"><div class="nv-stars">★★★★★</div><p class="nv-avis-quote">Un travail d'orfèvre sur la carrosserie. La peinture n'a jamais été aussi profonde.</p><div class="nv-avis-author">Thomas V.</div><div class="nv-avis-role">Correction complète</div></div>
-    <div class="nv-avis-card"><div class="nv-stars">★★★★★</div><p class="nv-avis-quote">La reprogrammation a transformé la voiture sans jamais sacrifier la fiabilité.</p><div class="nv-avis-author">Karim D.</div><div class="nv-avis-role">Reprogrammation moteur</div></div>
-    <div class="nv-avis-card"><div class="nv-stars">★★★★★</div><p class="nv-avis-quote">Un accueil et une rigueur qui n'ont rien à envier aux plus grandes maisons.</p><div class="nv-avis-author">Elise & Marc R.</div><div class="nv-avis-role">Covering + détailing</div></div>
-  </div>
-</section>
-
-<section class="nv-sec">
-  <div class="nv-head">
-    <div class="nv-eyebrow">Questions fréquentes</div>
-    <h2>Tout savoir avant votre <em>venue</em></h2>
-  </div>
-  <div class="nv-faq">
-    <details open><summary>Combien de temps dure une préparation complète ?</summary><p>Selon la prestation, comptez entre 2 et 7 jours ouvrés pour un protocole complet incluant correction, protection et contrôle qualité.</p></details>
-    <details><summary>Proposez-vous un véhicule de courtoisie ?</summary><p>Oui, un véhicule de courtoisie est disponible sur demande pour toute prestation supérieure à 48h.</p></details>
-    <details><summary>Les reprogrammations sont-elles garanties ?</summary><p>Chaque calibrage est réalisé sur banc et couvert par une garantie constructeur-compatible.</p></details>
-    <details><summary>Peut-on visiter l'atelier avant de réserver ?</summary><p>Bien sûr, nous organisons des visites de l'atelier sur rendez-vous, du lundi au samedi.</p></details>
-  </div>
-</section>
-
-<section class="nv-sec nv-contact" id="contact">
-  <div class="nv-contact-grid">
-    <div>
-      <div class="nv-eyebrow">Contact</div>
-      <h2 style="margin-bottom:20px;">Réservons votre <em>créneau</em></h2>
-      <div class="nv-contact-line"><span class="label">Atelier</span><span class="value">8 avenue des Carrossiers, 92100 Boulogne</span></div>
-      <div class="nv-contact-line"><span class="label">Téléphone</span><span class="value">+33 1 47 00 00 00</span></div>
-      <div class="nv-contact-line"><span class="label">Email</span><span class="value">contact@nova-drift.fr</span></div>
-    </div>
-    <form class="nv-form" onsubmit="event.preventDefault();this.querySelector('.nv-btn').textContent='Demande envoyée ✓';">
+    <form class="lx-form lx-rv lx-rv-r" onsubmit="event.preventDefault();this.querySelector('.lx-btn').textContent='Demande envoyée ✓';">
       <div><label>Nom complet</label><input type="text" required></div>
       <div><label>Email</label><input type="email" required></div>
-      <div><label>Véhicule concerné</label><input type="text" placeholder="Ex : Porsche 911 GT3"></div>
+      <div><label>Société</label><input type="text" placeholder="Ex : Groupe Industriel SA"></div>
       <div><label>Message</label><textarea rows="3"></textarea></div>
-      <button type="submit" class="nv-btn nv-btn-red" style="align-self:flex-start;">Envoyer la demande</button>
+      <button type="submit" class="lx-btn lx-btn-gold lx-mono" style="align-self:flex-start;">Envoyer la demande</button>
     </form>
   </div>
 </section>
 
-<footer class="nv-footer">
-  <span>© 2026 Nova Drift — Tous droits réservés</span>
-  <span>Showroom Auto Luxe</span>
+<footer class="lx-footer lx-mono">
+  <span>© 2026 Lex Aeterna — Tous droits réservés</span>
+  <span>Cabinet d'Avocats d'Affaires</span>
 </footer>
 
 <script>
 (function(){
-  var root = document.currentScript.closest('.nova-preview');
-  var nums = root.querySelectorAll('.nv-count');
-  var done = false;
-  function animate(){
-    if(done) return; done = true;
-    nums.forEach(function(el){
-      var target = parseInt(el.getAttribute('data-target'),10) || 0;
-      var t0 = performance.now(), dur = 1400;
-      function step(now){
-        var p = Math.min((now-t0)/dur,1), e = 1-Math.pow(1-p,3);
-        el.textContent = Math.round(target*e);
-        if(p<1) requestAnimationFrame(step);
-      }
-      requestAnimationFrame(step);
-    });
-  }
+  var root = document.currentScript.closest('.lex-preview');
+  var loader = root.querySelector('.lx-loader');
+  function reveal(){ if(loader){ loader.classList.add('lx-hide'); } }
+  window.addEventListener('load', reveal);
+  setTimeout(reveal, 2000);
+
+  var items = root.querySelectorAll('.lx-rv');
+  items.forEach(function(el,i){ el.style.setProperty('--d',(i%3)*0.08+'s'); });
   if('IntersectionObserver' in window){
     var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){ if(e.isIntersecting) animate(); });
-    },{threshold:.35});
-    root.querySelectorAll('.nv-stats-inline, .nv-stats-band').forEach(function(s){ obs.observe(s); });
-  } else { animate(); }
+      entries.forEach(function(e){
+        if(e.isIntersecting){ e.target.classList.add('lx-in'); obs.unobserve(e.target); }
+      });
+    },{threshold:.18, rootMargin:'0px 0px -60px 0px'});
+    items.forEach(function(el){ obs.observe(el); });
+  } else {
+    items.forEach(function(el){ el.classList.add('lx-in'); });
+  }
 })();
 <\/script>
 </div>`;
