@@ -460,10 +460,12 @@ function mkParticle(){
 }
 for(let i=0;i<6;i++)mkParticle();
 const ORDER_BASE=143;
-let orderCount;try{orderCount=Math.max(ORDER_BASE,parseInt(localStorage.getItem("swl_orders"))||ORDER_BASE)}catch(e){orderCount=ORDER_BASE}
-function animateOrderCounter(){
+let orderCount=ORDER_BASE;
+const orderCountPromise=(async()=>{try{const res=await fetch("/.netlify/functions/order-counter");if(res.ok){const json=await res.json();if(typeof json.count==="number"){orderCount=json.count;}}}catch(e){}return orderCount;})();
+async function animateOrderCounter(){
   const el=document.getElementById("orderCountNum");if(!el)return;
-  const target=orderCount,start=Math.max(0,target-12),dur=1400,t0=performance.now();
+  const target=await orderCountPromise;
+  const start=Math.max(0,target-12),dur=1400,t0=performance.now();
   function step(now){const p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(start+(target-start)*e);if(p<1)requestAnimationFrame(step)}
   requestAnimationFrame(step);
 }
@@ -3572,25 +3574,11 @@ document.addEventListener("keydown",e=>{
   }
 });
 
-/* ===== COMPTEUR GLOBAL (tente une synchro serveur, sinon repli local) ===== */
-async function initOrderCounter(){
-  try{
-    const res=await fetch("/.netlify/functions/order-counter");
-    if(res.ok){
-      const json=await res.json();
-      if(typeof json.count==="number"&&json.count>=orderCount){orderCount=json.count;}
-    }
-  }catch(e){ /* fonction non déployée : on garde la valeur locale */ }
-  const el=document.getElementById("orderCountNum");
-  if(el){el.textContent=orderCount;}
-}
-
 /* ===== INITIALISATION ===== */
 (function initExtras(){
   renderReviews(true);
   loadReviewsFromServer();
   buildTicker();
-  initOrderCounter();
   setTimeout(showToast,7000+Math.random()*5000);
 })();
 const PORTFOLIO_LABELS = { vitrine: "Site Vitrine", premium: "Site Premium", ultra: "Ultra Premium", cm: "Community Management" };
