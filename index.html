@@ -481,19 +481,98 @@ async function incrementOrder(){
 }
 
 /* ===== DONNEES AVIS / TICKER / PORTFOLIO ===== */
-const REVIEWS_DATA=[{"n":"Fabien Roussel","av":"FR","biz":"Boucherie Charcuterie Tradition","cat":"cm","txt":"On a enfin des posts qui ressemblent vraiment à notre activité. Les messages sont réguliers, simples à relayer, et ça aide à garder une vraie présence sur les réseaux.","days":166,"stars":5},{"n":"Laurent H.","av":"LH","biz":"Studio de Coaching Sportif Forme+","cat":"premium","txt":"Le site donne tout de suite une image plus claire et plus professionnelle. Les gens comprennent mieux ce qu'on propose, et on a eu plus de demandes depuis la mise en ligne.","days":90,"stars":5},{"n":"Samuel N.","av":"SN","biz":"Clinique Vétérinaire Vie Animale","cat":"premium","txt":"Le rendu est propre, moderne et rassurant. C'est un site qui colle bien à notre activité, et ça aide beaucoup à gagner en confiance auprès des patients.","days":54,"stars":5},{"n":"Sarah B.","av":"SB","biz":"Cabinet Esthétique Visage","cat":"cm","txt":"On n'a plus besoin de penser à tout chaque jour. Les publications sont bien faites, régulières, et ça nous fait gagner du temps sans perdre en qualité.","days":174,"stars":5},{"n":"Rose I.","av":"RI","biz":"Garage Auto Plus","cat":"vitrine","txt":"Le site est simple, clair et vraiment utile pour nos clients. Grâce à la visibilité locale, on reçoit plus de demandes et des prospects plus qualifiés.","days":54,"stars":5},{"n":"Agathe C.","av":"AC","biz":"Maçonnerie Générale","cat":"vitrine","txt":"Le site nous donne une image plus sérieuse en ligne. Les clients comprennent vite ce qu'on fait et nous contactent plus facilement.","days":29,"stars":4},{"n":"Maxime Moreau","av":"MM","biz":"Salon de Coiffure Tendance","cat":"cm","txt":"Le contenu est toujours cohérent avec l'image du salon. Ça aide beaucoup à garder une présence active sur Instagram et TikTok sans avoir à tout faire soi-même.","days":13,"stars":5},{"n":"Delphine E.","av":"DE","biz":"Centre de Bien-être Sérénité","cat":"premium","txt":"On voulait quelque chose de calme et de propre, et c'est exactement ce qu'on a trouvé. Le site reflète bien notre univers et donne une vraie impression de qualité.","days":41,"stars":5},{"n":"Nicolas P.","av":"NP","biz":"Restaurant La Table d'Emile","cat":"vitrine","txt":"Le site a vraiment aidé à mieux nous faire connaître. Les gens trouvent plus facilement notre adresse, nos horaires et notre carte, ce qui a été très utile.","days":22,"stars":5},{"n":"Mina K.","av":"MK","biz":"Pâtisserie Maison Lune","cat":"premium","txt":"Le site a donné plus de caractère à notre boutique. On a enfin une vraie identité en ligne, plus cohérente avec ce qu'on veut transmettre au quotidien.","days":17,"stars":5},{"n":"Julien B.","av":"JB","biz":"Agence Immobilière Horizon","cat":"ultra","txt":"Le rendu est très propre et très réfléchi. Le site donne une vraie impression de sérieux, ce qui aide vraiment à rassurer les prospects.","days":33,"stars":5},{"n":"Claire D.","av":"CD","biz":"Atelier de Joaillerie Orane","cat":"ultra","txt":"Le site a un vrai style, et ça change tout. On sent une vraie cohérence entre l'image de marque et ce que les clients découvrent en ligne.","days":12,"stars":5}];
+const REVIEWS_DATA=[
+{"n":"Fabien Roussel","av":"FR","biz":"Boucherie Charcuterie Tradition","cat":"cm","txt":"On a enfin des posts qui ressemblent vraiment à notre activité. Les messages sont réguliers, simples à relayer, et ça aide à garder une vraie présence sur les réseaux.","date":"2026-01-18","stars":5},
+{"n":"Laurent H.","av":"LH","biz":"Studio de Coaching Sportif Forme+","cat":"premium","txt":"Le site donne tout de suite une image plus claire et plus professionnelle. Les gens comprennent mieux ce qu'on propose, et on a eu plus de demandes depuis la mise en ligne.","date":"2026-04-04","stars":5},
+{"n":"Samuel N.","av":"SN","biz":"Clinique Vétérinaire Vie Animale","cat":"premium","txt":"Le rendu est propre, moderne et rassurant. C'est un site qui colle bien à notre activité, et ça aide beaucoup à gagner en confiance auprès des patients.","date":"2026-05-10","stars":5},
+{"n":"Sarah B.","av":"SB","biz":"Cabinet Esthétique Visage","cat":"cm","txt":"On n'a plus besoin de penser à tout chaque jour. Les publications sont bien faites, régulières, et ça nous fait gagner du temps sans perdre en qualité.","date":"2026-01-10","stars":5},
+{"n":"Rose I.","av":"RI","biz":"Garage Auto Plus","cat":"vitrine","txt":"Le site est simple, clair et vraiment utile pour nos clients. Grâce à la visibilité locale, on reçoit plus de demandes et des prospects plus qualifiés.","date":"2026-05-10","stars":5},
+{"n":"Agathe C.","av":"AC","biz":"Maçonnerie Générale","cat":"vitrine","txt":"Le site nous donne une image plus sérieuse en ligne. Les clients comprennent vite ce qu'on fait et nous contactent plus facilement.","date":"2026-06-04","stars":4},
+{"n":"Maxime Moreau","av":"MM","biz":"Salon de Coiffure Tendance","cat":"cm","txt":"Le contenu est toujours cohérent avec l'image du salon. Ça aide beaucoup à garder une présence active sur Instagram et TikTok sans avoir à tout faire soi-même.","date":"2026-06-20","stars":5},
+{"n":"Delphine E.","av":"DE","biz":"Centre de Bien-être Sérénité","cat":"premium","txt":"On voulait quelque chose de calme et de propre, et c'est exactement ce qu'on a trouvé. Le site reflète bien notre univers et donne une vraie impression de qualité.","date":"2026-05-23","stars":5},
+{"n":"Nicolas P.","av":"NP","biz":"Restaurant La Table d'Emile","cat":"vitrine","txt":"Le site a vraiment aidé à mieux nous faire connaître. Les gens trouvent plus facilement notre adresse, nos horaires et notre carte, ce qui a été très utile.","date":"2026-06-11","stars":5},
+{"n":"Mina K.","av":"MK","biz":"Pâtisserie Maison Lune","cat":"premium","txt":"Le site a donné plus de caractère à notre boutique. On a enfin une vraie identité en ligne, plus cohérente avec ce qu'on veut transmettre au quotidien.","date":"2026-06-16","stars":5},
+{"n":"Julien B.","av":"JB","biz":"Agence Immobilière Horizon","cat":"ultra","txt":"Le rendu est très propre et très réfléchi. Le site donne une vraie impression de sérieux, ce qui aide vraiment à rassurer les prospects.","date":"2026-05-31","stars":5},
+{"n":"Claire D.","av":"CD","biz":"Atelier de Joaillerie Orane","cat":"ultra","txt":"Le site a un vrai style, et ça change tout. On sent une vraie cohérence entre l'image de marque et ce que les clients découvrent en ligne.","date":"2026-06-21","stars":5}
+];
 
-const TICKER_DATA=[{"n":"Karim Mercier","s":"Community Management","d":"il y a 2 jours"},{"n":"Gabriel Roussel","s":"Community Management","d":"il y a 5 jours"},{"n":"Bastien Roussel","s":"Ultra Premium","d":"il y a 1 semaine"},{"n":"Sébastien B.","s":"Site Vitrine","d":"il y a 1 semaine"},{"n":"Frédéric Blanc","s":"Site Premium","d":"il y a 1 semaine"},{"n":"Samuel M.","s":"Site Premium","d":"il y a 1 semaine"},{"n":"Quentin C.","s":"Site Premium","d":"il y a 2 semaines"},{"n":"Inès Roussel","s":"Community Management","d":"il y a 2 semaines"},{"n":"Quentin N.","s":"Community Management","d":"il y a 2 semaines"},{"n":"Océane Y.","s":"Site Premium","d":"il y a 2 semaines"},{"n":"Romain Lefevre","s":"Community Management","d":"il y a 2 semaines"},{"n":"Loïc D.","s":"Community Management","d":"il y a 3 semaines"},{"n":"Enzo Dupuis","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Aurélie A.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Benjamin J.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Emma Dupuis","s":"Community Management","d":"il y a 1 mois"},{"n":"Tom E.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Laurent Mercier","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Valérie G.","s":"Community Management","d":"il y a 1 mois"},{"n":"Florian Q.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Loïc M.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Emma L.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Lina J.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Samuel D.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Jules Blanc","s":"Site Premium","d":"il y a 1 mois"},{"n":"Delphine U.","s":"Site Premium","d":"il y a 1 mois"},{"n":"Léa Dupuis","s":"Site Premium","d":"il y a 1 mois"},{"n":"Aurélie P.","s":"Community Management","d":"il y a 1 mois"},{"n":"Mélanie X.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Fabien Roussel","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Damien O.","s":"Site Vitrine","d":"il y a 1 mois"},{"n":"Océane Fournier","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Mehdi H.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Frédéric W.","s":"Community Management","d":"il y a 1 mois"},{"n":"Zoé Roussel","s":"Community Management","d":"il y a 1 mois"},{"n":"Mehdi Z.","s":"Ultra Premium","d":"il y a 1 mois"},{"n":"Enzo Z.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Fabien D.","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Justine Moreau","s":"Ultra Premium","d":"il y a 2 mois"},{"n":"Audrey W.","s":"Community Management","d":"il y a 2 mois"},{"n":"Nadia Lefevre","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Zoé S.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Valérie M.","s":"Ultra Premium","d":"il y a 2 mois"},{"n":"Isabelle Dupuis","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Philippe Dupuis","s":"Site Premium","d":"il y a 2 mois"},{"n":"Romain U.","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Emma H.","s":"Community Management","d":"il y a 2 mois"},{"n":"Stéphane Roussel","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"David U.","s":"Community Management","d":"il y a 2 mois"},{"n":"Jules B.","s":"Community Management","d":"il y a 2 mois"},{"n":"Jade R.","s":"Site Vitrine","d":"il y a 2 mois"},{"n":"Vincent M.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Karim P.","s":"Site Premium","d":"il y a 2 mois"},{"n":"Raphaël N.","s":"Site Premium","d":"il y a 3 mois"},{"n":"Enzo D.","s":"Community Management","d":"il y a 3 mois"}];
+const TICKER_DATA=[
+{"n":"Karim Mercier","s":"Community Management","date":"2026-07-01"},
+{"n":"Gabriel Roussel","s":"Community Management","date":"2026-06-28"},
+{"n":"Bastien Roussel","s":"Ultra Premium","date":"2026-06-26"},
+{"n":"Sébastien B.","s":"Site Vitrine","date":"2026-06-26"},
+{"n":"Frédéric Blanc","s":"Site Premium","date":"2026-06-26"},
+{"n":"Samuel M.","s":"Site Premium","date":"2026-06-26"},
+{"n":"Quentin C.","s":"Site Premium","date":"2026-06-19"},
+{"n":"Inès Roussel","s":"Community Management","date":"2026-06-19"},
+{"n":"Quentin N.","s":"Community Management","date":"2026-06-19"},
+{"n":"Océane Y.","s":"Site Premium","date":"2026-06-19"},
+{"n":"Romain Lefevre","s":"Community Management","date":"2026-06-19"},
+{"n":"Loïc D.","s":"Community Management","date":"2026-06-12"},
+{"n":"Enzo Dupuis","s":"Site Vitrine","date":"2026-06-03"},
+{"n":"Aurélie A.","s":"Site Vitrine","date":"2026-06-02"},
+{"n":"Benjamin J.","s":"Site Premium","date":"2026-06-01"},
+{"n":"Emma Dupuis","s":"Community Management","date":"2026-05-31"},
+{"n":"Tom E.","s":"Ultra Premium","date":"2026-05-30"},
+{"n":"Laurent Mercier","s":"Ultra Premium","date":"2026-05-29"},
+{"n":"Valérie G.","s":"Community Management","date":"2026-05-28"},
+{"n":"Florian Q.","s":"Site Premium","date":"2026-05-27"},
+{"n":"Loïc M.","s":"Site Vitrine","date":"2026-05-26"},
+{"n":"Emma L.","s":"Site Vitrine","date":"2026-05-25"},
+{"n":"Lina J.","s":"Ultra Premium","date":"2026-05-24"},
+{"n":"Samuel D.","s":"Site Premium","date":"2026-05-23"},
+{"n":"Jules Blanc","s":"Site Premium","date":"2026-05-22"},
+{"n":"Delphine U.","s":"Site Premium","date":"2026-05-21"},
+{"n":"Léa Dupuis","s":"Site Premium","date":"2026-05-20"},
+{"n":"Aurélie P.","s":"Community Management","date":"2026-05-19"},
+{"n":"Mélanie X.","s":"Ultra Premium","date":"2026-05-18"},
+{"n":"Fabien Roussel","s":"Site Vitrine","date":"2026-05-17"},
+{"n":"Damien O.","s":"Site Vitrine","date":"2026-05-16"},
+{"n":"Océane Fournier","s":"Ultra Premium","date":"2026-05-15"},
+{"n":"Mehdi H.","s":"Ultra Premium","date":"2026-05-14"},
+{"n":"Frédéric W.","s":"Community Management","date":"2026-05-13"},
+{"n":"Zoé Roussel","s":"Community Management","date":"2026-05-12"},
+{"n":"Mehdi Z.","s":"Ultra Premium","date":"2026-05-11"},
+{"n":"Enzo Z.","s":"Site Premium","date":"2026-05-04"},
+{"n":"Fabien D.","s":"Site Vitrine","date":"2026-05-03"},
+{"n":"Justine Moreau","s":"Ultra Premium","date":"2026-05-02"},
+{"n":"Audrey W.","s":"Community Management","date":"2026-05-01"},
+{"n":"Nadia Lefevre","s":"Site Vitrine","date":"2026-04-30"},
+{"n":"Zoé S.","s":"Site Premium","date":"2026-04-29"},
+{"n":"Valérie M.","s":"Ultra Premium","date":"2026-04-28"},
+{"n":"Isabelle Dupuis","s":"Site Vitrine","date":"2026-04-27"},
+{"n":"Philippe Dupuis","s":"Site Premium","date":"2026-04-26"},
+{"n":"Romain U.","s":"Site Vitrine","date":"2026-04-25"},
+{"n":"Emma H.","s":"Community Management","date":"2026-04-24"},
+{"n":"Stéphane Roussel","s":"Site Vitrine","date":"2026-04-23"},
+{"n":"David U.","s":"Community Management","date":"2026-04-22"},
+{"n":"Jules B.","s":"Community Management","date":"2026-04-21"},
+{"n":"Jade R.","s":"Site Vitrine","date":"2026-04-20"},
+{"n":"Vincent M.","s":"Site Premium","date":"2026-04-19"},
+{"n":"Karim P.","s":"Site Premium","date":"2026-04-18"},
+{"n":"Raphaël N.","s":"Site Premium","date":"2026-04-04"},
+{"n":"Enzo D.","s":"Community Management","date":"2026-04-03"}
+];
+
 /* ===== AVIS CLIENTS ===== */
-function daysAgoLabel(d){
-  if(d===1)return "il y a 1 jour";
-  if(d<7)return "il y a "+d+" jours";
-  if(d<14)return "il y a 1 semaine";
-  if(d<21)return "il y a 2 semaines";
-  if(d<28)return "il y a 3 semaines";
-  if(d<60)return "il y a 1 mois";
-  if(d<90)return "il y a 2 mois";
-  return "il y a 3 mois";
+function relativeTimeLabel(dateStr){
+  if(!dateStr) return "à l'instant";
+  const now = new Date();
+  const then = new Date(dateStr + "T00:00:00");
+  const diffDays = Math.max(0, Math.floor((now - then) / 86400000));
+  if(diffDays === 0) return "aujourd'hui";
+  if(diffDays === 1) return "il y a 1 jour";
+  if(diffDays < 7) return "il y a "+diffDays+" jours";
+  if(diffDays < 30){
+    const w = Math.floor(diffDays/7);
+    return w===1 ? "il y a 1 semaine" : "il y a "+w+" semaines";
+  }
+  if(diffDays < 365){
+    const m = Math.floor(diffDays/30.44);
+    return m<=1 ? "il y a 1 mois" : "il y a "+m+" mois";
+  }
+  const y = Math.floor(diffDays/365.25);
+  return y<=1 ? "il y a 1 an" : "il y a "+y+" ans";
 }
 const CAT_LABEL={vitrine:"Site Vitrine",premium:"Site Premium",ultra:"Ultra Premium",cm:"Community Management"};
 const CAT_BADGE={vitrine:"rev-v",premium:"rev-p",ultra:"rev-u",cm:"rev-c"};
@@ -537,7 +616,7 @@ function reviewTone(r){
 function reviewCard(r){
   const stars="★".repeat(r.stars)+"☆".repeat(5-r.stars);
   const tone=reviewTone(r);
-  return '<div class="review-card"><div class="review-stars">'+stars+'</div><div style="font-size:.72rem;color:var(--violet);font-family:var(--font-mono);margin-bottom:8px">'+escHtml(tone)+'</div><p class="review-text">"'+escHtml(r.txt)+'"</p><div class="review-author"><div class="review-avatar">'+r.av+'</div><div><div class="review-name">'+escHtml(r.n)+'</div><div class="review-biz">'+escHtml(r.biz)+'</div></div><span class="rev-badge '+CAT_BADGE[r.cat]+'">'+CAT_LABEL[r.cat]+'</span></div><div class="review-date">'+daysAgoLabel(r.days)+'</div></div>';
+  return '<div class="review-card"><div class="review-stars">'+stars+'</div><div style="font-size:.72rem;color:var(--violet);font-family:var(--font-mono);margin-bottom:8px">'+escHtml(tone)+'</div><p class="review-text">"'+escHtml(r.txt)+'"</p><div class="review-author"><div class="review-avatar">'+r.av+'</div><div><div class="review-name">'+escHtml(r.n)+'</div><div class="review-biz">'+escHtml(r.biz)+'</div></div><span class="rev-badge '+CAT_BADGE[r.cat]+'">'+CAT_LABEL[r.cat]+'</span></div><div class="review-date">'+relativeTimeLabel(r.date)+'</div></div>';
 }
 function mergeReviews(...sources){
   const unique=[];const seen=new Set();
@@ -549,7 +628,7 @@ function mergeReviews(...sources){
         ...r,
         cat: ['vitrine','premium','ultra','cm'].includes(r.cat)?r.cat:'vitrine',
         stars: Math.max(1, Math.min(5, Number(r.stars)||5)),
-        days: Number(r.days)||1,
+        date: r.date || new Date().toISOString().slice(0,10),
         av: String(r.av||'?').substring(0,2).toUpperCase()
       });
     }
@@ -657,12 +736,12 @@ async function submitReview(event){
   const text=document.getElementById("reviewText").value.trim();
   if(!name||!business||!text)return;
   const payload={n:name,av:name.split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase(),biz:business,cat:offer,txt:text,stars};
-  let savedReview={...payload,days:1,isNew:true,source:"local"};
+  let savedReview={...payload,date:new Date().toISOString().slice(0,10),isNew:true,source:"local"};
   try{
     const res=await fetch("/.netlify/functions/reviews",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const json=await res.json().catch(()=>({}));
     if(res.ok&&json.success&&json.review){
-      savedReview={...json.review,days:Number(json.review.days)||1,isNew:true,source:"server"};
+      savedReview={...json.review,date:json.review.date||new Date().toISOString().slice(0,10),isNew:true,source:"server"};
     }
   }catch(err){
     console.warn("Review submission fallback:",err);
@@ -682,7 +761,7 @@ async function submitReview(event){
 /* ===== TICKER DEFILANT ===== */
 function buildTicker(){
   const track=document.getElementById("tickerTrack");if(!track)return;
-  const itemHTML=TICKER_DATA.map(t=>'<div class="ticker-item"><span class="ti-name">'+escHtml(t.n)+'</span><span class="ti-sep">·</span><span class="ti-service">'+t.s+'</span><span class="ti-sep">·</span><span class="ti-time">'+t.d+'</span></div>').join("");
+  const itemHTML=TICKER_DATA.map(t=>'<div class="ticker-item"><span class="ti-name">'+escHtml(t.n)+'</span><span class="ti-sep">·</span><span class="ti-service">'+t.s+'</span><span class="ti-sep">·</span><span class="ti-time">'+relativeTimeLabel(t.date)+'</span></div>').join("");
   track.innerHTML=itemHTML+itemHTML;
 }
 
@@ -694,7 +773,7 @@ function showToast(){
   document.getElementById("toastAv").textContent=(d.n.split(" ").map(x=>x[0]).join("").slice(0,2)).toUpperCase();
   document.getElementById("toastNm").textContent=d.n;
   document.getElementById("toastAc").textContent="a commandé "+d.s;
-  document.getElementById("toastTm").textContent=d.d;
+  document.getElementById("toastTm").textContent=relativeTimeLabel(d.date);
   toast.classList.add("show");
   setTimeout(()=>{
     toast.classList.remove("show");
