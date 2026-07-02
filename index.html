@@ -2344,38 +2344,249 @@ function showToast(){
 
         case 'ultra-1':
           html = `${ANIM_STYLES}
-            <div style="background:radial-gradient(ellipse at 30% 0%,#1C0F33 0%,#0B0716 55%,#060309 100%); border-radius:12px; overflow:hidden; position:relative; font-family:'Space Grotesk', sans-serif; color:#E4DBFA; max-width:850px; margin:0 auto;">
-              <div style="position:absolute; inset:0; overflow:hidden; pointer-events:none;">
-                <span style="position:absolute; left:12%; bottom:0; width:4px; height:4px; border-radius:50%; background:#FF7BAE; animation:rise 5s linear infinite;"></span>
-                <span style="position:absolute; left:26%; bottom:0; width:3px; height:3px; border-radius:50%; background:#8F84E8; animation:rise 6.5s linear infinite 1.2s;"></span>
-                <span style="position:absolute; left:41%; bottom:0; width:5px; height:5px; border-radius:50%; background:#FF3F8E; animation:rise 7s linear infinite .6s;"></span>
-                <span style="position:absolute; left:58%; bottom:0; width:3px; height:3px; border-radius:50%; background:#6E63C9; animation:rise 5.8s linear infinite 2s;"></span>
-                <span style="position:absolute; left:73%; bottom:0; width:4px; height:4px; border-radius:50%; background:#FF7BAE; animation:rise 6.2s linear infinite .3s;"></span>
-                <span style="position:absolute; left:88%; bottom:0; width:3px; height:3px; border-radius:50%; background:#8F84E8; animation:rise 7.4s linear infinite 1.7s;"></span>
-              </div>
-              <div style="position:relative; z-index:1; display:flex; justify-content:space-between; align-items:center; padding:22px 45px; border-bottom:1px solid rgba(255,255,255,0.06);">
-                <span style="font-weight:800; letter-spacing:1px; font-size:0.9rem;">AETHERIUM <span style="color:#FF3F8E;">CHRONICLES</span></span>
-                <div style="display:flex; gap:22px; font-size:0.72rem; color:#B3A8E0;"><span>Univers</span><span>Créatures</span><span>Alpha</span></div>
-              </div>
-              <div style="position:relative; z-index:1; padding:55px 45px 40px;">
-                <span class="fu" style="animation-delay:0s; display:inline-block; font-family:monospace; font-size:0.66rem; letter-spacing:1px; padding:5px 12px; border-radius:100px; border:1px solid rgba(255,63,142,0.5); color:#FF7BAE; animation:fadeUp .6s ease forwards, pulseGlow 2.4s ease infinite .6s; --glow:rgba(255,63,142,.55);">● ALPHA TESTEUR — PLACES OUVERTES</span>
-                <h1 class="fu" style="animation-delay:.15s; font-size:2.7rem; font-weight:800; line-height:1.05; margin:22px 0 18px; max-width:580px;">
-                  <span style="background:linear-gradient(90deg,#FF3F8E,#8F84E8,#FF3F8E); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:gradientShift 5s ease infinite;">Explorez le Donjon de Lune.</span>
-                </h1>
-                <p class="fu" style="animation-delay:.3s; font-size:0.9rem; color:#B3A8E0; max-width:420px; line-height:1.6; margin-bottom:30px;">200 créatures procédurales, HUD réactif, ressources suivies en temps réel.</p>
-                <button class="fu" style="animation-delay:.45s; background:#FF3F8E; color:#fff; border:none; padding:14px 28px; font-weight:800; font-size:0.8rem; cursor:pointer; border-radius:8px; animation:pulseGlow 2.4s ease infinite; --glow:rgba(255,63,142,.5);">Rejoindre l'alpha ▶</button>
-                <div style="display:flex; align-items:flex-end; gap:18px; height:120px; margin-top:40px;">
-                  <div style="width:100px; height:60px; background:linear-gradient(160deg,#6E63C9,#332B63); transform:skewX(-15deg); border:1px solid #8F84E8; border-radius:4px; animation:floatY 4.2s ease-in-out infinite;"></div>
-                  <div style="width:100px; height:100px; background:linear-gradient(160deg,#FF3F8E,#7A1F49); transform:skewX(-15deg); border:1px solid #FF7BAE; border-radius:4px; animation:floatY 4.2s ease-in-out infinite .5s;"></div>
-                  <div style="width:100px; height:78px; background:linear-gradient(160deg,#6E63C9,#332B63); transform:skewX(-15deg); border:1px solid #8F84E8; border-radius:4px; animation:floatY 4.2s ease-in-out infinite 1s;"></div>
-                </div>
-              </div>
-              <div style="position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); border-top:1px solid rgba(255,255,255,0.06);">
-                <div class="fu" style="animation-delay:.6s; padding:20px 45px; border-right:1px solid rgba(255,255,255,0.06);"><div style="font-size:1.3rem; font-weight:800;">200+</div><div style="font-size:0.68rem; color:#8A7EC0;">créatures jouables</div></div>
-                <div class="fu" style="animation-delay:.7s; padding:20px 45px; border-right:1px solid rgba(255,255,255,0.06);"><div style="font-size:1.3rem; font-weight:800;">14K</div><div style="font-size:0.68rem; color:#8A7EC0;">testeurs alpha</div></div>
-                <div class="fu" style="animation-delay:.8s; padding:20px 45px;"><div style="font-size:1.3rem; font-weight:800;">v1.0.4</div><div style="font-size:0.68rem; color:#8A7EC0;">build stable</div></div>
-              </div>
-            </div>`;
+            <div class="nova-preview">
+<style>
+.nova-preview{--noir:#0A0A0C;--noir-2:#141417;--chrome:#C8CDD4;--chrome-dark:#8B929C;--rubis:#C4102F;--rubis-vif:#E8143A;--cyan:#00D4E8;--blanc:#F2F3F5;
+  font-family:'Barlow Condensed','Oswald','Arial Narrow',sans-serif;background:var(--noir);color:var(--blanc);max-width:1220px;margin:0 auto;overflow:hidden;border-radius:18px;box-shadow:0 30px 90px rgba(0,0,0,.5);}
+.nova-preview *{box-sizing:border-box;margin:0;padding:0;}
+.nova-preview a{color:inherit;text-decoration:none;}
+.nova-preview img{max-width:100%;display:block;}
+.nv-serif{font-family:'Playfair Display','Cormorant Garamond',Georgia,serif;}
+.nv-eyebrow{font-size:.72rem;letter-spacing:.34em;text-transform:uppercase;color:var(--rubis-vif);margin-bottom:16px;display:flex;align-items:center;gap:10px;font-weight:600;}
+.nv-eyebrow::before{content:'';width:28px;height:2px;background:var(--rubis-vif);}
+.nv-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:20px 44px;background:rgba(10,10,12,.9);backdrop-filter:blur(10px);border-bottom:1px solid rgba(200,205,212,.12);}
+.nv-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;letter-spacing:.08em;text-transform:uppercase;color:var(--chrome);}
+.nv-logo span{color:var(--rubis-vif);}
+.nv-nav{display:flex;gap:28px;flex-wrap:wrap;}
+.nv-nav a{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--chrome-dark);font-weight:600;}
+.nv-nav a:hover{color:var(--cyan);}
+.nv-hero{position:relative;min-height:580px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(10,10,12,.6),rgba(10,10,12,.94)),url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;padding:70px 40px;}
+.nv-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 100%,rgba(196,16,47,.16),transparent 70%);pointer-events:none;}
+.nv-hero-inner{position:relative;z-index:1;max-width:720px;}
+.nv-hero h1{font-size:clamp(2.6rem,5.6vw,4.4rem);font-weight:800;line-height:1.02;text-transform:uppercase;letter-spacing:-.01em;margin-bottom:22px;}
+.nv-hero h1 em{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;color:var(--cyan);text-transform:none;}
+.nv-hero p{font-size:1rem;color:rgba(242,243,245,.72);max-width:500px;margin:0 auto 36px;line-height:1.7;}
+.nv-hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.nv-btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 32px;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;font-weight:700;cursor:pointer;transition:all .3s ease;border-radius:2px;}
+.nv-btn-red{background:linear-gradient(135deg,var(--rubis-vif),var(--rubis));color:#fff;border:none;}
+.nv-btn-red:hover{transform:translateY(-2px);box-shadow:0 14px 34px rgba(196,16,47,.35);}
+.nv-btn-ghost{background:transparent;border:1px solid rgba(242,243,245,.35);color:var(--blanc);}
+.nv-btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);}
+.nv-sec{padding:88px 44px;}
+.nv-head{max-width:640px;margin-bottom:50px;}
+.nv-head h2{font-size:clamp(1.9rem,3.4vw,2.7rem);font-weight:800;text-transform:uppercase;line-height:1.1;letter-spacing:-.01em;}
+.nv-head h2 em{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;color:var(--rubis-vif);text-transform:none;}
+.nv-head p{color:rgba(242,243,245,.62);margin-top:14px;line-height:1.75;font-size:.98rem;}
+.nv-presentation{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center;}
+.nv-pres-img{aspect-ratio:4/5;border-radius:10px;overflow:hidden;border:1px solid rgba(200,205,212,.14);position:relative;}
+.nv-pres-img img{width:100%;height:100%;object-fit:cover;filter:saturate(1.05) contrast(1.05);}
+.nv-pres-img::after{content:'';position:absolute;inset:0;border:1px solid rgba(0,212,232,.25);border-radius:10px;pointer-events:none;}
+.nv-pres-text p{color:rgba(242,243,245,.65);line-height:1.8;margin-bottom:18px;font-size:.98rem;}
+.nv-stats-inline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;padding-top:26px;border-top:1px solid rgba(200,205,212,.14);}
+.nv-stats-inline b{display:block;font-family:'Barlow Condensed',sans-serif;font-size:1.7rem;color:var(--cyan);font-weight:700;}
+.nv-stats-inline span{font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--chrome-dark);}
+.nv-services{background:var(--noir-2);}
+.nv-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(200,205,212,.1);border:1px solid rgba(200,205,212,.1);}
+.nv-service-card{background:var(--noir-2);padding:32px 28px;transition:background .3s ease;position:relative;}
+.nv-service-card:hover{background:#1a1a1e;}
+.nv-service-num{font-family:'Barlow Condensed',sans-serif;font-size:.78rem;color:var(--rubis-vif);font-weight:700;margin-bottom:14px;letter-spacing:.1em;}
+.nv-service-card h3{font-family:'Barlow Condensed',sans-serif;font-size:1.3rem;font-weight:700;text-transform:uppercase;margin-bottom:10px;color:var(--chrome);}
+.nv-service-card p{font-size:.86rem;color:rgba(242,243,245,.55);line-height:1.65;}
+.nv-gallery3d{position:relative;perspective:1200px;}
+.nv-g3d-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.nv-g3d-item{position:relative;aspect-ratio:4/5;border-radius:10px;overflow:hidden;transform:rotateY(0deg);transition:transform .5s ease,box-shadow .5s ease;border:1px solid rgba(200,205,212,.12);cursor:pointer;}
+.nv-g3d-item:hover{transform:rotateY(-6deg) scale(1.03);box-shadow:0 26px 60px rgba(0,0,0,.5),0 0 0 1px rgba(0,212,232,.3);}
+.nv-g3d-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(1.05);transition:filter .4s ease;}
+.nv-g3d-item:hover img{filter:brightness(1) saturate(1.15);}
+.nv-g3d-item::after{content:attr(data-cap);position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(0deg,rgba(10,10,12,.9),transparent);font-family:'Barlow Condensed',sans-serif;font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--cyan);}
+.nv-avant-apres{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.nv-aa-card{position:relative;border-radius:10px;overflow:hidden;border:1px solid rgba(200,205,212,.14);}
+.nv-aa-split{position:relative;aspect-ratio:16/10;overflow:hidden;}
+.nv-aa-split img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+.nv-aa-split .nv-after{clip-path:inset(0 0 0 50%);filter:saturate(1.15) contrast(1.08);}
+.nv-aa-split .nv-before{filter:grayscale(.55) brightness(.75);}
+.nv-aa-divider{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--cyan);box-shadow:0 0 12px rgba(0,212,232,.7);}
+.nv-aa-divider::before{content:'⇔';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:34px;height:34px;background:var(--cyan);color:#0A0A0C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:700;}
+.nv-aa-labels{display:flex;justify-content:space-between;padding:14px 18px;background:var(--noir-2);}
+.nv-aa-labels span{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--chrome-dark);font-weight:700;}
+.nv-aa-labels span:last-child{color:var(--cyan);}
+.nv-avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(200,205,212,.1);border:1px solid rgba(200,205,212,.1);border-radius:10px;overflow:hidden;}
+.nv-avis-card{background:var(--noir-2);padding:30px 26px;}
+.nv-stars{color:var(--rubis-vif);letter-spacing:2px;margin-bottom:16px;font-size:.9rem;}
+.nv-avis-quote{font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:1.02rem;line-height:1.6;margin-bottom:20px;color:var(--blanc);}
+.nv-avis-quote::before{content:'“';color:var(--cyan);}
+.nv-avis-quote::after{content:'”';color:var(--cyan);}
+.nv-avis-author{font-size:.84rem;font-weight:700;color:var(--chrome);}
+.nv-avis-role{font-size:.74rem;color:var(--chrome-dark);margin-top:2px;}
+.nv-faq{max-width:780px;}
+.nv-faq details{background:var(--noir-2);border:1px solid rgba(200,205,212,.12);border-radius:6px;padding:18px 22px;margin-bottom:12px;}
+.nv-faq summary{cursor:pointer;font-family:'Barlow Condensed',sans-serif;font-size:1.08rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--chrome);}
+.nv-faq summary::-webkit-details-marker{display:none;}
+.nv-faq summary::after{content:'+';color:var(--rubis-vif);font-size:1.4rem;transition:transform .3s ease;}
+.nv-faq details[open] summary::after{transform:rotate(45deg);}
+.nv-faq p{margin-top:12px;color:rgba(242,243,245,.6);font-size:.9rem;line-height:1.65;}
+.nv-contact{background:var(--noir-2);}
+.nv-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+.nv-contact-line{margin-bottom:20px;}
+.nv-contact-line .label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--rubis-vif);margin-bottom:4px;display:block;font-weight:700;}
+.nv-contact-line .value{font-size:1.02rem;color:var(--chrome);}
+.nv-form{display:flex;flex-direction:column;gap:16px;}
+.nv-form label{font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--chrome-dark);margin-bottom:6px;display:block;font-weight:700;}
+.nv-form input,.nv-form textarea{width:100%;background:rgba(242,243,245,.04);border:1px solid rgba(200,205,212,.2);border-radius:4px;padding:11px 14px;color:var(--blanc);font-family:inherit;font-size:.9rem;outline:none;transition:border-color .3s ease;}
+.nv-form input:focus,.nv-form textarea:focus{border-color:var(--cyan);}
+.nv-footer{padding:28px 44px;border-top:1px solid rgba(200,205,212,.1);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.8rem;color:var(--chrome-dark);background:var(--noir);}
+@media(max-width:860px){.nv-presentation,.nv-contact-grid,.nv-avant-apres{grid-template-columns:1fr;}.nv-services-grid,.nv-avis-grid,.nv-g3d-grid{grid-template-columns:1fr;}.nv-nav{display:none;}.nv-header{padding:16px 22px;}.nv-sec{padding:56px 22px;}}
+</style>
+
+<header class="nv-header">
+  <div class="nv-logo">NOVA<span>DRIFT</span></div>
+  <nav class="nv-nav">
+    <a href="#presentation">Showroom</a>
+    <a href="#services">Prestations</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#avant-apres">Avant / Après</a>
+    <a href="#avis">Avis</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="nv-btn nv-btn-red">Prendre RDV</a>
+</header>
+
+<section class="nv-hero">
+  <div class="nv-hero-inner">
+    <div class="nv-eyebrow" style="justify-content:center;">Showroom Auto Luxe</div>
+    <h1>La performance,<br><em>sculptée à la main</em></h1>
+    <p>Nova Drift façonne des véhicules d'exception — préparation esthétique, mécanique et détailing haute précision pour ceux qui ne transigent pas.</p>
+    <div class="nv-hero-cta">
+      <a href="#contact" class="nv-btn nv-btn-red">Réserver un créneau</a>
+      <a href="#galerie" class="nv-btn nv-btn-ghost">Voir les réalisations</a>
+    </div>
+  </div>
+</section>
+
+<section class="nv-sec" id="presentation">
+  <div class="nv-presentation">
+    <div class="nv-pres-img"><img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=900&auto=format&fit=crop" alt="Showroom Nova Drift"></div>
+    <div class="nv-pres-text">
+      <div class="nv-eyebrow">Notre atelier</div>
+      <h2 class="nv-serif">L'exigence <em>allemande</em>, la précision <em>artisanale</em>.</h2>
+      <p>Nova Drift réunit des techniciens certifiés et des artisans du détailing, dans un atelier climatisé pensé pour révéler chaque ligne de carrosserie.</p>
+      <p>Chaque véhicule est traité comme une pièce unique — diagnostic complet, protocole sur-mesure, contrôle qualité final.</p>
+      <div class="nv-stats-inline">
+        <div><b>14</b><span>Ans d'expertise</span></div>
+        <div><b>620+</b><span>Véhicules traités</span></div>
+        <div><b>99%</b><span>Clients fidèles</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="nv-sec nv-services" id="services">
+  <div class="nv-head">
+    <div class="nv-eyebrow">Nos prestations</div>
+    <h2>Un protocole complet, <em>de la mécanique au détail</em>.</h2>
+    <p>Chaque prestation est calibrée pour sublimer la performance et la présence visuelle de votre véhicule.</p>
+  </div>
+  <div class="nv-services-grid">
+    <div class="nv-service-card"><div class="nv-service-num">01</div><h3>Detailing Haute Précision</h3><p>Correction de peinture, polissage multi-passes et protection céramique longue durée.</p></div>
+    <div class="nv-service-card"><div class="nv-service-num">02</div><h3>Préparation Esthétique</h3><p>Covering, teinte de vitres et personnalisation intérieure sur-mesure.</p></div>
+    <div class="nv-service-card"><div class="nv-service-num">03</div><h3>Reprogrammation Moteur</h3><p>Optimisation performance sur banc, calibrage sécurisé et garanti.</p></div>
+    <div class="nv-service-card"><div class="nv-service-num">04</div><h3>Freinage & Châssis</h3><p>Montage de kits carbone-céramique et suspensions haute performance.</p></div>
+    <div class="nv-service-card"><div class="nv-service-num">05</div><h3>Diagnostic Complet</h3><p>Bilan technique approfondi avant toute préparation ou reprise.</p></div>
+    <div class="nv-service-card"><div class="nv-service-num">06</div><h3>Stockage Climatisé</h3><p>Garde de véhicules d'exception dans un espace sécurisé et surveillé.</p></div>
+  </div>
+</section>
+
+<section class="nv-sec" id="galerie">
+  <div class="nv-head">
+    <div class="nv-eyebrow">Galerie 3D</div>
+    <h2>Nos <em>réalisations</em> en showroom</h2>
+  </div>
+  <div class="nv-gallery3d">
+    <div class="nv-g3d-grid">
+      <div class="nv-g3d-item" data-cap="GT Carbone"><img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?q=80&w=700&auto=format&fit=crop" alt="Véhicule GT Carbone"></div>
+      <div class="nv-g3d-item" data-cap="Berline Chrome"><img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=700&auto=format&fit=crop" alt="Berline Chrome"></div>
+      <div class="nv-g3d-item" data-cap="Roadster Rubis"><img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=700&auto=format&fit=crop" alt="Roadster Rubis"></div>
+      <div class="nv-g3d-item" data-cap="Coupé Nuit"><img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=700&auto=format&fit=crop" alt="Coupé Nuit"></div>
+      <div class="nv-g3d-item" data-cap="Détail Jantes"><img src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?q=80&w=700&auto=format&fit=crop" alt="Détail jantes"></div>
+      <div class="nv-g3d-item" data-cap="Habitacle Cuir"><img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=700&auto=format&fit=crop" alt="Habitacle cuir"></div>
+    </div>
+  </div>
+</section>
+
+<section class="nv-sec" id="avant-apres">
+  <div class="nv-head">
+    <div class="nv-eyebrow">Transformation</div>
+    <h2>Avant / <em>Après</em></h2>
+  </div>
+  <div class="nv-avant-apres">
+    <div class="nv-aa-card">
+      <div class="nv-aa-split">
+        <img class="nv-before" src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?q=80&w=900&auto=format&fit=crop" alt="Avant préparation">
+        <img class="nv-after" src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=900&auto=format&fit=crop" alt="Après préparation">
+        <div class="nv-aa-divider"></div>
+      </div>
+      <div class="nv-aa-labels"><span>Avant</span><span>Après correction peinture</span></div>
+    </div>
+    <div class="nv-aa-card">
+      <div class="nv-aa-split">
+        <img class="nv-before" src="https://images.unsplash.com/photo-1494905998402-395d579af36f?q=80&w=900&auto=format&fit=crop" alt="Avant covering">
+        <img class="nv-after" src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=900&auto=format&fit=crop" alt="Après covering">
+        <div class="nv-aa-divider"></div>
+      </div>
+      <div class="nv-aa-labels"><span>Avant</span><span>Après covering intégral</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="nv-sec" id="avis">
+  <div class="nv-head">
+    <div class="nv-eyebrow">Témoignages</div>
+    <h2>Ce que nos clients <em>en disent</em></h2>
+  </div>
+  <div class="nv-avis-grid">
+    <div class="nv-avis-card"><div class="nv-stars">★★★★★</div><p class="nv-avis-quote">Un travail d'orfèvre sur la carrosserie. La peinture n'a jamais été aussi profonde.</p><div class="nv-avis-author">Thomas V.</div><div class="nv-avis-role">Correction complète</div></div>
+    <div class="nv-avis-card"><div class="nv-stars">★★★★★</div><p class="nv-avis-quote">La reprogrammation a transformé la voiture sans jamais sacrifier la fiabilité.</p><div class="nv-avis-author">Karim D.</div><div class="nv-avis-role">Reprogrammation moteur</div></div>
+    <div class="nv-avis-card"><div class="nv-stars">★★★★★</div><p class="nv-avis-quote">Un accueil et une rigueur qui n'ont rien à envier aux plus grandes maisons.</p><div class="nv-avis-author">Elise & Marc R.</div><div class="nv-avis-role">Covering + détailing</div></div>
+  </div>
+</section>
+
+<section class="nv-sec">
+  <div class="nv-head">
+    <div class="nv-eyebrow">Questions fréquentes</div>
+    <h2>Tout savoir avant votre <em>venue</em></h2>
+  </div>
+  <div class="nv-faq">
+    <details open><summary>Combien de temps dure une préparation complète ?</summary><p>Selon la prestation, comptez entre 2 et 7 jours ouvrés pour un protocole complet incluant correction, protection et contrôle qualité.</p></details>
+    <details><summary>Proposez-vous un véhicule de courtoisie ?</summary><p>Oui, un véhicule de courtoisie est disponible sur demande pour toute prestation supérieure à 48h.</p></details>
+    <details><summary>Les reprogrammations sont-elles garanties ?</summary><p>Chaque calibrage est réalisé sur banc et couvert par une garantie constructeur-compatible.</p></details>
+    <details><summary>Peut-on visiter l'atelier avant de réserver ?</summary><p>Bien sûr, nous organisons des visites de l'atelier sur rendez-vous, du lundi au samedi.</p></details>
+  </div>
+</section>
+
+<section class="nv-sec nv-contact" id="contact">
+  <div class="nv-contact-grid">
+    <div>
+      <div class="nv-eyebrow">Contact</div>
+      <h2 style="margin-bottom:20px;">Réservons votre <em>créneau</em></h2>
+      <div class="nv-contact-line"><span class="label">Atelier</span><span class="value">8 avenue des Carrossiers, 92100 Boulogne</span></div>
+      <div class="nv-contact-line"><span class="label">Téléphone</span><span class="value">+33 1 47 00 00 00</span></div>
+      <div class="nv-contact-line"><span class="label">Email</span><span class="value">contact@nova-drift.fr</span></div>
+    </div>
+    <form class="nv-form" onsubmit="event.preventDefault();this.querySelector('.nv-btn').textContent='Demande envoyée ✓';">
+      <div><label>Nom complet</label><input type="text" required></div>
+      <div><label>Email</label><input type="email" required></div>
+      <div><label>Véhicule concerné</label><input type="text" placeholder="Ex : Porsche 911 GT3"></div>
+      <div><label>Message</label><textarea rows="3"></textarea></div>
+      <button type="submit" class="nv-btn nv-btn-red" style="align-self:flex-start;">Envoyer la demande</button>
+    </form>
+  </div>
+</section>
+
+<footer class="nv-footer">
+  <span>© 2026 Nova Drift — Tous droits réservés</span>
+  <span>Showroom Auto Luxe</span>
+</footer>
+</div>`;
           break;
 
         case 'ultra-2':
