@@ -2700,323 +2700,381 @@ function showToast(){
 
       case 'ultra-2':
           html = `${ANIM_STYLES}
-            <div class="etherium-preview">
+            <div class="lex-preview">
 <style>
-.etherium-preview{--blanc:#FCFAF5;--sable:#E4D9C3;--sable-fonce:#C9B892;--lavande:#C6BEDD;--lavande-vif:#A99BC9;--or:#C9A45C;--or-vif:#E0BD7C;--encre:#2A2622;
-  font-family:'Jost','Work Sans','Poppins',sans-serif;background:var(--blanc);color:var(--encre);max-width:1240px;margin:0 auto;overflow:hidden;border-radius:20px;box-shadow:0 40px 110px rgba(42,38,34,.18);position:relative;}
-.etherium-preview *{box-sizing:border-box;margin:0;padding:0;}
-.etherium-preview a{color:inherit;text-decoration:none;}
-.etherium-preview img{max-width:100%;display:block;}
-.et-serif{font-family:'Fraunces','Cormorant Garamond','Playfair Display',Georgia,serif;}
-.et-texture{position:absolute;inset:0;pointer-events:none;opacity:.5;background-image:radial-gradient(rgba(42,38,34,.025) 1px,transparent 1px);background-size:26px 26px;z-index:0;}
-.et-gold-text{background:linear-gradient(120deg,var(--or) 10%,var(--or-vif) 40%,var(--or) 65%,var(--or-vif) 90%);background-size:220% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:gradientShift 7s ease infinite;}
-@keyframes etLoad{0%{left:-40%;}100%{left:100%;}}
-.et-loader{position:absolute;inset:0;z-index:300;background:var(--blanc);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;animation:etLoaderOut 2.1s ease forwards;}
-@keyframes etLoaderOut{0%,60%{opacity:1;visibility:visible}100%{opacity:0;visibility:hidden;pointer-events:none}}
-.et-loader-frame{width:56px;height:70px;border:1.5px solid var(--or);position:relative;}
-.et-loader-frame::before{content:'';position:absolute;inset:8px;border:1px solid rgba(201,164,92,.4);}
-.et-loader-mark{font-size:1.5rem;letter-spacing:.14em;color:var(--encre);}
-.et-loader-mark em{font-style:italic;color:var(--or);}
-.et-loader-bar{width:220px;height:1px;background:rgba(42,38,34,.12);position:relative;overflow:hidden;}
-.et-loader-bar::after{content:'';position:absolute;top:0;bottom:0;width:40%;background:linear-gradient(90deg,transparent,var(--or),transparent);animation:etLoad 1.5s ease-in-out infinite;}
-.et-loader-sub{font-size:.64rem;letter-spacing:.34em;text-transform:uppercase;color:var(--sable-fonce);}
-.et-eyebrow{font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--or);margin-bottom:16px;display:flex;align-items:center;gap:10px;font-weight:600;}
-.et-eyebrow::before{content:'';width:28px;height:1px;background:linear-gradient(90deg,var(--or),transparent);}
-.et-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px 44px;background:rgba(252,250,245,.88);backdrop-filter:blur(12px);border-bottom:1px solid rgba(42,38,34,.08);}
-.et-logo{font-size:1.4rem;letter-spacing:.1em;text-transform:uppercase;}
-.et-logo em{font-style:italic;color:var(--or);text-transform:none;}
-.et-nav{display:flex;gap:30px;flex-wrap:wrap;}
-.et-nav a{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(42,38,34,.6);font-weight:600;position:relative;padding-bottom:3px;}
-.et-nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--lavande-vif);transition:width .3s ease;}
-.et-nav a:hover{color:var(--encre);}
-.et-nav a:hover::after{width:100%;}
-.et-btn{display:inline-flex;align-items:center;justify-content:center;padding:15px 32px;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .35s ease;border-radius:2px;position:relative;overflow:hidden;}
-.et-btn-gold{background:linear-gradient(135deg,var(--or-vif),var(--or));color:var(--blanc);border:none;}
-.et-btn-gold::before{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(120deg,transparent,rgba(255,255,255,.5),transparent);transform:skewX(-20deg);transition:left .6s ease;}
-.et-btn-gold:hover::before{left:130%;}
-.et-btn-gold:hover{transform:translateY(-2px);box-shadow:0 16px 38px rgba(201,164,92,.32);}
-.et-btn-ghost{background:transparent;border:1px solid rgba(42,38,34,.28);color:var(--encre);}
-.et-btn-ghost:hover{border-color:var(--lavande-vif);color:var(--lavande-vif);box-shadow:0 0 20px rgba(169,155,201,.15);}
-.et-hero{position:relative;min-height:620px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(252,250,245,.35) 0%,rgba(252,250,245,.75) 55%,var(--blanc) 100%),url('https://images.unsplash.com/photo-1554907984-15263bfd63bd?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;padding:76px 40px 60px;overflow:hidden;}
-.et-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 105%,rgba(198,190,221,.28),transparent 70%),radial-gradient(ellipse 40% 30% at 85% 10%,rgba(201,164,92,.16),transparent 70%);pointer-events:none;}
-.et-hero-inner{position:relative;z-index:1;max-width:740px;}
-.et-hero-badge{display:inline-flex;align-items:center;gap:9px;font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--lavande-vif);background:rgba(198,190,221,.18);border:1px solid rgba(169,155,201,.4);padding:8px 18px;border-radius:40px;margin-bottom:26px;font-weight:600;}
-.et-hero-badge i{width:6px;height:6px;border-radius:50%;background:var(--lavande-vif);display:inline-block;animation:pulseGlow 1.8s ease-in-out infinite;--glow:rgba(169,155,201,.7);}
-.et-hero h1{font-size:clamp(2.5rem,5.4vw,4.2rem);font-weight:500;line-height:1.08;letter-spacing:-.01em;margin-bottom:22px;color:var(--encre);}
-.et-hero h1 em{font-style:italic;font-weight:400;color:var(--or);text-shadow:0 0 26px rgba(201,164,92,.2);}
-.et-hero p{font-size:1rem;color:rgba(42,38,34,.62);max-width:520px;margin:0 auto 38px;line-height:1.8;}
-.et-hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:56px;}
-.et-hero-specs{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
-.et-spec-chip{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 22px;background:rgba(255,255,255,.7);backdrop-filter:blur(8px);border:1px solid rgba(42,38,34,.1);border-radius:10px;animation:floatY 4.5s ease-in-out infinite;}
-.et-spec-chip:nth-child(2){animation-delay:.5s;}
-.et-spec-chip:nth-child(3){animation-delay:1s;}
-.et-spec-chip b{font-size:1.2rem;color:var(--or);font-weight:600;}
-.et-spec-chip span{font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(42,38,34,.5);}
-.et-ticker-wrap{background:var(--sable);border-top:1px solid rgba(42,38,34,.08);border-bottom:1px solid rgba(42,38,34,.08);overflow:hidden;position:relative;height:52px;display:flex;align-items:center;}
-.et-ticker-wrap::before,.et-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none;}
-.et-ticker-wrap::before{left:0;background:linear-gradient(to right,var(--sable),transparent);}
-.et-ticker-wrap::after{right:0;background:linear-gradient(to left,var(--sable),transparent);}
-.et-ticker-track{display:flex;align-items:center;gap:0;animation:marquee 34s linear infinite;width:max-content;}
-.et-ticker-track span{padding:0 34px;white-space:nowrap;font-size:.72rem;letter-spacing:.26em;text-transform:uppercase;color:rgba(42,38,34,.55);font-weight:600;border-right:1px solid rgba(42,38,34,.12);}
-.et-ticker-track span i{color:var(--or);font-style:normal;margin-right:8px;}
-.et-sec{padding:90px 44px;position:relative;}
-.et-head{max-width:640px;margin-bottom:52px;}
-.et-head h2{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:500;line-height:1.18;letter-spacing:-.01em;}
-.et-head h2 em{font-style:italic;font-weight:400;color:var(--or);}
-.et-head p{color:rgba(42,38,34,.58);margin-top:14px;line-height:1.8;font-size:.96rem;}
-.et-expo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(42,38,34,.08);border:1px solid rgba(42,38,34,.08);border-radius:12px;overflow:hidden;}
-.et-expo-card{background:var(--blanc);padding:34px 28px;transition:background .35s ease;position:relative;overflow:hidden;}
-.et-expo-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 0%,rgba(198,190,221,.18),transparent 60%);opacity:0;transition:opacity .35s ease;}
-.et-expo-card:hover{background:var(--sable);}
-.et-expo-card:hover::before{opacity:1;}
-.et-expo-num{font-size:.78rem;color:var(--or);font-weight:600;margin-bottom:14px;letter-spacing:.14em;position:relative;}
-.et-expo-card h3{font-size:1.2rem;font-weight:500;margin-bottom:10px;color:var(--encre);position:relative;}
-.et-expo-card p{font-size:.85rem;color:rgba(42,38,34,.5);line-height:1.7;position:relative;}
-.et-g3d-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-.et-g3d-item{position:relative;aspect-ratio:4/5;border-radius:12px;overflow:hidden;transition:transform .5s ease,box-shadow .5s ease;border:1px solid rgba(42,38,34,.1);cursor:pointer;}
-.et-g3d-item:hover{transform:scale(1.035);box-shadow:0 30px 70px rgba(42,38,34,.28),0 0 0 1px rgba(201,164,92,.4);}
-.et-g3d-item img{width:100%;height:100%;object-fit:cover;filter:saturate(.94) brightness(.96);transition:filter .4s ease,transform .5s ease;}
-.et-g3d-item:hover img{filter:saturate(1.05) brightness(1.02);transform:scale(1.06);}
-.et-g3d-item::after{content:attr(data-cap);position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(0deg,rgba(42,38,34,.82),transparent);font-size:.9rem;letter-spacing:.04em;font-weight:500;color:var(--blanc);}
-.et-timeline{max-width:820px;position:relative;padding-left:38px;}
-.et-timeline::before{content:'';position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--or),var(--lavande-vif));}
-.et-tl-item{position:relative;padding-bottom:44px;}
-.et-tl-item:last-child{padding-bottom:0;}
-.et-tl-dot{position:absolute;left:-38px;top:4px;width:13px;height:13px;border-radius:50%;background:var(--blanc);border:2px solid var(--or);}
-.et-tl-year{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--lavande-vif);font-weight:600;margin-bottom:6px;}
-.et-tl-item h3{font-size:1.24rem;font-weight:500;color:var(--encre);margin-bottom:8px;}
-.et-tl-item p{font-size:.9rem;color:rgba(42,38,34,.55);line-height:1.7;max-width:560px;}
-.et-avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-.et-avis-card{background:linear-gradient(160deg,rgba(42,38,34,.028),rgba(42,38,34,.008));backdrop-filter:blur(6px);border:1px solid rgba(42,38,34,.1);border-radius:12px;padding:30px 26px;transition:transform .3s ease,border-color .3s ease;}
-.et-avis-card:hover{transform:translateY(-5px);border-color:rgba(201,164,92,.4);}
-.et-stars{color:var(--or);letter-spacing:2px;margin-bottom:16px;font-size:.9rem;}
-.et-avis-quote{font-family:'Fraunces','Cormorant Garamond',Georgia,serif;font-style:italic;font-size:1.02rem;line-height:1.65;margin-bottom:20px;color:var(--encre);}
-.et-avis-quote::before{content:'"';color:var(--lavande-vif);}
-.et-avis-quote::after{content:'"';color:var(--lavande-vif);}
-.et-avis-author{font-size:.84rem;font-weight:600;color:var(--encre);}
-.et-avis-role{font-size:.72rem;color:rgba(42,38,34,.45);margin-top:2px;}
-.et-faq{max-width:780px;}
-.et-faq details{background:var(--sable);border:1px solid rgba(42,38,34,.1);border-radius:8px;padding:18px 22px;margin-bottom:12px;transition:border-color .3s ease;}
-.et-faq details[open]{border-color:rgba(201,164,92,.4);}
-.et-faq summary{cursor:pointer;font-size:1.04rem;font-weight:500;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--encre);}
-.et-faq summary::-webkit-details-marker{display:none;}
-.et-faq summary::after{content:'+';color:var(--or);font-size:1.3rem;transition:transform .3s ease;}
-.et-faq details[open] summary::after{transform:rotate(45deg);color:var(--lavande-vif);}
-.et-faq p{margin-top:12px;color:rgba(42,38,34,.55);font-size:.88rem;line-height:1.7;}
-.et-contact{background:var(--sable);}
-.et-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
-.et-contact-line{margin-bottom:20px;}
-.et-contact-line .label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--or);margin-bottom:4px;display:block;font-weight:600;}
-.et-contact-line .value{font-size:1.02rem;color:var(--encre);}
-.et-form{display:flex;flex-direction:column;gap:16px;}
-.et-form label{font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(42,38,34,.5);margin-bottom:6px;display:block;font-weight:600;}
-.et-form input,.et-form textarea{width:100%;background:rgba(255,255,255,.7);border:1px solid rgba(42,38,34,.16);border-radius:5px;padding:12px 14px;color:var(--encre);font-family:inherit;font-size:.9rem;outline:none;transition:all .3s ease;}
-.et-form input:focus,.et-form textarea:focus{border-color:var(--lavande-vif);box-shadow:0 0 0 3px rgba(169,155,201,.16);}
-.et-footer{padding:28px 44px;border-top:1px solid rgba(42,38,34,.08);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.8rem;color:rgba(42,38,34,.45);background:var(--blanc);}
-
-/* --- SCROLL REVEAL SYSTEM (visible par défaut, animé seulement si JS actif) --- */
-.et-rv{opacity:1;transform:none;}
-.et-rv.et-pre{opacity:0;transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);will-change:transform,opacity;}
-.et-rv.et-pre.et-rv-l{transform:translateX(-90px);}
-.et-rv.et-pre.et-rv-r{transform:translateX(90px);}
-.et-rv.et-pre.et-rv-up{transform:translateY(60px);}
-.et-rv.et-pre.et-rv-zoom{transform:scale(.82);}
-.et-rv.et-in{opacity:1;transform:translate(0,0) scale(1);}
-
-@media(max-width:860px){.et-contact-grid{grid-template-columns:1fr;}.et-expo-grid,.et-avis-grid,.et-g3d-grid{grid-template-columns:1fr 1fr;}.et-nav{display:none;}.et-header{padding:16px 22px;}.et-sec{padding:56px 22px;}.et-hero-specs{flex-direction:column;align-items:center;}}
-@media(max-width:560px){.et-expo-grid,.et-avis-grid,.et-g3d-grid{grid-template-columns:1fr;}}
+.lex-preview{--graphite:#151517;--graphite-2:#1D1E21;--graphite-3:#26272B;--ivoire:#F1ECE0;--ivoire-dim:rgba(241,236,224,.62);--or:#C9A96A;--or-vif:#E7CB8E;--acier:#5A7A93;--acier-dim:rgba(90,122,147,.16);
+  font-family:'Cormorant Garamond',Georgia,serif;background:var(--graphite);color:var(--ivoire);max-width:1240px;margin:0 auto;overflow:hidden;border-radius:20px;box-shadow:0 40px 110px rgba(0,0,0,.6);position:relative;}
+.lex-preview *{box-sizing:border-box;margin:0;padding:0;}
+.lex-preview a{color:inherit;text-decoration:none;}
+.lex-preview img{max-width:100%;display:block;}
+.lx-mono{font-family:'JetBrains Mono',monospace;}
+.lx-serif-em{font-style:italic;color:var(--or);font-weight:500;}
+@keyframes lxFadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+@keyframes lxDraw{to{stroke-dashoffset:0;}}
+@keyframes lxPulseGlow{0%,100%{box-shadow:0 0 0 0 var(--glow,rgba(201,169,106,.7));}50%{box-shadow:0 0 0 9px transparent;}}
+@keyframes lxMarquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+@keyframes lxFloat{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+@keyframes lxLetterIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+@keyframes lxLineGrow{from{width:0;}to{width:220px;}}
+.lx-fu{animation:lxFadeUp .9s cubic-bezier(.16,1,.3,1) both;}
+.lx-loader{position:fixed;inset:0;z-index:999;background:var(--graphite);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:26px;transition:opacity 1.1s ease,visibility 1.1s ease;}
+.lx-loader.lx-hide{opacity:0;visibility:hidden;pointer-events:none;}
+.lx-seal{width:108px;height:108px;overflow:visible;}
+.lx-seal circle,.lx-seal line,.lx-seal path{fill:none;stroke:var(--or);stroke-width:1.4;}
+.lx-seal .lx-ring-out{stroke-dasharray:578;stroke-dashoffset:578;animation:lxDraw 1.7s cubic-bezier(.65,0,.35,1) .1s forwards;}
+.lx-seal .lx-ring-in{stroke-dasharray:478;stroke-dashoffset:478;animation:lxDraw 1.5s cubic-bezier(.65,0,.35,1) .4s forwards;}
+.lx-seal .lx-scales{stroke-dasharray:340;stroke-dashoffset:340;animation:lxDraw 1.4s cubic-bezier(.65,0,.35,1) .8s forwards;}
+.lx-loader-word{display:flex;letter-spacing:.5em;font-size:1.15rem;text-transform:uppercase;font-weight:500;color:var(--ivoire);padding-left:.5em;}
+.lx-loader-word span{opacity:0;animation:lxLetterIn .5s ease forwards;}
+.lx-loader-line{height:1px;width:0;background:linear-gradient(90deg,transparent,var(--or),transparent);animation:lxLineGrow 1s ease 1.9s forwards;}
+@media(prefers-reduced-motion:reduce){.lx-loader *{animation-duration:.01s !important;animation-delay:0s !important;}}
+.lx-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px 46px;background:rgba(21,21,23,.86);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,169,106,.14);}
+.lx-logo{font-size:1.5rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;}
+.lx-logo em{font-style:italic;color:var(--or);font-weight:500;}
+.lx-nav{display:flex;gap:30px;flex-wrap:wrap;}
+.lx-nav a{font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ivoire-dim);font-weight:500;position:relative;padding-bottom:4px;}
+.lx-nav a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--or);transition:width .35s ease;}
+.lx-nav a:hover{color:var(--or-vif);}
+.lx-nav a:hover::after{width:100%;}
+.lx-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;cursor:pointer;transition:all .35s ease;border-radius:1px;position:relative;overflow:hidden;}
+.lx-btn-or{background:linear-gradient(135deg,var(--or-vif),var(--or));color:#151517;border:none;}
+.lx-btn-or:hover{transform:translateY(-2px);box-shadow:0 16px 34px rgba(201,169,106,.28);}
+.lx-btn-ghost{background:transparent;border:1px solid rgba(241,236,224,.28);color:var(--ivoire);}
+.lx-btn-ghost:hover{border-color:var(--or);color:var(--or-vif);}
+.lx-hero{position:relative;min-height:640px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(21,21,23,.55) 0%,rgba(21,21,23,.82) 60%,var(--graphite) 100%),url('https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;padding:80px 40px 64px;overflow:hidden;}
+.lx-hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 50% 105%,rgba(201,169,106,.14),transparent 70%),radial-gradient(ellipse 40% 30% at 85% 8%,rgba(90,122,147,.16),transparent 70%);pointer-events:none;}
+.lx-hero-inner{position:relative;z-index:1;max-width:760px;}
+.lx-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.32em;text-transform:uppercase;color:var(--or);margin-bottom:20px;display:inline-flex;align-items:center;gap:10px;font-weight:600;border:1px solid rgba(201,169,106,.3);padding:8px 18px;border-radius:30px;background:rgba(201,169,106,.06);}
+.lx-eyebrow i{width:6px;height:6px;border-radius:50%;background:var(--or);display:inline-block;animation:lxPulseGlow 2s ease-in-out infinite;}
+.lx-hero h1{font-size:clamp(2.6rem,5.4vw,4.3rem);font-weight:600;line-height:1.08;letter-spacing:-.01em;margin-bottom:24px;}
+.lx-hero p{font-size:1.08rem;color:var(--ivoire-dim);max-width:540px;margin:0 auto 40px;line-height:1.75;font-weight:400;}
+.lx-hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:58px;}
+.lx-hero-specs{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+.lx-spec-chip{display:flex;flex-direction:column;align-items:center;gap:5px;padding:15px 24px;background:rgba(29,30,33,.7);backdrop-filter:blur(8px);border:1px solid rgba(201,169,106,.18);border-radius:4px;animation:lxFloat 5s ease-in-out infinite;}
+.lx-spec-chip:nth-child(2){animation-delay:.6s;}
+.lx-spec-chip:nth-child(3){animation-delay:1.2s;}
+.lx-spec-chip b{font-family:'JetBrains Mono',monospace;font-size:1.15rem;color:var(--or-vif);font-weight:600;}
+.lx-spec-chip span{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ivoire-dim);}
+.lx-ticker-wrap{background:var(--graphite-2);border-top:1px solid rgba(201,169,106,.12);border-bottom:1px solid rgba(201,169,106,.12);overflow:hidden;position:relative;height:50px;display:flex;align-items:center;}
+.lx-ticker-wrap::before,.lx-ticker-wrap::after{content:'';position:absolute;top:0;bottom:0;width:70px;z-index:2;pointer-events:none;}
+.lx-ticker-wrap::before{left:0;background:linear-gradient(to right,var(--graphite-2),transparent);}
+.lx-ticker-wrap::after{right:0;background:linear-gradient(to left,var(--graphite-2),transparent);}
+.lx-ticker-track{display:flex;align-items:center;animation:lxMarquee 34s linear infinite;width:max-content;}
+.lx-ticker-track span{padding:0 32px;white-space:nowrap;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ivoire-dim);font-weight:500;border-right:1px solid rgba(201,169,106,.14);}
+.lx-ticker-track span i{color:var(--or);font-style:normal;margin-right:8px;}
+.lx-sec{padding:92px 46px;position:relative;}
+.lx-head{max-width:660px;margin-bottom:54px;}
+.lx-head h2{font-size:clamp(1.9rem,3.2vw,2.7rem);font-weight:600;line-height:1.14;letter-spacing:-.01em;}
+.lx-head p{color:var(--ivoire-dim);margin-top:14px;line-height:1.75;font-size:.98rem;}
+.lx-cabinet{display:grid;grid-template-columns:.95fr 1.05fr;gap:58px;align-items:center;}
+.lx-cab-img{aspect-ratio:4/5;border-radius:4px;overflow:hidden;border:1px solid rgba(201,169,106,.18);position:relative;box-shadow:0 30px 60px rgba(0,0,0,.4);}
+.lx-cab-img img{width:100%;height:100%;object-fit:cover;filter:grayscale(.15) contrast(1.05);transition:transform .8s ease;}
+.lx-cab-img:hover img{transform:scale(1.05);}
+.lx-cab-badge{position:absolute;top:18px;left:18px;background:rgba(21,21,23,.78);backdrop-filter:blur(6px);border:1px solid rgba(201,169,106,.4);color:var(--or-vif);font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;padding:7px 14px;border-radius:30px;font-weight:600;}
+.lx-cab-text p{color:var(--ivoire-dim);line-height:1.85;margin-bottom:18px;font-size:1rem;}
+.lx-cab-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px;padding-top:28px;border-top:1px solid rgba(201,169,106,.16);}
+.lx-cab-stats div{padding:16px 12px;background:rgba(255,255,255,.02);border:1px solid rgba(201,169,106,.12);border-radius:4px;text-align:center;}
+.lx-cab-stats b{display:block;font-family:'JetBrains Mono',monospace;font-size:1.7rem;color:var(--or-vif);font-weight:600;}
+.lx-cab-stats span{font-family:'JetBrains Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ivoire-dim);}
+.lx-services{background:var(--graphite-2);}
+.lx-serv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(201,169,106,.1);border:1px solid rgba(201,169,106,.1);border-radius:4px;overflow:hidden;}
+.lx-serv-card{background:var(--graphite-2);padding:36px 30px;transition:background .35s ease;}
+.lx-serv-card:hover{background:var(--graphite-3);}
+.lx-serv-art{font-family:'JetBrains Mono',monospace;font-size:.74rem;color:var(--or);font-weight:600;margin-bottom:16px;letter-spacing:.1em;}
+.lx-serv-card h3{font-size:1.4rem;font-weight:600;margin-bottom:12px;color:var(--ivoire);}
+.lx-serv-card p{font-size:.92rem;color:var(--ivoire-dim);line-height:1.7;}
+.lx-gal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.lx-gal-item{position:relative;aspect-ratio:4/5;border-radius:4px;overflow:hidden;border:1px solid rgba(201,169,106,.16);transition:transform .5s ease,box-shadow .5s ease;cursor:pointer;}
+.lx-gal-item:hover{transform:translateY(-6px);box-shadow:0 30px 60px rgba(0,0,0,.5),0 0 0 1px rgba(201,169,106,.35);}
+.lx-gal-item img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(.96);transition:filter .4s ease,transform .5s ease;}
+.lx-gal-item:hover img{filter:brightness(1) saturate(1.05);transform:scale(1.06);}
+.lx-gal-item::after{content:attr(data-cap);position:absolute;left:0;right:0;bottom:0;padding:16px;background:linear-gradient(0deg,rgba(21,21,23,.94),transparent);font-size:1rem;letter-spacing:.02em;font-weight:600;color:var(--ivoire);}
+.lx-gal-num{position:absolute;top:14px;right:14px;font-family:'JetBrains Mono',monospace;font-size:.62rem;letter-spacing:.1em;color:var(--or-vif);background:rgba(21,21,23,.7);border:1px solid rgba(201,169,106,.4);padding:5px 11px;border-radius:20px;opacity:0;transform:translateY(-6px);transition:all .35s ease;}
+.lx-gal-item:hover .lx-gal-num{opacity:1;transform:translateY(0);}
+.lx-timeline{position:relative;max-width:900px;margin:0 auto;padding-left:2px;}
+.lx-timeline::before{content:'';position:absolute;left:120px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,transparent,rgba(201,169,106,.4) 8%,rgba(201,169,106,.4) 92%,transparent);}
+.lx-tl-row{display:grid;grid-template-columns:120px 1fr;gap:36px;padding:28px 0;position:relative;}
+.lx-tl-year{font-family:'JetBrains Mono',monospace;font-size:1.15rem;color:var(--or-vif);font-weight:600;text-align:right;padding-top:2px;}
+.lx-tl-content{position:relative;padding-left:32px;}
+.lx-tl-content::before{content:'';position:absolute;left:-5px;top:8px;width:9px;height:9px;border-radius:50%;background:var(--or);box-shadow:0 0 0 4px var(--graphite),0 0 0 5px rgba(201,169,106,.35);}
+.lx-tl-content h3{font-size:1.2rem;font-weight:600;margin-bottom:6px;color:var(--ivoire);}
+.lx-tl-content p{font-size:.92rem;color:var(--ivoire-dim);line-height:1.65;}
+@media(max-width:640px){.lx-timeline::before{left:52px;}.lx-tl-row{grid-template-columns:52px 1fr;gap:18px;}.lx-tl-year{font-size:.9rem;}}
+.lx-stats-band{background:linear-gradient(135deg,rgba(201,169,106,.07),rgba(90,122,147,.08));border-top:1px solid rgba(201,169,106,.12);border-bottom:1px solid rgba(201,169,106,.12);}
+.lx-band-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center;}
+.lx-band-stat{padding:28px 14px;background:rgba(255,255,255,.02);border:1px solid rgba(201,169,106,.14);border-radius:4px;}
+.lx-band-num{font-family:'JetBrains Mono',monospace;font-size:2.3rem;font-weight:700;color:var(--or-vif);}
+.lx-band-label{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ivoire-dim);margin-top:8px;}
+.lx-avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.lx-avis-card{background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.01));border:1px solid rgba(201,169,106,.16);border-radius:4px;padding:32px 28px;transition:transform .3s ease,border-color .3s ease;}
+.lx-avis-card:hover{transform:translateY(-5px);border-color:rgba(201,169,106,.4);}
+.lx-avis-mark{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--acier);margin-bottom:16px;font-weight:600;}
+.lx-avis-quote{font-style:italic;font-size:1.08rem;line-height:1.65;margin-bottom:22px;color:var(--ivoire);}
+.lx-avis-author{font-family:'JetBrains Mono',monospace;font-size:.76rem;font-weight:600;color:var(--or-vif);letter-spacing:.02em;}
+.lx-avis-role{font-family:'JetBrains Mono',monospace;font-size:.7rem;color:var(--ivoire-dim);margin-top:4px;}
+.lx-faq{max-width:800px;}
+.lx-faq details{background:var(--graphite-2);border:1px solid rgba(201,169,106,.14);border-radius:2px;padding:20px 24px;margin-bottom:12px;transition:border-color .3s ease;}
+.lx-faq details[open]{border-color:rgba(201,169,106,.4);}
+.lx-faq summary{cursor:pointer;font-size:1.15rem;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;color:var(--ivoire);gap:20px;}
+.lx-faq summary::-webkit-details-marker{display:none;}
+.lx-faq summary::after{content:'+';color:var(--or);font-size:1.4rem;transition:transform .3s ease;flex-shrink:0;}
+.lx-faq details[open] summary::after{transform:rotate(45deg);color:var(--or-vif);}
+.lx-faq p{margin-top:14px;color:var(--ivoire-dim);font-size:.92rem;line-height:1.7;}
+.lx-contact{background:var(--graphite-2);}
+.lx-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:58px;}
+.lx-contact-line{margin-bottom:22px;}
+.lx-contact-line .label{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--or);margin-bottom:5px;display:block;font-weight:600;}
+.lx-contact-line .value{font-size:1.1rem;color:var(--ivoire);}
+.lx-form{display:flex;flex-direction:column;gap:16px;}
+.lx-form label{font-family:'JetBrains Mono',monospace;font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ivoire-dim);margin-bottom:6px;display:block;font-weight:600;}
+.lx-form input,.lx-form select,.lx-form textarea{width:100%;background:rgba(241,236,224,.04);border:1px solid rgba(201,169,106,.22);border-radius:2px;padding:12px 14px;color:var(--ivoire);font-family:'Cormorant Garamond',serif;font-size:.98rem;outline:none;transition:all .3s ease;}
+.lx-form input:focus,.lx-form select:focus,.lx-form textarea:focus{border-color:var(--or);box-shadow:0 0 0 3px rgba(201,169,106,.12);}
+.lx-footer{padding:30px 46px;border-top:1px solid rgba(201,169,106,.12);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.04em;color:var(--ivoire-dim);background:var(--graphite);}
+@media(max-width:860px){.lx-cabinet,.lx-contact-grid{grid-template-columns:1fr;}.lx-serv-grid,.lx-avis-grid,.lx-band-grid{grid-template-columns:1fr 1fr;}.lx-gal-grid{grid-template-columns:1fr 1fr;}.lx-nav{display:none;}.lx-header{padding:16px 22px;}.lx-sec{padding:58px 22px;}.lx-hero-specs{flex-direction:column;align-items:center;}}
+@media(max-width:560px){.lx-serv-grid,.lx-avis-grid,.lx-band-grid,.lx-gal-grid{grid-template-columns:1fr;}}
 </style>
-<div class="et-texture"></div>
 
-<div class="et-loader">
-  <div class="et-loader-frame"></div>
-  <div class="et-loader-mark">ÉTHER<em>IUM</em></div>
-  <div class="et-loader-bar"></div>
-  <div class="et-loader-sub">Musée d'Art Contemporain</div>
+<div class="lx-loader" id="lxLoader">
+  <svg class="lx-seal" viewBox="0 0 200 200">
+    <circle class="lx-ring-out" cx="100" cy="100" r="92"/>
+    <circle class="lx-ring-in" cx="100" cy="100" r="76"/>
+    <g class="lx-scales">
+      <line x1="100" y1="46" x2="100" y2="144"/>
+      <line x1="58" y1="68" x2="142" y2="68"/>
+      <path d="M58 68 L42 100 A16 16 0 0 0 74 100 Z"/>
+      <path d="M142 68 L126 100 A16 16 0 0 0 158 100 Z"/>
+      <line x1="78" y1="150" x2="122" y2="150"/>
+      <circle cx="100" cy="150" r="4"/>
+    </g>
+  </svg>
+  <div class="lx-loader-word lx-mono">
+    <span style="animation-delay:.1s">L</span><span style="animation-delay:.16s">E</span><span style="animation-delay:.22s">X</span><span style="animation-delay:.28s">&nbsp;</span><span style="animation-delay:.34s">A</span><span style="animation-delay:.4s">E</span><span style="animation-delay:.46s">T</span><span style="animation-delay:.52s">E</span><span style="animation-delay:.58s">R</span><span style="animation-delay:.64s">N</span><span style="animation-delay:.7s">A</span>
+  </div>
+  <div class="lx-loader-line"></div>
 </div>
 
-<header class="et-header">
-  <div class="et-logo">ÉTHER<em>IUM</em></div>
-  <nav class="et-nav">
-    <a href="#musee">Musée</a>
-    <a href="#expositions">Expositions</a>
-    <a href="#galerie">Galerie</a>
-    <a href="#reperes">Repères</a>
+<header class="lx-header">
+  <div class="lx-logo">LEX <em>AETERNA</em></div>
+  <nav class="lx-nav">
+    <a href="#cabinet">Cabinet</a>
+    <a href="#expertises">Expertises</a>
+    <a href="#realisations">Réalisations</a>
+    <a href="#trajectoire">Trajectoire</a>
     <a href="#avis">Avis</a>
     <a href="#contact">Contact</a>
   </nav>
-  <a href="#contact" class="et-btn et-btn-gold">Réserver une visite</a>
+  <a href="#contact" class="lx-btn lx-btn-or">Consultation privée</a>
 </header>
 
-<section class="et-hero" id="musee">
-  <div class="et-hero-inner">
-    <div class="et-hero-badge"><i></i>Musée d'Art Contemporain — Ouvert 7j/7</div>
-    <h1 class="et-serif fu" style="animation-delay:.05s;">Contempler le silence,<br><em>habiter la lumière</em></h1>
-    <p class="fu" style="animation-delay:.2s;">Étherium rassemble une collection d'art contemporain pensée comme une respiration — un dialogue continu entre matière, espace et lumière naturelle.</p>
-    <div class="et-hero-cta fu" style="animation-delay:.35s;">
-      <a href="#contact" class="et-btn et-btn-gold">Réserver une visite</a>
-      <a href="#expositions" class="et-btn et-btn-ghost">Voir les expositions</a>
+<section class="lx-hero">
+  <div class="lx-hero-inner">
+    <div class="lx-eyebrow lx-mono"><i></i>Cabinet d'Avocats — Barreau de Paris</div>
+    <h1 class="fu" style="animation-delay:.05s;">Le droit, exercé<br><span class="lx-serif-em">avec exigence absolue</span></h1>
+    <p class="fu" style="animation-delay:.2s;">Lex Aeterna conseille dirigeants, groupes et institutions sur leurs enjeux les plus stratégiques, avec la rigueur d'une pratique reconnue et la discrétion d'une maison privée.</p>
+    <div class="lx-hero-cta fu" style="animation-delay:.35s;">
+      <a href="#contact" class="lx-btn lx-btn-or">Prendre rendez-vous</a>
+      <a href="#expertises" class="lx-btn lx-btn-ghost">Nos expertises</a>
     </div>
-    <div class="et-hero-specs fu" style="animation-delay:.5s;">
-      <div class="et-spec-chip"><b>340+</b><span>Œuvres exposées</span></div>
-      <div class="et-spec-chip"><b>9</b><span>Salles immersives</span></div>
-      <div class="et-spec-chip"><b>18 ans</b><span>D'histoire</span></div>
+    <div class="lx-hero-specs fu" style="animation-delay:.5s;">
+      <div class="lx-spec-chip"><b>30 ans</b><span>De pratique</span></div>
+      <div class="lx-spec-chip"><b>1200+</b><span>Dossiers traités</span></div>
+      <div class="lx-spec-chip"><b>96%</b><span>Issues favorables</span></div>
     </div>
   </div>
 </section>
 
-<div class="et-ticker-wrap">
-  <div class="et-ticker-track">
-    <span><i>◆</i>ART CINÉTIQUE</span>
-    <span><i>◆</i>SCULPTURE MONUMENTALE</span>
-    <span><i>◆</i>INSTALLATIONS LUMIÈRE</span>
-    <span><i>◆</i>PEINTURE CONTEMPORAINE</span>
-    <span><i>◆</i>ART SONORE</span>
-    <span><i>◆</i>PHOTOGRAPHIE PLASTICIENNE</span>
-    <span><i>◆</i>ART CINÉTIQUE</span>
-    <span><i>◆</i>SCULPTURE MONUMENTALE</span>
-    <span><i>◆</i>INSTALLATIONS LUMIÈRE</span>
-    <span><i>◆</i>PEINTURE CONTEMPORAINE</span>
-    <span><i>◆</i>ART SONORE</span>
-    <span><i>◆</i>PHOTOGRAPHIE PLASTICIENNE</span>
+<div class="lx-ticker-wrap">
+  <div class="lx-ticker-track">
+    <span><i>◆</i>DROIT DES AFFAIRES</span>
+    <span><i>◆</i>FUSIONS & ACQUISITIONS</span>
+    <span><i>◆</i>CONTENTIEUX & ARBITRAGE</span>
+    <span><i>◆</i>DROIT FISCAL</span>
+    <span><i>◆</i>DROIT INTERNATIONAL</span>
+    <span><i>◆</i>PROPRIÉTÉ INTELLECTUELLE</span>
+    <span><i>◆</i>DROIT DES AFFAIRES</span>
+    <span><i>◆</i>FUSIONS & ACQUISITIONS</span>
+    <span><i>◆</i>CONTENTIEUX & ARBITRAGE</span>
+    <span><i>◆</i>DROIT FISCAL</span>
+    <span><i>◆</i>DROIT INTERNATIONAL</span>
+    <span><i>◆</i>PROPRIÉTÉ INTELLECTUELLE</span>
   </div>
 </div>
 
-<section class="et-sec" id="expositions">
-  <div class="et-head et-rv et-rv-l"><div class="et-eyebrow">Nos expositions</div>
-    <h2 class="et-serif">Un parcours pensé <em>comme un récit</em></h2>
-    <p>Chaque salle propose une immersion distincte, entre matière brute, lumière sculptée et silence habité.</p>
-  </div>
-  <div class="et-expo-grid">
-    <div class="et-expo-card et-rv et-rv-l"><div class="et-expo-num">01</div><h3>Lueurs Suspendues</h3><p>Installations lumineuses immersives explorant la perception du temps.</p></div>
-    <div class="et-expo-card et-rv et-rv-up"><div class="et-expo-num">02</div><h3>Matière Vivante</h3><p>Sculptures monumentales en pierre, terre et métal brut.</p></div>
-    <div class="et-expo-card et-rv et-rv-r"><div class="et-expo-num">03</div><h3>Résonances</h3><p>Œuvres sonores et visuelles en dialogue avec l'architecture du lieu.</p></div>
-    <div class="et-expo-card et-rv et-rv-l"><div class="et-expo-num">04</div><h3>Horizons Peints</h3><p>Peinture contemporaine internationale, entre abstraction et paysage.</p></div>
-    <div class="et-expo-card et-rv et-rv-up"><div class="et-expo-num">05</div><h3>Regards Fixes</h3><p>Photographie plasticienne, portraits et territoires en mutation.</p></div>
-    <div class="et-expo-card et-rv et-rv-r"><div class="et-expo-num">06</div><h3>Collection Permanente</h3><p>Un ensemble d'œuvres majeures acquises depuis la fondation du musée.</p></div>
-  </div>
-</section>
-
-<section class="et-sec" id="galerie">
-  <div class="et-head et-rv et-rv-r"><div class="et-eyebrow">Galerie immersive</div>
-    <h2 class="et-serif">L'atmosphère <em>Étherium</em></h2>
-  </div>
-  <div class="et-g3d-grid">
-    <div class="et-g3d-item et-rv et-rv-l" data-cap="Le grand hall"><img src="https://images.unsplash.com/photo-1554907984-15263bfd63bd?q=80&w=700&auto=format&fit=crop" alt="Grand hall du musée"></div>
-    <div class="et-g3d-item et-rv et-rv-zoom" data-cap="Salle des lumières"><img src="https://images.unsplash.com/photo-1577720580479-7d839d829c73?q=80&w=700&auto=format&fit=crop" alt="Salle des lumières"></div>
-    <div class="et-g3d-item et-rv et-rv-r" data-cap="Sculpture monumentale"><img src="https://images.unsplash.com/photo-1577083552431-6e5fd75a9160?q=80&w=700&auto=format&fit=crop" alt="Sculpture monumentale"></div>
-    <div class="et-g3d-item et-rv et-rv-l" data-cap="Cour intérieure"><img src="https://images.unsplash.com/photo-1518998053901-5348d3961a04?q=80&w=700&auto=format&fit=crop" alt="Cour intérieure du musée"></div>
-    <div class="et-g3d-item et-rv et-rv-zoom" data-cap="Salon de lecture"><img src="https://images.unsplash.com/photo-1481277542470-605612bd2d61?q=80&w=700&auto=format&fit=crop" alt="Salon de lecture"></div>
-    <div class="et-g3d-item et-rv et-rv-r" data-cap="Escalier sculptural"><img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?q=80&w=700&auto=format&fit=crop" alt="Escalier sculptural"></div>
-  </div>
-</section>
-
-<section class="et-sec" id="reperes">
-  <div class="et-head et-rv et-rv-l"><div class="et-eyebrow">Nos repères</div>
-    <h2 class="et-serif">Une histoire <em>en construction</em></h2>
-  </div>
-  <div class="et-timeline">
-    <div class="et-tl-item et-rv et-rv-l"><div class="et-tl-dot"></div><div class="et-tl-year">2008</div><h3>Fondation du musée</h3><p>Étherium ouvre ses portes dans un ancien atelier réhabilité, avec une collection fondatrice de 40 œuvres.</p></div>
-    <div class="et-tl-item et-rv et-rv-r"><div class="et-tl-dot"></div><div class="et-tl-year">2013</div><h3>Extension de l'aile ouest</h3><p>Ouverture de trois nouvelles salles dédiées à l'art sonore et aux installations immersives.</p></div>
-    <div class="et-tl-item et-rv et-rv-l"><div class="et-tl-dot"></div><div class="et-tl-year">2018</div><h3>Reconnaissance internationale</h3><p>Étherium rejoint le réseau des musées d'art contemporain les plus visités d'Europe.</p></div>
-    <div class="et-tl-item et-rv et-rv-r"><div class="et-tl-dot"></div><div class="et-tl-year">2022</div><h3>Cour des sculptures</h3><p>Inauguration d'un jardin de sculptures monumentales en plein air.</p></div>
-    <div class="et-tl-item et-rv et-rv-l"><div class="et-tl-dot"></div><div class="et-tl-year">2026</div><h3>Nouvelle collection permanente</h3><p>Présentation d'un ensemble d'œuvres majeures acquises ces cinq dernières années.</p></div>
-  </div>
-</section>
-
-<section class="et-sec" id="avis">
-  <div class="et-head et-rv et-rv-r"><div class="et-eyebrow">Témoignages</div>
-    <h2 class="et-serif">Ce que nos visiteurs <em>en disent</em></h2>
-  </div>
-  <div class="et-avis-grid">
-    <div class="et-avis-card et-rv et-rv-l"><div class="et-stars">★★★★★</div><p class="et-avis-quote">Un parcours d'une rare cohérence, où chaque salle prolonge la précédente comme une respiration.</p><div class="et-avis-author">Camille F.</div><div class="et-avis-role">Visite guidée</div></div>
-    <div class="et-avis-card et-rv et-rv-up"><div class="et-stars">★★★★★</div><p class="et-avis-quote">La salle des lumières est une expérience à elle seule. On en ressort différent.</p><div class="et-avis-author">Julien M.</div><div class="et-avis-role">Exposition Lueurs Suspendues</div></div>
-    <div class="et-avis-card et-rv et-rv-r"><div class="et-stars">★★★★★</div><p class="et-avis-quote">Un lieu pensé jusqu'au moindre détail, du parcours à la lumière naturelle.</p><div class="et-avis-author">Aya &amp; Nora</div><div class="et-avis-role">Visite en famille</div></div>
-  </div>
-</section>
-
-<section class="et-sec">
-  <div class="et-head et-rv et-rv-l"><div class="et-eyebrow">Questions fréquentes</div>
-    <h2 class="et-serif">Tout savoir avant votre <em>venue</em></h2>
-  </div>
-  <div class="et-faq">
-    <details open class="et-rv et-rv-up"><summary>Quels sont les horaires d'ouverture ?</summary><p>Le musée est ouvert tous les jours de 10h à 19h, sauf le mardi. Nocturne le vendredi jusqu'à 22h.</p></details>
-    <details class="et-rv et-rv-up"><summary>Proposez-vous des visites guidées ?</summary><p>Oui, des visites guidées thématiques sont proposées chaque jour, sur réservation ou sur place selon disponibilité.</p></details>
-    <details class="et-rv et-rv-up"><summary>Le musée est-il accessible aux personnes à mobilité réduite ?</summary><p>L'ensemble du parcours est accessible, avec ascenseurs et rampes dans toutes les salles.</p></details>
-    <details class="et-rv et-rv-up"><summary>Peut-on privatiser certains espaces ?</summary><p>La cour des sculptures et le grand hall peuvent être privatisés pour des événements, sur demande auprès de notre équipe.</p></details>
-  </div>
-</section>
-
-<section class="et-sec et-contact" id="contact">
-  <div class="et-contact-grid">
-    <div class="et-rv et-rv-l">
-      <div class="et-eyebrow">Contact</div>
-      <h2 class="et-serif" style="margin-bottom:20px;">Préparons votre <em>visite</em></h2>
-      <div class="et-contact-line"><span class="label">Musée</span><span class="value">6 rue des Ateliers, 75011 Paris</span></div>
-      <div class="et-contact-line"><span class="label">Téléphone</span><span class="value">+33 1 46 00 00 00</span></div>
-      <div class="et-contact-line"><span class="label">Email</span><span class="value">accueil@etherium-musee.fr</span></div>
+<section class="lx-sec" id="cabinet">
+  <div class="lx-cabinet">
+    <div class="lx-cab-img">
+      <span class="lx-cab-badge lx-mono">Cabinet Lex Aeterna</span>
+      <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=900&auto=format&fit=crop" alt="Bureaux Lex Aeterna">
     </div>
-    <form class="et-form et-rv et-rv-r" onsubmit="event.preventDefault();this.querySelector('.et-btn').textContent='Demande envoyée ✓';">
+    <div class="lx-cab-text">
+      <div class="lx-eyebrow lx-mono">Le Cabinet</div>
+      <h2>Une pratique <span class="lx-serif-em">indépendante</span>, une doctrine <span class="lx-serif-em">exigeante</span>.</h2>
+      <p>Fondé à Paris, Lex Aeterna réunit des associés issus des plus grandes juridictions pour accompagner des opérations et contentieux à forte complexité, en France et à l'international.</p>
+      <p>Chaque dossier est confié à une équipe restreinte, directement supervisée par un associé, garantissant réactivité et continuité stratégique jusqu'à son issue.</p>
+      <div class="lx-cab-stats">
+        <div><b class="lx-count" data-target="30">0</b><span>Ans d'exercice</span></div>
+        <div><b class="lx-count" data-target="40">0</b><span>Juristes</span></div>
+        <div><b class="lx-count" data-target="3">0</b><span>Continents</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lx-sec lx-services" id="expertises">
+  <div class="lx-head">
+    <div class="lx-eyebrow lx-mono">Nos Expertises</div>
+    <h2>Six domaines, <span class="lx-serif-em">une seule exigence</span>.</h2>
+    <p>Une pratique structurée en articles, comme le droit lui-même — chaque expertise couvre un champ précis, mobilisée selon la nature de l'enjeu.</p>
+  </div>
+  <div class="lx-serv-grid">
+    <div class="lx-serv-card"><div class="lx-serv-art">Art. 01</div><h3>Droit des Affaires</h3><p>Accompagnement stratégique des dirigeants et structures dans leurs décisions à fort enjeu.</p></div>
+    <div class="lx-serv-card"><div class="lx-serv-art">Art. 02</div><h3>Fusions & Acquisitions</h3><p>Structuration, négociation et sécurisation juridique des opérations de rapprochement.</p></div>
+    <div class="lx-serv-card"><div class="lx-serv-art">Art. 03</div><h3>Contentieux & Arbitrage</h3><p>Défense rigoureuse devant les juridictions nationales et instances arbitrales internationales.</p></div>
+    <div class="lx-serv-card"><div class="lx-serv-art">Art. 04</div><h3>Droit Fiscal</h3><p>Optimisation et sécurisation des schémas fiscaux nationaux et transfrontaliers.</p></div>
+    <div class="lx-serv-card"><div class="lx-serv-art">Art. 05</div><h3>Droit International</h3><p>Conseil multi-juridictionnel pour groupes, investisseurs et institutions étrangères.</p></div>
+    <div class="lx-serv-card"><div class="lx-serv-art">Art. 06</div><h3>Propriété Intellectuelle</h3><p>Protection, défense et valorisation des actifs immatériels stratégiques.</p></div>
+  </div>
+</section>
+
+<section class="lx-sec" id="realisations">
+  <div class="lx-head">
+    <div class="lx-eyebrow lx-mono">Le Cabinet en Images</div>
+    <h2>Un cadre à la mesure <span class="lx-serif-em">des dossiers confiés</span></h2>
+  </div>
+  <div class="lx-gal-grid">
+    <div class="lx-gal-item" data-cap="Bibliothèque Juridique"><span class="lx-gal-num lx-mono">Voir</span><img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=700&auto=format&fit=crop" alt="Bibliothèque juridique"></div>
+    <div class="lx-gal-item" data-cap="Salle de Conférence"><span class="lx-gal-num lx-mono">Voir</span><img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=700&auto=format&fit=crop" alt="Salle de conférence"></div>
+    <div class="lx-gal-item" data-cap="Fonds Documentaire"><span class="lx-gal-num lx-mono">Voir</span><img src="https://images.unsplash.com/photo-1521790945508-bf2bb4013a08?q=80&w=700&auto=format&fit=crop" alt="Fonds documentaire"></div>
+    <div class="lx-gal-item" data-cap="Bureau — Vue Skyline"><span class="lx-gal-num lx-mono">Voir</span><img src="https://images.unsplash.com/photo-1497215728101-856f4ea42174?q=80&w=700&auto=format&fit=crop" alt="Vue skyline"></div>
+    <div class="lx-gal-item" data-cap="Façade du Cabinet"><span class="lx-gal-num lx-mono">Voir</span><img src="https://images.unsplash.com/photo-1568992687947-868a62a9f521?q=80&w=700&auto=format&fit=crop" alt="Façade du cabinet"></div>
+    <div class="lx-gal-item" data-cap="Salon Privé"><span class="lx-gal-num lx-mono">Voir</span><img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=700&auto=format&fit=crop" alt="Salon privé"></div>
+  </div>
+</section>
+
+<section class="lx-sec" id="trajectoire">
+  <div class="lx-head">
+    <div class="lx-eyebrow lx-mono">Notre Trajectoire</div>
+    <h2>Trente ans <span class="lx-serif-em">d'exercice du droit</span></h2>
+  </div>
+  <div class="lx-timeline">
+    <div class="lx-tl-row">
+      <div class="lx-tl-year">1994</div>
+      <div class="lx-tl-content"><h3>Fondation du cabinet</h3><p>Trois associés fondateurs ouvrent Lex Aeterna à Paris, autour d'une pratique de droit des affaires.</p></div>
+    </div>
+    <div class="lx-tl-row">
+      <div class="lx-tl-year">2003</div>
+      <div class="lx-tl-content"><h3>Ouverture à l'international</h3><p>Premier bureau hors de France et premiers mandats transfrontaliers pour des groupes industriels.</p></div>
+    </div>
+    <div class="lx-tl-row">
+      <div class="lx-tl-year">2011</div>
+      <div class="lx-tl-content"><h3>Reconnaissance sectorielle</h3><p>Le cabinet est distingué pour son pôle contentieux des affaires, consolidant sa réputation.</p></div>
+    </div>
+    <div class="lx-tl-row">
+      <div class="lx-tl-year">2018</div>
+      <div class="lx-tl-content"><h3>Pôle Arbitrage International</h3><p>Création d'une équipe dédiée à l'arbitrage et au contentieux multi-juridictionnel.</p></div>
+    </div>
+    <div class="lx-tl-row">
+      <div class="lx-tl-year">2026</div>
+      <div class="lx-tl-content"><h3>Lex Aeterna aujourd'hui</h3><p>Plus de 40 juristes, une présence sur trois continents et une doctrine inchangée.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="lx-stats-band">
+  <div class="lx-sec" style="padding-top:66px;padding-bottom:66px;">
+    <div class="lx-band-grid">
+      <div class="lx-band-stat"><div class="lx-band-num lx-count" data-target="30">0</div><div class="lx-band-label">Ans d'exercice</div></div>
+      <div class="lx-band-stat"><div class="lx-band-num lx-count" data-target="1200">0</div><div class="lx-band-label">Dossiers traités</div></div>
+      <div class="lx-band-stat"><div class="lx-band-num lx-count" data-target="96">0</div><div class="lx-band-label">% Issues favorables</div></div>
+      <div class="lx-band-stat"><div class="lx-band-num lx-count" data-target="3">0</div><div class="lx-band-label">Continents</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="lx-sec" id="avis">
+  <div class="lx-head">
+    <div class="lx-eyebrow lx-mono">Témoignages</div>
+    <h2>La confiance de nos <span class="lx-serif-em">clients</span></h2>
+    <p>Par exigence de confidentialité, nos clients sont cités sans nom, conformément aux usages de la profession.</p>
+  </div>
+  <div class="lx-avis-grid">
+    <div class="lx-avis-card"><div class="lx-avis-mark lx-mono">Fusion transfrontalière</div><p class="lx-avis-quote">Une maîtrise remarquable des enjeux transfrontaliers, portée par une discrétion absolue.</p><div class="lx-avis-author lx-mono">Direction Juridique</div><div class="lx-avis-role lx-mono">Groupe Industriel</div></div>
+    <div class="lx-avis-card"><div class="lx-avis-mark lx-mono">Contentieux commercial</div><p class="lx-avis-quote">Une défense d'une rigueur inflexible, jusque dans les moindres détails de la procédure.</p><div class="lx-avis-author lx-mono">Client Confidentiel</div><div class="lx-avis-role lx-mono">Secteur Énergie</div></div>
+    <div class="lx-avis-card"><div class="lx-avis-mark lx-mono">Stratégie fiscale</div><p class="lx-avis-quote">Une écoute rare et une clarté totale dans la construction de notre stratégie fiscale.</p><div class="lx-avis-author lx-mono">Family Office Privé</div><div class="lx-avis-role lx-mono">Gestion de patrimoine</div></div>
+  </div>
+</section>
+
+<section class="lx-sec">
+  <div class="lx-head">
+    <div class="lx-eyebrow lx-mono">Questions Fréquentes</div>
+    <h2>Avant votre <span class="lx-serif-em">premier rendez-vous</span></h2>
+  </div>
+  <div class="lx-faq">
+    <details open><summary>Comment se déroule un premier rendez-vous ?</summary><p>Un entretien confidentiel d'une heure permet d'analyser votre dossier et de définir, si nécessaire, une stratégie d'intervention.</p></details>
+    <details><summary>Vos honoraires sont-ils communiqués à l'avance ?</summary><p>Oui, une convention d'honoraires détaillée est systématiquement établie avant toute intervention.</p></details>
+    <details><summary>Intervenez-vous en dehors du territoire français ?</summary><p>Notre réseau de correspondants nous permet d'intervenir sur trois continents pour les dossiers transfrontaliers.</p></details>
+    <details><summary>La confidentialité de nos échanges est-elle garantie ?</summary><p>Le secret professionnel de l'avocat s'applique à l'intégralité de nos échanges, sans exception.</p></details>
+  </div>
+</section>
+
+<section class="lx-sec lx-contact" id="contact">
+  <div class="lx-contact-grid">
+    <div>
+      <div class="lx-eyebrow lx-mono">Contact</div>
+      <h2 style="margin-bottom:22px;">Demander une <span class="lx-serif-em">consultation</span></h2>
+      <div class="lx-contact-line"><span class="label">Cabinet</span><span class="value">12 rue du Palais, 75001 Paris</span></div>
+      <div class="lx-contact-line"><span class="label">Téléphone</span><span class="value">+33 1 42 00 00 00</span></div>
+      <div class="lx-contact-line"><span class="label">Email</span><span class="value">contact@lex-aeterna.fr</span></div>
+    </div>
+    <form class="lx-form" onsubmit="event.preventDefault();this.querySelector('.lx-btn').textContent='Demande transmise ✓';">
       <div><label>Nom complet</label><input type="text" required></div>
       <div><label>Email</label><input type="email" required></div>
-      <div><label>Date souhaitée</label><input type="text" placeholder="Ex : 14 juillet"></div>
+      <div><label>Domaine juridique concerné</label><input type="text" placeholder="Ex : Fusions-Acquisitions"></div>
       <div><label>Message</label><textarea rows="3"></textarea></div>
-      <button type="submit" class="et-btn et-btn-gold" style="align-self:flex-start;">Envoyer la demande</button>
+      <button type="submit" class="lx-btn lx-btn-or" style="align-self:flex-start;">Envoyer la demande</button>
     </form>
   </div>
 </section>
 
-<footer class="et-footer">
-  <span>© 2026 Étherium — Tous droits réservés</span>
-  <span>Musée d'Art Contemporain</span>
+<footer class="lx-footer">
+  <span>© 2026 Lex Aeterna — Tous droits réservés</span>
+  <span>Cabinet d'Avocats — Barreau de Paris</span>
 </footer>
 
 <script>
 (function(){
-  var root = document.currentScript.closest('.etherium-preview');
-  var items = root.querySelectorAll('.et-rv');
-  items.forEach(function(el,i){ el.classList.add('et-pre'); el.style.setProperty('--d',(i%3)*0.08+'s'); });
+  var root = document.currentScript.closest('.lex-preview');
+  var loader = root.querySelector('#lxLoader');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var delay = reduced ? 200 : 2700;
+  setTimeout(function(){
+    loader.classList.add('lx-hide');
+    setTimeout(function(){ if(loader && loader.parentNode) loader.style.display='none'; }, 1200);
+  }, delay);
+  var nums = root.querySelectorAll('.lx-count');
+  var done = false;
+  function animate(){
+    if(done) return; done = true;
+    nums.forEach(function(el){
+      var target = parseInt(el.getAttribute('data-target'),10) || 0;
+      var t0 = performance.now(), dur = 1400;
+      function step(now){
+        var p = Math.min((now-t0)/dur,1), e = 1-Math.pow(1-p,3);
+        el.textContent = Math.round(target*e);
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
   if('IntersectionObserver' in window){
     var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.add('et-in'); obs.unobserve(e.target); }
-      });
-    },{threshold:.18, rootMargin:'0px 0px -60px 0px'});
-    items.forEach(function(el){ obs.observe(el); });
-  } else {
-    items.forEach(function(el){ el.classList.add('et-in'); });
-  }
+      entries.forEach(function(e){ if(e.isIntersecting) animate(); });
+    },{threshold:.35});
+    root.querySelectorAll('.lx-cab-stats, .lx-stats-band').forEach(function(s){ obs.observe(s); });
+  } else { animate(); }
 })();
 <\/script>
 </div>`;
-          break;
-
-        // =====================================================================
-        // COMMUNITY MANAGEMENT — reproductions fidèles d'un post réellement
-        // publié sur chaque plateforme, avec les éléments d'interface attendus
-        // =====================================================================
-
-        case 'cm-1':
-          html = `${ANIM_STYLES}
-            <div style="background:#000; padding:30px; border-radius:12px; display:flex; justify-content:center;">
-              <div class="fu" style="animation-delay:0s; width:380px; background:#fff; border-radius:12px; overflow:hidden; font-family:'Space Grotesk', sans-serif; color:#000;">
-                <div style="display:flex; align-items:center; justify-content:space-between; padding:12px 14px;">
-                  <div style="display:flex; align-items:center; gap:10px;">
-                    <div style="width:32px; height:32px; border-radius:50%; background:linear-gradient(135deg,#E7B49A,#C97D5F);"></div>
-                    <span style="font-size:0.82rem; font-weight:700;">Aperçu social</span>
-                  </div>
-                  <span style="font-size:1rem; color:#666;">⋯</span>
-                </div>
-                <div style="width:100%; aspect-ratio:1; background:linear-gradient(135deg,#F3D9C4,#E8792E 60%,#2E1B0F); display:flex; align-items:center; justify-content:center; font-size:2rem;">🥖</div>
-                <div style="padding:10px 14px 4px; display:flex; justify-content:space-between; font-size:1.15rem;">
-                  <div style="display:flex; gap:14px;"><span style="display:inline-block; animation:heartPop .5s ease .3s;">❤️</span><span>💬</span><span>↗</span></div>
-                  <span>🔖</span>
-                </div>
-                <div style="padding:0 14px; font-size:0.8rem; font-weight:700;">1 240 mentions J'aime</div>
-                <div style="padding:4px 14px 4px; font-size:0.8rem; line-height:1.4;"><b>Aperçu social</b> Un post d'exemple propre, sans marque ni données client. <span style="color:#00376B;">#exemple #designpropre</span></div>
-                <div style="padding:0 14px 14px; font-size:0.7rem; color:#8e8e8e; text-transform:uppercase;">Il y a 2 heures</div>
-              </div>
-            </div>`;
           break;
 
         case 'cm-2':
