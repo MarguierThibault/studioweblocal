@@ -716,16 +716,11 @@ function showToast(){
       premium: [
         { name: "Exemple Premium 1", tag: "Premium • Aperçu propre", url: "exemple-premium-1.fr", layout: "premium-1", desc: "Aperçu de site premium propre, sans données réelles ni contenu client." },
         { name: "Exemple Premium 2", tag: "Premium • Aperçu propre", url: "exemple-premium-2.fr", layout: "premium-2", desc: "Aperçu de site premium propre, sans données réelles ni contenu client." },
-        { name: "Exemple Premium 3", tag: "Premium • Aperçu propre", url: "exemple-premium-3.fr", layout: "premium-3", desc: "Aperçu de site premium propre, sans données réelles ni contenu client." },
-        { name: "Exemple Premium 4", tag: "Premium • Aperçu propre", url: "exemple-premium-4.fr", layout: "premium-4", desc: "Aperçu de site premium propre, sans données réelles ni contenu client." },
-        { name: "Exemple Premium 5", tag: "Premium • Aperçu propre", url: "exemple-premium-5.fr", layout: "premium-5", desc: "Aperçu de site premium propre, sans données réelles ni contenu client." }
+        { name: "Exemple Premium 3", tag: "Premium • Aperçu propre", url: "exemple-premium-3.fr", layout: "premium-3", desc: "Aperçu de site premium propre, sans données réelles ni contenu client." }
       ],
       ultra: [
         { name: "Exemple Ultra 1", tag: "Ultra • Aperçu propre", url: "exemple-ultra-1.fr", layout: "ultra-1", desc: "Aperçu d'expérience ultra propre, sans données réelles ni contenu client." },
-        { name: "Exemple Ultra 2", tag: "Ultra • Aperçu propre", url: "exemple-ultra-2.fr", layout: "ultra-2", desc: "Aperçu d'expérience ultra propre, sans données réelles ni contenu client." },
-        { name: "Exemple Ultra 3", tag: "Ultra • Aperçu propre", url: "exemple-ultra-3.fr", layout: "ultra-3", desc: "Aperçu d'expérience ultra propre, sans données réelles ni contenu client." },
-        { name: "Exemple Ultra 4", tag: "Ultra • Aperçu propre", url: "exemple-ultra-4.fr", layout: "ultra-4", desc: "Aperçu d'expérience ultra propre, sans données réelles ni contenu client." },
-        { name: "Exemple Ultra 5", tag: "Ultra • Aperçu propre", url: "exemple-ultra-5.fr", layout: "ultra-5", desc: "Aperçu d'expérience ultra propre, sans données réelles ni contenu client." }
+        { name: "Exemple Ultra 2", tag: "Ultra • Aperçu propre", url: "exemple-ultra-2.fr", layout: "ultra-2", desc: "Aperçu d'expérience ultra propre, sans données réelles ni contenu client." }
       ],
       cm: [
         { name: "Exemple Social 1", tag: "Community • Aperçu propre", url: "exemple-social-1", layout: "cm-1", desc: "Aperçu de publication propre, sans contenus réels ni marques." },
@@ -2079,54 +2074,268 @@ function showToast(){
 
         case 'premium-3':
           html = `${ANIM_STYLES}
-            <div style="background:#fff; color:#0A0A0A; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; border-radius:12px; overflow:hidden;">
-              <div style="display:flex; justify-content:space-between; align-items:center; padding:20px 45px; border-bottom:2px solid #0A0A0A;">
-                <span style="font-weight:800; font-size:1rem;">🔧 Expert Plomberie Rapide</span>
-                <span style="font-size:0.8rem; font-weight:700; color:#0055FF; display:flex; align-items:center; gap:6px;"><span style="width:8px; height:8px; border-radius:50%; background:#22C55E; display:inline-block; animation:pulseGlow 1.6s ease infinite; --glow:rgba(34,197,94,.7);"></span>Disponible maintenant</span>
-              </div>
-              <div style="padding:40px 45px;">
-                <h1 class="fu" style="animation-delay:.05s; font-size:2.1rem; font-weight:800; line-height:1.15; margin:0 0 30px; max-width:500px;">Une fuite ? On intervient, on répare, on vous dit le prix avant.</h1>
-                <div style="display:grid; grid-template-columns:repeat(3,1fr); border-top:2px solid #0A0A0A; border-bottom:2px solid #0A0A0A; margin-bottom:30px;">
-                  <div class="fu" style="animation-delay:.15s; padding:18px; border-right:1px solid #ddd;"><div style="font-weight:800; color:#0055FF; margin-bottom:6px;">1. Appelez</div><div style="font-size:0.78rem; color:#555;">Réponse en moins de 3 min</div></div>
-                  <div class="fu" style="animation-delay:.3s; padding:18px; border-right:1px solid #ddd;"><div style="font-weight:800; color:#0055FF; margin-bottom:6px;">2. Diagnostic</div><div style="font-size:0.78rem; color:#555;">Devis fixe, sans surprise</div></div>
-                  <div class="fu" style="animation-delay:.45s; padding:18px;"><div style="font-weight:800; color:#0055FF; margin-bottom:6px;">3. Intervention</div><div style="font-size:0.78rem; color:#555;">Sur site en 45 min</div></div>
-                </div>
-                <button class="fu" style="animation-delay:.6s; background:#0055FF; color:#fff; border:none; padding:17px; width:100%; font-weight:800; text-transform:uppercase; font-size:0.9rem; cursor:pointer;">Demander une intervention maintenant</button>
-              </div>
+            <div class="celeste-preview">
+<style>
+.celeste-preview{--bleu:#0B1229;--bleu-2:#16224A;--champagne:#D9B872;--champagne-clair:#EFDFB2;--creme:#F8F3E8;--cuivre:#B8763E;--cuivre-clair:#D69A5D;
+  font-family:'Jost','Poppins','Segoe UI',sans-serif;background:var(--creme);color:var(--bleu);max-width:1220px;margin:0 auto;overflow:hidden;border-radius:22px;box-shadow:0 30px 80px rgba(11,18,41,.18);}
+.celeste-preview *{box-sizing:border-box;margin:0;padding:0;}
+.celeste-preview a{color:inherit;text-decoration:none;}
+.celeste-preview img{max-width:100%;display:block;}
+.cr-serif{font-family:'Cormorant Garamond','Playfair Display',Georgia,serif;}
+.cr-eyebrow{font-size:.72rem;letter-spacing:.32em;text-transform:uppercase;color:var(--cuivre);margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+.cr-eyebrow::before{content:'';width:26px;height:1px;background:var(--cuivre);}
+.cr-header{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:22px 44px;background:rgba(11,18,41,.88);backdrop-filter:blur(10px);border-bottom:1px solid rgba(217,184,114,.18);}
+.cr-logo{font-family:'Cormorant Garamond','Playfair Display',Georgia,serif;font-size:1.35rem;letter-spacing:.06em;color:var(--creme);}
+.cr-logo span{display:block;font-family:'Jost',sans-serif;font-size:.58rem;letter-spacing:.32em;color:var(--champagne);margin-top:2px;}
+.cr-nav{display:flex;gap:30px;flex-wrap:wrap;}
+.cr-nav a{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;color:var(--champagne-clair);}
+.cr-nav a:hover{color:var(--champagne);}
+.cr-hero{position:relative;min-height:560px;display:flex;align-items:center;justify-content:center;text-align:center;background:linear-gradient(180deg,rgba(11,18,41,.55),rgba(11,18,41,.92)),url('https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;padding:70px 40px;}
+.cr-hero-inner{max-width:680px;color:var(--creme);}
+.cr-hero h1{font-size:clamp(2.4rem,5vw,4rem);font-weight:500;line-height:1.08;margin-bottom:22px;}
+.cr-hero h1 em{font-style:italic;color:var(--champagne);}
+.cr-hero p{font-size:1rem;color:rgba(248,243,232,.78);max-width:480px;margin:0 auto 34px;line-height:1.7;}
+.cr-hero-cta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.cr-btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;border-radius:999px;cursor:pointer;transition:all .3s ease;}
+.cr-btn-gold{background:linear-gradient(135deg,var(--champagne),var(--cuivre));color:var(--bleu);border:none;font-weight:600;}
+.cr-btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(217,184,114,.28);}
+.cr-btn-ghost{background:transparent;border:1px solid rgba(248,243,232,.4);color:var(--creme);}
+.cr-btn-ghost:hover{border-color:var(--champagne);color:var(--champagne);}
+.cr-sec{padding:90px 44px;}
+.cr-head{max-width:620px;margin-bottom:50px;}
+.cr-head h2{font-size:clamp(1.8rem,3.2vw,2.6rem);font-weight:500;line-height:1.15;}
+.cr-head h2 em{font-style:italic;color:var(--cuivre);}
+.cr-head p{color:#4A4638;margin-top:14px;line-height:1.75;font-size:.98rem;}
+.cr-presentation{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center;}
+.cr-pres-img{aspect-ratio:4/5;border-radius:18px;overflow:hidden;border:1px solid rgba(184,118,62,.2);}
+.cr-pres-img img{width:100%;height:100%;object-fit:cover;}
+.cr-pres-text p{color:#4A4638;line-height:1.8;margin-bottom:18px;font-size:.98rem;}
+.cr-services{background:var(--bleu);color:var(--creme);}
+.cr-services .cr-head p{color:rgba(248,243,232,.7);}
+.cr-services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
+.cr-service-card{background:var(--bleu-2);border:1px solid rgba(217,184,114,.16);border-radius:16px;padding:30px 26px;transition:transform .3s ease,border-color .3s ease;}
+.cr-service-card:hover{transform:translateY(-6px);border-color:var(--champagne);}
+.cr-service-icon{font-size:1.6rem;margin-bottom:16px;}
+.cr-service-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:500;margin-bottom:10px;color:var(--champagne-clair);}
+.cr-service-card p{font-size:.86rem;color:rgba(248,243,232,.65);line-height:1.65;}
+.cr-gallery-grid{display:grid;grid-template-columns:repeat(6,1fr);grid-auto-rows:130px;gap:12px;}
+.cr-gitem{position:relative;overflow:hidden;border-radius:14px;}
+.cr-gitem img{width:100%;height:100%;object-fit:cover;filter:brightness(.82) saturate(1.05);transition:transform .6s ease,filter .4s ease;}
+.cr-gitem:hover img{transform:scale(1.07);filter:brightness(1) saturate(1.1);}
+.cr-gitem::after{content:attr(data-cap);position:absolute;left:0;right:0;bottom:0;padding:14px 16px;background:linear-gradient(0deg,rgba(11,18,41,.85),transparent);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.05rem;color:var(--champagne-clair);opacity:0;transform:translateY(8px);transition:all .35s ease;}
+.cr-gitem:hover::after{opacity:1;transform:translateY(0);}
+.cr-gitem:nth-child(1){grid-column:span 3;grid-row:span 3;}
+.cr-gitem:nth-child(2){grid-column:span 3;grid-row:span 2;}
+.cr-gitem:nth-child(3){grid-column:span 2;grid-row:span 2;}
+.cr-gitem:nth-child(4){grid-column:span 4;grid-row:span 2;}
+.cr-gitem:nth-child(5){grid-column:span 3;grid-row:span 2;}
+.cr-gitem:nth-child(6){grid-column:span 3;grid-row:span 2;}
+.cr-video{position:relative;border-radius:20px;overflow:hidden;min-height:380px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(11,18,41,.35),rgba(11,18,41,.85)),url('https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;}
+.cr-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;}
+.cr-play{position:relative;width:78px;height:78px;border-radius:50%;background:rgba(248,243,232,.14);border:1px solid var(--champagne);display:flex;align-items:center;justify-content:center;cursor:pointer;backdrop-filter:blur(4px);}
+.cr-play::before{content:'';position:absolute;inset:-14px;border-radius:50%;border:1px solid rgba(217,184,114,.4);animation:crPulse 2.4s ease-out infinite;}
+@keyframes crPulse{0%{transform:scale(.9);opacity:.8;}100%{transform:scale(1.5);opacity:0;}}
+.cr-play span{color:var(--champagne-clair);font-size:1.5rem;margin-left:5px;}
+.cr-video-cap{position:absolute;bottom:30px;left:0;right:0;text-align:center;color:var(--creme);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.3rem;}
+.cr-stats{background:linear-gradient(135deg,rgba(217,184,114,.09),rgba(184,118,62,.06));}
+.cr-stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center;}
+.cr-stat{padding:30px 16px;background:#fff;border:1px solid rgba(184,118,62,.15);border-radius:16px;}
+.cr-stat-num{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:var(--cuivre);font-weight:600;}
+.cr-stat-label{font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:#4A4638;margin-top:8px;}
+.cr-avis-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(184,118,62,.18);border:1px solid rgba(184,118,62,.18);border-radius:16px;overflow:hidden;}
+.cr-avis-card{background:#fff;padding:32px 28px;}
+.cr-stars{color:var(--cuivre);letter-spacing:2px;margin-bottom:16px;font-size:.9rem;}
+.cr-avis-quote{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.08rem;line-height:1.6;margin-bottom:20px;}
+.cr-avis-quote::before{content:'“';color:var(--cuivre);}
+.cr-avis-quote::after{content:'”';color:var(--cuivre);}
+.cr-avis-author{font-size:.84rem;font-weight:600;}
+.cr-avis-role{font-size:.76rem;color:#8a8470;margin-top:2px;}
+.cr-faq{max-width:760px;}
+.cr-faq details{background:#fff;border:1px solid rgba(184,118,62,.18);border-radius:12px;padding:18px 22px;margin-bottom:12px;}
+.cr-faq summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;list-style:none;display:flex;justify-content:space-between;align-items:center;}
+.cr-faq summary::-webkit-details-marker{display:none;}
+.cr-faq summary::after{content:'+';color:var(--cuivre);font-size:1.3rem;transition:transform .3s ease;}
+.cr-faq details[open] summary::after{transform:rotate(45deg);}
+.cr-faq p{margin-top:12px;color:#4A4638;font-size:.9rem;line-height:1.65;}
+.cr-contact{background:var(--bleu);color:var(--creme);}
+.cr-contact .cr-head p{color:rgba(248,243,232,.7);}
+.cr-contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;}
+.cr-contact-line{margin-bottom:20px;}
+.cr-contact-line .label{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--champagne);margin-bottom:4px;display:block;}
+.cr-contact-line .value{font-size:1.02rem;}
+.cr-form{display:flex;flex-direction:column;gap:16px;}
+.cr-form label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--champagne-clair);margin-bottom:6px;display:block;}
+.cr-form input,.cr-form textarea{width:100%;background:rgba(248,243,232,.06);border:1px solid rgba(217,184,114,.28);border-radius:8px;padding:11px 14px;color:var(--creme);font-family:inherit;font-size:.9rem;outline:none;transition:border-color .3s ease;}
+.cr-form input:focus,.cr-form textarea:focus{border-color:var(--champagne);}
+.cr-footer{padding:30px 44px;border-top:1px solid rgba(217,184,114,.16);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;font-size:.8rem;color:rgba(248,243,232,.55);background:var(--bleu);}
+@media(max-width:860px){.cr-presentation,.cr-contact-grid{grid-template-columns:1fr;}.cr-services-grid,.cr-avis-grid{grid-template-columns:1fr;}.cr-gallery-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px;}.cr-gitem{grid-column:span 1!important;grid-row:span 1!important;}.cr-stats-grid{grid-template-columns:repeat(2,1fr);}.cr-nav{display:none;}.cr-header{padding:18px 24px;}.cr-sec{padding:60px 24px;}}
+</style>
+
+<header class="cr-header">
+  <div class="cr-logo">CÉLESTE<span>RESIDENCE · HÔTEL 5 ÉTOILES</span></div>
+  <nav class="cr-nav">
+    <a href="#presentation">Présentation</a>
+    <a href="#services">Services</a>
+    <a href="#galerie">Galerie</a>
+    <a href="#avis">Avis</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a href="#contact" class="cr-btn cr-btn-gold">Réserver</a>
+</header>
+
+<section class="cr-hero">
+  <div class="cr-hero-inner">
+    <div class="cr-eyebrow" style="justify-content:center;color:var(--champagne);">Hôtel design premium</div>
+    <h1 class="cr-serif">Une parenthèse suspendue <em>entre ciel et lumière</em></h1>
+    <p>Céleste Residence réunit architecture intemporelle, lumière naturelle et service discret, pour un séjour pensé comme une respiration.</p>
+    <div class="cr-hero-cta">
+      <a href="#contact" class="cr-btn cr-btn-gold">Réserver un séjour</a>
+      <a href="#galerie" class="cr-btn cr-btn-ghost">Découvrir les suites</a>
+    </div>
+  </div>
+</section>
+
+<section class="cr-sec" id="presentation">
+  <div class="cr-presentation">
+    <div class="cr-pres-img"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=900&auto=format&fit=crop" alt="Suite Céleste Residence"></div>
+    <div class="cr-pres-text">
+      <div class="cr-eyebrow">Notre philosophie</div>
+      <h2 class="cr-serif">Le luxe est une question de <em>silence</em>, pas d'ornement.</h2>
+      <p>Chaque suite est pensée comme un cocon minéral, où la lumière naturelle et les matières nobles — laiton brossé, marbre veiné, lin lourd — composent une atmosphère apaisée.</p>
+      <p>Notre équipe s'efface avec élégance pour ne laisser place qu'à l'essentiel : votre temps, votre repos, votre récit.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cr-sec cr-services" id="services">
+  <div class="cr-head">
+    <div class="cr-eyebrow">Nos prestations</div>
+    <h2 class="cr-serif">Un art de recevoir, <em>en toute discrétion</em>.</h2>
+    <p>Une palette de services pensés pour effacer les frictions du séjour et sublimer chaque instant.</p>
+  </div>
+  <div class="cr-services-grid">
+    <div class="cr-service-card"><div class="cr-service-icon">🛏️</div><h3>Suites & Chambres</h3><p>24 suites baignées de lumière, literie sur-mesure et vue dégagée sur les jardins.</p></div>
+    <div class="cr-service-card"><div class="cr-service-icon">🧖</div><h3>Spa & Bien-être</h3><p>Rituels signature, bassin thermal et cabines de soins privatives.</p></div>
+    <div class="cr-service-card"><div class="cr-service-icon">🍽️</div><h3>Restaurant Gastronomique</h3><p>Une cuisine de saison, portée par des produits locaux et une carte confidentielle.</p></div>
+    <div class="cr-service-card"><div class="cr-service-icon">🛎️</div><h3>Conciergerie 24/7</h3><p>Un service attentif et disponible à toute heure, pensé pour anticiper vos envies.</p></div>
+    <div class="cr-service-card"><div class="cr-service-icon">🌇</div><h3>Piscine & Rooftop</h3><p>Bassin à débordement et rooftop panoramique, ouverts jusqu'au crépuscule.</p></div>
+    <div class="cr-service-card"><div class="cr-service-icon">🥂</div><h3>Événements privés</h3><p>Salons intimistes pour célébrations, séminaires et réceptions sur-mesure.</p></div>
+  </div>
+</section>
+
+<section class="cr-sec" id="galerie">
+  <div class="cr-head">
+    <div class="cr-eyebrow">Galerie immersive</div>
+    <h2 class="cr-serif">L'atmosphère <em>Céleste</em></h2>
+  </div>
+  <div class="cr-gallery-grid">
+    <div class="cr-gitem" data-cap="Le lobby"><img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=900&auto=format&fit=crop" alt="Lobby Céleste Residence"></div>
+    <div class="cr-gitem" data-cap="La suite"><img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?q=80&w=900&auto=format&fit=crop" alt="Suite"></div>
+    <div class="cr-gitem" data-cap="Le spa"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=900&auto=format&fit=crop" alt="Spa"></div>
+    <div class="cr-gitem" data-cap="Le rooftop"><img src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1200&auto=format&fit=crop" alt="Rooftop"></div>
+    <div class="cr-gitem" data-cap="La table"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=900&auto=format&fit=crop" alt="Restaurant"></div>
+    <div class="cr-gitem" data-cap="La piscine"><img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?q=80&w=900&auto=format&fit=crop" alt="Piscine"></div>
+  </div>
+</section>
+
+<section class="cr-sec">
+  <div class="cr-video">
+    <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=80&w=1600&auto=format&fit=crop">
+      <source src="https://assets.mixkit.co/videos/preview/mixkit-hotel-swimming-pool-at-night-4192-large.mp4" type="video/mp4">
+    </video>
+    <div class="cr-play"><span>▶</span></div>
+    <div class="cr-video-cap">Plongez dans l'atmosphère Céleste</div>
+  </div>
+</section>
+
+<section class="cr-sec cr-stats">
+  <div class="cr-stats-grid">
+    <div class="cr-stat"><div class="cr-stat-num" data-target="24">0</div><div class="cr-stat-label">Suites</div></div>
+    <div class="cr-stat"><div class="cr-stat-num" data-target="5">0</div><div class="cr-stat-label">Étoiles</div></div>
+    <div class="cr-stat"><div class="cr-stat-num" data-target="98">0</div><div class="cr-stat-label">% Clients satisfaits</div></div>
+    <div class="cr-stat"><div class="cr-stat-num" data-target="12">0</div><div class="cr-stat-label">Ans d'excellence</div></div>
+  </div>
+</section>
+
+<section class="cr-sec" id="avis">
+  <div class="cr-head">
+    <div class="cr-eyebrow">Témoignages</div>
+    <h2 class="cr-serif">Ce que nos hôtes <em>en disent</em></h2>
+  </div>
+  <div class="cr-avis-grid">
+    <div class="cr-avis-card"><div class="cr-stars">★★★★★</div><p class="cr-avis-quote">Un silence rare, un service d'une justesse absolue. On y retourne dès que possible.</p><div class="cr-avis-author">Charlotte R.</div><div class="cr-avis-role">Séjour romantique</div></div>
+    <div class="cr-avis-card"><div class="cr-stars">★★★★★</div><p class="cr-avis-quote">Le spa et le rooftop sont d'une élégance folle. Chaque détail est pensé.</p><div class="cr-avis-author">Nicolas B.</div><div class="cr-avis-role">Séjour d'affaires</div></div>
+    <div class="cr-avis-card"><div class="cr-stars">★★★★★</div><p class="cr-avis-quote">La conciergerie a anticipé chacune de nos envies. Un vrai sentiment d'exception.</p><div class="cr-avis-author">Aya & Julien</div><div class="cr-avis-role">Anniversaire</div></div>
+  </div>
+</section>
+
+<section class="cr-sec">
+  <div class="cr-head">
+    <div class="cr-eyebrow">Questions fréquentes</div>
+    <h2 class="cr-serif">Tout savoir avant votre <em>séjour</em></h2>
+  </div>
+  <div class="cr-faq">
+    <details open><summary>Quels sont les horaires d'arrivée et de départ ?</summary><p>Arrivée à partir de 15h, départ jusqu'à 12h. Un service de bagagerie est disponible en dehors de ces horaires.</p></details>
+    <details><summary>Les animaux sont-ils acceptés ?</summary><p>Oui, sur demande préalable et dans certaines catégories de suites uniquement.</p></details>
+    <details><summary>Le spa est-il accessible aux non-résidents ?</summary><p>Oui, sur réservation, dans la limite des disponibilités quotidiennes.</p></details>
+    <details><summary>Proposez-vous un service de transfert ?</summary><p>Un service de transfert privé peut être organisé par notre conciergerie, sur simple demande.</p></details>
+  </div>
+</section>
+
+<section class="cr-sec cr-contact" id="contact">
+  <div class="cr-contact-grid">
+    <div>
+      <div class="cr-eyebrow">Contact</div>
+      <h2 class="cr-serif" style="margin-bottom:20px;">Préparons votre <em>séjour</em></h2>
+      <div class="cr-contact-line"><span class="label">Adresse</span><span class="value">14 allée des Cèdres, 74120 Megève</span></div>
+      <div class="cr-contact-line"><span class="label">Téléphone</span><span class="value">+33 4 50 00 00 00</span></div>
+      <div class="cr-contact-line"><span class="label">Email</span><span class="value">reservation@celeste-residence.fr</span></div>
+    </div>
+    <form class="cr-form" onsubmit="event.preventDefault();this.querySelector('.cr-btn').textContent='Demande envoyée ✓';">
+      <div><label>Nom complet</label><input type="text" required></div>
+      <div><label>Email</label><input type="email" required></div>
+      <div><label>Dates souhaitées</label><input type="text" placeholder="Ex : 12 - 15 juillet"></div>
+      <div><label>Message</label><textarea rows="3"></textarea></div>
+      <button type="submit" class="cr-btn cr-btn-gold" style="align-self:flex-start;">Envoyer la demande</button>
+    </form>
+  </div>
+</section>
+
+<footer class="cr-footer">
+  <span>© 2026 Céleste Residence — Tous droits réservés</span>
+  <span>Hôtel design premium</span>
+</footer>
+
+<script>
+(function(){
+  var root = document.currentScript.closest('.celeste-preview');
+  var nums = root.querySelectorAll('.cr-stat-num');
+  var done = false;
+  function animate(){
+    if(done) return; done = true;
+    nums.forEach(function(el){
+      var target = parseInt(el.getAttribute('data-target'),10) || 0;
+      var start = 0, t0 = performance.now(), dur = 1300;
+      function step(now){
+        var p = Math.min((now-t0)/dur,1), e = 1-Math.pow(1-p,3);
+        el.textContent = Math.round(start + (target-start)*e);
+        if(p<1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  var statSection = root.querySelector('.cr-stats');
+  if('IntersectionObserver' in window && statSection){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting) animate(); });
+    },{threshold:.4});
+    obs.observe(statSection);
+  } else { animate(); }
+})();
+<\/script>
+</div>
             </div>`;
           break;
-
-        case 'premium-4':
-          html = `${ANIM_STYLES}
-            <div style="background:#EEF1F5; color:#101820; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; padding:45px; border-radius:12px; position:relative; overflow:hidden;">
-              <svg style="position:absolute; right:35px; top:30px; animation:floatY 5s ease-in-out infinite;" width="240" height="200" viewBox="0 0 260 220">
-                <polygon points="130,10 250,70 250,150 130,210 10,150 10,70" fill="none" stroke="#0EA5B5" stroke-width="1"/>
-                <polygon points="130,10 250,70 130,130 10,70" fill="none" stroke="#0EA5B5" stroke-width="1"/>
-                <line x1="130" y1="130" x2="130" y2="210" stroke="#0EA5B5" stroke-width="1"/>
-              </svg>
-              <span class="fu" style="animation-delay:.05s; display:block; font-family:monospace; font-size:0.7rem; color:#0EA5B5; letter-spacing:1px; margin-bottom:20px;">RÉF. PLAN — LGP/MOD—03</span>
-              <h1 class="fu" style="animation-delay:.15s; font-size:2.1rem; font-weight:800; line-height:1.15; max-width:440px; margin:0 0 26px;">Bâtiments modulaires clés en main, déployés en 4 semaines.</h1>
-              <p class="fu" style="animation-delay:.3s; font-size:0.85rem; color:#4B5866; max-width:400px; line-height:1.5; margin-bottom:30px;">Extension ultra-rapide de vos surfaces de stockage ou de bureaux, sans interruption d'activité.</p>
-              <div class="fu" style="animation-delay:.45s; display:flex; gap:12px; flex-wrap:wrap;">
-                <div style="background:#fff; border:1px solid #D3DAE1; padding:14px 18px; font-size:0.75rem;"><b style="color:#0EA5B5;">Portée libre</b><br>jusqu'à 40 m</div>
-                <div style="background:#fff; border:1px solid #D3DAE1; padding:14px 18px; font-size:0.75rem;"><b style="color:#0EA5B5;">Chiffrage</b><br>sous 48h ouvrées</div>
-                <button style="background:#101820; color:#fff; border:none; padding:14px 20px; font-size:0.75rem; font-weight:700; text-transform:uppercase; cursor:pointer;">Étudier mon plan</button>
-              </div>
-            </div>`;
-          break;
-
-        case 'premium-5':
-          html = `${ANIM_STYLES}
-            <div style="background:#1C0E10; color:#F3E9DC; font-family:'Georgia', serif; max-width:850px; margin:0 auto; padding:55px; border-radius:12px; text-align:center;">
-              <span class="fu" style="animation-delay:.05s; display:block; font-family:'Space Grotesk', sans-serif; font-size:0.65rem; letter-spacing:5px; text-transform:uppercase; color:#C9A24B;">L'Étoile — Table confidentielle</span>
-              <div style="width:120px; height:120px; border-radius:50%; margin:28px auto; background:radial-gradient(circle at 40% 35%, #4A2A24, #1C0E10 70%); box-shadow:0 0 0 1px #C9A24B; animation:pulseGlow 2.6s ease infinite, fadeUp .6s ease forwards; animation-delay:0s,.15s; --glow:rgba(201,162,75,.35); opacity:0;"></div>
-              <h1 class="fu" style="animation-delay:.3s; font-size:2.1rem; font-weight:400; font-style:italic; margin:0 0 24px;">Expérience Quintessence</h1>
-              <p class="fu" style="animation-delay:.4s; font-size:0.85rem; color:#C9BBA9; max-width:400px; margin:0 auto 24px; line-height:1.6;">Sept temps. Compositions marines asymétriques, herbes sauvages, réductions concentrées.</p>
-              <div class="fu" style="animation-delay:.5s; color:#C9A24B; font-weight:600; font-family:'Space Grotesk', sans-serif; font-size:0.95rem; margin-bottom:28px;">145 €</div>
-              <button class="fu" style="animation-delay:.6s; background:transparent; border:1px solid #C9A24B; color:#C9A24B; padding:14px 34px; font-family:'Space Grotesk', sans-serif; font-size:0.72rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer;">Réserver une table</button>
-            </div>`;
-          break;
-
 
         // =====================================================================
         // OFFRE ULTRA — l'expérience complète : particules, dégradés animés,
@@ -2189,50 +2398,6 @@ function showToast(){
               </div>
             </div>`;
           break;
-
-        case 'ultra-3':
-          html = `${ANIM_STYLES}
-            <div style="background:#0A0A0A; color:#F5F5F0; font-family:sans-serif; max-width:850px; margin:0 auto; padding:55px; border-radius:12px; text-align:center;">
-              <span class="fu" style="animation-delay:0s; font-family:monospace; font-size:0.7rem; color:#B7FF3A; letter-spacing:2px;">STUDIO OBSIDIAN — PIÈCE 07</span>
-              <div style="margin:35px auto; width:190px; height:190px; background:conic-gradient(from 45deg,#B7FF3A,#1A1A1A 40%,#B7FF3A 60%,#1A1A1A 100%); clip-path:polygon(50% 0%,100% 38%,82% 100%,18% 100%,0% 38%); animation:spinSlow 14s linear infinite, fadeUp .6s ease forwards; animation-delay:0s,.15s; opacity:0;"></div>
-              <h1 class="fu" style="animation-delay:.3s; font-size:1.8rem; font-weight:700; margin:0 0 14px;">La géométrie comme signature.</h1>
-              <p class="fu" style="animation-delay:.42s; color:#8A8A82; font-size:0.85rem; max-width:420px; margin:0 auto; line-height:1.6;">Topologie low-poly, dépliage UV millimétré, texturing procédural — chaque asset est exposé seul, comme une œuvre.</p>
-            </div>`;
-          break;
-
-        case 'ultra-4':
-          html = `${ANIM_STYLES}
-            <div style="background:#FFFFFF; color:#0A0A0A; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; padding:70px 50px; border-radius:12px; text-align:center;">
-              <span class="fu" style="animation-delay:0s; font-size:0.68rem; letter-spacing:6px; text-transform:uppercase; color:#9A9A9A;">Manufacture Chronos Swiss</span>
-              <div class="fu" style="animation-delay:.15s; width:140px; height:140px; border-radius:50%; border:1px solid #0A0A0A; margin:35px auto; position:relative;">
-                <span style="position:absolute; top:11px; left:50%; transform:translateX(-50%); font-size:0.6rem;">12</span>
-                <span style="position:absolute; bottom:11px; left:50%; transform:translateX(-50%); font-size:0.6rem;">6</span>
-                <span style="position:absolute; top:50%; right:11px; transform:translateY(-50%); font-size:0.6rem;">3</span>
-                <span style="position:absolute; top:50%; left:11px; transform:translateY(-50%); font-size:0.6rem;">9</span>
-                <div style="position:absolute; top:50%; left:50%; width:2px; height:38px; background:#0A0A0A; transform-origin:bottom center; margin-left:-1px; margin-top:-38px; animation:spinSlow 43200s linear infinite;"></div>
-                <div style="position:absolute; top:50%; left:50%; width:1.5px; height:52px; background:#0A0A0A; transform-origin:bottom center; margin-left:-0.75px; margin-top:-52px; animation:spinSlow 3600s linear infinite;"></div>
-                <span style="position:absolute; top:50%; left:50%; width:5px; height:5px; background:#0A0A0A; border-radius:50%; margin-left:-2.5px; margin-top:-2.5px;"></span>
-              </div>
-              <h1 class="fu" style="animation-delay:.3s; font-size:1.5rem; font-weight:400; max-width:440px; margin:0 auto 30px; line-height:1.5;">La précision helvétique n'a besoin d'aucun ornement pour se faire remarquer.</h1>
-              <button class="fu" style="animation-delay:.45s; background:#0A0A0A; color:#fff; border:none; padding:14px 32px; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase; cursor:pointer; border-radius:0;">Voir les calibres</button>
-            </div>`;
-          break;
-
-        case 'ultra-5':
-          html = `${ANIM_STYLES}
-            <div style="background:#DAD7D0; color:#111111; font-family:'Space Grotesk', sans-serif; max-width:850px; margin:0 auto; border-radius:12px; overflow:hidden;">
-              <div style="background:#111111; color:#DAD7D0; padding:20px 45px; font-size:0.7rem; letter-spacing:2px; text-transform:uppercase;">Manifold Studio — Concepteurs disruptifs</div>
-              <div style="padding:45px;">
-                <h1 style="margin:0 0 8px;">
-                  <span class="fu" style="animation-delay:0s; display:block; font-size:3.1rem; font-weight:900; line-height:0.95; text-transform:uppercase;">META</span>
-                  <span class="fu" style="animation-delay:.15s; display:block; font-size:3.1rem; font-weight:900; line-height:0.95; text-transform:uppercase; background:#FF3E00; color:#111; padding:0 10px; width:fit-content; margin-top:6px;">ARCHITECTS</span>
-                </h1>
-                <p class="fu" style="animation-delay:.3s; font-size:0.95rem; font-weight:600; max-width:440px; margin:30px 0 0; line-height:1.5;">Structures géométriques asymétriques massives, identités numériques brutes pour marques en rupture de marché.</p>
-                <a href="#" class="fu" style="animation-delay:.45s; display:inline-block; margin-top:26px; color:#111; font-weight:800; text-transform:uppercase; font-size:0.78rem; border-bottom:2px solid #FF3E00; padding-bottom:3px; text-decoration:none;">Parcourir les manifestes spatiaux →</a>
-              </div>
-            </div>`;
-          break;
-
 
         // =====================================================================
         // COMMUNITY MANAGEMENT — reproductions fidèles d'un post réellement
