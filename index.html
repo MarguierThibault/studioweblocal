@@ -233,6 +233,28 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .fs-content::-webkit-scrollbar{width:0;height:0}
 #previewFullscreen .fs-content > div{width:100% !important;max-width:none !important;margin:0 !important;border-radius:0 !important}
 @media(max-width:600px){.preview-grid,.cm-grid{display:flex;flex-wrap:nowrap;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:rgba(124,107,255,.9) rgba(255,255,255,.08)}.preview-grid::-webkit-scrollbar,.cm-grid::-webkit-scrollbar{height:10px}.preview-grid::-webkit-scrollbar-track,.cm-grid::-webkit-scrollbar-track{background:rgba(255,255,255,.08);border-radius:10px}.preview-grid::-webkit-scrollbar-thumb,.cm-grid::-webkit-scrollbar-thumb{background:linear-gradient(135deg,rgba(124,107,255,.7),rgba(186,146,255,.95));border-radius:10px;transition:background .25s ease}.preview-grid:hover::-webkit-scrollbar-thumb,.preview-grid:active::-webkit-scrollbar-thumb,.cm-grid:hover::-webkit-scrollbar-thumb,.cm-grid:active::-webkit-scrollbar-thumb{background:linear-gradient(135deg,rgba(124,107,255,1),rgba(187,135,255,1))}.preview-item{min-width:220px;width:220px;padding:8px}.preview-content{aspect-ratio:7/10}.preview-thumb-iframe{transform:translate(-50%,-50%) scale(.24)}.ocw{padding:12px 16px;gap:8px}.reviews-grid{grid-template-columns:1fr}#socialToast{left:12px;right:12px;max-width:none}.impact{padding:28px 22px 24px}.impact__grid{grid-template-columns:1fr}.stats-row{grid-template-columns:1fr;gap:10px}}
+/* ===== MENTIONS LÉGALES & FOOTER ===== */
+.legal-list{display:flex;flex-direction:column;gap:10px;margin-top:8px}
+.legal-item{background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-sm);overflow:hidden}
+.legal-item summary{cursor:pointer;list-style:none;padding:16px 20px;font-family:var(--font-head);font-weight:600;font-size:.92rem;display:flex;justify-content:space-between;align-items:center;gap:12px;transition:background .2s}
+.legal-item summary::-webkit-details-marker{display:none}
+.legal-item summary::after{content:"+";color:var(--gold);font-size:1.15rem;flex-shrink:0;transition:transform .25s}
+.legal-item[open] summary::after{transform:rotate(45deg)}
+.legal-item summary:hover{background:rgba(255,255,255,.02)}
+.legal-item .legal-body{padding:0 20px 20px;color:var(--muted);font-size:.86rem;line-height:1.7}
+.legal-item .legal-body p{margin-bottom:10px}
+.legal-item .legal-body p:last-child{margin-bottom:0}
+.legal-item .legal-body strong{color:var(--text)}
+.legal-item .legal-body a{color:var(--gold)}
+.legal-placeholder{color:var(--gold);font-family:var(--font-mono)}
+.site-footer{border-top:1px solid rgba(255,255,255,.06);padding:28px 0}
+.site-footer__inner{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.site-footer__brand{font-family:var(--font-head);font-weight:700;font-size:.88rem}
+.site-footer__links{display:flex;gap:20px}
+.site-footer__links a{color:var(--muted);text-decoration:none;font-size:.78rem;font-family:var(--font-mono)}
+.site-footer__links a:hover{color:var(--gold)}
+.site-footer__copy{color:var(--muted);font-size:.75rem;font-family:var(--font-mono)}
+@media(max-width:768px){.site-footer__inner{flex-direction:column;text-align:center}}
 </style>
 </head>
 <body>
@@ -444,6 +466,88 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
   </div>
 </section>
+<section class="sec--sm" id="mentions-legales">
+  <div class="wrap">
+    <span class="mono-label">INFORMATIONS LÉGALES</span>
+    <h2>Mentions légales &amp; conditions de vente</h2>
+    <div class="divider"></div>
+    <div class="legal-list">
+      <details class="legal-item">
+        <summary>1. Éditeur du site</summary>
+        <div class="legal-body">
+          <p>Le site studioweblocal.com est édité à titre individuel, activité en cours de formalisation. Contact : 06 28 22 37 22 — studioweblocal@gmail.com.</p>
+          <p><span class="legal-placeholder">[Statut juridique, n° SIRET et adresse du siège à ajouter dès l'immatriculation]</span></p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>2. Hébergement</summary>
+        <div class="legal-body">
+          <p>Le site est hébergé par <strong>Netlify, Inc.</strong>, 101 2nd Street, San Francisco, CA 94105, États-Unis — <a href="https://www.netlify.com" target="_blank" rel="noopener">netlify.com</a>.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>3. Activité &amp; prestations</summary>
+        <div class="legal-body">
+          <p>Studio Web Local propose des prestations de création de sites internet (Site Vitrine, Site Premium, Ultra Premium) et de gestion des réseaux sociaux (Community Management), destinées aux particuliers, indépendants, commerces et entreprises, en France comme à l'étranger. Chaque prestation fait l'objet d'un devis personnalisé, accepté par le client avant tout début d'exécution.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>4. Conditions de vente — Clients en France</summary>
+        <div class="legal-body">
+          <p>Les prix sont exprimés en euros. Toute commande implique l'acceptation du devis et le règlement, en tout ou partie, selon les modalités convenues (paiement sécurisé via Stripe). Le délai de réalisation est communiqué au devis et court à réception des éléments nécessaires (textes, visuels, accès) fournis par le client.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>5. Ventes à l'international</summary>
+        <div class="legal-body">
+          <p>Studio Web Local accepte les commandes de clients situés hors de France. Les prix restent exprimés en euros ; les frais bancaires, de change ou taxes locales éventuels restent à la charge du client. Pour les clients résidant dans l'Union européenne, les dispositions impératives de protection des consommateurs de leur pays de résidence peuvent s'appliquer en complément du droit français. Pour les clients hors UE, les prestations restent régies par le droit français, sauf disposition locale d'ordre public contraire.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>6. Droit de rétractation</summary>
+        <div class="legal-body">
+          <p>Conformément aux articles L221-18 et suivants du Code de la consommation, le client consommateur dispose de 14 jours à compter de l'acceptation du devis pour se rétracter, sans justifier de motif. S'il demande expressément le commencement de la prestation avant l'expiration de ce délai, il reconnaît renoncer à son droit de rétractation dès lors que le service est pleinement exécuté (article L221-28 du Code de la consommation).</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>7. Propriété intellectuelle</summary>
+        <div class="legal-body">
+          <p>L'ensemble des contenus de ce site (textes, visuels, structure, logo) est la propriété de Studio Web Local, sauf mention contraire, et protégé par le droit d'auteur. Toute reproduction totale ou partielle sans autorisation écrite préalable est interdite. Une fois livré et intégralement réglé, le site créé pour le client lui est cédé selon les modalités précisées au devis.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>8. Données personnelles (RGPD)</summary>
+        <div class="legal-body">
+          <p>Les informations transmises via les formulaires (devis, avis) sont utilisées exclusivement pour traiter la demande du client et ne sont ni vendues ni cédées à des tiers. Conformément au RGPD et à la loi Informatique et Libertés, le client dispose d'un droit d'accès, de rectification, d'opposition et de suppression de ses données, à exercer par email à studioweblocal@gmail.com. Le site utilise le stockage local du navigateur (localStorage) à des fins de fonctionnement (compteur, avis), sans finalité publicitaire.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>9. Médiation de la consommation</summary>
+        <div class="legal-body">
+          <p>Conformément à l'article L616-1 du Code de la consommation, tout client consommateur peut recourir gratuitement à un médiateur en cas de litige non résolu directement avec Studio Web Local. Médiateur compétent : <span class="legal-placeholder">[nom du médiateur, adresse / site internet — à ajouter dès l'immatriculation]</span>.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>10. Loi applicable et litiges</summary>
+        <div class="legal-body">
+          <p>Le site et les prestations sont soumis au droit français. En cas de litige, le client est invité à contacter Studio Web Local pour rechercher une solution amiable avant toute action judiciaire. À défaut d'accord, les juridictions compétentes seront déterminées selon les règles de droit commun.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span class="site-footer__brand">Studio Web Local</span>
+    <nav class="site-footer__links">
+      <a href="#mentions-legales">Mentions légales</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="site-footer__copy">© 2026 Studio Web Local — Tous droits réservés</span>
+  </div>
+</footer>
+
 <div id="portfolioModal">
   <div class="modal-inner">
     <button class="modal-close" onclick="closePortfolio()">✕</button>
