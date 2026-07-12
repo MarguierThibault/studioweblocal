@@ -259,6 +259,132 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 </style>
 </head>
 <body>
+<style>
+#loadScreen{position:fixed;inset:0;z-index:9999;background:#03040c;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s ease .1s,visibility .6s ease .1s}
+#loadScreen .grid-bg{opacity:.4}
+#loadScreen.ls-hide{opacity:0;visibility:hidden;pointer-events:none}
+.ls-scan{position:absolute;left:0;right:0;height:140px;top:-140px;background:linear-gradient(180deg,transparent,rgba(255,213,74,.05) 45%,rgba(124,107,255,.09) 55%,transparent);animation:lsScan 3.2s linear infinite;pointer-events:none}
+@keyframes lsScan{0%{top:-140px}100%{top:100%}}
+.ls-frame{position:absolute;top:50%;left:50%;width:min(440px,86vw);height:min(420px,74vh);transform:translate(-50%,-50%);pointer-events:none}
+.ls-corner{position:absolute;width:22px;height:22px;border:1px solid rgba(255,213,74,.5);opacity:0;animation:lsCornerIn .5s ease forwards}
+.ls-corner.tl{top:0;left:0;border-right:none;border-bottom:none;animation-delay:.05s}
+.ls-corner.tr{top:0;right:0;border-left:none;border-bottom:none;animation-delay:.12s}
+.ls-corner.bl{bottom:0;left:0;border-right:none;border-top:none;animation-delay:.12s}
+.ls-corner.br{bottom:0;right:0;border-left:none;border-top:none;animation-delay:.05s}
+@keyframes lsCornerIn{from{opacity:0;transform:scale(1.4)}to{opacity:1;transform:scale(1)}}
+.ls-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px;width:100%}
+.ls-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);opacity:0;margin-bottom:20px;animation:lsFade .5s ease .1s forwards}
+.ls-browser{position:relative;width:min(300px,72vw);margin-bottom:20px;opacity:0;animation:lsFade .5s ease .2s forwards}
+.ls-browser svg{width:100%;display:block;overflow:visible}
+.lb-outline{fill:none;stroke:rgba(234,234,244,.5);stroke-width:1.2;stroke-dasharray:1000;stroke-dashoffset:1000;animation:lbDraw 1.4s ease .3s forwards}
+@keyframes lbDraw{to{stroke-dashoffset:0}}
+.lb-dot{fill:rgba(234,234,244,.35)}
+.lb-url{fill:none;stroke:rgba(234,234,244,.3);stroke-width:1}
+.lb-block{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.22);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.85);transition:opacity .45s ease,transform .45s ease,fill .5s ease,stroke .5s ease}
+.lb-block.show{opacity:1;transform:scale(1)}
+.ls-browser.ls-lit .lb-block{fill:rgba(255,213,74,.16);stroke:#ffd54a}
+.ls-browser.ls-complete{animation:lbZoom .7s cubic-bezier(.4,0,.2,1) forwards}
+@keyframes lbZoom{to{transform:scale(2.4);opacity:0}}
+.ls-metrics{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;opacity:0;animation:lsFade .5s ease .25s forwards}
+.ls-pct{font-family:var(--font-mono);font-size:34px;font-weight:500;color:var(--text);letter-spacing:-.02em;margin-bottom:12px}
+.ls-pct span{font-size:15px;color:var(--muted);margin-left:1px}
+.ls-glitch{text-shadow:-1.5px 0 #7c6bff,1.5px 0 #ffd54a;animation:lsGlitch .18s steps(3) 2}
+@keyframes lsGlitch{0%,100%{transform:translate(0)}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,0)}}
+.ls-bar{position:relative;width:min(280px,68vw);height:2px;background:rgba(255,255,255,.1) linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px) 0 0/11.111% 100%}
+.ls-bar-fill{position:absolute;inset:0 auto 0 0;width:0%;background:linear-gradient(90deg,#7c6bff,#ffd54a)}
+.ls-bar-fill::after{content:"";position:absolute;right:-3px;top:50%;width:7px;height:7px;border-radius:50%;background:#ffd54a;box-shadow:0 0 8px 2px rgba(255,213,74,.75);transform:translateY(-50%)}
+.ls-log{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.02em;min-height:96px;display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
+.ls-log-line{opacity:0;transform:translateY(4px);transition:opacity .35s ease,transform .35s ease;text-align:left}
+.ls-log-line.show{opacity:1;transform:translateY(0)}
+.ls-log-line b{color:var(--gold);font-weight:500;margin-right:7px}
+.ls-brand{font-family:var(--font-head);font-size:18px;font-weight:700;letter-spacing:.02em;color:var(--text);opacity:0;animation:lsFade .5s ease .3s forwards}
+.ls-brand em{font-style:normal;color:var(--gold)}
+@keyframes lsFade{to{opacity:1}}
+@media(max-width:520px){.ls-browser{width:78vw}.ls-log{font-size:10px;min-height:88px}}
+@media(prefers-reduced-motion:reduce){#loadScreen *{animation:none!important}.ls-tag,.ls-browser,.ls-metrics,.ls-brand,.ls-corner{opacity:1!important}.lb-outline{stroke-dashoffset:0!important}}
+</style>
+<div id="loadScreen">
+  <div class="grid-bg"></div>
+  <div class="ls-scan"></div>
+  <div class="ls-frame">
+    <span class="ls-corner tl"></span><span class="ls-corner tr"></span>
+    <span class="ls-corner bl"></span><span class="ls-corner br"></span>
+  </div>
+  <div class="ls-inner">
+    <div class="ls-tag">Système en démarrage</div>
+
+    <div class="ls-browser" id="lsBrowser">
+      <svg viewBox="0 0 320 200">
+        <rect class="lb-outline" x="4" y="4" width="312" height="192" rx="10"></rect>
+        <line class="lb-outline" x1="4" y1="30" x2="316" y2="30"></line>
+        <circle class="lb-dot" cx="18" cy="17" r="3"></circle>
+        <circle class="lb-dot" cx="30" cy="17" r="3"></circle>
+        <circle class="lb-dot" cx="42" cy="17" r="3"></circle>
+        <rect class="lb-url" x="60" y="11" width="150" height="12" rx="6"></rect>
+        <rect class="lb-block" x="18" y="44" width="90" height="10" rx="2"></rect>
+        <rect class="lb-block" x="18" y="62" width="284" height="50" rx="4"></rect>
+        <rect class="lb-block" x="18" y="124" width="86" height="60" rx="4"></rect>
+        <rect class="lb-block" x="117" y="124" width="86" height="60" rx="4"></rect>
+        <rect class="lb-block" x="216" y="124" width="86" height="60" rx="4"></rect>
+      </svg>
+    </div>
+
+    <div class="ls-metrics">
+      <div class="ls-pct" id="lsPct">0<span>%</span></div>
+      <div class="ls-bar"><div class="ls-bar-fill" id="lsBarFill"></div></div>
+    </div>
+
+    <div class="ls-log">
+      <div class="ls-log-line" data-at="0"><b>›</b>Connexion au serveur</div>
+      <div class="ls-log-line" data-at="20"><b>›</b>Construction des sections</div>
+      <div class="ls-log-line" data-at="45"><b>›</b>Intégration du contenu</div>
+      <div class="ls-log-line" data-at="68"><b>›</b>Optimisation SEO</div>
+      <div class="ls-log-line" data-at="94"><b>›</b>Studio Web Local — prêt</div>
+    </div>
+
+    <div class="ls-brand">Studio<em> Web Local</em></div>
+  </div>
+</div>
+<script>
+(function(){
+  var screenEl=document.getElementById("loadScreen"),pctEl=document.getElementById("lsPct"),barFill=document.getElementById("lsBarFill"),browserEl=document.getElementById("lsBrowser");
+  if(!screenEl||!pctEl||!browserEl)return;
+  document.documentElement.classList.add("no-scroll");
+  var DURATION=5000;
+  var blocks=[].slice.call(browserEl.querySelectorAll(".lb-block"));
+  var logLines=[].slice.call(document.querySelectorAll(".ls-log-line"));
+  var blockSteps=[14,24,40,48,56];
+  var glitchAt=[25,50,75,100];
+  var shownBlocks=blocks.map(function(){return false;});
+  var shownLogs=logLines.map(function(){return false;});
+  var shownGlitch=glitchAt.map(function(){return false;});
+  var litDone=false,start=null;
+  function frame(ts){
+    if(!start)start=ts;
+    var p=Math.min((ts-start)/DURATION,1);
+    var pct=Math.round(p*100);
+    pctEl.firstChild.textContent=pct;
+    barFill.style.width=pct+"%";
+    blocks.forEach(function(b,i){if(!shownBlocks[i]&&pct>=blockSteps[i]){shownBlocks[i]=true;b.classList.add("show");}});
+    logLines.forEach(function(l,i){var at=parseInt(l.getAttribute("data-at"),10);if(!shownLogs[i]&&pct>=at){shownLogs[i]=true;l.classList.add("show");}});
+    glitchAt.forEach(function(g,i){
+      if(!shownGlitch[i]&&pct>=g){shownGlitch[i]=true;pctEl.classList.remove("ls-glitch");void pctEl.offsetWidth;pctEl.classList.add("ls-glitch");}
+    });
+    if(!litDone&&pct>=72){litDone=true;browserEl.classList.add("ls-lit");}
+    if(p<1){requestAnimationFrame(frame);}
+    else{
+      setTimeout(function(){
+        browserEl.classList.add("ls-complete");
+        setTimeout(function(){
+          screenEl.classList.add("ls-hide");
+          document.documentElement.classList.remove("no-scroll");
+        },250);
+      },400);
+    }
+  }
+  requestAnimationFrame(frame);
+})();
+</script>
 <nav id="mainNav" class="main-nav">
   <div class="main-nav__inner">
     <a href="#hero" class="main-nav__logo">Studio Web Local</a>
