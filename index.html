@@ -642,14 +642,19 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   pc.appendChild(renderer.domElement);
   var scene=new THREE.Scene();
   scene.fog=new THREE.FogExp2(0x03040c,0.012);
-  var camera=new THREE.PerspectiveCamera(65,W/H,0.1,2000);
+  function fovFor(aspect){
+    var hRef=2*Math.atan(Math.tan(65*Math.PI/360)*1.78);
+    var v=2*Math.atan(Math.tan(hRef/2)/aspect)*180/Math.PI;
+    return Math.max(65,Math.min(105,v));
+  }
+  var camera=new THREE.PerspectiveCamera(fovFor(W/H),W/H,0.1,2000);
   camera.position.z=30;
 
   var galaxy=new THREE.Group();
   scene.add(galaxy);
 
   var DEPTH=900,ARM_COUNT=3,ARM_TIGHT=2.4,R_MAX=56;
-  var STAR_N=W<700?2000:3800;
+  var STAR_N=W<700?2600:3800;
   var starGeo=new THREE.BufferGeometry();
   var pos=new Float32Array(STAR_N*3),col=new Float32Array(STAR_N*3);
   var white=new THREE.Color(0xeaeaf4);
@@ -727,7 +732,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   }
   function nebX(){return (Math.random()<0.5?-1:1)*(R_MAX*0.32+Math.random()*R_MAX*1.3);}
   var nebTex=[nebulaTexture("#ffd54a"),nebulaTexture("#7c6bff"),nebulaTexture("#ff8fd0"),nebulaTexture("#6be0d8")];
-  var nebulae=[],NEB_N=W<700?8:18;
+  var nebulae=[],NEB_N=W<700?12:18;
   for(var n=0;n<NEB_N;n++){
     var spr=new THREE.Sprite(new THREE.SpriteMaterial({map:nebTex[n%nebTex.length],transparent:true,opacity:0.08+Math.random()*0.07,blending:THREE.AdditiveBlending,depthWrite:false}));
     var s=16+Math.random()*26;spr.scale.set(s,s,1);
@@ -752,12 +757,11 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   core.position.set(0,0,-DEPTH*0.78);
   galaxy.add(core);
 
-  var speed=reduceMotion?0.4:2.2,targetBoost=0,boost=0,lastScrollY=window.scrollY,lastT=performance.now();
+  var speed=reduceMotion?0.4:2.2,targetBoost=0,boost=0,lastFrameY=window.scrollY,lastT=performance.now();
+  var MAXBOOST=3,SENS_K=4;
   var heroEl=document.getElementById("hero"),heroH=heroEl?heroEl.offsetHeight:600;
   function fadeOnScroll(){
-    var y=window.scrollY,d=y-lastScrollY;lastScrollY=y;
-    targetBoost=Math.min(Math.abs(d)*0.15,2.5);
-    pc.style.opacity=Math.max(0.3,1-(y/heroH)*0.85);
+    pc.style.opacity=Math.max(0.3,1-(window.scrollY/heroH)*0.85);
   }
   window.addEventListener("scroll",fadeOnScroll,{passive:true});
   fadeOnScroll();
@@ -766,7 +770,9 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   function tick(now){
     requestAnimationFrame(tick);
     var dt=Math.min((now-lastT)/16.6,3);lastT=now;
-    boost+=(targetBoost-boost)*0.05;targetBoost*=0.88;
+    var curY=window.scrollY,scrollSpeed=Math.abs(curY-lastFrameY)/Math.max(dt,0.3);lastFrameY=curY;
+    targetBoost=MAXBOOST*(1-Math.exp(-scrollSpeed/SENS_K));
+    boost+=(targetBoost-boost)*(targetBoost>boost?0.22:0.045);
     var vel=(speed+boost)*dt*0.6;
     var p=stars.geometry.attributes.position.array;
     var trailLen=2+boost*6;
@@ -783,7 +789,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
     }
     stars.geometry.attributes.position.needsUpdate=true;
     trails.geometry.attributes.position.needsUpdate=true;
-    trailMat.opacity=Math.min(boost/2.2,1)*0.65;
+    trailMat.opacity=Math.min(boost/MAXBOOST,1)*0.65;
     nebulae.forEach(function(spr){
       spr.position.z+=vel;
       if(spr.position.z>camera.position.z+10){
@@ -804,7 +810,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 
   window.addEventListener("resize",function(){
     W=window.innerWidth;H=window.innerHeight;
-    camera.aspect=W/H;camera.updateProjectionMatrix();
+    camera.aspect=W/H;camera.fov=fovFor(camera.aspect);camera.updateProjectionMatrix();
     renderer.setSize(W,H);
   });
 })();
