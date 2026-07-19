@@ -752,9 +752,17 @@ function updatePlanBreakdown(total){
   const s=document.getElementById("service").value;
   if(s===""||s==="129"||total<=0){el.style.display="none";el.textContent="";return}
   el.style.display="block";
-  if(selectedPlan==="x4")el.textContent="Soit 4 × "+(total/4).toFixed(2).replace(".",",")+"€ / mois";
-  else if(selectedPlan==="x12")el.textContent="Soit 12 × "+(total/12).toFixed(2).replace(".",",")+"€ / mois";
-  else el.textContent="Paiement en une fois, à la validation du devis";
+  const m=window._maintenanceMonthly||0;
+  const fmt=n=>n.toFixed(2).replace(".",",").replace(",00","");
+  if(selectedPlan==="x4"){
+    const per=total/4;
+    el.textContent=m>0?`Soit 4 × ${fmt(per)}€ pour le site + ${fmt(m)}€ de maintenance = ${fmt(per+m)}€ prélevés chaque mois`:`Soit 4 × ${fmt(per)}€ / mois`;
+  }else if(selectedPlan==="x12"){
+    const per=total/12;
+    el.textContent=m>0?`Soit 12 × ${fmt(per)}€ pour le site + ${fmt(m)}€ de maintenance = ${fmt(per+m)}€ prélevés chaque mois`:`Soit 12 × ${fmt(per)}€ / mois`;
+  }else{
+    el.textContent=m>0?`Paiement en une fois à la validation, puis ${fmt(m)}€ prélevés chaque mois pour la maintenance`:"Paiement en une fois, à la validation du devis";
+  }
 }
 function calc(){
   let t=base,monthly=0;
