@@ -300,6 +300,8 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .card__foot{font-size:.78rem;color:var(--muted);margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
 .card__foot b{color:var(--gold);font-weight:600}
 @media(max-width:640px){.plan-picker{grid-template-columns:1fr}}
+.quote-actions{display:flex;gap:12px;margin-top:4px}
+@media(max-width:560px){.quote-actions{flex-direction:column}}
 #legalModal{position:fixed;inset:0;z-index:3000;background:rgba(5,5,15,.97);backdrop-filter:blur(16px);overflow-y:auto;padding:32px 20px;display:none;isolation:isolate;scrollbar-width:none;-ms-overflow-style:none}
 #legalModal::-webkit-scrollbar{width:0;height:0}
 #legalModal .modal-inner{max-width:760px}
@@ -617,7 +619,10 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
       <div class="total-bar" id="total"><span class="total-lbl">Total estimé</span><span class="total-amt">0€</span></div>
       <div id="planBreakdown"></div>
-      <button id="sendBtn" class="btn btn--gold" style="width:100%;justify-content:center;padding:16px;font-size:1rem;" onclick="sendQuote()">Envoyer le devis &nbsp;→</button>
+      <div class="quote-actions">
+        <button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('email')">📧 Recevoir par email</button>
+        <button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('pay')">💳 Payer maintenant</button>
+      </div>
       <div id="quote-status"></div>
     </div>
   </div>
@@ -832,8 +837,12 @@ function renderFields(){
 function getSelectedOptions(){const o=[];document.querySelectorAll("#options input").forEach(el=>{if(el.checked)o.push(el.closest(".option").querySelector(".opt-title").textContent.trim())});return o.join(", ")}
 const get=id=>document.getElementById(id)?.value||"";
 function setStatus(msg,type="loading"){const el=document.getElementById("quote-status");el.textContent=msg;el.className=type}
-function lockBtn(l=true){const b=document.getElementById("sendBtn");b.disabled=l;b.innerHTML=l?"⏳ Génération du lien de paiement…":"Envoyer le devis &nbsp;→"}
-async function sendQuote(){
+function lockBtn(l=true){
+  const eb=document.getElementById("emailBtn"),pb=document.getElementById("payBtn");
+  if(eb){eb.disabled=l;eb.style.opacity=l?.55:1}
+  if(pb){pb.disabled=l;pb.style.opacity=l?.55:1}
+}
+async function sendQuote(mode){
   const service=document.getElementById("service").value;
   if(!service){alert("Choisis une offre");return}
   const email=get("email");if(!email){alert("L'email est obligatoire");return}
@@ -842,17 +851,24 @@ async function sendQuote(){
   const paymentPlanLabel=isMonthly?"Abonnement mensuel":(planLabels[selectedPlan]||"Comptant (1x)");
   const maintenanceMonthly=window._maintenanceMonthly||0;
   const data={service_name:serviceName,service,total:totalText,options:optionsTxt,payment_link:"",payment_plan:selectedPlan,payment_plan_label:paymentPlanLabel,maintenance_monthly:maintenanceMonthly,prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),message:get("message"),description:get("description")};
-  lockBtn(true);setStatus("⏳ Création du lien de paiement Stripe…","loading");
+  lockBtn(true);setStatus(mode==="pay"?"⏳ Préparation du paiement Stripe…":"⏳ Génération du devis…","loading");
   try{
     const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:totalAmount,service_name:serviceName,options:optionsTxt,is_monthly:isMonthly,payment_plan:selectedPlan,maintenance_monthly:maintenanceMonthly})});
     const json=await res.json();
     if(!res.ok||!json.url)throw new Error(json.error||`Erreur serveur ${res.status}`);
-    data.payment_link=json.url;setStatus("✅ Lien créé — envoi de l'email…","ok");
+    data.payment_link=json.url;
   }catch(err){console.error("Netlify:",err);lockBtn(false);setStatus(`❌ Erreur : ${err.message}`,"error");return}
   try{
     await incrementOrder();
-    await Promise.all([emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data),emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data)]);
-    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button></div>`;
+    setStatus("✅ Lien créé — envoi de la confirmation…","ok");
+    // L'email admin (toi) part toujours. L'email client ne part QUE si le
+    // client a choisi "Recevoir par email" — s'il paie tout de suite, il
+    // est redirigé vers Stripe et n'a pas besoin d'un email en plus.
+    const emailPromises=[emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data)];
+    if(mode!=="pay")emailPromises.push(emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data));
+    await Promise.all(emailPromises);
+    if(mode==="pay"){window.location.href=data.payment_link;return}
+    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;padding:0 20px;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Vous allez recevoir votre devis par email, avec le lien de paiement inclus. Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button></div>`;
   }catch(err){console.error("EmailJS:",err);lockBtn(false);setStatus("❌ Erreur envoi email","error")}
 }
 setBase();
@@ -862,13 +878,14 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   var pc=document.getElementById("particles");
   if(!window.THREE||!pc)return;
   var reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var W=window.innerWidth,H=window.innerHeight;
+  var W=window.innerWidth||1200,H=window.innerHeight||800;
   var renderer=new THREE.WebGLRenderer({antialias:true,alpha:true});
   renderer.setSize(W,H);renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2));
   pc.appendChild(renderer.domElement);
   var scene=new THREE.Scene();
   scene.fog=new THREE.FogExp2(0x03040c,0.012);
   function fovFor(aspect){
+    if(!aspect||!isFinite(aspect)||aspect<=0)aspect=16/9;
     var hRef=2*Math.atan(Math.tan(65*Math.PI/360)*1.78);
     var v=2*Math.atan(Math.tan(hRef/2)/aspect)*180/Math.PI;
     return Math.max(65,Math.min(105,v));
@@ -996,11 +1013,13 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   function tick(now){
     requestAnimationFrame(tick);
     var dt=Math.min((now-lastT)/16.6,3);lastT=now;
+    if(!isFinite(dt)||dt<0)dt=1;
     var curY=window.scrollY,scrollSpeed=Math.abs(curY-lastFrameY)/Math.max(dt,0.3);lastFrameY=curY;
     targetBoost=MAXBOOST*(1-Math.exp(-scrollSpeed/SENS_K));
     boost+=(targetBoost-boost)*(targetBoost>boost?0.22:0.045);
-    var speedScale=Math.min(1,65/camera.fov);
+    var speedScale=Math.min(1,65/(camera.fov||65));
     var vel=(speed+boost)*dt*0.6*speedScale;
+    if(!isFinite(vel))vel=0;
     var p=stars.geometry.attributes.position.array;
     var trailLen=2+boost*6;
     var tp=trails.geometry.attributes.position.array;
@@ -1036,7 +1055,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   requestAnimationFrame(tick);
 
   window.addEventListener("resize",function(){
-    W=window.innerWidth;H=window.innerHeight;
+    W=window.innerWidth||W;H=window.innerHeight||H;
     camera.aspect=W/H;camera.fov=fovFor(camera.aspect);camera.updateProjectionMatrix();
     renderer.setSize(W,H);
   });
@@ -3884,6 +3903,11 @@ function closePortfolio(){
     document.getElementById("portfolioModal").style.display="none";
     document.getElementById("previewFullscreen").classList.remove("open");
 }
+(function checkPaymentReturn(){
+  if(new URLSearchParams(location.search).get("payment")==="success"){
+    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;padding:0 20px;"><h1 style="color:#57e389;font-size:2.6rem;margin-bottom:12px;">Paiement reçu ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Votre commande est confirmée, nous démarrons votre projet très prochainement.</p><a href="/" style="display:inline-block;background:#ffd54a;padding:14px 32px;border-radius:10px;font-weight:700;font-size:1rem;font-family:'Space Grotesk',sans-serif;color:#0a0a0a;text-decoration:none;">Retour à l'accueil</a></div>`;
+  }
+})();
 </script>
 <script>
 (function(){
