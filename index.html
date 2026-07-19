@@ -128,29 +128,44 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 }
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:1;transition:opacity .4s ease}
 #particles canvas{display:block;width:100%;height:100%}
-.main-nav{position:fixed;top:0;left:0;right:0;z-index:2500;background:rgba(5,5,15,.72);backdrop-filter:blur(14px);transition:background .35s ease,box-shadow .35s ease}
-.main-nav::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,213,74,.55) 30%,rgba(124,107,255,.55) 70%,transparent)}
-.main-nav.nav-solid{background:rgba(5,5,15,.94);box-shadow:0 8px 30px rgba(0,0,0,.35)}
-.main-nav__inner{max-width:1160px;margin:0 auto;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.main-nav__logo{display:inline-flex;align-items:center;font-family:var(--font-head);font-weight:700;font-size:1rem;color:var(--text);text-decoration:none;white-space:nowrap;transition:opacity .2s ease}
-.main-nav__logo:hover{opacity:.85}
+.main-nav{position:fixed;top:0;left:0;right:0;z-index:2500;background:rgba(5,5,15,.5);backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);border-bottom:1px solid rgba(255,255,255,.07);transition:background .4s ease,box-shadow .4s ease,border-color .4s ease}
+.main-nav::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,213,74,.35) 30%,rgba(124,107,255,.35) 70%,transparent);opacity:0;transition:opacity .4s ease}
+.main-nav.nav-solid{background:rgba(6,6,16,.88);box-shadow:0 10px 36px rgba(0,0,0,.4);border-bottom-color:transparent}
+.main-nav.nav-solid::after{opacity:1}
+.main-nav__inner{max-width:1160px;margin:0 auto;padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:28px}
+.main-nav__logo{display:inline-flex;align-items:center;font-family:var(--font-head);font-weight:700;font-size:1.04rem;letter-spacing:-.01em;color:var(--text);text-decoration:none;white-space:nowrap;transition:opacity .25s ease}
+.main-nav__logo:hover{opacity:.86}
 .main-nav__logo em{font-style:normal;color:var(--gold)}
-.nav-mark{display:inline-flex;width:26px;height:26px;margin-right:10px;flex:none}
-.nav-mark svg{width:100%;height:100%;display:block}
-.main-nav__links{display:flex;align-items:center;gap:4px;list-style:none}
-.main-nav__links a{font-family:var(--font-mono);font-size:.75rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:9px 15px;border-radius:10px;transition:color .22s ease,background .22s ease}
-.main-nav__links a:hover{color:var(--text);background:rgba(255,255,255,.06)}
+.main-nav__links{display:flex;align-items:center;gap:3px;list-style:none}
+.main-nav__links a{position:relative;font-family:var(--font-mono);font-size:.71rem;letter-spacing:.11em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:9px 15px;border-radius:9px;transition:color .25s ease,background .25s ease}
+.main-nav__links a:hover{color:var(--text);background:rgba(255,255,255,.05)}
 .main-nav__links a.active{color:var(--gold);background:var(--gold-soft)}
-.main-nav__links a.nav-cta{color:#1a1305;background:var(--gold);border-radius:999px;font-weight:700;padding:9px 20px;margin-left:6px}
-.main-nav__links a.nav-cta:hover{background:#ffe07a;color:#1a1305}
-.main-nav__links a.nav-cta.active{background:var(--gold);color:#1a1305}
-.main-nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
-.main-nav__burger span{width:22px;height:2px;background:var(--gold);border-radius:2px}
+.main-nav__links a.nav-cta{color:var(--gold);background:transparent;border:1px solid rgba(255,213,74,.38);border-radius:999px;font-weight:600;padding:8px 20px 8px 21px;margin-left:16px;letter-spacing:.08em;transition:background .3s ease,color .3s ease,border-color .3s ease,box-shadow .3s ease,transform .3s ease}
+.main-nav__links a.nav-cta::before{content:"";position:absolute;left:-16px;top:50%;transform:translateY(-50%);width:1px;height:18px;background:rgba(255,255,255,.1)}
+.main-nav__links a.nav-cta::after{display:none}
+.main-nav__links a.nav-cta:hover{background:var(--gold);color:#1a1305;border-color:var(--gold);box-shadow:0 8px 22px rgba(255,213,74,.25);transform:translateY(-1px)}
+.main-nav__links a.nav-cta.active{color:var(--gold);background:rgba(255,213,74,.07);border-color:rgba(255,213,74,.5)}
+.main-nav__burger{position:relative;display:none;width:34px;height:34px;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:8px}
+.main-nav__burger span{width:20px;height:1.5px;background:var(--gold);border-radius:2px;transition:transform .3s cubic-bezier(.4,0,.2,1),opacity .2s ease}
+.main-nav__burger[aria-expanded="true"] span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.main-nav__burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.main-nav__burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+.nav-mark{display:inline-flex;width:27px;height:27px;margin-right:11px;flex:none;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.main-nav__logo:hover .nav-mark{transform:rotate(-10deg) scale(1.05)}
+.nav-mark svg,.nav-mark img{width:100%;height:100%;display:block;object-fit:contain}
 @media(max-width:768px){
-  .main-nav__links{position:fixed;top:58px;right:16px;background:var(--bg-card);border:1px solid var(--violet-border);border-radius:14px;flex-direction:column;align-items:stretch;gap:2px;padding:8px;display:none;box-shadow:0 20px 50px rgba(0,0,0,.5);min-width:190px}
-  .main-nav__links.open{display:flex}
-  .main-nav__links a{padding:12px 14px;width:100%}
-  .main-nav__links a.nav-cta{margin-left:0;margin-top:6px;text-align:center;border-radius:10px}
+  .main-nav__links{display:flex;position:fixed;top:66px;right:16px;left:16px;background:rgba(11,11,29,.97);backdrop-filter:blur(20px);border:1px solid var(--violet-border);border-radius:16px;flex-direction:column;align-items:stretch;gap:2px;padding:10px;box-shadow:0 24px 60px rgba(0,0,0,.55);opacity:0;visibility:hidden;transform:translateY(-10px);transition:opacity .28s ease,transform .28s ease,visibility 0s linear .28s;pointer-events:none}
+  .main-nav__links.open{opacity:1;visibility:visible;transform:translateY(0);transition:opacity .28s ease,transform .28s ease,visibility 0s linear 0s;pointer-events:auto}
+  .main-nav__links li{opacity:0;transform:translateY(-6px);transition:opacity .3s ease,transform .3s ease}
+  .main-nav__links.open li{opacity:1;transform:translateY(0)}
+  .main-nav__links.open li:nth-child(1){transition-delay:.04s}
+  .main-nav__links.open li:nth-child(2){transition-delay:.08s}
+  .main-nav__links.open li:nth-child(3){transition-delay:.12s}
+  .main-nav__links.open li:nth-child(4){transition-delay:.16s}
+  .main-nav__links.open li:nth-child(5){transition-delay:.2s}
+  .main-nav__links a{padding:14px 16px;width:100%;border-radius:10px;font-size:.78rem}
+  .main-nav__links a.nav-cta{display:flex;justify-content:center;margin-left:0;margin-top:8px;text-align:center;border-radius:10px;padding:13px 16px}
+  .main-nav__links a.nav-cta::before{display:none}
   .main-nav__burger{display:flex}
 }
 /* ===== NOUVEAUX STYLES ===== */
@@ -270,6 +285,27 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .site-footer__links a:hover{color:var(--gold)}
 .site-footer__copy{color:var(--muted);font-size:.75rem;font-family:var(--font-mono)}
 @media(max-width:768px){.site-footer__inner{flex-direction:column;text-align:center}}
+/* ===== REFONTE — paiement fractionné, maintenance, mentions légales en modale ===== */
+.plan-picker{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:4px 0 18px}
+.plan-choice{position:relative;display:flex;flex-direction:column;gap:4px;padding:14px 14px 12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-sm);cursor:pointer;transition:background .2s,border-color .2s}
+.plan-choice.active{background:var(--violet-glow);border-color:var(--violet)}
+.plan-choice input{position:absolute;opacity:0;pointer-events:none}
+.plan-choice-title{font-family:var(--font-head);font-weight:700;font-size:.86rem;color:var(--text)}
+.plan-choice-desc{font-size:.72rem;color:var(--muted);line-height:1.4}
+#planBreakdown{display:none;text-align:center;font-family:var(--font-mono);font-size:.8rem;color:var(--violet);margin:-8px 0 16px}
+.maintenance-note{display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,213,74,.06);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:12px 16px;margin:0 0 18px;font-size:.82rem;color:var(--text)}
+.maintenance-note .mn-amt{color:var(--gold);font-family:var(--font-mono);font-weight:600;white-space:nowrap}
+.option.opt-monthly{border-color:var(--gold-border)}
+.option.opt-monthly:hover{background:var(--gold-soft);border-color:var(--gold-border)}
+.option.opt-monthly.opt-disabled{opacity:.38;pointer-events:none;filter:grayscale(.4)}
+.card__foot{font-size:.78rem;color:var(--muted);margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
+.card__foot b{color:var(--gold);font-weight:600}
+@media(max-width:640px){.plan-picker{grid-template-columns:1fr}}
+#legalModal{position:fixed;inset:0;z-index:3000;background:rgba(5,5,15,.97);backdrop-filter:blur(16px);overflow-y:auto;padding:32px 20px;display:none;isolation:isolate;scrollbar-width:none;-ms-overflow-style:none}
+#legalModal::-webkit-scrollbar{width:0;height:0}
+#legalModal .modal-inner{max-width:760px}
+.footer-link-btn{background:none;border:none;cursor:pointer;font:inherit;padding:0;color:var(--muted);font-size:.78rem;font-family:var(--font-mono)}
+.footer-link-btn:hover{color:var(--gold)}
 </style>
 </head>
 <body>
@@ -302,8 +338,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .ls-metrics{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;opacity:0;animation:lsFade .5s ease .25s forwards}
 .ls-pct{font-family:var(--font-mono);font-size:34px;font-weight:500;color:var(--text);letter-spacing:-.02em;margin-bottom:12px}
 .ls-pct span{font-size:15px;color:var(--muted);margin-left:1px}
-.ls-glitch{text-shadow:-1.5px 0 #7c6bff,1.5px 0 #ffd54a;animation:lsGlitch .18s steps(3) 2}
-@keyframes lsGlitch{0%,100%{transform:translate(0)}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}75%{transform:translate(-1px,0)}}
 .ls-bar{position:relative;width:min(280px,68vw);height:2px;background:rgba(255,255,255,.1) linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px) 0 0/11.111% 100%}
 .ls-bar-fill{position:absolute;inset:0 auto 0 0;width:0%;background:linear-gradient(90deg,#7c6bff,#ffd54a)}
 .ls-bar-fill::after{content:"";position:absolute;right:-3px;top:50%;width:7px;height:7px;border-radius:50%;background:#ffd54a;box-shadow:0 0 8px 2px rgba(255,213,74,.75);transform:translateY(-50%)}
@@ -325,7 +359,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <span class="ls-corner bl"></span><span class="ls-corner br"></span>
   </div>
   <div class="ls-inner">
-    <div class="ls-tag">Système en démarrage</div>
+    <div class="ls-tag">Chargement de votre expérience</div>
 
     <div class="ls-browser" id="lsBrowser">
       <svg viewBox="0 0 320 200">
@@ -368,10 +402,8 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   var blocks=[].slice.call(browserEl.querySelectorAll(".lb-block"));
   var logLines=[].slice.call(document.querySelectorAll(".ls-log-line"));
   var blockSteps=[14,24,40,48,56];
-  var glitchAt=[25,50,75,100];
   var shownBlocks=blocks.map(function(){return false;});
   var shownLogs=logLines.map(function(){return false;});
-  var shownGlitch=glitchAt.map(function(){return false;});
   var litDone=false,start=null;
   function frame(ts){
     if(!start)start=ts;
@@ -381,9 +413,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     barFill.style.width=pct+"%";
     blocks.forEach(function(b,i){if(!shownBlocks[i]&&pct>=blockSteps[i]){shownBlocks[i]=true;b.classList.add("show");}});
     logLines.forEach(function(l,i){var at=parseInt(l.getAttribute("data-at"),10);if(!shownLogs[i]&&pct>=at){shownLogs[i]=true;l.classList.add("show");}});
-    glitchAt.forEach(function(g,i){
-      if(!shownGlitch[i]&&pct>=g){shownGlitch[i]=true;pctEl.classList.remove("ls-glitch");void pctEl.offsetWidth;pctEl.classList.add("ls-glitch");}
-    });
     if(!litDone&&pct>=72){litDone=true;browserEl.classList.add("ls-lit");}
     if(p<1){requestAnimationFrame(frame);}
     else{
@@ -401,14 +430,13 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 </script>
 <nav id="mainNav" class="main-nav">
   <div class="main-nav__inner">
-    <a href="#hero" class="main-nav__logo"><span class="nav-mark"><svg viewBox="0 0 26 26"><defs><linearGradient id="navMarkGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffd54a"/><stop offset="1" stop-color="#7c6bff"/></linearGradient></defs><rect width="26" height="26" rx="7" fill="url(#navMarkGrad)"></rect><circle cx="10" cy="16" r="2.4" fill="#0a0a12"></circle><circle cx="16" cy="10" r="2.4" fill="#0a0a12"></circle><path d="M10.8 15.2L15.2 10.8" stroke="#0a0a12" stroke-width="1.5" stroke-linecap="round"></path></svg></span>Studio<em> Web Local</em></a>
+    <a href="#hero" class="main-nav__logo"><span class="nav-mark"><img src="images/logo-mark.png" alt="Studio Web Local"></span>Studio<em> Web Local</em></a>
     <ul class="main-nav__links" id="navLinks">
       <li><a href="#offres" class="nav-link">Nos offres</a></li>
       <li><a href="#clients" class="nav-link">Nos clients</a></li>
       <li><a href="#avis" class="nav-link">Avis clients</a></li>
       <li><a href="#devis" class="nav-link nav-cta">Devis</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
-      <li><a href="#mentions-legales" class="nav-link">Mentions légales</a></li>
     </ul>
     <button class="main-nav__burger" id="navBurger" aria-label="Menu" aria-expanded="false">
       <span></span><span></span><span></span>
@@ -422,9 +450,9 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   <div class="wrap hero__inner">
     <div class="hero__pill">Studio Web Local</div>
     <h1 class="hero__title">Sites web qui transforment<br>vos visiteurs en clients</h1>
-    <p class="hero__sub">Création de sites + acquisition clients + réseaux sociaux</p>
+    <p class="hero__sub">On crée votre site, on vous ramène des clients, on gère vos réseaux — une seule équipe, basée à Besançon.</p>
     <div style="display:flex;align-items:center;gap:10px;background:var(--gold-soft);border:1px solid var(--gold-border);border-radius:40px;padding:10px 22px;margin-bottom:28px;font-family:var(--font-mono);font-size:.82rem;color:var(--gold);max-width:600px;text-align:center;">
-  💡 Un site Ultra Premium coûte en moyenne 10 000€ à 12 000€ sur le marché — le nôtre démarre à 2 500€, pour une qualité équivalente ou supérieure.
+  💡 Une agence classique facture 10 000€ à 12 000€ pour un site Ultra Premium. Chez nous, la même qualité démarre à 2 500€ — jusqu'à 4x moins cher, sans compromis sur le résultat.
 </div>
     <div class="hero__cta">
       <a href="tel:0628223722" class="btn btn--gold">📞 06 28 22 37 22</a>
@@ -466,27 +494,18 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
   </div>
 </section>
+<section class="sec" id="offres">
   <div class="wrap">
-    <div class="sec-head reveal"<section class="sec" id="offres">
-  <div class="wrap">
-
     <div class="sec-head reveal">
-
       <span class="mono-label">NOS OFFRES</span>
-
       <h2>Nos formules</h2>
-
       <div class="divider"></div>
-
       <p style="color:var(--muted);margin-top:14px;max-width:620px;font-size:.95rem">
-        Découvrez les solutions que nous proposons pour développer votre présence en ligne et attirer davantage de clients.
+        Découvrez les solutions que nous proposons pour développer votre présence en ligne et attirer davantage de clients — en langage clair, sans jargon.
       </p>
-
     </div>
-
-        </div></div>
     <div class="ocw reveal" id="orderCounterWrap">
-      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.15rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(124,107,255,.18),rgba(255,255,255,.06));border:1px solid rgba(124,107,255,.26);color:#d7cbff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)">🏪</span><span class="ocn" id="orderCountNum">143</span><span class="ocd">projets livrés à ce jour</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.15rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(124,107,255,.18),rgba(255,255,255,.06));border:1px solid rgba(124,107,255,.26);color:#d7cbff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)">🏆</span><span class="ocn" id="orderCountNum">143</span><span class="ocd">sites déjà livrés — le vôtre est le prochain</span></div>
       <span class="ocb">en direct</span>
     </div>
     <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
@@ -494,37 +513,32 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div class="card reveal">
         <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
-          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Un site simple, moderne et professionnel pour présenter votre activité, rassurer vos prospects et faciliter les prises de contact.</p>
-          <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +35% de visibilité locale, +20% de confiance client et +15% de prises de contact grâce à une présence plus professionnelle.</p>
-          <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Design moderne, pages clés optimisées, formulaire de contact, intégration Google Maps et structure prête pour le référencement local.</p>
-          <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales.</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales qui veulent un site simple, clair et qui donne confiance.</p>
+          <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Design adapté à votre activité (pas un modèle générique)<br>✓ Pages essentielles : accueil, services, contact…<br>✓ Formulaire de contact + fiche Google Maps intégrée<br>✓ Référencement local (SEO) — être trouvé sur Google quand on tape "[votre métier] + [votre ville]", sans payer de publicité</p>
+          <div class="card__foot">🔧 <b>Maintenance mensuelle en option</b> (dès 29€/mois) — on garde votre site à jour à votre place.</div>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.1s">
         <div class="card__img"><img src="images/premium.png" alt="Site Premium"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
-          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Un site sur mesure pensé pour convertir vos visiteurs en prospects qualifiés grâce à un design soigné et une structure optimisée.</p>
-          <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +45% de visibilité Google, +25% de leads qualifiés et +30% d’amélioration du taux de conversion sur les visiteurs.</p>
-          <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Site sur mesure, stratégie de contenu, sections de conversion, optimisation UX/UI, intégrations métiers et accompagnement pour mieux capter les prospects.</p>
-          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement, services professionnels, structures établies.</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement et services professionnels qui veulent un site sur mesure, pensé pour transformer les visiteurs en clients.</p>
+          <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout ce qui est dans Site Vitrine, en plus poussé<br>✓ Design 100% sur mesure + stratégie de contenu<br>✓ Parcours pensé pour la conversion (UX/UI) — on organise le site pour qu'un visiteur devienne facilement un prospect<br>✓ Intégrations propres à votre métier + accompagnement au lancement</p>
+          <div class="card__foot">🔧 <b>Maintenance mensuelle en option</b> (dès 49€/mois) — mises à jour et petites évolutions chaque mois.</div>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.2s">
         <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
-          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Une expérience digitale complète et ambitieuse, avec une stratégie plus poussée pour renforcer votre image, votre visibilité et votre acquisition.</p>
-          <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +60% de notoriété, +40% de génération de leads qualifiés et une croissance digitale durable sur plusieurs canaux.</p>
-          <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Experience digitale sur mesure, branding renforcé, stratégie conversion, automatisation, intégrations avancées et accompagnement marketing à long terme.</p>
-          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses, marques établies, projets à forte croissance.</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses et marques établies qui veulent une expérience digitale complète, pas seulement un site.</p>
+          <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout Site Premium, en version complète<br>✓ Branding renforcé + stratégie de conversion avancée<br>✓ Automatisations (relances, formulaires intelligents…)<br>✓ Intégrations avancées + accompagnement marketing dans la durée</p>
+          <div class="card__foot">🔧 <b>Maintenance mensuelle en option</b> (dès 79€/mois) — suivi prioritaire et évolutions régulières.</div>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.3s">
         <div class="card__img"><img src="images/community.png" alt="Community Management"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
-        <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">150€ → 430€/mois</p>
-          <span class="field-lbl">Ce que vous achetez</span><p class="field-txt">Une gestion régulière de votre présence sur les réseaux pour garder une image dynamique, engager votre audience et développer votre visibilité.</p>
-          <span class="field-lbl">Résultats attendus</span><p class="field-txt">En moyenne : +50% d’engagement, +30% de visibilité sur les réseaux et une meilleure rétention de votre audience.</p>
-          <span class="field-lbl">Ce que vous obtenez</span><p class="field-txt">Création de contenu, publication régulière, animation de communauté, réponses aux messages, gestion de votre image et suivi de la croissance.</p>
-          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces, marques et indépendants souhaitant une présence active.</p>
+        <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">129€ → 269€/mois</p>
+          <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces et indépendants qui veulent une présence active sur les réseaux sans avoir à s'en occuper eux-mêmes.</p>
+          <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Publications régulières rédigées et publiées pour vous<br>✓ Un ton et un style cohérents avec votre image<br>✓ Options : rythme intensifié, vidéos courtes (Reels/TikTok), gestion des messages et commentaires<br>✓ Résiliable à tout moment, sans engagement de durée</p>
         </div>
       </div>
     </div>
@@ -597,10 +611,13 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       </p>
     </div>
     <div class="quote-box reveal">
-      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="150">Community Management</option></select></div>
+      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option></select></div>
       <div id="options"></div>
+      <div id="maintenanceNote" class="maintenance-note"><span>🔧 Maintenance mensuelle incluse dans votre demande — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="formFields"></div>
+      <div id="paymentPlan" class="plan-picker" style="display:none"></div>
       <div class="total-bar" id="total"><span class="total-lbl">Total estimé</span><span class="total-amt">0€</span></div>
+      <div id="planBreakdown"></div>
       <button id="sendBtn" class="btn btn--gold" style="width:100%;justify-content:center;padding:16px;font-size:1rem;" onclick="sendQuote()">Envoyer le devis &nbsp;→</button>
       <div id="quote-status"></div>
     </div>
@@ -623,11 +640,24 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
   </div>
 </section>
-<section class="sec--sm" id="mentions-legales">
-  <div class="wrap">
-    <span class="mono-label">INFORMATIONS LÉGALES</span>
-    <h2>Mentions légales &amp; conditions de vente</h2>
-    <div class="divider"></div>
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span class="site-footer__brand">Studio Web Local</span>
+    <nav class="site-footer__links">
+      <button type="button" class="footer-link-btn" onclick="openLegal()">Mentions légales</button>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="site-footer__copy">© 2026 Studio Web Local — Tous droits réservés</span>
+  </div>
+</footer>
+
+<div id="legalModal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeLegal()">✕</button>
+    <div class="modal-hd">
+      <span class="mono-label">INFORMATIONS LÉGALES</span>
+      <h2>Mentions légales &amp; conditions de vente</h2>
+    </div>
     <div class="legal-list">
       <details class="legal-item">
         <summary>1. Éditeur du site</summary>
@@ -692,18 +722,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       </details>
     </div>
   </div>
-</section>
-
-<footer class="site-footer">
-  <div class="wrap site-footer__inner">
-    <span class="site-footer__brand">Studio Web Local</span>
-    <nav class="site-footer__links">
-      <a href="#mentions-legales">Mentions légales</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <span class="site-footer__copy">© 2026 Studio Web Local — Tous droits réservés</span>
-  </div>
-</footer>
+</div>
 
 <div id="portfolioModal">
   <div class="modal-inner">
@@ -725,33 +744,79 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 <script>
 const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
-const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","150":"Community Management"};
-let base=0;
-function calc(){
-  let t=base;
-  document.querySelectorAll("#options input").forEach(el=>{if(el.checked)t+=parseInt(el.dataset.value||0)});
-  const a=document.querySelector("#total .total-amt");if(a)a.textContent=t+"€";
+const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management"};
+let base=0,selectedPlan="once";
+function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
+function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
+function updatePlanBreakdown(total){
+  const el=document.getElementById("planBreakdown");if(!el)return;
+  const s=document.getElementById("service").value;
+  if(s===""||s==="129"||total<=0){el.style.display="none";el.textContent="";return}
+  el.style.display="block";
+  if(selectedPlan==="x4")el.textContent="Soit 4 × "+(total/4).toFixed(2).replace(".",",")+"€ / mois";
+  else if(selectedPlan==="x12")el.textContent="Soit 12 × "+(total/12).toFixed(2).replace(".",",")+"€ / mois";
+  else el.textContent="Paiement en une fois, à la validation du devis";
 }
-function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderFields();calc();}
+function calc(){
+  let t=base,monthly=0;
+  document.querySelectorAll("#options input").forEach(el=>{
+    if(!el.checked)return;
+    const v=parseInt(el.dataset.value||0);
+    if(el.dataset.monthly==="1")monthly+=v;else t+=v;
+  });
+  const a=document.querySelector("#total .total-amt");if(a)a.textContent=t+"€";
+  window._maintenanceMonthly=monthly;
+  const mNote=document.getElementById("maintenanceNote");
+  if(mNote){
+    mNote.style.display=monthly>0?"flex":"none";
+    const amtEl=mNote.querySelector(".mn-amt");if(amtEl)amtEl.textContent=monthly+"€/mois";
+  }
+  updatePlanBreakdown(t);
+}
+function setPlan(p){
+  selectedPlan=p;
+  document.querySelectorAll("#paymentPlan .plan-choice").forEach(l=>l.classList.toggle("active",l.dataset.plan===p));
+  document.querySelectorAll("#options input[data-monthly='1']").forEach(el=>{
+    el.disabled=(p!=="once");
+    if(p!=="once")el.checked=false;
+  });
+  document.querySelectorAll(".option.opt-monthly").forEach(row=>row.classList.toggle("opt-disabled",p!=="once"));
+  calc();
+}
+function renderPaymentPlan(){
+  const s=document.getElementById("service").value;
+  const wrap=document.getElementById("paymentPlan");if(!wrap)return;
+  selectedPlan="once";
+  if(s===""||s==="129"){wrap.innerHTML="";wrap.style.display="none";return}
+  wrap.style.display="grid";
+  wrap.innerHTML=`
+<label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">Paiement en 1 fois — compatible avec la maintenance mensuelle</span></label>
+<label class="plan-choice" data-plan="x4"><input type="radio" name="pplan" value="x4" onchange="setPlan('x4')"><span class="plan-choice-title">En 4 fois</span><span class="plan-choice-desc">Sans frais, prélevé chaque mois par carte</span></label>
+<label class="plan-choice" data-plan="x12"><input type="radio" name="pplan" value="x12" onchange="setPlan('x12')"><span class="plan-choice-title">Mensualisé 12 mois</span><span class="plan-choice-desc">Idéal pour lisser un gros projet</span></label>`;
+}
+function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderFields();renderPaymentPlan();calc();}
 function renderOptions(){
   const s=document.getElementById("service").value;let html="";
-  if(s==="150")html=`
-<div class="option"><label><span class="opt-title">Pack de base — 2 posts/semaine <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Deux publications professionnelles par semaine pour maintenir une présence régulière et renforcer votre visibilité locale.</span></label><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Pack intensif — 4 posts/semaine <span class="opt-price">+80€</span></span><span class="opt-desc">Un rythme plus soutenu pour gagner en visibilité, toucher davantage d'audience et créer plus d'engagement.</span></label><input type="radio" name="cm" data-value="80" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Création de Reels/TikTok <span class="opt-price">+60€</span></span><span class="opt-desc">Vidéos courtes à forte performance pour capter l’attention, booster l’engagement et améliorer votre portée organique.</span></label><input type="checkbox" data-value="60" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Gestion messages & commentaires <span class="opt-price">+60€</span></span><span class="opt-desc">Réponses professionnelles aux messages et commentaires pour renforcer la confiance et convertir plus de prospects.</span></label><input type="checkbox" data-value="60" onchange="calc()"></div>`;
+  if(s==="129")html=`
+<div class="option"><label><span class="opt-title">Pack de base — 2 publications/semaine <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Deux posts par semaine, rédigés et publiés pour vous, pour rester visible sans y penser.</span></label><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Pack intensif — 4 publications/semaine <span class="opt-price">+50€</span></span><span class="opt-desc">Rythme doublé pour gagner en visibilité plus vite.</span></label><input type="radio" name="cm" data-value="50" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Vidéos courtes (Reels/TikTok) <span class="opt-price">+45€</span></span><span class="opt-desc">Formats courts et dynamiques, ceux qui tournent le mieux en ce moment.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Gestion des messages & commentaires <span class="opt-price">+45€</span></span><span class="opt-desc">On répond à votre place aux messages et commentaires, avec votre ton.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>`;
   if(s==="550")html=`
-<div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">Une identité visuelle soignée et adaptée à votre activité pour rassurer vos prospects dès la première visite.</span></label><input type="checkbox" data-value="80" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Optimisation SEO local <span class="opt-price">+90€</span></span><span class="opt-desc">Structure technique et contenu optimisés pour mieux apparaître auprès des recherches locales et gagner en visibilité.</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Intégration Google Maps avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Business optimisée pour générer plus de visites physiques et de demandes qualifiées.</span></label><input type="checkbox" data-value="30" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calc()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calc()"></div>`;
   if(s==="1115")html=`
-<div class="option"><label><span class="opt-title">Branding & identité visuelle <span class="opt-price">+120€</span></span><span class="opt-desc">Une image de marque cohérente et crédible pour différencier votre activité et renforcer votre impact.</span></label><input type="checkbox" data-value="120" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Un plan de contenu et une optimisation plus poussée pour améliorer votre visibilité durablement sur Google.</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Optimisation conversion CRO <span class="opt-price">+75€</span></span><span class="opt-desc">Amélioration du parcours utilisateur pour augmenter le nombre de contacts, de devis et de commandes.</span></label><input type="checkbox" data-value="75" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Identité de marque <span class="opt-price">+120€</span></span><span class="opt-desc">Logo affiné, palette de couleurs et charte cohérente sur tous vos supports.</span></label><input type="checkbox" data-value="120" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Plan de mots-clés et pages optimisées pour progresser durablement dans Google.</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calc()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calc()"></div>`;
   if(s==="2500")html=`
-<div class="option"><label><span class="opt-title">Campagnes Google Ads & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Acquisition de prospects qualifiés via des campagnes ciblées, mesurables et optimisées pour générer des résultats rapides.</span></label><input type="checkbox" data-value="600" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Système de capture et de conversion pensé pour transformer davantage de visiteurs en clients sans effort manuel.</span></label><input type="checkbox" data-value="500" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Automatisation CRM & workflows <span class="opt-price">+400€</span></span><span class="opt-desc">Organisation, relances et suivi client automatisés pour gagner du temps et éviter de perdre des opportunités.</span></label><input type="checkbox" data-value="400" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Publicité Google & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Campagnes payantes ciblées pour amener rapidement des prospects qualifiés sur le site.</span></label><input type="checkbox" data-value="600" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Un parcours pensé pour transformer un visiteur en client sans intervention manuelle de votre part.</span></label><input type="checkbox" data-value="500" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calc()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calc()"></div>`;
   document.getElementById("options").innerHTML=html;
 }
 function renderFields(){
@@ -759,7 +824,7 @@ function renderFields(){
   const common=()=>`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg2"><div class="fg"><input id="adresse" class="fi" placeholder="Adresse complète"></div><div class="fg"><input id="ville" class="fi" placeholder="Ville"></div></div><div class="fg"><input id="codepostal" class="fi" placeholder="Code postal"></div><p class="fh">Projet</p><div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>`;
   let html="";
   if(s==="550"||s==="1115"||s==="2500")html=common()+`<p class="fh">Informations site web</p><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><div class="fg"><textarea id="produits" class="ft" placeholder="Produits / services + prix"></textarea></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents"></div>`;
-  if(s==="150")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Réseaux sociaux</p><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà un compte ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom du compte"></div><p class="fh">Stratégie</p><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div><div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
+  if(s==="129")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Réseaux sociaux</p><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà un compte ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom du compte"></div><p class="fh">Stratégie</p><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div><div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
   document.getElementById("formFields").innerHTML=html;
 }
 function getSelectedOptions(){const o=[];document.querySelectorAll("#options input").forEach(el=>{if(el.checked)o.push(el.closest(".option").querySelector(".opt-title").textContent.trim())});return o.join(", ")}
@@ -770,11 +835,14 @@ async function sendQuote(){
   const service=document.getElementById("service").value;
   if(!service){alert("Choisis une offre");return}
   const email=get("email");if(!email){alert("L'email est obligatoire");return}
-  const serviceName=SERVICE_NAMES[service]||"",totalText=document.querySelector("#total .total-amt")?.textContent||"0€",totalAmount=parseInt(totalText)||0,isMonthly=service==="150",optionsTxt=getSelectedOptions();
-  const data={service_name:serviceName,service,total:totalText,options:optionsTxt,payment_link:"",prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),message:get("message"),description:get("description")};
+  const serviceName=SERVICE_NAMES[service]||"",totalText=document.querySelector("#total .total-amt")?.textContent||"0€",totalAmount=parseInt(totalText)||0,isMonthly=service==="129",optionsTxt=getSelectedOptions();
+  const planLabels={once:"Comptant (1x)",x4:"En 4x sans frais",x12:"Mensualisé sur 12 mois"};
+  const paymentPlanLabel=isMonthly?"Abonnement mensuel":(planLabels[selectedPlan]||"Comptant (1x)");
+  const maintenanceMonthly=window._maintenanceMonthly||0;
+  const data={service_name:serviceName,service,total:totalText,options:optionsTxt,payment_link:"",payment_plan:selectedPlan,payment_plan_label:paymentPlanLabel,maintenance_monthly:maintenanceMonthly,prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),message:get("message"),description:get("description")};
   lockBtn(true);setStatus("⏳ Création du lien de paiement Stripe…","loading");
   try{
-    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:totalAmount,service_name:serviceName,options:optionsTxt,is_monthly:isMonthly})});
+    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:totalAmount,service_name:serviceName,options:optionsTxt,is_monthly:isMonthly,payment_plan:selectedPlan,maintenance_monthly:maintenanceMonthly})});
     const json=await res.json();
     if(!res.ok||!json.url)throw new Error(json.error||`Erreur serveur ${res.status}`);
     data.payment_link=json.url;setStatus("✅ Lien créé — envoi de l'email…","ok");
@@ -810,7 +878,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   scene.add(galaxy);
 
   var DEPTH=900,ARM_COUNT=3,ARM_TIGHT=2.4,R_MAX=56;
-  var STAR_N=W<700?2600:3800;
+  var STAR_N=W<700?1400:2000;
   var starGeo=new THREE.BufferGeometry();
   var pos=new Float32Array(STAR_N*3),col=new Float32Array(STAR_N*3);
   var white=new THREE.Color(0xeaeaf4);
@@ -862,7 +930,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
     ctx.fillStyle=g;ctx.fillRect(0,0,64,64);
     return new THREE.CanvasTexture(cv);
   }
-  var starMat=new THREE.PointsMaterial({size:1.3,map:starTexture(),vertexColors:true,transparent:true,opacity:0.8,sizeAttenuation:true,blending:THREE.AdditiveBlending,depthWrite:false,alphaTest:0.01});
+  var starMat=new THREE.PointsMaterial({size:1.15,map:starTexture(),vertexColors:true,transparent:true,opacity:0.5,sizeAttenuation:true,blending:THREE.AdditiveBlending,depthWrite:false,alphaTest:0.01});
   var stars=new THREE.Points(starGeo,starMat);
   galaxy.add(stars);
 
@@ -890,7 +958,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   var nebTex=[nebulaTexture("#ffd54a"),nebulaTexture("#7c6bff"),nebulaTexture("#ff8fd0"),nebulaTexture("#6be0d8")];
   var nebulae=[],NEB_N=W<700?12:18;
   for(var n=0;n<NEB_N;n++){
-    var spr=new THREE.Sprite(new THREE.SpriteMaterial({map:nebTex[n%nebTex.length],transparent:true,opacity:0.08+Math.random()*0.07,blending:THREE.AdditiveBlending,depthWrite:false}));
+    var spr=new THREE.Sprite(new THREE.SpriteMaterial({map:nebTex[n%nebTex.length],transparent:true,opacity:0.05+Math.random()*0.045,blending:THREE.AdditiveBlending,depthWrite:false}));
     var s=16+Math.random()*26;spr.scale.set(s,s,1);
     spr.position.set(nebX(),(Math.random()-0.5)*R_MAX*0.7,-Math.random()*DEPTH);
     galaxy.add(spr);nebulae.push(spr);
@@ -914,7 +982,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
   galaxy.add(core);
 
   var speed=reduceMotion?0.4:2.2,targetBoost=0,boost=0,lastFrameY=window.scrollY,lastT=performance.now();
-  var MAXBOOST=3,SENS_K=4;
+  var MAXBOOST=1.5,SENS_K=5;
   var heroEl=document.getElementById("hero"),heroH=heroEl?heroEl.offsetHeight:600;
   function fadeOnScroll(){
     pc.style.opacity=Math.max(0.3,1-(window.scrollY/heroH)*0.85);
@@ -955,7 +1023,7 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
         spr.position.y=(Math.random()-0.5)*R_MAX*0.7;
       }
     });
-    core.material.opacity=0.42+Math.sin(now*0.0006)*0.08;
+    core.material.opacity=0.26+Math.sin(now*0.0006)*0.05;
     galaxy.rotation.z+=(SPIN+boost*0.0006)*dt;
     if(!reduceMotion){
       camera.position.x=Math.sin(now*0.00011)*1.1;
@@ -1130,7 +1198,7 @@ function relativeTimeLabel(dateStr){
 }
 const CAT_LABEL={vitrine:"Site Vitrine",premium:"Site Premium",ultra:"Ultra Premium",cm:"Community Management"};
 const CAT_BADGE={vitrine:"rev-v",premium:"rev-p",ultra:"rev-u",cm:"rev-c"};
-const REVIEW_CATEGORY_BY_SERVICE={550:"vitrine",1115:"premium",2500:"ultra",150:"cm"};
+const REVIEW_CATEGORY_BY_SERVICE={550:"vitrine",1115:"premium",2500:"ultra",129:"cm"};
 const REVIEW_STORAGE_KEY="swl_local_reviews";
 let reviewsFromServer=[];
 function escHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
@@ -1343,8 +1411,7 @@ function showToast(){
         { name: "Aperçu vitrine", tag: "Vitrine • Aperçu propre", url: "", layout: "vitrine-1", desc: "Aperçu de site vitrine propre, sans données réelles ni adresse client." },
         { name: "Aperçu vitrine", tag: "Vitrine • Aperçu propre", url: "", layout: "vitrine-2", desc: "Aperçu de site vitrine propre, sans données réelles ni adresse client." },
         { name: "Aperçu vitrine", tag: "Vitrine • Aperçu propre", url: "", layout: "vitrine-3", desc: "Aperçu de site vitrine propre, sans données réelles ni adresse client." },
-        { name: "Aperçu vitrine", tag: "Vitrine • Aperçu propre", url: "", layout: "vitrine-4", desc: "Aperçu de site vitrine propre, sans données réelles ni adresse client." },
-        { name: "Aperçu vitrine", tag: "Vitrine • Aperçu propre", url: "", layout: "vitrine-5", desc: "Aperçu de site vitrine propre, sans données réelles ni adresse client." }
+        { name: "Aperçu vitrine", tag: "Vitrine • Aperçu propre", url: "", layout: "vitrine-4", desc: "Aperçu de site vitrine propre, sans données réelles ni adresse client." }
       ],
       premium: [
         { name: "Exemple Premium 1", tag: "Premium • Aperçu propre", url: "exemple-premium-1.fr", layout: "premium-1", desc: "Aperçu de site premium propre, sans données réelles ni contenu client." },
@@ -1537,176 +1604,6 @@ function showToast(){
 
         case 'vitrine-2':
           html = `${ANIM_STYLES}
-            <div style="background:var(--noir); color:var(--ivoire); font-family:var(--font-body); font-size:19px; line-height:1.65; max-width:100vw; margin:0 auto; overflow:hidden;">
-              <header style="position:fixed; top:0; left:0; right:0; z-index:100; background:rgba(13,10,12,0.75); backdrop-filter:blur(10px); border-bottom:1px solid rgba(203,167,105,0.15);">
-                <nav style="display:flex; justify-content:space-between; align-items:center; max-width:1160px; margin:0 auto; padding:22px 32px;">
-                  <div style="font-family:var(--font-script); font-size:2rem; color:var(--or-clair); letter-spacing:0.02em;">Nuit Blanche</div>
-                  <ul style="display:flex; gap:38px; list-style:none; margin:0; padding:0; font-family:var(--font-body); font-size:1rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ivoire); opacity:0.8;">
-                    <li><a href="#menu" style="color:inherit; text-decoration:none;">Menu</a></li>
-                    <li><a href="#chef" style="color:inherit; text-decoration:none;">Le Chef</a></li>
-                    <li><a href="#galerie" style="color:inherit; text-decoration:none;">Galerie</a></li>
-                    <li><a href="#avis" style="color:inherit; text-decoration:none;">Avis</a></li>
-                    <li><a href="#reservation" style="color:inherit; text-decoration:none;">Réservation</a></li>
-                  </ul>
-                </nav>
-              </header>
-              <main style="padding-top:140px;">
-                <section style="min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; position:relative; padding:140px 32px 80px; background:radial-gradient(ellipse at 50% 30%, rgba(107,35,80,0.35), transparent 60%), linear-gradient(180deg, rgba(13,10,12,0.55), rgba(13,10,12,0.92) 80%), url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=1800&auto=format&fit=crop') center/cover no-repeat;">
-                  <div style="position:absolute; inset:0; background:radial-gradient(circle at 50% 45%, rgba(203,167,105,0.10), transparent 55%); pointer-events:none; animation:glow 6s ease-in-out infinite alternate;"></div>
-                  <div style="position:relative; z-index:1; max-width:720px;">
-                    <span style="display:block; font-family:var(--font-body); font-size:0.95rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--or); margin-bottom:26px;">Restaurant Gastronomique — Paris</span>
-                    <h1 style="font-family:var(--font-title); font-weight:400; font-size:clamp(3rem,7.5vw,6.4rem); letter-spacing:0.01em; color:var(--ivoire); margin:0;">Nuit Blanche</h1>
-                    <div style="font-family:var(--font-script); font-size:clamp(1.6rem,3vw,2.4rem); color:var(--or-clair); margin-top:10px;">là où le velours rencontre la flamme</div>
-                    <div style="width:1px; height:60px; background:linear-gradient(var(--or), transparent); margin:40px auto;"></div>
-                    <p style="max-width:480px; margin:0 auto; color:rgba(242,233,219,0.75); font-size:1.1rem; line-height:1.65;">Une cuisine de saison sublimée par le geste, servie dans un écrin d'or pâle et d'ombre pourpre.</p>
-                    <div style="margin-top:42px;">
-                      <a href="#reservation" style="display:inline-block; padding:16px 40px; border:1px solid var(--or); color:var(--or-clair); background:var(--or); color:var(--noir); text-transform:uppercase; letter-spacing:0.15em; text-decoration:none;">Réserver une table</a>
-                    </div>
-                  </div>
-                </section>
-                <section style="background:var(--velours); padding:130px 0;">
-                  <div style="max-width:1160px; margin:0 auto; padding:0 32px;">
-                    <div style="text-align:center; margin-bottom:70px;">
-                      <span style="display:block; font-size:0.9rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--or); margin-bottom:20px;">Carte Signature</span>
-                      <h2 style="font-family:var(--font-title); font-weight:400; font-size:clamp(2.1rem,4vw,3.2rem); color:var(--ivoire); margin:0;">Les créations de la maison</h2>
-                      <div style="width:70px; height:1px; background:var(--or); margin:26px auto 0;"></div>
-                    </div>
-                    <div style="max-width:760px; margin:0 auto;">
-                      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:30px 0; border-bottom:1px solid rgba(203,167,105,0.18);">
-                        <div style="max-width:520px;">
-                          <div style="font-family:var(--font-title); font-size:1.5rem; color:var(--ivoire); margin-bottom:8px;">Saint-Jacques nacrées, beurre noisette au prune</div>
-                          <div style="font-size:1rem; color:rgba(242,233,219,0.65); font-style:italic;">Crémeux de topinambour, éclats de noisette torréfiée</div>
-                        </div>
-                        <div style="font-family:var(--font-title); font-size:1.25rem; color:var(--or-clair); white-space:nowrap;">42 €</div>
-                      </div>
-                      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:30px 0; border-bottom:1px solid rgba(203,167,105,0.18);">
-                        <div style="max-width:520px;">
-                          <div style="font-family:var(--font-title); font-size:1.5rem; color:var(--ivoire); margin-bottom:8px;">Pigeon rôti, jus corsé au vin de prune</div>
-                          <div style="font-size:1rem; color:rgba(242,233,219,0.65); font-style:italic;">Betterave fumée, chicorée caramélisée</div>
-                        </div>
-                        <div style="font-family:var(--font-title); font-size:1.25rem; color:var(--or-clair); white-space:nowrap;">58 €</div>
-                      </div>
-                      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:30px 0; border-bottom:1px solid rgba(203,167,105,0.18);">
-                        <div style="max-width:520px;">
-                          <div style="font-family:var(--font-title); font-size:1.5rem; color:var(--ivoire); margin-bottom:8px;">Turbot doré, beurre blanc à l'or</div>
-                          <div style="font-size:1rem; color:rgba(242,233,219,0.65); font-style:italic;">Fenouil confit, agrumes de saison</div>
-                        </div>
-                        <div style="font-family:var(--font-title); font-size:1.25rem; color:var(--or-clair); white-space:nowrap;">54 €</div>
-                      </div>
-                      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:24px; padding:30px 0; border-bottom:1px solid rgba(203,167,105,0.18);">
-                        <div style="max-width:520px;">
-                          <div style="font-family:var(--font-title); font-size:1.5rem; color:var(--ivoire); margin-bottom:8px;">Soufflé chaud au chocolat noir et prune</div>
-                          <div style="font-size:1rem; color:rgba(242,233,219,0.65); font-style:italic;">Glace vanille bourbon, éclats d'or comestible</div>
-                        </div>
-                        <div style="font-family:var(--font-title); font-size:1.25rem; color:var(--or-clair); white-space:nowrap;">24 €</div>
-                      </div>
-                    </div>
-                    <div style="text-align:center; margin-top:24px;"><span style="display:inline-block; font-family:var(--font-script); font-size:1.15rem; color:var(--or);">Menu dégustation en sept services, 145 €</span></div>
-                  </div>
-                </section>
-                <section style="padding:130px 0;">
-                  <div style="max-width:1160px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:0.85fr 1.15fr; gap:70px; align-items:center;">
-                    <div style="aspect-ratio:3/4; overflow:hidden; position:relative; border:1px solid rgba(203,167,105,0.3);">
-                      <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=900&auto=format&fit=crop" alt="Le chef de Nuit Blanche en cuisine" style="width:100%; height:100%; object-fit:cover; filter:grayscale(15%) contrast(1.05);">
-                    </div>
-                    <div style="color:var(--ivoire);">
-                      <span style="display:block; font-size:0.9rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--or); margin-bottom:20px;">Le Chef</span>
-                      <h2 style="font-family:var(--font-title); font-weight:400; font-size:clamp(2.1rem,4vw,3.2rem); margin:0 0 24px;">Antoine Servan</h2>
-                      <p style="color:rgba(242,233,219,0.78); margin-bottom:22px; max-width:480px;">Formé auprès des grandes maisons parisiennes, Antoine Servan façonne une cuisine d'instinct où chaque assiette raconte une saison, un souvenir, une lumière.</p>
-                      <p style="color:rgba(242,233,219,0.78); max-width:480px;">Sa signature : des produits d'exception traités avec une économie de gestes, et une audace mesurée dans les accords sucré-salé.</p>
-                      <div style="font-family:var(--font-script); font-size:2.2rem; color:var(--or-clair); margin-top:28px;">A. Servan</div>
-                    </div>
-                  </div>
-                </section>
-                <section style="background:var(--velours); padding:130px 0;">
-                  <div style="max-width:1160px; margin:0 auto; padding:0 32px; text-align:center;">
-                    <span style="display:block; font-size:0.9rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--or); margin-bottom:20px;">L'Atmosphère</span>
-                    <h2 style="font-family:var(--font-title); font-weight:400; font-size:clamp(2.1rem,4vw,3.2rem); color:var(--ivoire); margin:0 0 26px;">Une salle taillée pour la nuit</h2>
-                    <div style="width:70px; height:1px; background:var(--or); margin:0 auto 50px;"></div>
-                    <div style="display:grid; grid-template-columns:repeat(6,1fr); grid-auto-rows:130px; gap:12px;">
-                      <div style="grid-column:span 3; grid-row:span 3; position:relative; overflow:hidden; background:var(--velours-2);">
-                        <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?q=80&w=900&auto=format&fit=crop" alt="Salle du restaurant Nuit Blanche" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.85) saturate(1.05); transition:transform .6s ease, filter .6s ease;">
-                        <div style="position:absolute; left:0; right:0; bottom:0; padding:16px 18px; background:linear-gradient(0deg, rgba(13,10,12,0.85), transparent); font-family:var(--font-script); font-size:1.3rem; color:var(--or-clair); opacity:0; transform:translateY(8px); transition:all .4s ease;">La salle</div>
-                      </div>
-                      <div style="grid-column:span 3; grid-row:span 2; position:relative; overflow:hidden; background:var(--velours-2);">
-                        <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?q=80&w=900&auto=format&fit=crop" alt="Table dressée" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.85) saturate(1.05); transition:transform .6s ease, filter .6s ease;">
-                        <div style="position:absolute; left:0; right:0; bottom:0; padding:16px 18px; background:linear-gradient(0deg, rgba(13,10,12,0.85), transparent); font-family:var(--font-script); font-size:1.3rem; color:var(--or-clair); opacity:0; transform:translateY(8px); transition:all .4s ease;">La table</div>
-                      </div>
-                      <div style="grid-column:span 2; grid-row:span 2; position:relative; overflow:hidden; background:var(--velours-2);">
-                        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=900&auto=format&fit=crop" alt="Assiette signature" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.85) saturate(1.05); transition:transform .6s ease, filter .6s ease;">
-                        <div style="position:absolute; left:0; right:0; bottom:0; padding:16px 18px; background:linear-gradient(0deg, rgba(13,10,12,0.85), transparent); font-family:var(--font-script); font-size:1.3rem; color:var(--or-clair); opacity:0; transform:translateY(8px); transition:all .4s ease;">L'assiette</div>
-                      </div>
-                      <div style="grid-column:span 4; grid-row:span 2; position:relative; overflow:hidden; background:var(--velours-2);">
-                        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?q=80&w=1200&auto=format&fit=crop" alt="Cave à vin" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.85) saturate(1.05); transition:transform .6s ease, filter .6s ease;">
-                        <div style="position:absolute; left:0; right:0; bottom:0; padding:16px 18px; background:linear-gradient(0deg, rgba(13,10,12,0.85), transparent); font-family:var(--font-script); font-size:1.3rem; color:var(--or-clair); opacity:0; transform:translateY(8px); transition:all .4s ease;">La cave</div>
-                      </div>
-                      <div style="grid-column:span 3; grid-row:span 2; position:relative; overflow:hidden; background:var(--velours-2);">
-                        <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?q=80&w=900&auto=format&fit=crop" alt="Cuisine en action" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.85) saturate(1.05); transition:transform .6s ease, filter .6s ease;">
-                        <div style="position:absolute; left:0; right:0; bottom:0; padding:16px 18px; background:linear-gradient(0deg, rgba(13,10,12,0.85), transparent); font-family:var(--font-script); font-size:1.3rem; color:var(--or-clair); opacity:0; transform:translateY(8px); transition:all .4s ease;">La cuisine</div>
-                      </div>
-                      <div style="grid-column:span 3; grid-row:span 2; position:relative; overflow:hidden; background:var(--velours-2);">
-                        <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?q=80&w=900&auto=format&fit=crop" alt="Bar à cocktails" style="width:100%; height:100%; object-fit:cover; filter:brightness(0.85) saturate(1.05); transition:transform .6s ease, filter .6s ease;">
-                        <div style="position:absolute; left:0; right:0; bottom:0; padding:16px 18px; background:linear-gradient(0deg, rgba(13,10,12,0.85), transparent); font-family:var(--font-script); font-size:1.3rem; color:var(--or-clair); opacity:0; transform:translateY(8px); transition:all .4s ease;">Le bar</div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                <section style="padding:130px 0;">
-                  <div style="max-width:1160px; margin:0 auto; padding:0 32px; text-align:center;">
-                    <span style="display:block; font-size:0.9rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--or); margin-bottom:20px;">Témoignages</span>
-                    <h2 style="font-family:var(--font-title); font-weight:400; font-size:clamp(2.1rem,4vw,3.2rem); color:var(--ivoire); margin:0 0 26px;">Ils ont vécu la nuit blanche</h2>
-                    <div style="width:70px; height:1px; background:var(--or); margin:0 auto 50px;"></div>
-                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:44px;">
-                      <div style="text-align:center; padding:0 10px;">
-                        <div style="color:var(--or); letter-spacing:3px; margin-bottom:14px;">★★★★★</div>
-                        <p style="font-family:var(--font-title); font-style:italic; font-size:1.15rem; color:var(--ivoire); line-height:1.6; margin-bottom:24px;">Une soirée suspendue dans le temps, chaque plat une révélation, chaque instant une élégance rare.</p>
-                        <div style="font-family:var(--font-script); font-size:1.4rem; color:var(--or-clair);">Hélène D.</div>
-                        <div style="font-size:0.9rem; color:rgba(242,233,219,0.55); margin-top:4px;">Dîner d'anniversaire</div>
-                      </div>
-                      <div style="text-align:center; padding:0 10px;">
-                        <div style="color:var(--or); letter-spacing:3px; margin-bottom:14px;">★★★★★</div>
-                        <p style="font-family:var(--font-title); font-style:italic; font-size:1.15rem; color:var(--ivoire); line-height:1.6; margin-bottom:24px;">Le service est d'une justesse remarquable, tout comme la carte des vins, magistralement accordée.</p>
-                        <div style="font-family:var(--font-script); font-size:1.4rem; color:var(--or-clair);">Marc T.</div>
-                        <div style="font-size:0.9rem; color:rgba(242,233,219,0.55); margin-top:4px;">Dîner d'affaires</div>
-                      </div>
-                      <div style="text-align:center; padding:0 10px;">
-                        <div style="color:var(--or); letter-spacing:3px; margin-bottom:14px;">★★★★★</div>
-                        <p style="font-family:var(--font-title); font-style:italic; font-size:1.15rem; color:var(--ivoire); line-height:1.6; margin-bottom:24px;">Le soufflé au chocolat et prune restera l'un des plus beaux souvenirs gustatifs de notre année.</p>
-                        <div style="font-family:var(--font-script); font-size:1.4rem; color:var(--or-clair);">Camille &amp; Léo</div>
-                        <div style="font-size:0.9rem; color:rgba(242,233,219,0.55); margin-top:4px;">Dîner romantique</div>
-                      </div>
-                    </div>
-                  </div>
-                </section>
-                <section style="background:radial-gradient(ellipse at 50% 0%, rgba(74,22,56,0.5), transparent 60%), var(--noir); padding:130px 0;">
-                  <div style="max-width:1160px; margin:0 auto; padding:0 32px; display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;">
-                    <div style="color:var(--ivoire);">
-                      <span style="display:block; font-size:0.9rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--or); margin-bottom:20px;">Réservation</span>
-                      <h2 style="font-family:var(--font-title); font-weight:400; font-size:clamp(2.1rem,4vw,3.2rem); margin-bottom:22px;">Réservez votre table</h2>
-                      <p style="color:rgba(242,233,219,0.7); max-width:380px; margin-bottom:32px;">Service du mardi au samedi, de 19h30 à 23h. Pour les groupes de plus de huit convives, contactez-nous directement.</p>
-                      <div style="margin-bottom:24px;"><div style="font-size:0.82rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--or); margin-bottom:6px;">Adresse</div><div style="font-size:1.15rem; color:var(--ivoire);">8 rue des Grands Augustins, 75006 Paris</div></div>
-                      <div style="margin-bottom:24px;"><div style="font-size:0.82rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--or); margin-bottom:6px;">Téléphone</div><div style="font-size:1.15rem; color:var(--ivoire);">+33 1 42 00 00 00</div></div>
-                      <div><div style="font-size:0.82rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--or); margin-bottom:6px;">Email</div><div style="font-size:1.15rem; color:var(--ivoire);">reservation@nuitblanche.paris</div></div>
-                    </div>
-                    <div style="color:var(--ivoire);">
-                      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;"><div><label style="font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(242,233,219,0.6); margin-bottom:8px; display:block;">Nom complet</label><input type="text" style="width:100%; background:transparent; border:none; border-bottom:1px solid rgba(203,167,105,0.35); padding:10px 2px; font-family:var(--font-body); font-size:1.1rem; color:var(--ivoire); outline:none;" required></div><div><label style="font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(242,233,219,0.6); margin-bottom:8px; display:block;">Téléphone</label><input type="tel" style="width:100%; background:transparent; border:none; border-bottom:1px solid rgba(203,167,105,0.35); padding:10px 2px; font-family:var(--font-body); font-size:1.1rem; color:var(--ivoire); outline:none;" required></div></div>
-                      <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; margin-bottom:24px;"><div><label style="font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(242,233,219,0.6); margin-bottom:8px; display:block;">Date</label><input type="date" style="width:100%; background:transparent; border:none; border-bottom:1px solid rgba(203,167,105,0.35); padding:10px 2px; font-family:var(--font-body); font-size:1.1rem; color:var(--ivoire); outline:none;" required></div><div><label style="font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(242,233,219,0.6); margin-bottom:8px; display:block;">Heure</label><select style="width:100%; background:transparent; border:none; border-bottom:1px solid rgba(203,167,105,0.35); padding:10px 2px; font-family:var(--font-body); font-size:1.1rem; color:var(--ivoire); outline:none;"><option>19h30</option><option>20h00</option><option>20h30</option><option>21h00</option><option>21h30</option></select></div></div>
-                      <div style="margin-bottom:24px;"><label style="font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(242,233,219,0.6); margin-bottom:8px; display:block;">Nombre de convives</label><input type="number" min="1" max="8" value="2" style="width:100%; background:transparent; border:none; border-bottom:1px solid rgba(203,167,105,0.35); padding:10px 2px; font-family:var(--font-body); font-size:1.1rem; color:var(--ivoire); outline:none;"></div>
-                      <div style="margin-bottom:24px;"><label style="font-size:0.82rem; letter-spacing:0.1em; text-transform:uppercase; color:rgba(242,233,219,0.6); margin-bottom:8px; display:block;">Message (allergies, occasion…)</label><textarea rows="3" style="width:100%; background:transparent; border:none; border-bottom:1px solid rgba(203,167,105,0.35); padding:10px 2px; font-family:var(--font-body); font-size:1.1rem; color:var(--ivoire); outline:none;"></textarea></div>
-                      <button type="submit" style="display:inline-block; padding:16px 40px; font-family:var(--font-body); font-size:0.95rem; letter-spacing:0.15em; text-transform:uppercase; border:1px solid var(--or); background:var(--or); color:var(--noir); cursor:pointer;">Confirmer la demande</button>
-                    </div>
-                  </div>
-                </section>
-                <footer style="background:var(--velours); border-top:1px solid rgba(203,167,105,0.15); padding:50px 0; text-align:center; color:rgba(242,233,219,0.5);">
-                  <div style="font-family:var(--font-script); font-size:2rem; color:var(--or-clair); margin-bottom:10px;">Nuit Blanche</div>
-                  <p style="margin:0; font-size:0.9rem;">© 2026 Nuit Blanche — Tous droits réservés</p>
-                </footer>
-              </main>
-            </div>`;
-          break;
-
-        case 'vitrine-3':
-          html = `${ANIM_STYLES}
             <style>
               :root{--noir:#0a0a0b;--noir-2:#131315;--gris:#8b8f94;--gris-dark:#2c2e30;--blanc:#f4f5f3;--vert:#c6ff3a;--vert-dim:#7fa823;--font-head:'Archivo Narrow', sans-serif;--font-mono:'Space Mono', monospace;}
               *{margin:0;padding:0;box-sizing:border-box;}
@@ -1803,10 +1700,7 @@ function showToast(){
                 <div class="logo">PULSE <span>ATELIER</span></div>
                 <ul class="nav-links">
                   <li><a href="#offres">Offres</a></li>
-                  <li><a href="#coachs">Coachs</a></li>
-                  <li><a href="#programmes">Programmes</a></li>
-                  <li><a href="#galerie">Galerie</a></li>
-                  <li><a href="#temoignages">Avis</a></li>
+                  <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="burger"><span></span><span></span><span></span></div>
               </nav>
@@ -1822,7 +1716,7 @@ function showToast(){
                 <p class="hero-sub">Coaching haute performance, plateaux techniques et suivi data-driven. Un club pensé pour ceux qui mesurent chaque progrès.</p>
                 <div class="hero-cta">
                   <a href="#offres" class="btn btn-solid">Voir les offres</a>
-                  <a href="#coachs" class="btn">Nos coachs</a>
+                  <a href="#contact" class="btn">Nous contacter</a>
                 </div>
               </div>
             </section>
@@ -1870,142 +1764,23 @@ function showToast(){
                 </div>
               </div>
             </section>
-            <section id="coachs">
+            <section id="contact">
               <div class="wrap">
                 <div class="section-head">
                   <div>
-                    <div class="eyebrow">L'équipe</div>
-                    <h2>Coachs certifiés</h2>
+                    <div class="eyebrow">Contact</div>
+                    <h2>Passez nous voir</h2>
                   </div>
-                  <p class="section-note">Une expertise pointue, du haut-niveau à la préparation physique générale.</p>
+                  <p class="section-note">Essai gratuit sur simple demande, sans engagement.</p>
                 </div>
-                <div class="coachs-grid">
-                  <div class="coach-card">
-                    <div class="coach-photo"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?q=80&w=800&auto=format&fit=crop" alt="Coach Nora K."></div>
-                    <div class="coach-info">
-                      <div class="coach-name">Nora K.</div>
-                      <div class="coach-spec">STRENGTH &amp; CONDITIONING</div>
-                      <div class="coach-stats"><span>12 ANS XP</span><span>CFA3</span></div>
-                    </div>
+                <div class="offres-grid" style="grid-template-columns:1fr 1fr;">
+                  <div class="offre-card">
+                    <div class="offre-name">Adresse</div>
+                    <p style="color:var(--gris);margin-top:12px;line-height:1.7;">12 rue de l'Effort, 75011 Paris<br>Ouvert 7j/7, 5h–23h</p>
                   </div>
-                  <div class="coach-card">
-                    <div class="coach-photo"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=800&auto=format&fit=crop" alt="Coach Malik R."></div>
-                    <div class="coach-info">
-                      <div class="coach-name">Malik R.</div>
-                      <div class="coach-spec">HYBRID PERFORMANCE</div>
-                      <div class="coach-stats"><span>9 ANS XP</span><span>NASM-CPT</span></div>
-                    </div>
-                  </div>
-                  <div class="coach-card">
-                    <div class="coach-photo"><img src="https://images.unsplash.com/photo-1548690312-e3b507d8c110?q=80&w=800&auto=format&fit=crop" alt="Coach Elena V."></div>
-                    <div class="coach-info">
-                      <div class="coach-name">Elena V.</div>
-                      <div class="coach-spec">MOBILITY &amp; RECOVERY</div>
-                      <div class="coach-stats"><span>7 ANS XP</span><span>DN-S</span></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section id="programmes">
-              <div class="wrap">
-                <div class="section-head">
-                  <div>
-                    <div class="eyebrow">Training</div>
-                    <h2>Programmes signature</h2>
-                  </div>
-                  <p class="section-note">Cycles progressifs de 6 à 12 semaines, adaptés à vos données de performance.</p>
-                </div>
-                <div class="programmes-list">
-                  <div class="programme-row">
-                    <div class="programme-num">01</div>
-                    <div class="programme-name">Pulse Strength</div>
-                    <div class="programme-desc">Force maximale et hypertrophie, sur cycle de 8 semaines.</div>
-                    <div class="programme-dur">8 SEM.</div>
-                  </div>
-                  <div class="programme-row">
-                    <div class="programme-num">02</div>
-                    <div class="programme-name">Metcon Protocol</div>
-                    <div class="programme-desc">Conditionnement métabolique haute intensité, format HIIT.</div>
-                    <div class="programme-dur">6 SEM.</div>
-                  </div>
-                  <div class="programme-row">
-                    <div class="programme-num">03</div>
-                    <div class="programme-name">Reset &amp; Mobility</div>
-                    <div class="programme-desc">Récupération active, mobilité articulaire et respiration.</div>
-                    <div class="programme-dur">4 SEM.</div>
-                  </div>
-                  <div class="programme-row">
-                    <div class="programme-num">04</div>
-                    <div class="programme-name">Elite Hybrid</div>
-                    <div class="programme-desc">Programme complet force + cardio, suivi data hebdomadaire.</div>
-                    <div class="programme-dur">12 SEM.</div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section class="galerie" id="galerie">
-              <div class="wrap">
-                <div class="section-head">
-                  <div>
-                    <div class="eyebrow">Le Studio</div>
-                    <h2>À l'intérieur du club</h2>
-                  </div>
-                </div>
-                <div class="gallery-grid">
-                  <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=900&auto=format&fit=crop" alt="Plateau principal">
-                    <div class="gallery-caption">Plateau principal</div>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=900&auto=format&fit=crop" alt="Zone haltérophilie">
-                    <div class="gallery-caption">Zone haltérophilie</div>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=900&auto=format&fit=crop" alt="Salle de cours collectifs">
-                    <div class="gallery-caption">Cours collectifs</div>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1558611848-73f7eb4001a1?q=80&w=1200&auto=format&fit=crop" alt="Zone cardio">
-                    <div class="gallery-caption">Zone cardio</div>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?q=80&w=900&auto=format&fit=crop" alt="Coaching privé">
-                    <div class="gallery-caption">Coaching privé</div>
-                  </div>
-                  <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1517963879433-6ad2b056d712?q=80&w=900&auto=format&fit=crop" alt="Espace récupération">
-                    <div class="gallery-caption">Espace récupération</div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section id="temoignages">
-              <div class="wrap">
-                <div class="section-head">
-                  <div>
-                    <div class="eyebrow">Résultats</div>
-                    <h2>Ce que dit notre communauté</h2>
-                  </div>
-                </div>
-                <div class="temoignages-grid">
-                  <div class="temoin-card">
-                    <div class="temoin-stats">-8KG · +22% FORCE · 10 SEM.</div>
-                    <p class="temoin-quote">Le suivi data change tout. Je vois enfin mes chiffres progresser semaine après semaine.</p>
-                    <div class="temoin-author">Sophie L.</div>
-                    <div class="temoin-role">Membre Performance</div>
-                  </div>
-                  <div class="temoin-card">
-                    <div class="temoin-stats">+15% VO2MAX · 12 SEM.</div>
-                    <p class="temoin-quote">Le programme Elite Hybrid est d'une exigence rare. Les coachs poussent juste ce qu'il faut.</p>
-                    <div class="temoin-author">Karim B.</div>
-                    <div class="temoin-role">Membre Elite</div>
-                  </div>
-                  <div class="temoin-card">
-                    <div class="temoin-stats">-4CM TOUR DE TAILLE · 8 SEM.</div>
-                    <p class="temoin-quote">Un club exigeant, propre, et une communauté qui tire vers le haut. Aucun regret.</p>
-                    <div class="temoin-author">Julie M.</div>
-                    <div class="temoin-role">Membre Essential</div>
+                  <div class="offre-card">
+                    <div class="offre-name">Contact</div>
+                    <p style="color:var(--gris);margin-top:12px;line-height:1.7;">01 40 00 00 00<br>contact@pulseatelier.fr</p>
                   </div>
                 </div>
               </div>
@@ -2018,10 +1793,10 @@ function showToast(){
             </footer>`;
           break;
 
-        case 'vitrine-4':
+        case 'vitrine-3':
           html = `${ANIM_STYLES}
             <style>
-              :root{--marine:#0f2038;--marine-2:#16304f;--sable:#d9c8a5;--sable-clair:#ede4cf;--blanc:#faf8f3;--or:#c39a55;--or-clair:#dcb877;--font-title:'Newsreader', serif;--font-body:'Work Sans', sans-serif;}
+              :root{--marine:#0f2038;--marine-2:#16304f;--sable:#cfe0d6;--sable-clair:#eef4f0;--blanc:#f7faf8;--or:#4a7c59;--or-clair:#6fa584;--font-title:'Newsreader', serif;--font-body:'Work Sans', sans-serif;}
               *{margin:0;padding:0;box-sizing:border-box;}
               html{scroll-behavior:smooth;}
               body{background:var(--blanc);color:var(--marine);font-family:var(--font-body);font-weight:300;font-size:16.5px;line-height:1.65;overflow-x:hidden;}
@@ -2126,8 +1901,6 @@ function showToast(){
                 <ul class="nav-links">
                   <li><a href="#presentation">Agence</a></li>
                   <li><a href="#services">Services</a></li>
-                  <li><a href="#biens">Biens</a></li>
-                  <li><a href="#avis">Avis</a></li>
                   <li><a href="#contact">Contact</a></li>
                 </ul>
                 <div class="burger"><span></span><span></span><span></span></div>
@@ -2142,7 +1915,7 @@ function showToast(){
                 <h1 class="hero-title">Trouver un lieu, <em>bâtir une valeur</em>.</h1>
                 <p class="hero-sub">Urban Valeur accompagne l'achat, la vente et l'investissement de biens d'exception, avec la rigueur d'une maison discrète et exigeante.</p>
                 <div class="hero-cta">
-                  <a href="#biens" class="btn btn-primary">Voir les biens</a>
+                  <a href="#services" class="btn btn-primary">Nos services</a>
                   <a href="#contact" class="btn btn-ghost">Estimation gratuite</a>
                 </div>
                 <div class="hero-stats">
@@ -2209,91 +1982,6 @@ function showToast(){
                 </div>
               </div>
             </section>
-            <section class="biens" id="biens">
-              <div class="wrap">
-                <div class="section-head">
-                  <div>
-                    <div class="eyebrow">Sélection</div>
-                    <h2>Biens d'exception disponibles.</h2>
-                  </div>
-                  <p class="section-note">Une sélection actualisée de nos exclusivités à Paris et en Île-de-France.</p>
-                </div>
-                <div class="biens-grid">
-                  <div class="bien-card">
-                    <div class="bien-photo">
-                      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800&auto=format&fit=crop" alt="Appartement haussmannien Paris 7e"/>
-                      <div class="bien-tag">Exclusivité</div>
-                    </div>
-                    <div class="bien-info">
-                      <div class="bien-loc">Paris 7e — Invalides</div>
-                      <div class="bien-name">Appartement haussmannien</div>
-                      <div class="bien-meta">
-                        <div class="bien-price">2 450 000 €</div>
-                        <div class="bien-specs">180 m² · 5 pièces</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="bien-card">
-                    <div class="bien-photo">
-                      <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=800&auto=format&fit=crop" alt="Maison contemporaine Neuilly"/>
-                      <div class="bien-tag">Nouveau</div>
-                    </div>
-                    <div class="bien-info">
-                      <div class="bien-loc">Neuilly-sur-Seine</div>
-                      <div class="bien-name">Maison contemporaine</div>
-                      <div class="bien-meta">
-                        <div class="bien-price">3 890 000 €</div>
-                        <div class="bien-specs">310 m² · 7 pièces</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="bien-card">
-                    <div class="bien-photo">
-                      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800&auto=format&fit=crop" alt="Duplex vue Seine"/>
-                      <div class="bien-tag">Coup de cœur</div>
-                    </div>
-                    <div class="bien-info">
-                      <div class="bien-loc">Paris 16e — Trocadéro</div>
-                      <div class="bien-name">Duplex vue panoramique</div>
-                      <div class="bien-meta">
-                        <div class="bien-price">1 980 000 €</div>
-                        <div class="bien-specs">140 m² · 4 pièces</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <section id="avis">
-              <div class="wrap">
-                <div class="section-head">
-                  <div>
-                    <div class="eyebrow">Confiance</div>
-                    <h2>Ce que nos clients en disent.</h2>
-                  </div>
-                </div>
-                <div class="avis-grid">
-                  <div class="avis-card">
-                    <p class="avis-quote">Une vente conclue en trois semaines, à un prix supérieur à notre estimation initiale. Une équipe d'un grand professionnalisme.</p>
-                    <div class="avis-author">Isabelle Ferrand</div>
-                    <div class="avis-role">Vente, Paris 7e</div>
-                    <div class="avis-stars">★★★★★</div>
-                  </div>
-                  <div class="avis-card">
-                    <p class="avis-quote">Un accompagnement rigoureux sur notre investissement locatif, avec des conseils fiscaux précieux et un suivi constant.</p>
-                    <div class="avis-author">Thomas Girard</div>
-                    <div class="avis-role">Investissement locatif</div>
-                    <div class="avis-stars">★★★★★</div>
-                  </div>
-                  <div class="avis-card">
-                    <p class="avis-quote">Ils ont trouvé exactement la maison que nous cherchions depuis deux ans, en moins d'un mois.</p>
-                    <div class="avis-author">Nadia &amp; Paul Costa</div>
-                    <div class="avis-role">Acquisition, Neuilly</div>
-                    <div class="avis-stars">★★★★★</div>
-                  </div>
-                </div>
-              </div>
-            </section>
             <section class="contact" id="contact">
               <div class="wrap">
                 <div class="contact-grid">
@@ -2323,7 +2011,7 @@ function showToast(){
             </footer>`;
           break;
 
-        case 'vitrine-5':
+        case 'vitrine-4':
           html = `${ANIM_STYLES}
             <div class="lumiere-vierge-preview" style="max-width:1220px; margin:0 auto; overflow:hidden; border-radius:24px; box-shadow:0 32px 80px rgba(22,21,19,0.12); background:#f6f5f2; color:#161513; font-family:'Helvetica Neue',Helvetica,Arial,'Segoe UI',sans-serif;">
               <style>
@@ -2379,7 +2067,6 @@ function showToast(){
                   <a href="#bio">Bio</a>
                   <a href="#services">Prestations</a>
                   <a href="#galerie">Galerie</a>
-                  <a href="#avis">Avis</a>
                   <a href="#contact">Contact</a>
                 </nav>
               </header>
@@ -2451,18 +2138,6 @@ function showToast(){
                   <div></div>
                   <div></div>
                   <div></div>
-                </div>
-              </section>
-              <section id="avis">
-                <div class="quotes">
-                  <div class="quote">
-                    <strong>« Elle laisse la lumière raconter ce qu'elle voit. Aucune séance ne lui ressemble. »</strong>
-                    <div>Camille Dorval — Portrait</div>
-                  </div>
-                  <div class="quote">
-                    <strong>« Notre mariage raconté sans un seul cliché forcé. »</strong>
-                    <div>Julien &amp; Aya — Mariage</div>
-                  </div>
                 </div>
               </section>
               <section id="contact">
@@ -2578,6 +2253,28 @@ function showToast(){
                     <h3>Rituel de soin signature</h3>
                     <p>Nettoyage haute précision et polissage.</p>
                     <span class="np-price">À partir de 180€</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="np-section">
+                <div class="np-eyebrow">Confiance</div>
+                <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.8rem;font-weight:400;margin:0 0 28px;color:#f4efe7;">Ce que disent nos patients</h2>
+                <div class="np-services-grid">
+                  <div class="np-service-card">
+                    <div style="color:#e9d0d3;letter-spacing:2px;margin-bottom:12px;font-size:.8rem;">★★★★★</div>
+                    <p style="font-style:italic;">Un accueil d'une rare délicatesse, et un résultat qui dépasse ce qu'on imaginait possible.</p>
+                    <span class="np-price">Camille R. — Facettes en porcelaine</span>
+                  </div>
+                  <div class="np-service-card">
+                    <div style="color:#e9d0d3;letter-spacing:2px;margin-bottom:12px;font-size:.8rem;">★★★★★</div>
+                    <p style="font-style:italic;">Une précision chirurgicale et un suivi irréprochable, du premier rendez-vous au dernier.</p>
+                    <span class="np-price">Marc D. — Implants</span>
+                  </div>
+                  <div class="np-service-card">
+                    <div style="color:#e9d0d3;letter-spacing:2px;margin-bottom:12px;font-size:.8rem;">★★★★★</div>
+                    <p style="font-style:italic;">On sent immédiatement qu'on est entre des mains expertes. Cabinet à part.</p>
+                    <span class="np-price">Sophia L. — Orthodontie</span>
                   </div>
                 </div>
               </div>
@@ -4122,6 +3819,7 @@ case 'cm-5':
 document.addEventListener("keydown",e=>{
   if(e.key==="Escape"){
     if(document.getElementById("previewFullscreen").classList.contains("open")){closeFullscreen();}
+    else if(document.getElementById("legalModal")&&document.getElementById("legalModal").style.display==="block"){closeLegal();}
     else{closePortfolio();}
   }
 });
