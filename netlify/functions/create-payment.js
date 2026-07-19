@@ -84,19 +84,27 @@ exports.handler = async (event) => {
     }
 
     // ── Paiement fractionné (4x ou mensualisé/12) ──
-    // Abonnement Stripe borné à N échéances via subscription_data.cancel_at.
-    // La maintenance n'est PAS gérée ici : elle est désactivée côté site
-    // dès que 4x/12 mois est choisi (impossible techniquement de faire
-    // cohabiter, dans UN SEUL abonnement Stripe, un nombre d'échéances
-    // limité et un prélèvement mensuel illimité — ça demanderait un second
-    // abonnement indépendant créé via webhook après paiement).
+    // Stripe n'autorise PAS de borner un abonnement à N échéances au moment
+    // de la création d'une Checkout Session (cancel_at n'existe que sur
+    // subscriptions.update, une fois l'abonnement déjà créé — d'où l'erreur
+    // "unknown parameter" que tu as eue). Pour l'arrêter automatiquement il
+    // faudrait un webhook Stripe qui, une fois l'abonnement créé, appelle
+    // subscriptions.update(id, {cancel_at:...}) — je peux le construire si
+    // tu veux, mais ça demande de créer un endpoint de webhook + configurer
+    // son secret dans Stripe (une étape à faire toi-même côté Dashboard).
+    //
+    // En attendant : l'abonnement tourne normalement (prélèvement mensuel)
+    // et sa description + ses metadata indiquent clairement quand l'annuler
+    // à la main dans le Dashboard Stripe (Abonnements > cet abonnement >
+    // Annuler l'abonnement).
     const installments = plan === 'x4' ? 4 : 12;
     const perInstallmentCents = Math.max(50, Math.round((Number(amount) * 100) / installments));
     // ⚠️ Répartition à parts égales : le total réel peut différer de
     // quelques centimes de celui affiché sur le devis (arrondi).
     const nowSec = Math.floor(Date.now() / 1000);
     const oneMonthSec = 30 * 24 * 60 * 60;
-    const cancelAt = nowSec + installments * oneMonthSec + 86400; // +1 jour de marge après la dernière échéance
+    const targetStopSec = nowSec + installments * oneMonthSec;
+    const stopDateLabel = new Date(targetStopSec * 1000).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
     const lineItem = {
       price_data: {
@@ -114,7 +122,14 @@ exports.handler = async (event) => {
       payment_method_types: ['card'],
       line_items: [lineItem],
       mode: 'subscription',
-      subscription_data: { cancel_at: cancelAt },
+      subscription_data: {
+        description: `⚠️ À ANNULER après le ${installments}e prélèvement (~${stopDateLabel}) — paiement en ${installments}x, pas un abonnement classique.`,
+        metadata: {
+          installment_plan: plan,
+          installments_total: String(installments),
+          auto_cancel_after_unix: String(targetStopSec),
+        },
+      },
       success_url: successUrl,
       cancel_url: cancelUrl,
     });
