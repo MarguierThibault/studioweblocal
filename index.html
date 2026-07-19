@@ -297,7 +297,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .maintenance-note .mn-amt{color:var(--gold);font-family:var(--font-mono);font-weight:600;white-space:nowrap}
 .option.opt-monthly{border-color:var(--gold-border)}
 .option.opt-monthly:hover{background:var(--gold-soft);border-color:var(--gold-border)}
-.option.opt-monthly.opt-disabled{opacity:.38;pointer-events:none;filter:grayscale(.4)}
 .card__foot{font-size:.78rem;color:var(--muted);margin-top:6px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06)}
 .card__foot b{color:var(--gold);font-weight:600}
 @media(max-width:640px){.plan-picker{grid-template-columns:1fr}}
@@ -776,11 +775,6 @@ function calc(){
 function setPlan(p){
   selectedPlan=p;
   document.querySelectorAll("#paymentPlan .plan-choice").forEach(l=>l.classList.toggle("active",l.dataset.plan===p));
-  document.querySelectorAll("#options input[data-monthly='1']").forEach(el=>{
-    el.disabled=(p!=="once");
-    if(p!=="once")el.checked=false;
-  });
-  document.querySelectorAll(".option.opt-monthly").forEach(row=>row.classList.toggle("opt-disabled",p!=="once"));
   calc();
 }
 function renderPaymentPlan(){
@@ -790,7 +784,7 @@ function renderPaymentPlan(){
   if(s===""||s==="129"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
-<label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">Paiement en 1 fois — compatible avec la maintenance mensuelle</span></label>
+<label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">Paiement en 1 fois à la validation</span></label>
 <label class="plan-choice" data-plan="x4"><input type="radio" name="pplan" value="x4" onchange="setPlan('x4')"><span class="plan-choice-title">En 4 fois</span><span class="plan-choice-desc">Sans frais, prélevé chaque mois par carte</span></label>
 <label class="plan-choice" data-plan="x12"><input type="radio" name="pplan" value="x12" onchange="setPlan('x12')"><span class="plan-choice-title">Mensualisé 12 mois</span><span class="plan-choice-desc">Idéal pour lisser un gros projet</span></label>`;
 }
