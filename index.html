@@ -163,7 +163,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   .main-nav__links.open li:nth-child(3){transition-delay:.12s}
   .main-nav__links.open li:nth-child(4){transition-delay:.16s}
   .main-nav__links.open li:nth-child(5){transition-delay:.2s}
-  .main-nav__links a{padding:14px 16px;width:100%;border-radius:10px;font-size:.78rem}
+  .main-nav__links a{padding:14px 16px;width:100%;border-radius:10px;font-size:.74rem;letter-spacing:.06em;white-space:nowrap}
   .main-nav__links a.nav-cta{display:flex;justify-content:center;margin-left:0;margin-top:8px;text-align:center;border-radius:10px;padding:13px 16px}
   .main-nav__links a.nav-cta::before{display:none}
   .main-nav__burger{display:flex}
@@ -307,6 +307,33 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 #legalModal .modal-inner{max-width:760px}
 .footer-link-btn{background:none;border:none;cursor:pointer;font:inherit;padding:0;color:var(--muted);font-size:.78rem;font-family:var(--font-mono)}
 .footer-link-btn:hover{color:var(--gold)}
+
+/* ===== QUESTIONNAIRE ===== */
+.qz-box{background:var(--bg-card);border:1px solid var(--violet-border);border-radius:20px;padding:44px;position:relative;overflow:hidden}
+.qz-box::after{content:"";position:absolute;bottom:-120px;right:-120px;width:340px;height:340px;background:radial-gradient(circle,rgba(124,107,255,.08) 0%,transparent 70%);pointer-events:none}
+.qz-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;position:relative;z-index:1}
+.qz-step-lbl{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.qz-bar{position:relative;height:3px;background:rgba(255,255,255,.08);border-radius:3px;overflow:hidden;margin-bottom:34px}
+.qz-bar-fill{position:absolute;inset:0 auto 0 0;width:0%;background:linear-gradient(90deg,var(--violet),var(--gold));border-radius:3px;transition:width .4s ease}
+.qz-q{position:relative;z-index:1}
+.qz-title{font-family:var(--font-head);font-size:1.3rem;font-weight:600;margin-bottom:6px;line-height:1.3}
+.qz-sub{color:var(--muted);font-size:.86rem;margin-bottom:22px}
+.qz-opts{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px}
+@media(max-width:640px){.qz-opts{grid-template-columns:1fr}}
+.qz-opt{text-align:left;padding:15px 18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);border-radius:var(--r-sm);color:var(--text);font-family:var(--font-body);font-size:.88rem;cursor:pointer;transition:border-color .2s,background .2s}
+.qz-opt:hover{border-color:var(--violet-border);background:rgba(124,107,255,.06)}
+.qz-opt.selected{border-color:var(--gold);background:var(--gold-soft);color:var(--gold)}
+.qz-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:1}
+.qz-result{position:relative;z-index:1}
+.qz-result-tag{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--violet);margin-bottom:10px;display:block}
+.qz-result-offer{font-family:var(--font-head);font-size:1.7rem;font-weight:700;color:var(--gold);margin-bottom:6px}
+.qz-result-price{font-family:var(--font-mono);color:var(--text);margin-bottom:18px}
+.qz-result-why{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:8px}
+.qz-result-why li{font-size:.88rem;color:var(--muted);padding-left:20px;position:relative}
+.qz-result-why li::before{content:'✓';position:absolute;left:0;color:var(--gold)}
+.qz-result-cm{background:rgba(255,213,74,.06);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:16px 18px;margin-bottom:24px;font-size:.86rem;color:var(--text)}
+.qz-result-actions{display:flex;gap:12px;flex-wrap:wrap}
+.qz-restart{background:none;border:none;color:var(--muted);font-family:var(--font-mono);font-size:.78rem;cursor:pointer;text-decoration:underline;margin-top:18px}
 </style>
 </head>
 <body>
@@ -433,6 +460,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   <div class="main-nav__inner">
     <a href="#hero" class="main-nav__logo"><span class="nav-mark"><img src="images/logo-mark.png" alt="Studio Web Local"></span>Studio<em> Web Local</em></a>
     <ul class="main-nav__links" id="navLinks">
+      <li><a href="#questionnaire" class="nav-link">Questionnaire</a></li>
       <li><a href="#offres" class="nav-link">Nos offres</a></li>
       <li><a href="#clients" class="nav-link">Nos clients</a></li>
       <li><a href="#avis" class="nav-link">Avis clients</a></li>
@@ -492,6 +520,27 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         <div class="stat"><span class="stat__n">+40%</span><span class="stat__d">de demandes clients<br>sites optimisés conversion</span></div>
         <div class="stat"><span class="stat__n">+25%</span><span class="stat__d">de contacts sup.<br>sites locaux simples</span></div>
       </div>
+    </div>
+  </div>
+</section>
+<section class="sec" id="questionnaire">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="mono-label">QUESTIONNAIRE PERSONNALISÉ</span>
+      <h2>Quelle formule vous correspond ?</h2>
+      <div class="divider"></div>
+      <p style="color:var(--muted);margin-top:14px;max-width:620px;font-size:.95rem">
+        Répondez à quelques questions sur votre activité et vos besoins : on calcule immédiatement l'offre la plus adaptée, sans engagement.
+      </p>
+    </div>
+    <div class="qz-box reveal" id="qzBox">
+      <div class="qz-top">
+        <span class="qz-step-lbl" id="qzStepLbl">Question 1 / 17</span>
+        <span class="qz-step-lbl" id="qzPctLbl">6%</span>
+      </div>
+      <div class="qz-bar"><div class="qz-bar-fill" id="qzBarFill"></div></div>
+      <div id="qzQuestionWrap"></div>
+      <div id="qzResultWrap" style="display:none"></div>
     </div>
   </div>
 </section>
@@ -3941,6 +3990,303 @@ function closePortfolio(){
   }
   window.addEventListener('scroll',onScroll,{passive:true});
   onScroll();
+})();
+</script>
+<script>
+(function(){
+  const QZ = [
+    { id:'secteur', title:"Quel est le secteur de votre activité ?", sub:"Pour adapter nos exemples et notre discours à votre métier.",
+      opts:[
+        {l:'Commerce / boutique', site:0, cm:0},
+        {l:'Artisanat / BTP', site:0, cm:0},
+        {l:'Restauration / hôtellerie', site:0, cm:0},
+        {l:'Services aux entreprises', site:0, cm:0},
+        {l:'Santé / bien-être', site:0, cm:0},
+        {l:'Autre activité', site:0, cm:0},
+      ]},
+    { id:'taille', title:"Combien de personnes travaillent dans votre entreprise ?", sub:"Ça nous aide à cerner l'ampleur du projet.",
+      opts:[
+        {l:'0 à 1 (juste moi)', site:2, cm:0},
+        {l:'2 à 5', site:6, cm:0},
+        {l:'6 à 20', site:12, cm:0},
+        {l:'Plus de 20', site:18, cm:0},
+      ]},
+    { id:'siteActuel', title:"Avez-vous déjà un site web ?", sub:"",
+      opts:[
+        {l:"Non, aucun site", site:4, cm:0},
+        {l:"Oui, mais il est vieux / dépassé", site:6, cm:0},
+        {l:"Oui, mais il ne m'apporte pas de clients", site:8, cm:0},
+        {l:"Oui, et il fonctionne bien", site:0, cm:0},
+      ]},
+    { id:'budget', title:"Quel budget envisagez-vous pour votre site ?", sub:"Une fourchette suffit, rien n'est engageant.",
+      opts:[
+        {l:'Moins de 500€', site:0, cm:0},
+        {l:'500€ à 1500€', site:15, cm:0},
+        {l:'1500€ à 3000€', site:30, cm:0},
+        {l:'Plus de 3000€', site:45, cm:0},
+      ]},
+    { id:'zone', title:"Où se trouve votre clientèle ?", sub:"",
+      opts:[
+        {l:'Mon quartier / ma rue', site:2, cm:0},
+        {l:'Ma ville', site:6, cm:0},
+        {l:'Ma région', site:12, cm:0},
+        {l:'National ou international', site:18, cm:0},
+      ]},
+    { id:'objectif', title:"Quel est l'objectif principal du site ?", sub:"",
+      opts:[
+        {l:'Simplement exister en ligne, être trouvé', site:3, cm:0},
+        {l:'Générer des demandes de devis / contacts', site:9, cm:0},
+        {l:'Vendre directement en ligne', site:14, cm:0},
+        {l:'Renforcer une image de marque forte', site:14, cm:0},
+      ]},
+    { id:'rdv', title:"Avez-vous besoin d'une prise de rendez-vous ou réservation en ligne ?", sub:"",
+      opts:[
+        {l:'Oui, c\'est important', site:6, cm:0},
+        {l:'Non, pas besoin', site:0, cm:0},
+      ]},
+    { id:'pages', title:"Combien de pages / services souhaitez-vous présenter ?", sub:"",
+      opts:[
+        {l:'1 à 3 pages', site:2, cm:0},
+        {l:'4 à 8 pages', site:6, cm:0},
+        {l:'9 à 15 pages', site:10, cm:0},
+        {l:'Plus de 15 pages', site:14, cm:0},
+      ]},
+    { id:'contenu', title:"Avez-vous déjà des textes et photos prêts pour le site ?", sub:"",
+      opts:[
+        {l:'Oui, tout est prêt', site:0, cm:0},
+        {l:'Partiellement', site:0, cm:0},
+        {l:'Non, j\'aurai besoin d\'accompagnement', site:0, cm:0},
+      ]},
+    { id:'surmesure', title:"Préférez-vous un design simple ou 100% sur mesure ?", sub:"",
+      opts:[
+        {l:'Un modèle simple et efficace suffit', site:2, cm:0},
+        {l:'Je veux un design entièrement sur mesure', site:10, cm:0},
+      ]},
+    { id:'automatisations', title:"Avez-vous besoin d'automatisations (relances, formulaires intelligents, CRM) ?", sub:"",
+      opts:[
+        {l:'Oui, ce serait un vrai plus', site:8, cm:0},
+        {l:'Non, pas nécessaire pour l\'instant', site:0, cm:0},
+      ]},
+    { id:'seo', title:"Être bien positionné sur Google est-il une priorité ?", sub:"",
+      opts:[
+        {l:'Oui, c\'est essentiel pour moi', site:6, cm:0},
+        {l:'Un peu, sans que ce soit central', site:3, cm:0},
+        {l:'Pas prioritaire', site:0, cm:0},
+      ]},
+    { id:'reseaux', title:"Où en êtes-vous sur les réseaux sociaux aujourd'hui ?", sub:"",
+      opts:[
+        {l:'Aucune présence actuellement', site:0, cm:3},
+        {l:'Présence, mais peu active', site:0, cm:8},
+        {l:'Active, mais mal gérée / chronophage', site:0, cm:10},
+        {l:'Active et bien gérée', site:0, cm:2},
+      ]},
+    { id:'tempsdispo', title:"Avez-vous le temps de gérer vos réseaux chaque semaine ?", sub:"",
+      opts:[
+        {l:'Oui, j\'ai le temps nécessaire', site:0, cm:0},
+        {l:'Un peu, mais pas toujours', site:0, cm:5},
+        {l:'Non, pas du tout', site:0, cm:10},
+      ]},
+    { id:'rythme', title:"À quel rythme aimeriez-vous publier sur vos réseaux ?", sub:"",
+      opts:[
+        {l:'Aucun besoin de publier', site:0, cm:0},
+        {l:'1 à 2 fois par semaine', site:0, cm:4},
+        {l:'3 à 4 fois par semaine', site:0, cm:8},
+        {l:'5 fois ou plus par semaine', site:0, cm:10},
+      ]},
+    { id:'budgetcm', title:"Quel budget mensuel envisagez-vous pour la gestion de vos réseaux ?", sub:"",
+      opts:[
+        {l:'Aucun budget dédié pour l\'instant', site:0, cm:0},
+        {l:'Moins de 150€/mois', site:0, cm:6},
+        {l:'150€ à 250€/mois', site:0, cm:9},
+        {l:'Plus de 250€/mois', site:0, cm:10},
+      ]},
+    { id:'delai', title:"Quel est votre échéance de lancement souhaitée ?", sub:"",
+      opts:[
+        {l:'Urgent, moins d\'un mois', site:0, cm:0},
+        {l:'1 à 2 mois', site:0, cm:0},
+        {l:'Flexible, pas de contrainte', site:0, cm:0},
+      ]},
+  ];
+
+  const MAX_SITE = QZ.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.site)),0);
+  const MAX_CM = QZ.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.cm)),0);
+
+  let qzIdx = 0;
+  const qzAnswers = new Array(QZ.length).fill(null);
+
+  const qWrap = document.getElementById('qzQuestionWrap');
+  const rWrap = document.getElementById('qzResultWrap');
+  const stepLbl = document.getElementById('qzStepLbl');
+  const pctLbl = document.getElementById('qzPctLbl');
+  const barFill = document.getElementById('qzBarFill');
+
+  function renderQuestion(){
+    const q = QZ[qzIdx];
+    const pct = Math.round(((qzIdx) / QZ.length) * 100);
+    stepLbl.textContent = `Question ${qzIdx+1} / ${QZ.length}`;
+    pctLbl.textContent = pct + '%';
+    barFill.style.width = pct + '%';
+
+    const optsHtml = q.opts.map((o,i)=>{
+      const sel = qzAnswers[qzIdx] === i ? ' selected' : '';
+      return `<button type="button" class="qz-opt${sel}" data-i="${i}">${o.l}</button>`;
+    }).join('');
+
+    qWrap.innerHTML = `
+      <div class="qz-q">
+        <p class="qz-title">${q.title}</p>
+        ${q.sub ? `<p class="qz-sub">${q.sub}</p>` : '<div style="margin-bottom:22px"></div>'}
+        <div class="qz-opts">${optsHtml}</div>
+        <div class="qz-nav">
+          <button type="button" class="btn btn--ghost" id="qzPrev" ${qzIdx===0?'style="visibility:hidden"':''}>← Précédent</button>
+          <button type="button" class="btn btn--gold" id="qzNext" ${qzAnswers[qzIdx]===null?'disabled':''}>${qzIdx===QZ.length-1?'Voir mon résultat':'Suivant →'}</button>
+        </div>
+      </div>`;
+
+    qWrap.querySelectorAll('.qz-opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        qzAnswers[qzIdx] = parseInt(btn.dataset.i,10);
+        renderQuestion();
+      });
+    });
+    const nextBtn = document.getElementById('qzNext');
+    nextBtn.addEventListener('click', ()=>{
+      if(qzAnswers[qzIdx]===null) return;
+      if(qzIdx < QZ.length-1){ qzIdx++; renderQuestion(); }
+      else { showResult(); }
+    });
+    const prevBtn = document.getElementById('qzPrev');
+    if(prevBtn) prevBtn.addEventListener('click', ()=>{ if(qzIdx>0){ qzIdx--; renderQuestion(); } });
+  }
+
+  function ans(id){ return qzAnswers[QZ.findIndex(q=>q.id===id)]; }
+
+  function getRecommendedOptions(tierVal){
+    const recs = [];
+    if(tierVal==='550'){
+      if(ans('surmesure')===1 || ans('objectif')===3) recs.push({label:'Design personnalisé', price:'+80€', sel:'[data-value="80"]'});
+      if(ans('seo')===0) recs.push({label:'Référencement local (SEO)', price:'+90€', sel:'[data-value="90"]'});
+      if(ans('zone')<=1) recs.push({label:'Fiche Google avancée', price:'+30€', sel:'[data-value="30"]'});
+      if(ans('contenu')===2) recs.push({label:'Maintenance mensuelle', price:'29€/mois', sel:'[data-value="29"][data-monthly="1"]'});
+    }
+    if(tierVal==='1115'){
+      if(ans('surmesure')===1 || ans('objectif')===3) recs.push({label:'Identité de marque', price:'+120€', sel:'[data-value="120"]'});
+      if(ans('seo')===0) recs.push({label:'SEO avancé & stratégie de contenu', price:'+90€', sel:'[data-value="90"]'});
+      if(ans('objectif')===1 || ans('objectif')===2) recs.push({label:'Optimisation conversion (CRO)', price:'+75€', sel:'[data-value="75"]'});
+      if(ans('contenu')===2 || ans('automatisations')===0) recs.push({label:'Maintenance mensuelle', price:'49€/mois', sel:'[data-value="49"][data-monthly="1"]'});
+    }
+    if(tierVal==='2500'){
+      if(ans('objectif')===2 || ans('zone')===3) recs.push({label:'Publicité Google & Meta Ads', price:'+600€', sel:'[data-value="600"]'});
+      if(ans('automatisations')===0 || ans('objectif')===2) recs.push({label:'Tunnel de vente automatisé', price:'+500€', sel:'[data-value="500"]'});
+      if(ans('automatisations')===0) recs.push({label:'CRM & automatisations', price:'+400€', sel:'[data-value="400"]'});
+      recs.push({label:'Maintenance mensuelle', price:'79€/mois', sel:'[data-value="79"][data-monthly="1"]'});
+    }
+    if(tierVal==='129'){
+      if(ans('rythme')>=2) recs.push({label:'Pack intensif — 4 publications/semaine', price:'+50€', sel:'input[name="cm"][data-value="50"]'});
+      if(ans('rythme')===3) recs.push({label:'Vidéos courtes (Reels/TikTok)', price:'+45€', idx:0});
+      if(ans('tempsdispo')===2) recs.push({label:'Gestion des messages & commentaires', price:'+45€', idx:1});
+    }
+    return recs;
+  }
+
+  function showResult(){
+    let siteScore = 0, cmScore = 0;
+    QZ.forEach((q,i)=>{
+      const a = q.opts[qzAnswers[i]];
+      siteScore += a.site;
+      cmScore += a.cm;
+    });
+    const sitePct = MAX_SITE ? (siteScore / MAX_SITE) * 100 : 0;
+    const cmPct = MAX_CM ? (cmScore / MAX_CM) * 100 : 0;
+
+    let tier, priceVal, priceLabel, why;
+    if(sitePct < 30){
+      tier='Site Vitrine'; priceVal='550'; priceLabel='550€ → 750€';
+      why=["Un site simple, clair et rapide à mettre en ligne","Parfait pour un budget maîtrisé et une clientèle locale","Référencement local (SEO) inclus pour être trouvé sur Google"];
+    } else if(sitePct < 65){
+      tier='Site Premium'; priceVal='1115'; priceLabel='1115€ → 1400€';
+      why=["Un design 100% sur mesure pensé pour convertir","Adapté à une activité en développement avec plusieurs services","Accompagnement au lancement inclus"];
+    } else {
+      tier='Ultra Premium'; priceVal='2500'; priceLabel='2500€ → 4000€';
+      why=["Une expérience digitale complète, pas seulement un site","Automatisations et intégrations avancées","Stratégie de conversion et accompagnement marketing dans la durée"];
+    }
+
+    const rythmeIdx = qzAnswers[QZ.findIndex(q=>q.id==='rythme')];
+    const rythmeNone = rythmeIdx === 0;
+    const addCM = cmPct >= 45 && !rythmeNone;
+
+    const alreadyGoodSite = qzAnswers[QZ.findIndex(q=>q.id==='siteActuel')] === 3;
+    let cmOnly = alreadyGoodSite && addCM && sitePct < 30;
+
+    const finalPriceVal = cmOnly ? '129' : priceVal;
+    const finalTierName = cmOnly ? 'Community Management' : tier;
+    const recOptions = getRecommendedOptions(finalPriceVal);
+
+    let html = `<div class="qz-result">
+      <span class="qz-result-tag">Résultat de votre questionnaire</span>
+      <p class="qz-result-offer">${finalTierName}</p>
+      <p class="qz-result-price">${cmOnly ? '129€ → 269€/mois' : priceLabel}</p>
+      <ul class="qz-result-why">${(cmOnly ? [
+        "Votre site actuel fonctionne déjà bien",
+        "Votre besoin principal est une présence active sur les réseaux",
+        "Publications régulières + gestion des messages, sans effort de votre part"
+      ] : why).map(w=>`<li>${w}</li>`).join('')}</ul>
+      ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Options que nous vous conseillons d'ajouter</span>
+      <ul class="qz-result-why" style="margin-bottom:24px">${recOptions.map(o=>`<li>${o.label} <span style="color:var(--gold)">(${o.price})</span></li>`).join('')}</ul>` : ''}
+      ${(!cmOnly && addCM) ? `<div class="qz-result-cm">💡 On vous conseille aussi d'ajouter <b>Community Management</b> (129€ → 269€/mois) : vos réponses montrent un vrai besoin de présence active sur les réseaux sociaux.</div>` : ''}
+      <div class="qz-result-actions">
+        <button type="button" class="btn btn--gold" id="qzSeeOffer">Voir cette offre en détail</button>
+        <button type="button" class="btn btn--ghost" id="qzGetQuote">Obtenir un devis avec ces options</button>
+      </div>
+      <button type="button" class="qz-restart" id="qzRestart">Refaire le questionnaire</button>
+    </div>`;
+
+    qWrap.style.display = 'none';
+    rWrap.style.display = 'block';
+    rWrap.innerHTML = html;
+    stepLbl.textContent = 'Résultat';
+    pctLbl.textContent = '100%';
+    barFill.style.width = '100%';
+
+    document.getElementById('qzSeeOffer').addEventListener('click', ()=>{
+      document.getElementById('offres').scrollIntoView({behavior:'smooth'});
+      document.querySelectorAll('#offres .card__name').forEach(el=>{
+        const card = el.closest('.card');
+        if(el.textContent.trim() === finalTierName){
+          card.style.borderColor = 'var(--gold)';
+          card.style.boxShadow = '0 0 0 2px var(--gold-border)';
+          setTimeout(()=>{ card.style.borderColor=''; card.style.boxShadow=''; }, 3000);
+        }
+      });
+    });
+
+    document.getElementById('qzGetQuote').addEventListener('click', ()=>{
+      const sel = document.getElementById('service');
+      if(sel){
+        sel.value = finalPriceVal;
+        if(typeof setBase === 'function') setBase();
+      }
+      // Coche automatiquement les options recommandées dans le devis
+      recOptions.forEach(o=>{
+        let el = null;
+        if(o.sel) el = document.querySelector('#options ' + o.sel);
+        else if(o.idx!==undefined) el = document.querySelectorAll('#options input[type="checkbox"]')[o.idx];
+        if(el) el.checked = true;
+      });
+      if(typeof calc === 'function') calc();
+      document.getElementById('devis').scrollIntoView({behavior:'smooth'});
+    });
+
+    document.getElementById('qzRestart').addEventListener('click', ()=>{
+      qzIdx = 0;
+      qzAnswers.fill(null);
+      rWrap.style.display = 'none';
+      qWrap.style.display = 'block';
+      renderQuestion();
+    });
+  }
+
+  renderQuestion();
 })();
 </script>
 </body>
