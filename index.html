@@ -4021,9 +4021,9 @@ function closePortfolio(){
     { id:'budget', title:"Quel budget envisagez-vous pour votre site ?", sub:"Une fourchette suffit, rien n'est engageant.",
       opts:[
         {l:'Moins de 500€', site:0, cm:0},
-        {l:'500€ à 1500€', site:15, cm:0},
-        {l:'1500€ à 3000€', site:30, cm:0},
-        {l:'Plus de 3000€', site:45, cm:0},
+        {l:'500€ à 1500€', site:8, cm:0},
+        {l:'1500€ à 3000€', site:16, cm:0},
+        {l:'Plus de 3000€', site:25, cm:0},
       ]},
     { id:'zone', title:"Où se trouve votre clientèle ?", sub:"",
       opts:[
@@ -4032,12 +4032,19 @@ function closePortfolio(){
         {l:'Ma région', site:12, cm:0},
         {l:'National ou international', site:18, cm:0},
       ]},
+    { id:'concurrence', title:"Vos concurrents ont-ils un site plus abouti que le vôtre ?", sub:"",
+      opts:[
+        {l:"Je n'ai pas regardé / je ne sais pas", site:2, cm:0},
+        {l:'Non, on est au même niveau', site:0, cm:0},
+        {l:'Oui, certains sont mieux', site:8, cm:0},
+        {l:'Oui, nettement plus professionnels', site:14, cm:0},
+      ]},
     { id:'objectif', title:"Quel est l'objectif principal du site ?", sub:"",
       opts:[
-        {l:'Simplement exister en ligne, être trouvé', site:3, cm:0},
-        {l:'Générer des demandes de devis / contacts', site:9, cm:0},
-        {l:'Vendre directement en ligne', site:14, cm:0},
-        {l:'Renforcer une image de marque forte', site:14, cm:0},
+        {l:'Simplement exister en ligne, être trouvé', site:4, cm:0},
+        {l:'Générer des demandes de devis / contacts', site:12, cm:0},
+        {l:'Vendre directement en ligne', site:18, cm:0},
+        {l:'Renforcer une image de marque forte', site:18, cm:0},
       ]},
     { id:'rdv', title:"Avez-vous besoin d'une prise de rendez-vous ou réservation en ligne ?", sub:"",
       opts:[
@@ -4047,9 +4054,9 @@ function closePortfolio(){
     { id:'pages', title:"Combien de pages / services souhaitez-vous présenter ?", sub:"",
       opts:[
         {l:'1 à 3 pages', site:2, cm:0},
-        {l:'4 à 8 pages', site:6, cm:0},
-        {l:'9 à 15 pages', site:10, cm:0},
-        {l:'Plus de 15 pages', site:14, cm:0},
+        {l:'4 à 8 pages', site:8, cm:0},
+        {l:'9 à 15 pages', site:14, cm:0},
+        {l:'Plus de 15 pages', site:20, cm:0},
       ]},
     { id:'contenu', title:"Avez-vous déjà des textes et photos prêts pour le site ?", sub:"",
       opts:[
@@ -4059,18 +4066,18 @@ function closePortfolio(){
       ]},
     { id:'surmesure', title:"Préférez-vous un design simple ou 100% sur mesure ?", sub:"",
       opts:[
-        {l:'Un modèle simple et efficace suffit', site:2, cm:0},
-        {l:'Je veux un design entièrement sur mesure', site:10, cm:0},
+        {l:'Un modèle simple et efficace suffit', site:3, cm:0},
+        {l:'Je veux un design entièrement sur mesure', site:14, cm:0},
       ]},
     { id:'automatisations', title:"Avez-vous besoin d'automatisations (relances, formulaires intelligents, CRM) ?", sub:"",
       opts:[
-        {l:'Oui, ce serait un vrai plus', site:8, cm:0},
+        {l:'Oui, ce serait un vrai plus', site:10, cm:0},
         {l:'Non, pas nécessaire pour l\'instant', site:0, cm:0},
       ]},
     { id:'seo', title:"Être bien positionné sur Google est-il une priorité ?", sub:"",
       opts:[
-        {l:'Oui, c\'est essentiel pour moi', site:6, cm:0},
-        {l:'Un peu, sans que ce soit central', site:3, cm:0},
+        {l:'Oui, c\'est essentiel pour moi', site:8, cm:0},
+        {l:'Un peu, sans que ce soit central', site:4, cm:0},
         {l:'Pas prioritaire', site:0, cm:0},
       ]},
     { id:'reseaux', title:"Où en êtes-vous sur les réseaux sociaux aujourd'hui ?", sub:"",
@@ -4200,10 +4207,10 @@ function closePortfolio(){
     const cmPct = MAX_CM ? (cmScore / MAX_CM) * 100 : 0;
 
     let tier, priceVal, priceLabel, why;
-    if(sitePct < 30){
+    if(sitePct < 20){
       tier='Site Vitrine'; priceVal='550'; priceLabel='550€ → 750€';
       why=["Un site simple, clair et rapide à mettre en ligne","Parfait pour un budget maîtrisé et une clientèle locale","Référencement local (SEO) inclus pour être trouvé sur Google"];
-    } else if(sitePct < 65){
+    } else if(sitePct < 70){
       tier='Site Premium'; priceVal='1115'; priceLabel='1115€ → 1400€';
       why=["Un design 100% sur mesure pensé pour convertir","Adapté à une activité en développement avec plusieurs services","Accompagnement au lancement inclus"];
     } else {
@@ -4233,7 +4240,7 @@ function closePortfolio(){
       ] : why).map(w=>`<li>${w}</li>`).join('')}</ul>
       ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Options que nous vous conseillons d'ajouter</span>
       <ul class="qz-result-why" style="margin-bottom:24px">${recOptions.map(o=>`<li>${o.label} <span style="color:var(--gold)">(${o.price})</span></li>`).join('')}</ul>` : ''}
-      ${(!cmOnly && addCM) ? `<div class="qz-result-cm">💡 On vous conseille aussi d'ajouter <b>Community Management</b> (129€ → 269€/mois) : vos réponses montrent un vrai besoin de présence active sur les réseaux sociaux.</div>` : ''}
+      ${(!cmOnly && addCM) ? `<div class="qz-result-cm">💡 Vos réponses indiquent que vous auriez besoin d'une présence en ligne encore plus forte. Nous vous recommandons, en complément et en toute transparence, notre offre <b>Community Management</b> (129€ → 269€/mois) : gestion professionnelle de vos réseaux sociaux, avec possibilité de prendre simplement conseil auprès de notre équipe avant de vous engager.</div>` : ''}
       <div class="qz-result-actions">
         <button type="button" class="btn btn--gold" id="qzSeeOffer">Voir cette offre en détail</button>
         <button type="button" class="btn btn--ghost" id="qzGetQuote">Obtenir un devis avec ces options</button>
