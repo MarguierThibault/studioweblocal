@@ -743,6 +743,17 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <button class="btn btn--gold" onclick="location.href='tel:0628223722'">📞 Appeler</button>
       <button class="btn btn--ghost" onclick="location.href='mailto:studioweblocal@gmail.com'">✉️ Email</button>
     </div>
+    <div style="max-width:420px;margin:24px auto 0;background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-sm);padding:20px">
+      <p style="font-family:var(--font-head);font-weight:600;font-size:.92rem;margin-bottom:14px">📞 Vous préférez qu'on vous appelle ?</p>
+      <div class="fg" style="margin-bottom:10px"><input id="callbackName" class="fi" placeholder="Votre prénom"></div>
+      <div class="fg" style="margin-bottom:14px"><input id="callbackPhone" class="fi" placeholder="Votre numéro de téléphone"></div>
+      <button class="btn btn--gold" style="width:100%;justify-content:center" onclick="
+        const n=document.getElementById('callbackName').value.trim();
+        const p=document.getElementById('callbackPhone').value.trim();
+        if(!p){document.getElementById('callbackPhone').style.borderColor='#ff6b6b';return;}
+        location.href='mailto:studioweblocal@gmail.com?subject='+encodeURIComponent('Demande de rappel')+'&body='+encodeURIComponent('Prénom : '+n+'\nTéléphone : '+p+'\n\nMerci de me rappeler.');
+      ">Demander à être rappelé</button>
+    </div>
   </div>
 </section>
 <footer class="site-footer">
