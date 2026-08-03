@@ -625,8 +625,8 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div class="mini-offer-card">
         <div class="mini-offer-icon">📈</div>
         <p class="card__name" style="font-size:1.05rem;margin:4px 0 2px">Pack Ads géré</p>
-        <p class="card__price" style="font-size:.92rem;margin-bottom:8px">149€/mois <span style="color:var(--muted);font-weight:400;font-size:.8rem">+ budget publicitaire</span></p>
-        <p class="field-txt">Campagnes Google &amp; Meta Ads gérées de A à Z : ciblage, création des annonces, suivi et optimisation chaque mois. Le budget publicitaire (dépensé chez Google/Meta) est séparé de nos honoraires de gestion.</p>
+        <p class="card__price" style="font-size:.92rem;margin-bottom:8px">Dès 149€/mois</p>
+        <p class="field-txt">Campagnes Google &amp; Meta Ads gérées de A à Z : ciblage, création des annonces, suivi et optimisation chaque mois. Choisissez votre palier de visibilité au moment du devis.</p>
         <button type="button" class="btn btn--gold" style="width:100%;justify-content:center;margin-top:auto" onclick="
           document.getElementById('service').value='149';
           setBase();
@@ -982,6 +982,10 @@ function renderOptions(){
 <div class="option"><label><span class="opt-title">Pack intensif — 4 publications/semaine <span class="opt-price">+50€</span></span><span class="opt-desc">Rythme doublé pour gagner en visibilité plus vite.</span></label><input type="radio" name="cm" data-value="50" onchange="calc()"></div>
 <div class="option"><label><span class="opt-title">Vidéos courtes (Reels/TikTok) <span class="opt-price">+45€</span></span><span class="opt-desc">Formats courts et dynamiques, ceux qui tournent le mieux en ce moment.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>
 <div class="option"><label><span class="opt-title">Gestion des messages & commentaires <span class="opt-price">+45€</span></span><span class="opt-desc">On répond à votre place aux messages et commentaires, avec votre ton.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>`;
+  if(s==="149")html=`
+<div class="option"><label><span class="opt-title">Palier Starter — ~500 clics/mois <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Budget publicitaire inclus dans le prix, géré pour vous sur Google/Meta Ads. Estimation indicative, variable selon secteur et enchères.</span></label><input type="radio" name="ads" data-value="0" checked onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Palier Croissance — ~1 000 clics/mois <span class="opt-price">+90€</span></span><span class="opt-desc">Budget publicitaire renforcé, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="90" onchange="calc()"></div>
+<div class="option"><label><span class="opt-title">Palier Accélération — ~5 000 clics/mois <span class="opt-price">+350€</span></span><span class="opt-desc">Budget publicitaire élevé pour une visibilité maximale, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="350" onchange="calc()"></div>`;
   if(s==="550")html=`
 <div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calc()"></div>
 <div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
