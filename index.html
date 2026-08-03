@@ -605,6 +605,13 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         <p class="field-txt" style="max-width:520px">Votre site existe mais ne remonte pas sur Google et ne génère pas d'appels ? On l'optimise et on le suit chaque mois : mots-clés, contenu, fiche Google Business, rapport de résultats.</p>
         <p class="field-txt" style="margin-top:8px">✓ Audit initial complet &nbsp; ✓ Optimisation continue &nbsp; ✓ Rapport mensuel &nbsp; ✓ Sans engagement de durée</p>
       </div>
+      <div style="flex:0 0 auto">
+        <button type="button" class="btn btn--gold" style="white-space:nowrap;padding:16px 28px;font-size:.95rem" onclick="
+          document.getElementById('service').value='89';
+          setBase();
+          document.getElementById('devis').scrollIntoView({behavior:'smooth'});
+        ">🛒 Commander</button>
+      </div>
     </div>
   </div>
 </section>
@@ -724,7 +731,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       </p>
     </div>
     <div class="quote-box reveal">
-      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option></select></div>
+      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option></select></div>
       <div id="options"></div>
       <div id="maintenanceNote" class="maintenance-note"><span>🔧 Maintenance mensuelle incluse dans votre demande — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="formFields"></div>
@@ -871,7 +878,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 <script>
 const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
-const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management"};
+const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","89":"Abonnement SEO"};
 let base=0,selectedPlan="once";
 function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
 function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
@@ -917,7 +924,7 @@ function renderPaymentPlan(){
   const s=document.getElementById("service").value;
   const wrap=document.getElementById("paymentPlan");if(!wrap)return;
   selectedPlan="once";
-  if(s===""||s==="129"){wrap.innerHTML="";wrap.style.display="none";return}
+  if(s===""||s==="129"||s==="89"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
 <label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">Paiement en 1 fois à la validation</span></label>
@@ -969,7 +976,7 @@ async function sendQuote(mode){
   const service=document.getElementById("service").value;
   if(!service){alert("Choisis une offre");return}
   const email=get("email");if(!email){alert("L'email est obligatoire");return}
-  const serviceName=SERVICE_NAMES[service]||"",totalText=document.querySelector("#total .total-amt")?.textContent||"0€",totalAmount=parseInt(totalText)||0,isMonthly=service==="129",optionsTxt=getSelectedOptions();
+  const serviceName=SERVICE_NAMES[service]||"",totalText=document.querySelector("#total .total-amt")?.textContent||"0€",totalAmount=parseInt(totalText)||0,isMonthly=(service==="129"||service==="89"),optionsTxt=getSelectedOptions();
   const planLabels={once:"Comptant (1x)",x4:"En 4x sans frais",x12:"Mensualisé sur 12 mois"};
   const paymentPlanLabel=isMonthly?"Abonnement mensuel":(planLabels[selectedPlan]||"Comptant (1x)");
   const maintenanceMonthly=window._maintenanceMonthly||0;
