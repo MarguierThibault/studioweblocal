@@ -29,7 +29,7 @@
   "name": "Studio Web Local",
   "url": "https://studioweblocal.com/",
   "image": "https://studioweblocal.com/preview.jpg",
-  "logo": "https://studioweblocal.com/images/logo-mark.png",
+  "logo": "https://studioweblocal.com/images/logo-mark.webp",
   "description": "Agence web basée à Besançon, accompagnant des clients dans toute la France à distance : création de sites internet, référencement SEO local, gestion Google/Meta Ads, community management et collecte d'avis clients.",
   "email": "studioweblocal@gmail.com",
   "telephone": "+33628223722",
@@ -67,8 +67,9 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="images/hero.png" fetchpriority="high">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/hero.webp" fetchpriority="high">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap"></noscript>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <style>
 :root{--bg:#05050f;--bg-card:#0b0b1d;--gold:#ffd54a;--gold-soft:rgba(255,213,74,0.1);--gold-border:rgba(255,213,74,0.2);--violet:#7c6bff;--violet-glow:rgba(124,107,255,0.14);--violet-border:rgba(124,107,255,0.28);--text:#eaeaf4;--muted:#8888aa;--font-head:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'DM Mono',monospace;--r:16px;--r-sm:10px}
@@ -87,7 +88,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(124,107,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(124,107,255,.055) 1px,transparent 1px);background-size:56px 56px;animation:gpulse 9s ease-in-out infinite}
 @keyframes gpulse{0%,100%{opacity:.5}50%{opacity:1}}
 .hero{position:relative;min-height:90vh;display:flex;align-items:center;overflow:hidden}
-.hero__photo{position:absolute;inset:0;background:url("images/hero.png") center/cover no-repeat;filter:brightness(.45);z-index:0}
+.hero__photo{position:absolute;inset:0;background:url("images/hero.webp") center/cover no-repeat;filter:brightness(.45);z-index:0}
 .hero__overlay{position:absolute;inset:0;z-index:1;background:radial-gradient(ellipse 90% 70% at 50% -5%,rgba(124,107,255,.22) 0%,transparent 65%),linear-gradient(180deg,rgba(5,5,15,0) 40%,var(--bg) 100%)}
 .hero .grid-bg{z-index:1}
 .hero__inner{position:relative;z-index:2;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center}
@@ -509,7 +510,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 </script>
 <nav id="mainNav" class="main-nav">
   <div class="main-nav__inner">
-    <a href="#hero" class="main-nav__logo"><span class="nav-mark"><img src="images/logo-mark.png" alt="Studio Web Local"></span>Studio<em> Web Local</em></a>
+    <a href="#hero" class="main-nav__logo"><span class="nav-mark"><img src="images/logo-mark.webp" alt="Studio Web Local" width="27" height="27"></span>Studio<em> Web Local</em></a>
     <ul class="main-nav__links" id="navLinks">
       <li><a href="#questionnaire" class="nav-link">Questionnaire</a></li>
       <li><a href="#offres" class="nav-link">Nos offres</a></li>
@@ -615,7 +616,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
     <div class="cards">
       <div class="card reveal">
-        <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/vitrine.webp" alt="Site Vitrine" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales qui veulent un site simple, clair et qui donne confiance.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Design adapté à votre activité (pas un modèle générique)<br>✓ Pages essentielles : accueil, services, contact…<br>✓ Formulaire de contact + fiche Google Maps intégrée<br>✓ Référencement local (SEO) — être trouvé sur Google quand on tape "[votre métier] + [votre ville]", sans payer de publicité</p>
@@ -623,7 +624,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.1s">
-        <div class="card__img"><img src="images/premium.png" alt="Site Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/premium.webp" alt="Site Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement et services professionnels qui veulent un site sur mesure, pensé pour transformer les visiteurs en clients.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout ce qui est dans Site Vitrine, en plus poussé<br>✓ Design 100% sur mesure + stratégie de contenu<br>✓ Parcours pensé pour la conversion (UX/UI) — on organise le site pour qu'un visiteur devienne facilement un prospect<br>✓ Intégrations propres à votre métier + accompagnement au lancement</p>
@@ -631,7 +632,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.2s">
-        <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/ultra.webp" alt="Ultra Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses et marques établies qui veulent une expérience digitale complète, pas seulement un site.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout Site Premium, en version complète<br>✓ Branding renforcé + stratégie de conversion avancée<br>✓ Automatisations (relances, formulaires intelligents…)<br>✓ Intégrations avancées + accompagnement marketing dans la durée</p>
@@ -639,7 +640,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.3s">
-        <div class="card__img"><img src="images/community.png" alt="Community Management" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/community.webp" alt="Community Management" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">129€ → 269€/mois</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces et indépendants qui veulent une présence active sur les réseaux sans avoir à s'en occuper eux-mêmes.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Publications régulières rédigées et publiées pour vous<br>✓ Un ton et un style cohérents avec votre image<br>✓ Options : rythme intensifié, vidéos courtes (Reels/TikTok), gestion des messages et commentaires<br>✓ Résiliable à tout moment, sans engagement de durée</p>
@@ -648,7 +649,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
 
     <div class="seo-banner reveal" style="margin-top:40px;display:flex;align-items:center;gap:36px;background:linear-gradient(135deg,rgba(124,107,255,.08),rgba(255,213,74,.05));border:1px solid rgba(124,107,255,.22);border-radius:var(--r);overflow:hidden;padding:32px">
-      <div style="flex:0 0 260px;max-width:260px"><img src="images/seo.png" alt="Abonnement SEO" style="width:100%;display:block;border-radius:12px"></div>
+      <div style="flex:0 0 260px;max-width:260px"><img src="images/seo.webp" alt="Abonnement SEO" width="700" height="500" style="width:100%;height:auto;display:block;border-radius:12px" loading="lazy"></div>
       <div style="flex:1;min-width:260px">
         <span class="mono-label" style="color:var(--gold)">VOUS AVEZ DÉJÀ UN SITE ?</span>
         <p class="card__name" style="font-size:1.4rem;margin:8px 0 4px">Abonnement SEO</p>
