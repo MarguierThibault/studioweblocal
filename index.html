@@ -67,9 +67,9 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="images/hero.png" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root{--bg:#05050f;--bg-card:#0b0b1d;--gold:#ffd54a;--gold-soft:rgba(255,213,74,0.1);--gold-border:rgba(255,213,74,0.2);--violet:#7c6bff;--violet-glow:rgba(124,107,255,0.14);--violet-border:rgba(124,107,255,0.28);--text:#eaeaf4;--muted:#8888aa;--font-head:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'DM Mono',monospace;--r:16px;--r-sm:10px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -615,7 +615,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
     <div class="cards">
       <div class="card reveal">
-        <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/vitrine.png" alt="Site Vitrine" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales qui veulent un site simple, clair et qui donne confiance.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Design adapté à votre activité (pas un modèle générique)<br>✓ Pages essentielles : accueil, services, contact…<br>✓ Formulaire de contact + fiche Google Maps intégrée<br>✓ Référencement local (SEO) — être trouvé sur Google quand on tape "[votre métier] + [votre ville]", sans payer de publicité</p>
@@ -623,7 +623,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.1s">
-        <div class="card__img"><img src="images/premium.png" alt="Site Premium"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/premium.png" alt="Site Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement et services professionnels qui veulent un site sur mesure, pensé pour transformer les visiteurs en clients.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout ce qui est dans Site Vitrine, en plus poussé<br>✓ Design 100% sur mesure + stratégie de contenu<br>✓ Parcours pensé pour la conversion (UX/UI) — on organise le site pour qu'un visiteur devienne facilement un prospect<br>✓ Intégrations propres à votre métier + accompagnement au lancement</p>
@@ -631,7 +631,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.2s">
-        <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/ultra.png" alt="Ultra Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses et marques établies qui veulent une expérience digitale complète, pas seulement un site.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout Site Premium, en version complète<br>✓ Branding renforcé + stratégie de conversion avancée<br>✓ Automatisations (relances, formulaires intelligents…)<br>✓ Intégrations avancées + accompagnement marketing dans la durée</p>
@@ -639,7 +639,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.3s">
-        <div class="card__img"><img src="images/community.png" alt="Community Management"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/community.png" alt="Community Management" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">129€ → 269€/mois</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces et indépendants qui veulent une présence active sur les réseaux sans avoir à s'en occuper eux-mêmes.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Publications régulières rédigées et publiées pour vous<br>✓ Un ton et un style cohérents avec votre image<br>✓ Options : rythme intensifié, vidéos courtes (Reels/TikTok), gestion des messages et commentaires<br>✓ Résiliable à tout moment, sans engagement de durée</p>
@@ -1061,6 +1061,16 @@ function renderFields(){
   if(s==="690")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre site actuel</p><div class="fg"><input id="adresse" class="fi" placeholder="URL de votre site actuel"></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal de la refonte"></div><div class="fg"><textarea id="description" class="ft" placeholder="Ce qui ne va pas / ce que vous voulez changer"></textarea></div>`;
   if(s==="49")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre fiche Google</p><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom de la fiche Google Business"></div><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà des avis ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif (ex : 50 avis en 3 mois)"></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
   document.getElementById("formFields").innerHTML=html;
+  applyAriaLabels(document.getElementById("formFields"));
+}
+function applyAriaLabels(scope){
+  (scope||document).querySelectorAll("input[placeholder]:not([aria-label]),textarea[placeholder]:not([aria-label])").forEach(el=>{
+    el.setAttribute("aria-label",el.getAttribute("placeholder"));
+  });
+  (scope||document).querySelectorAll("select:not([aria-label])").forEach(el=>{
+    const firstOpt=el.querySelector("option");
+    if(firstOpt)el.setAttribute("aria-label",firstOpt.textContent.trim());
+  });
 }
 function getSelectedOptions(){const o=[];document.querySelectorAll("#options input").forEach(el=>{if(el.checked)o.push(el.closest(".option").querySelector(".opt-title").textContent.trim())});return o.join(", ")}
 const get=id=>document.getElementById(id)?.value||"";
@@ -1100,9 +1110,10 @@ async function sendQuote(mode){
   }catch(err){console.error("EmailJS:",err);lockBtn(false);setStatus("❌ Erreur envoi email","error")}
 }
 setBase();
+applyAriaLabels();
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target);if(e.target.id==="orderCounterWrap")setTimeout(animateOrderCounter,200)}})},{threshold:.07});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
-(function(){
+function initStarfield(){
   var pc=document.getElementById("particles");
   if(!window.THREE||!pc)return;
   var reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1287,6 +1298,27 @@ document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
     camera.aspect=W/H;camera.fov=fovFor(camera.aspect);camera.updateProjectionMatrix();
     renderer.setSize(W,H);
   });
+}
+(function(){
+  // Le fond animé (starfield 3D) est purement décoratif et coûteux à charger/exécuter.
+  // On l'évite sur mobile, connexion lente, ou préférence "mouvement réduit",
+  // et on ne charge three.js qu'après le premier rendu de la page (pas de blocage du LCP).
+  var pc=document.getElementById("particles");
+  if(!pc)return;
+  var isMobile=window.innerWidth<900;
+  var reduceMotion=window.matchMedia&&window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var conn=navigator.connection||navigator.webkitConnection||navigator.mozConnection;
+  var slowConn=conn&&(conn.saveData||/2g/.test(conn.effectiveType||""));
+  if(isMobile||reduceMotion||slowConn){pc.remove();return}
+  function loadThree(){
+    if(window.THREE){initStarfield();return}
+    var s=document.createElement("script");
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    s.onload=initStarfield;
+    document.body.appendChild(s);
+  }
+  if("requestIdleCallback" in window)requestIdleCallback(loadThree,{timeout:2500});
+  else setTimeout(loadThree,1200);
 })();
 const ORDER_BASE=143;
 let orderCount=ORDER_BASE;
