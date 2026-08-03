@@ -517,6 +517,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <li><a href="#offres" class="nav-link">Nos offres</a></li>
       <li><a href="#clients" class="nav-link">Nos clients</a></li>
       <li><a href="#avis" class="nav-link">Avis clients</a></li>
+      <li><a href="#faq" class="nav-link">FAQ</a></li>
       <li><a href="#devis" class="nav-link nav-cta">Devis</a></li>
       <li><a href="#contact" class="nav-link">Contact</a></li>
     </ul>
@@ -4192,7 +4193,7 @@ function closePortfolio(){
     if(!e.target.closest('.main-nav'))links.classList.remove('open');
   });
   var navEl=document.getElementById('mainNav');
-  var ids=['hero','offres','clients','avis','devis','contact'];
+  var ids=['hero','offres','clients','avis','faq','devis','contact'];
   var sections=ids.map(function(id){return document.getElementById(id)}).filter(Boolean);
   var navAs=[].slice.call(links.querySelectorAll('a'));
   function onScroll(){
