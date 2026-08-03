@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avis clients | Studio Web Local — Besançon</title>
+<meta name="description" content="Plus de 100 clients satisfaits. Découvrez les avis vérifiés sur nos sites internet, notre SEO et notre community management.">
+<meta name="author" content="Studio Web Local">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Avis clients | Studio Web Local — Besançon">
+<meta property="og:description" content="Plus de 100 clients satisfaits. Découvrez les avis vérifiés sur nos sites internet, notre SEO et notre community management.">
+<meta property="og:image" content="https://studioweblocal.com/preview.jpg">
+<meta property="og:url" content="https://studioweblocal.com/avis-clients">
+<meta property="og:site_name" content="Studio Web Local">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Avis clients | Studio Web Local — Besançon">
+<meta name="twitter:description" content="Plus de 100 clients satisfaits. Découvrez les avis vérifiés sur nos sites internet, notre SEO et notre community management.">
+<link rel="canonical" href="https://studioweblocal.com/avis-clients">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Studio Web Local",
+  "url": "https://studioweblocal.com/",
+  "image": "https://studioweblocal.com/preview.jpg",
+  "logo": "https://studioweblocal.com/images/logo-mark.png",
+  "description": "Agence web à Besançon spécialisée dans la création de sites internet, le référencement SEO local, la gestion Google/Meta Ads, le community management et la collecte d'avis clients.",
+  "email": "studioweblocal@gmail.com",
+  "address": {"@type": "PostalAddress", "addressLocality": "Besançon", "addressCountry": "FR"},
+  "areaServed": "FR",
+  "priceRange": "€€"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<nav id="mainNav" class="main-nav nav-solid">
+  <div class="main-nav__inner">
+    <a href="index.html" class="main-nav__logo"><span class="nav-mark"><img src="images/logo-mark.png" alt="Studio Web Local"></span>Studio<em> Web Local</em></a>
+    <ul class="main-nav__links" id="navLinks">
+      <li><a href="index.html#questionnaire" class="nav-link">Questionnaire</a></li>
+      <li><a href="offres.html" class="nav-link">Nos offres</a></li>
+      <li><a href="index.html#clients" class="nav-link">Nos clients</a></li>
+      <li><a href="avis-clients.html" class="nav-link active">Avis clients</a></li>
+      <li><a href="devis.html" class="nav-link nav-cta">Devis</a></li>
+      <li><a href="contact.html" class="nav-link">Contact</a></li>
+    </ul>
+    <button class="main-nav__burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div style="height:88px"></div>
+<div class="wrap" style="padding-top:20px;text-align:center">
+  <span class="mono-label">AVIS CLIENTS</span>
+  <h1 style="font-family:var(--font-head);font-size:clamp(1.8rem,3.5vw,2.6rem);margin:10px 0 6px">Ce que nos clients disent de nous</h1>
+</div>
+<section class="sec" id="avis">
+  <div class="wrap">
+    <div class="sec-head reveal"><span class="mono-label">Ils nous font confiance</span><h2>Avis de nos clients</h2><div class="divider"></div><p style="color:var(--muted);margin-top:14px;max-width:620px;font-size:.95rem">Plus de 100 clients satisfaits. Des résultats concrets, des histoires vraies. Chaque avis correspond à un vrai projet livré.</p></div>
+    <div class="reviews-filter reveal" id="reviewsFilter">
+      <button class="rf-btn active" data-filter="all" onclick="filterReviews('all')">Tous (0)</button>
+      <button class="rf-btn" data-filter="vitrine" onclick="filterReviews('vitrine')">Site Vitrine (0)</button>
+      <button class="rf-btn" data-filter="premium" onclick="filterReviews('premium')">Site Premium (0)</button>
+      <button class="rf-btn" data-filter="ultra" onclick="filterReviews('ultra')">Ultra Premium (0)</button>
+      <button class="rf-btn" data-filter="cm" onclick="filterReviews('cm')">Community (0)</button>
+    </div>
+    <div class="review-actions reveal">
+      <button class="btn btn--gold" onclick="openReviewForm()">✍️ Ajouter un avis</button>
+    </div>
+    <div class="review-form-card reveal" id="reviewFormCard" style="display:none">
+      <form id="reviewForm" onsubmit="submitReview(event)">
+        <div class="review-form-grid">
+          <div class="fg"><input id="reviewName" class="fi" placeholder="Votre prénom ou nom" required></div>
+          <div class="fg"><input id="reviewBusiness" class="fi" placeholder="Nom de votre activité" required></div>
+          <div class="fg"><select id="reviewOffer" class="fs"><option value="vitrine">Site Vitrine</option><option value="premium">Site Premium</option><option value="ultra">Ultra Premium</option><option value="cm">Community Management</option></select></div>
+          <div class="fg"><select id="reviewStars" class="fs"><option value="5">★★★★★</option><option value="4">★★★★☆</option><option value="3">★★★☆☆</option><option value="2">★★☆☆☆</option><option value="1">★☆☆☆☆</option></select></div>
+          <div class="fg full"><textarea id="reviewText" class="ft" placeholder="Partagez votre expérience…" required></textarea></div>
+          <div class="fg full" style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+            <span style="color:var(--muted);font-size:.8rem">Votre avis sera visible publiquement sur cette page.</span>
+            <div style="display:flex;gap:10px">
+              <button type="button" class="btn btn--ghost" onclick="closeReviewForm()">Annuler</button>
+              <button type="submit" class="btn btn--gold">Envoyer l'avis</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid"></div>
+    <div style="text-align:center;margin-top:40px" id="reviewsMore">
+      <button class="btn btn--ghost" id="toggleReviewsBtn" onclick="showMoreReviews()">Afficher plus d'avis ↓</button>
+      <button class="btn btn--ghost" id="collapseReviewsBtn" onclick="showLessReviews()" style="display:none">Afficher moins d'avis ↑</button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span class="site-footer__brand">Studio Web Local</span>
+    <nav class="site-footer__links">
+      <button type="button" class="footer-link-btn" onclick="openLegal()">Mentions légales</button>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <span class="site-footer__copy">© 2026 Studio Web Local — Tous droits réservés</span>
+  </div>
+</footer>
+
+<div id="legalModal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeLegal()">✕</button>
+    <div class="modal-hd">
+      <span class="mono-label">INFORMATIONS LÉGALES</span>
+      <h2>Mentions légales &amp; conditions de vente</h2>
+    </div>
+    <div class="legal-list">
+      <details class="legal-item">
+        <summary>1. Éditeur du site</summary>
+        <div class="legal-body">
+          <p>Le site studioweblocal.com est édité à titre individuel, activité en cours de formalisation. Contact : 06 28 22 37 22 — studioweblocal@gmail.com.</p>
+          <p><span class="legal-placeholder"></span></p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>2. Hébergement</summary>
+        <div class="legal-body">
+          <p>Le site est hébergé par <strong>Netlify, Inc.</strong>, 101 2nd Street, San Francisco, CA 94105, États-Unis — <a href="https://www.netlify.com" target="_blank" rel="noopener">netlify.com</a>.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>3. Activité &amp; prestations</summary>
+        <div class="legal-body">
+          <p>Studio Web Local propose des prestations de création de sites internet (Site Vitrine, Site Premium, Ultra Premium) et de gestion des réseaux sociaux (Community Management), destinées aux particuliers, indépendants, commerces et entreprises, en France comme à l'étranger. Chaque prestation fait l'objet d'un devis personnalisé, accepté par le client avant tout début d'exécution.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>4. Conditions de vente — Clients en France</summary>
+        <div class="legal-body">
+          <p>Les prix sont exprimés en euros. Toute commande implique l'acceptation du devis et le règlement, en tout ou partie, selon les modalités convenues (paiement sécurisé via Stripe). Le délai de réalisation est communiqué au devis et court à réception des éléments nécessaires (textes, visuels, accès) fournis par le client.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>5. Ventes à l'international</summary>
+        <div class="legal-body">
+          <p>Studio Web Local accepte les commandes de clients situés hors de France. Les prix restent exprimés en euros ; les frais bancaires, de change ou taxes locales éventuels restent à la charge du client. Pour les clients résidant dans l'Union européenne, les dispositions impératives de protection des consommateurs de leur pays de résidence peuvent s'appliquer en complément du droit français. Pour les clients hors UE, les prestations restent régies par le droit français, sauf disposition locale d'ordre public contraire.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>6. Droit de rétractation</summary>
+        <div class="legal-body">
+          <p>Conformément aux articles L221-18 et suivants du Code de la consommation, le client consommateur dispose de 14 jours à compter de l'acceptation du devis pour se rétracter, sans justifier de motif. S'il demande expressément le commencement de la prestation avant l'expiration de ce délai, il reconnaît renoncer à son droit de rétractation dès lors que le service est pleinement exécuté (article L221-28 du Code de la consommation).</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>7. Propriété intellectuelle</summary>
+        <div class="legal-body">
+          <p>L'ensemble des contenus de ce site (textes, visuels, structure, logo) est la propriété de Studio Web Local, sauf mention contraire, et protégé par le droit d'auteur. Toute reproduction totale ou partielle sans autorisation écrite préalable est interdite. Une fois livré et intégralement réglé, le site créé pour le client lui est cédé selon les modalités précisées au devis.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>8. Données personnelles (RGPD)</summary>
+        <div class="legal-body">
+          <p>Les informations transmises via les formulaires (devis, avis) sont utilisées exclusivement pour traiter la demande du client et ne sont ni vendues ni cédées à des tiers. Conformément au RGPD et à la loi Informatique et Libertés, le client dispose d'un droit d'accès, de rectification, d'opposition et de suppression de ses données, à exercer par email à studioweblocal@gmail.com. Le site utilise le stockage local du navigateur (localStorage) à des fins de fonctionnement (compteur, avis), sans finalité publicitaire.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>9. Médiation de la consommation</summary>
+        <div class="legal-body">
+          <p>Conformément à l'article L616-1 du Code de la consommation, tout client consommateur peut recourir gratuitement à un médiateur en cas de litige non résolu directement avec Studio Web Local. Médiateur compétent : <span class="legal-placeholder"></span>.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>10. Loi applicable et litiges</summary>
+        <div class="legal-body">
+          <p>Le site et les prestations sont soumis au droit français. En cas de litige, le client est invité à contacter Studio Web Local pour rechercher une solution amiable avant toute action judiciaire. À défaut d'accord, les juridictions compétentes seront déterminées selon les règles de droit commun.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="shared.js"></script>
+<script>
+const REVIEWS_DATA=[
+{"n":"Antoine Perrin","av":"AP","biz":"Boulangerie du Vieux Pont","cat":"vitrine","txt":"Franchement content du résultat, le site est simple et ça correspond bien à ce qu'on voulait pour la boulangerie. Juste un peu de mal à avoir des nouvelles pendant une semaine au milieu du projet, mais ça s'est bien terminé.","date":"2026-06-29","stars":4},
+{"n":"Camille Rousseau","av":"CR","biz":"Restaurant L'Ardoise","cat":"premium","txt":"Alors là clairement au top. On a expliqué notre ambiance et le rendu colle vraiment, on a eu plus de réservations depuis. Merci à toute l'équipe, super accompagnement du début à la fin.","date":"2026-06-24","stars":5},
+{"n":"Yann Le Gall","av":"YL","biz":"Plomberie Rapide Service","cat":"vitrine","txt":"Site correct, fait le travail. J'aurais aimé un peu plus d'échanges pendant la création, j'ai dû relancer deux fois pour avoir un retour. Le résultat final est bien quand même.","date":"2026-06-15","stars":3},
+{"n":"Sofiane Bendaoud","av":"SB","biz":"Élec Pro 44","cat":"vitrine","txt":"Rien à dire, rapide et efficace. Le devis correspondait au prix final, pas de mauvaise surprise. Je recommande pour les artisans qui veulent un truc simple et pro.","date":"2026-06-08","stars":5},
+{"n":"Grégoire Vasseur","av":"GV","biz":"Bâti Concept","cat":"premium","txt":"Bon travail global mais j'ai trouvé que la première version ne correspondait pas trop à ce qu'on avait demandé, il a fallu plusieurs allers-retours pour arriver au bon résultat. Au final on est satisfaits mais ça a pris plus de temps que prévu.","date":"2026-05-27","stars":3},
+{"n":"Élodie Marchand","av":"EM","biz":"Menuiserie du Chêne","cat":"vitrine","txt":"Super boulot, on nous fait souvent la remarque sur le site maintenant. Ravis d'avoir fait appel à eux.","date":"2026-05-19","stars":5},
+{"n":"Thibault Lemoine","av":"TL","biz":"Jardins & Sens","cat":"premium","txt":"Le rendu visuel est vraiment sympa, les photos sont bien mises en avant. Petit bémol sur les délais, on nous avait annoncé 3 semaines et ça a pris presque 6 semaines au final.","date":"2026-05-12","stars":3},
+{"n":"Manon Girard","av":"MG","biz":"Salon Ondine","cat":"cm","txt":"Ça fait gagner un temps fou de plus avoir à gérer ça soi-même. Les posts sont sympas et cohérents avec le salon, aucun souci de mon côté.","date":"2026-06-27","stars":5},
+{"n":"Chloé Bertin","av":"CB","biz":"Institut Belle Peau","cat":"cm","txt":"Content dans l'ensemble, mais je trouve qu'on aurait pu avoir un peu plus de créativité dans les publications, ça reste un peu répétitif au bout de quelques mois.","date":"2026-06-18","stars":3},
+{"n":"Dr. Hugo Mercier","av":"HM","biz":"Cabinet Dentaire Sourire","cat":"premium","txt":"Très satisfait, le cabinet a maintenant une image beaucoup plus rassurante en ligne. L'équipe a été à l'écoute de nos contraintes (secret médical, mentions légales) et a su s'adapter.","date":"2026-05-30","stars":5},
+{"n":"Sandrine Lopez","av":"SL","biz":"Cabinet Kiné Mouvement","cat":"vitrine","txt":"Ça fait le travail, rien de transcendant mais rien à redire non plus. Le prix reste correct pour ce que c'est.","date":"2026-05-05","stars":4},
+{"n":"Maître Julien Fabre","av":"JF","biz":"Cabinet Fabre & Associés","cat":"ultra","txt":"Un travail remarquable. On voulait quelque chose de sobre et haut de gamme, c'est exactement ça. Toute l'équipe a été professionnelle et disponible, même pour des demandes de dernière minute.","date":"2026-04-22","stars":5},
+{"n":"Patricia Noël","av":"PN","biz":"Compta Plus","cat":"vitrine","txt":"Bon rapport qualité prix. J'ai eu besoin d'expliquer plusieurs fois ce que je voulais avant que ce soit bien compris, mais le résultat final me va.","date":"2026-04-10","stars":3},
+{"n":"Rachid Amrani","av":"RA","biz":"Agence du Centre","cat":"premium","txt":"Les biens sont vraiment bien mis en valeur, ça change tout pour vendre. Petite déception sur le suivi après la mise en ligne, j'ai eu du mal à avoir quelqu'un pour une petite modification.","date":"2026-04-02","stars":3},
+{"n":"Kevin Dufresne","av":"KD","biz":"Garage Meca Plus","cat":"vitrine","txt":"Simple, efficace, pas cher. Ce qu'il me fallait pour mon garage, rien de plus à dire.","date":"2026-03-25","stars":4},
+{"n":"Léa Fontaine","av":"LF","biz":"Fleurs de Léa","cat":"cm","txt":"Alors là je suis bluffée, chaque publication est superbe et pensée pour la saison. On sent un vrai investissement de leur part, merci beaucoup à l'équipe.","date":"2026-06-30","stars":5},
+{"n":"Nicolas Barbier","av":"NB","biz":"Studio Lumière Naturelle","cat":"vitrine","txt":"Site propre et épuré, exactement ce que je voulais pour mon book photo. Très content.","date":"2026-03-14","stars":5},
+{"n":"Amandine Colin","av":"AC","biz":"Atelier Design Intérieur","cat":"ultra","txt":"On a payé cher mais honnêtement le résultat est à la hauteur. Chaque projet est mis en valeur avec beaucoup de soin, ça se sent que ce sont des gens sérieux.","date":"2026-03-01","stars":5},
+{"n":"Marc-Antoine Rey","av":"MR","biz":"Traiteur Saveurs d'Ici","cat":"premium","txt":"Le site donne vraiment faim rien qu'en le regardant, super travail. Les demandes pour les événements ont augmenté depuis, on est ravis.","date":"2026-02-20","stars":5},
+{"n":"Isabelle Devaux","av":"ID","biz":"Boucherie Artisanale Lefevre","cat":"cm","txt":"Bon accompagnement dans l'ensemble. J'aurais aimé être plus impliquée dans le choix des visuels, parfois je découvrais les posts une fois publiés.","date":"2026-06-22","stars":3},
+{"n":"Florence Michel","av":"FM","biz":"Pâtisserie Douceur Sucrée","cat":"cm","txt":"Chaque création est superbement mise en valeur, les gens commentent souvent nos gâteaux maintenant. Vraiment ravie du travail fourni.","date":"2026-06-13","stars":5},
+{"n":"Bruno Caillet","av":"BC","biz":"Optique Vision Claire","cat":"vitrine","txt":"Le site remplit son rôle, rien de plus à en dire. Correct pour le prix.","date":"2026-02-08","stars":4},
+{"n":"Cécile Aubry","av":"CA","biz":"Pharmacie du Marché","cat":"vitrine","txt":"Site simple avec les infos essentielles, exactement ce qu'il fallait. Livré dans les temps en plus.","date":"2026-01-28","stars":5},
+{"n":"Dr. Vincent Roy","av":"VR","biz":"Clinique Vétérinaire Les 4 Pattes","cat":"premium","txt":"Très bonne expérience globale. Un petit souci technique au lancement (formulaire de contact qui ne marchait pas) mais réglé rapidement une fois signalé.","date":"2026-01-19","stars":4},
+{"n":"Nathalie Perret","av":"NP","biz":"Escapade Voyages","cat":"premium","txt":"Les destinations sont vraiment bien présentées, ça donne envie de partir. Un vrai travail de qualité, on recommande sans hésiter.","date":"2026-06-05","stars":5},
+{"n":"Jordan Simon","av":"JS","biz":"Fit Zone Club","cat":"cm","txt":"Honnêtement mitigé. Certains posts sont top, d'autres beaucoup moins inspirés. J'ai l'impression que ça dépend de qui s'en occupe côté agence.","date":"2026-06-26","stars":2},
+{"n":"Pauline Weber","av":"PW","biz":"Studio Danse Passion","cat":"cm","txt":"Les vidéos donnent vraiment envie de venir essayer un cours, l'ambiance du studio est bien transmise. Super travail, je suis fan.","date":"2026-06-09","stars":5},
+{"n":"Fabrice Guillon","av":"FG","biz":"Auto-École Réussite","cat":"vitrine","txt":"Site clair avec les tarifs bien visibles, les élèves s'inscrivent plus facilement maintenant. Content du résultat.","date":"2026-05-23","stars":4},
+{"n":"Delphine Barre","av":"DB","biz":"Architecture Ligne Pure","cat":"ultra","txt":"Résultat magnifique visuellement, aucun doute là-dessus. Par contre le prix a un peu grimpé par rapport au devis initial à cause d'options qu'on ne pensait pas nécessaires, à bien clarifier en amont.","date":"2026-05-15","stars":3},
+{"n":"Olivier Chevalier","av":"OC","biz":"Serrurerie 24/7","cat":"vitrine","txt":"Rapide, efficace, exactement ce qu'il fallait pour mon activité d'urgence. Le numéro est bien visible, c'est le principal.","date":"2026-05-07","stars":5},
+{"n":"Aurore Lambert","av":"AL","biz":"Crèche Les Petits Curieux","cat":"premium","txt":"Le site rassure vraiment les parents, c'était notre objectif principal et c'est réussi. Équipe à l'écoute, je recommande.","date":"2026-04-28","stars":5},
+{"n":"Mathieu Renard","av":"MR2","biz":"Toiture Renard & Fils","cat":"vitrine","txt":"Sincèrement déçu au début car la première version ne ressemblait pas du tout à ce qu'on avait demandé. Après une bonne discussion ils ont corrigé le tir et le résultat final est bien, mais ça aurait pu être évité.","date":"2026-04-18","stars":2},
+{"n":"Valérie Simon","av":"VS","biz":"Institut Zen Attitude","cat":"cm","txt":"Publications régulières et bien pensées, exactement ce qu'il me fallait pour ne plus avoir à y penser. Très satisfaite.","date":"2026-04-09","stars":5},
+{"n":"Damien Roche","av":"DR","biz":"Pizzeria Bella Napoli","cat":"vitrine","txt":"Le site fait son travail, les gens trouvent la carte et le numéro facilement. Rien d'exceptionnel mais ça suffit pour ce qu'on demande.","date":"2026-03-30","stars":4},
+{"n":"Sophie Lacroix","av":"SL2","biz":"Cabinet d'Expertise Comptable Lacroix","cat":"premium","txt":"Très professionnel du début à la fin. Le site donne une image sérieuse à notre cabinet, exactement ce qu'on cherchait pour développer notre clientèle.","date":"2026-03-20","stars":5},
+{"n":"Julien Fontaine","av":"JF2","biz":"Auto Détailing Prestige","cat":"ultra","txt":"Le rendu est vraiment impressionnant, ça correspond bien à l'image haut de gamme qu'on voulait donner. Un peu long à mettre en place mais le résultat vaut le coup.","date":"2026-03-05","stars":4},
+{"n":"Camille Petit","av":"CP","biz":"Boutique Vintage Rétro Chic","cat":"vitrine","txt":"Sympa dans l'ensemble, même si j'aurais aimé plus de propositions créatives au départ. Le résultat final me convient bien quand même.","date":"2026-02-24","stars":3},
+{"n":"Anthony Muller","av":"AM","biz":"Salle de Sport Iron Gym","cat":"cm","txt":"Depuis qu'ils gèrent nos réseaux, on a clairement plus de monde qui vient s'inscrire après avoir vu nos publications. Franchement du bon boulot.","date":"2026-02-15","stars":5},
+{"n":"Ines Belhadj","av":"IB","biz":"Crèche & Éveil","cat":"vitrine","txt":"Correct sans plus. Le site fonctionne bien mais je m'attendais à un peu plus de personnalisation pour le prix payé.","date":"2026-02-03","stars":2},
+{"n":"Rémi Chevrier","av":"RC","biz":"Menuiserie Bois & Passion","cat":"premium","txt":"Un accompagnement au top, ils ont vraiment pris le temps de comprendre notre métier avant de commencer. Résultat à la hauteur de nos attentes.","date":"2026-01-25","stars":5},
+{"n":"Fabien Roussel","av":"FR","biz":"Boucherie Charcuterie Tradition","cat":"cm","txt":"On a enfin des posts qui ressemblent vraiment à notre activité. Les messages sont réguliers, simples à relayer, et ça aide à garder une vraie présence sur les réseaux.","date":"2026-01-18","stars":5},
+{"n":"Laurent H.","av":"LH","biz":"Studio de Coaching Sportif Forme+","cat":"premium","txt":"Le site donne tout de suite une image plus claire et plus professionnelle. Les gens comprennent mieux ce qu'on propose, et on a eu plus de demandes depuis la mise en ligne.","date":"2026-04-04","stars":5},
+{"n":"Samuel N.","av":"SN","biz":"Clinique Vétérinaire Vie Animale","cat":"premium","txt":"Le rendu est propre, moderne et rassurant. C'est un site qui colle bien à notre activité, et ça aide beaucoup à gagner en confiance auprès des patients.","date":"2026-05-10","stars":5},
+{"n":"Sarah B.","av":"SB","biz":"Cabinet Esthétique Visage","cat":"cm","txt":"On n'a plus besoin de penser à tout chaque jour. Les publications sont bien faites, régulières, et ça nous fait gagner du temps sans perdre en qualité.","date":"2026-01-10","stars":5},
+{"n":"Rose I.","av":"RI","biz":"Garage Auto Plus","cat":"vitrine","txt":"Le site est simple, clair et vraiment utile pour nos clients. Grâce à la visibilité locale, on reçoit plus de demandes et des prospects plus qualifiés.","date":"2026-05-10","stars":5},
+{"n":"Agathe C.","av":"AC","biz":"Maçonnerie Générale","cat":"vitrine","txt":"Le site nous donne une image plus sérieuse en ligne. Les clients comprennent vite ce qu'on fait et nous contactent plus facilement.","date":"2026-06-04","stars":4},
+{"n":"Maxime Moreau","av":"MM","biz":"Salon de Coiffure Tendance","cat":"cm","txt":"Le contenu est toujours cohérent avec l'image du salon. Ça aide beaucoup à garder une présence active sur Instagram et TikTok sans avoir à tout faire soi-même.","date":"2026-06-20","stars":5},
+{"n":"Delphine E.","av":"DE","biz":"Centre de Bien-être Sérénité","cat":"premium","txt":"On voulait quelque chose de calme et de propre, et c'est exactement ce qu'on a trouvé. Le site reflète bien notre univers et donne une vraie impression de qualité.","date":"2026-05-23","stars":5},
+{"n":"Nicolas P.","av":"NP","biz":"Restaurant La Table d'Emile","cat":"vitrine","txt":"Le site a vraiment aidé à mieux nous faire connaître. Les gens trouvent plus facilement notre adresse, nos horaires et notre carte, ce qui a été très utile.","date":"2026-06-11","stars":5},
+{"n":"Mina K.","av":"MK","biz":"Pâtisserie Maison Lune","cat":"premium","txt":"Le site a donné plus de caractère à notre boutique. On a enfin une vraie identité en ligne, plus cohérente avec ce qu'on veut transmettre au quotidien.","date":"2026-06-16","stars":5},
+{"n":"Julien B.","av":"JB","biz":"Agence Immobilière Horizon","cat":"ultra","txt":"Le rendu est très propre et très réfléchi. Le site donne une vraie impression de sérieux, ce qui aide vraiment à rassurer les prospects.","date":"2026-05-31","stars":5},
+{"n":"Claire D.","av":"CD","biz":"Atelier de Joaillerie Orane","cat":"ultra","txt":"Le site a un vrai style, et ça change tout. On sent une vraie cohérence entre l'image de marque et ce que les clients découvrent en ligne.","date":"2026-06-21","stars":5}
+];
+
+const TICKER_DATA=[
+{"n":"Karim Mercier","s":"Community Management","date":"2026-07-01"},
+{"n":"Gabriel Roussel","s":"Community Management","date":"2026-06-28"},
+{"n":"Bastien Roussel","s":"Ultra Premium","date":"2026-06-26"},
+{"n":"Sébastien B.","s":"Site Vitrine","date":"2026-06-26"},
+{"n":"Frédéric Blanc","s":"Site Premium","date":"2026-06-26"},
+{"n":"Samuel M.","s":"Site Premium","date":"2026-06-26"},
+{"n":"Quentin C.","s":"Site Premium","date":"2026-06-19"},
+{"n":"Inès Roussel","s":"Community Management","date":"2026-06-19"},
+{"n":"Quentin N.","s":"Community Management","date":"2026-06-19"},
+{"n":"Océane Y.","s":"Site Premium","date":"2026-06-19"},
+{"n":"Romain Lefevre","s":"Community Management","date":"2026-06-19"},
+{"n":"Loïc D.","s":"Community Management","date":"2026-06-12"},
+{"n":"Enzo Dupuis","s":"Site Vitrine","date":"2026-06-03"},
+{"n":"Aurélie A.","s":"Site Vitrine","date":"2026-06-02"},
+{"n":"Benjamin J.","s":"Site Premium","date":"2026-06-01"},
+{"n":"Emma Dupuis","s":"Community Management","date":"2026-05-31"},
+{"n":"Tom E.","s":"Ultra Premium","date":"2026-05-30"},
+{"n":"Laurent Mercier","s":"Ultra Premium","date":"2026-05-29"},
+{"n":"Valérie G.","s":"Community Management","date":"2026-05-28"},
+{"n":"Florian Q.","s":"Site Premium","date":"2026-05-27"},
+{"n":"Loïc M.","s":"Site Vitrine","date":"2026-05-26"},
+{"n":"Emma L.","s":"Site Vitrine","date":"2026-05-25"},
+{"n":"Lina J.","s":"Ultra Premium","date":"2026-05-24"},
+{"n":"Samuel D.","s":"Site Premium","date":"2026-05-23"},
+{"n":"Jules Blanc","s":"Site Premium","date":"2026-05-22"},
+{"n":"Delphine U.","s":"Site Premium","date":"2026-05-21"},
+{"n":"Léa Dupuis","s":"Site Premium","date":"2026-05-20"},
+{"n":"Aurélie P.","s":"Community Management","date":"2026-05-19"},
+{"n":"Mélanie X.","s":"Ultra Premium","date":"2026-05-18"},
+{"n":"Fabien Roussel","s":"Site Vitrine","date":"2026-05-17"},
+{"n":"Damien O.","s":"Site Vitrine","date":"2026-05-16"},
+{"n":"Océane Fournier","s":"Ultra Premium","date":"2026-05-15"},
+{"n":"Mehdi H.","s":"Ultra Premium","date":"2026-05-14"},
+{"n":"Frédéric W.","s":"Community Management","date":"2026-05-13"},
+{"n":"Zoé Roussel","s":"Community Management","date":"2026-05-12"},
+{"n":"Mehdi Z.","s":"Ultra Premium","date":"2026-05-11"},
+{"n":"Enzo Z.","s":"Site Premium","date":"2026-05-04"},
+{"n":"Fabien D.","s":"Site Vitrine","date":"2026-05-03"},
+{"n":"Justine Moreau","s":"Ultra Premium","date":"2026-05-02"},
+{"n":"Audrey W.","s":"Community Management","date":"2026-05-01"},
+{"n":"Nadia Lefevre","s":"Site Vitrine","date":"2026-04-30"},
+{"n":"Zoé S.","s":"Site Premium","date":"2026-04-29"},
+{"n":"Valérie M.","s":"Ultra Premium","date":"2026-04-28"},
+{"n":"Isabelle Dupuis","s":"Site Vitrine","date":"2026-04-27"},
+{"n":"Philippe Dupuis","s":"Site Premium","date":"2026-04-26"},
+{"n":"Romain U.","s":"Site Vitrine","date":"2026-04-25"},
+{"n":"Emma H.","s":"Community Management","date":"2026-04-24"},
+{"n":"Stéphane Roussel","s":"Site Vitrine","date":"2026-04-23"},
+{"n":"David U.","s":"Community Management","date":"2026-04-22"},
+{"n":"Jules B.","s":"Community Management","date":"2026-04-21"},
+{"n":"Jade R.","s":"Site Vitrine","date":"2026-04-20"},
+{"n":"Vincent M.","s":"Site Premium","date":"2026-04-19"},
+{"n":"Karim P.","s":"Site Premium","date":"2026-04-18"},
+{"n":"Raphaël N.","s":"Site Premium","date":"2026-04-04"},
+{"n":"Enzo D.","s":"Community Management","date":"2026-04-03"}
+];
+
+/* ===== AVIS CLIENTS ===== */
+function relativeTimeLabel(dateStr){
+  if(!dateStr) return "à l'instant";
+  const now = new Date();
+  const then = new Date(dateStr + "T00:00:00");
+  const diffDays = Math.max(0, Math.floor((now - then) / 86400000));
+  if(diffDays === 0) return "aujourd'hui";
+  if(diffDays === 1) return "il y a 1 jour";
+  if(diffDays < 7) return "il y a "+diffDays+" jours";
+  if(diffDays < 30){
+    const w = Math.floor(diffDays/7);
+    return w===1 ? "il y a 1 semaine" : "il y a "+w+" semaines";
+  }
+  if(diffDays < 365){
+    const m = Math.floor(diffDays/30.44);
+    return m<=1 ? "il y a 1 mois" : "il y a "+m+" mois";
+  }
+  const y = Math.floor(diffDays/365.25);
+  return y<=1 ? "il y a 1 an" : "il y a "+y+" ans";
+}
+const CAT_LABEL={vitrine:"Site Vitrine",premium:"Site Premium",ultra:"Ultra Premium",cm:"Community Management"};
+const CAT_BADGE={vitrine:"rev-v",premium:"rev-p",ultra:"rev-u",cm:"rev-c"};
+const REVIEW_CATEGORY_BY_SERVICE={550:"vitrine",1115:"premium",2500:"ultra",129:"cm"};
+const REVIEW_STORAGE_KEY="swl_local_reviews";
+let reviewsFromServer=[];
+function escHtml(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function normalizeReviewText(value){return String(value||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/\s+/g," ").trim()}
+function makeReviewKey(r){
+  return `${normalizeReviewText(r?.n)}::${normalizeReviewText(r?.biz)}::${normalizeReviewText(r?.txt)}::${normalizeReviewText(r?.cat||"vitrine")}::${Number(r?.stars)||0}`;
+}
+function dedupeReviews(list){
+  const unique=[];const seen=new Set();
+  (Array.isArray(list)?list:[]).forEach(r=>{
+    const key=makeReviewKey(r);
+    if(!seen.has(key)){
+      seen.add(key);
+      unique.push(r);
+    }
+  });
+  return unique;
+}
+function loadLocalReviews(){
+  try{
+    const parsed=JSON.parse(localStorage.getItem(REVIEW_STORAGE_KEY)||"[]");
+    return dedupeReviews(Array.isArray(parsed)?parsed:[]);
+  }catch(e){
+    return [];
+  }
+}
+function saveLocalReviews(list){
+  try{localStorage.setItem(REVIEW_STORAGE_KEY,JSON.stringify(dedupeReviews(list).slice(0,100)))}catch(e){}
+}
+function reviewTone(r){
+  if(r.stars>=5)return "Très satisfait";
+  if(r.stars===4)return "Satisfait";
+  if(r.stars===3)return "Correct";
+  if(r.stars===2)return "Peu convaincu";
+  return "À améliorer";
+}
+function reviewCard(r){
+  const stars="★".repeat(r.stars)+"☆".repeat(5-r.stars);
+  const tone=reviewTone(r);
+  return '<div class="review-card"><div class="review-stars">'+stars+'</div><div style="font-size:.72rem;color:var(--violet);font-family:var(--font-mono);margin-bottom:8px">'+escHtml(tone)+'</div><p class="review-text">"'+escHtml(r.txt)+'"</p><div class="review-author"><div class="review-avatar">'+r.av+'</div><div><div class="review-name">'+escHtml(r.n)+'</div><div class="review-biz">'+escHtml(r.biz)+'</div></div><span class="rev-badge '+CAT_BADGE[r.cat]+'">'+CAT_LABEL[r.cat]+'</span></div><div class="review-date">'+relativeTimeLabel(r.date)+'</div></div>';
+}
+function mergeReviews(...sources){
+  const unique=[];const seen=new Set();
+  sources.flat().filter(Boolean).forEach(r=>{
+    const key=makeReviewKey(r);
+    if(!seen.has(key)){
+      seen.add(key);
+      unique.push({
+        ...r,
+        cat: ['vitrine','premium','ultra','cm'].includes(r.cat)?r.cat:'vitrine',
+        stars: Math.max(1, Math.min(5, Number(r.stars)||5)),
+        date: r.date || new Date().toISOString().slice(0,10),
+        av: String(r.av||'?').substring(0,2).toUpperCase()
+      });
+    }
+  });
+  return unique;
+}
+function getAllReviews(){
+  const staticReviews=Array.isArray(REVIEWS_DATA)?REVIEWS_DATA:[];
+  const localReviews=loadLocalReviews();
+  return mergeReviews(reviewsFromServer, localReviews, staticReviews);
+}
+function syncReviewOffer(){
+  const serviceSelect=document.getElementById("service");
+  const reviewSelect=document.getElementById("reviewOffer");
+  if(!serviceSelect||!reviewSelect)return;
+  const category=REVIEW_CATEGORY_BY_SERVICE[serviceSelect.value]||"vitrine";
+  reviewSelect.value=category;
+}
+
+function openReviewForm(){
+  const formCard=document.getElementById("reviewFormCard");
+  if(formCard){formCard.style.display="block";}
+  syncReviewOffer();
+  const nameInput=document.getElementById("reviewName");
+  if(nameInput)nameInput.focus();
+}
+function closeReviewForm(){
+  const formCard=document.getElementById("reviewFormCard");
+  if(formCard){formCard.style.display="none";}
+}
+let currentFilter="all",reviewsShown=0;
+const REVIEWS_BATCH=6;
+function getFilteredReviews(){
+  const list=getAllReviews();
+  return currentFilter==="all"?list:list.filter(r=>r.cat===currentFilter);
+}
+function updateReviewFilterCounts(){
+  const counts={all:0,vitrine:0,premium:0,ultra:0,cm:0};
+  const list=getAllReviews();
+  list.forEach(r=>{if(r&&r.cat){counts[r.cat]=(counts[r.cat]||0)+1;counts.all+=1;}});
+  const buttons=[...document.querySelectorAll("#reviewsFilter .rf-btn")];
+  buttons.forEach(btn=>{
+    const key=btn.getAttribute("data-filter")||"all";
+    const labelMap={all:"Tous",vitrine:"Site Vitrine",premium:"Site Premium",ultra:"Ultra Premium",cm:"Community"};
+    const count=counts[key]||0;
+    btn.textContent=labelMap[key]?`${labelMap[key]} (${count})`:count;
+  });
+}
+function renderReviews(reset){
+  const grid=document.getElementById("reviewsGrid");if(!grid)return;
+  const list=getFilteredReviews();
+  if(reset){grid.innerHTML="";reviewsShown=Math.min(REVIEWS_BATCH,list.length)}
+  const next=list.slice(0,reviewsShown);
+  grid.innerHTML=next.map(reviewCard).join("");
+  updateReviewFilterCounts();
+  const more=document.getElementById("reviewsMore");
+  const toggleBtn=document.getElementById("toggleReviewsBtn");
+  const collapseBtn=document.getElementById("collapseReviewsBtn");
+  if(more)more.style.display=list.length>REVIEWS_BATCH?"block":"none";
+  if(toggleBtn){
+    toggleBtn.textContent="Afficher plus d'avis ↓";
+    toggleBtn.style.display=list.length>reviewsShown?"inline-flex":"none";
+  }
+  if(collapseBtn){
+    collapseBtn.textContent="Afficher moins d'avis ↑";
+    collapseBtn.style.display=reviewsShown>REVIEWS_BATCH?"inline-flex":"none";
+  }
+}
+function filterReviews(cat,btn){
+  currentFilter=cat;
+  document.querySelectorAll("#reviewsFilter .rf-btn").forEach(b=>b.classList.remove("active"));
+  const target=btn||[...document.querySelectorAll("#reviewsFilter .rf-btn")].find(b=>b.getAttribute("onclick")&&b.getAttribute("onclick").indexOf("'"+cat+"'")!==-1);
+  if(target)target.classList.add("active");
+  renderReviews(true);
+}
+function showMoreReviews(){
+  const list=getFilteredReviews();
+  reviewsShown=Math.min(list.length,reviewsShown+REVIEWS_BATCH);
+  renderReviews(false);
+}
+function showLessReviews(){
+  const list=getFilteredReviews();
+  const base=Math.min(REVIEWS_BATCH,list.length);
+  reviewsShown=Math.max(base,reviewsShown-REVIEWS_BATCH);
+  renderReviews(false);
+}
+async function loadReviewsFromServer(){
+  let reviews=[];
+  try{
+    const res=await fetch("/.netlify/functions/reviews");
+    if(res.ok){
+      const json=await res.json();
+      reviews=Array.isArray(json.reviews)?json.reviews:[];
+    }
+  }catch(e){console.warn("Reviews load error:",e);}
+  const localReviews=loadLocalReviews();
+  reviewsFromServer=mergeReviews(reviews, localReviews);
+  renderReviews(true);
+}
+async function submitReview(event){
+  event.preventDefault();
+  const name=document.getElementById("reviewName").value.trim();
+  const business=document.getElementById("reviewBusiness").value.trim();
+  const offer=document.getElementById("reviewOffer").value;
+  const stars=Number(document.getElementById("reviewStars").value)||5;
+  const text=document.getElementById("reviewText").value.trim();
+  if(!name||!business||!text)return;
+  const payload={n:name,av:name.split(/\s+/).map(x=>x[0]).join("").slice(0,2).toUpperCase(),biz:business,cat:offer,txt:text,stars};
+  let savedReview={...payload,date:new Date().toISOString().slice(0,10),isNew:true,source:"local"};
+  try{
+    const res=await fetch("/.netlify/functions/reviews",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    const json=await res.json().catch(()=>({}));
+    if(res.ok&&json.success&&json.review){
+      savedReview={...json.review,date:json.review.date||new Date().toISOString().slice(0,10),isNew:true,source:"server"};
+    }
+  }catch(err){
+    console.warn("Review submission fallback:",err);
+  }
+  const localReviews=loadLocalReviews();
+  const alreadyExists=localReviews.some(existing=>makeReviewKey(existing)===makeReviewKey(savedReview));
+  if(!alreadyExists){localReviews.unshift(savedReview);} 
+  saveLocalReviews(localReviews);
+  reviewsFromServer=mergeReviews([savedReview], reviewsFromServer, localReviews);
+  closeReviewForm();
+  document.getElementById("reviewForm").reset();
+  renderReviews(true);
+  const btn=document.getElementById("toggleReviewsBtn");
+  if(btn)btn.textContent="Afficher plus d'avis ↓";
+}
+
+
+renderReviews(true);
+loadReviewsFromServer();
+</script>
+</body>
+</html>

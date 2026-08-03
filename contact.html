@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<link rel="icon" type="image/png" href="/favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Studio Web Local — Agence web à Besançon</title>
+<meta name="description" content="Contactez Studio Web Local : téléphone, email ou demande de rappel. Agence web basée à Besançon.">
+<meta name="author" content="Studio Web Local">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Contact | Studio Web Local — Agence web à Besançon">
+<meta property="og:description" content="Contactez Studio Web Local : téléphone, email ou demande de rappel. Agence web basée à Besançon.">
+<meta property="og:image" content="https://studioweblocal.com/preview.jpg">
+<meta property="og:url" content="https://studioweblocal.com/contact">
+<meta property="og:site_name" content="Studio Web Local">
+<meta property="og:locale" content="fr_FR">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contact | Studio Web Local — Agence web à Besançon">
+<meta name="twitter:description" content="Contactez Studio Web Local : téléphone, email ou demande de rappel. Agence web basée à Besançon.">
+<link rel="canonical" href="https://studioweblocal.com/contact">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Studio Web Local",
+  "url": "https://studioweblocal.com/",
+  "image": "https://studioweblocal.com/preview.jpg",
+  "logo": "https://studioweblocal.com/images/logo-mark.png",
+  "description": "Agence web à Besançon spécialisée dans la création de sites internet, le référencement SEO local, la gestion Google/Meta Ads, le community management et la collecte d'avis clients.",
+  "email": "studioweblocal@gmail.com",
+  "address": {"@type": "PostalAddress", "addressLocality": "Besançon", "addressCountry": "FR"},
+  "areaServed": "FR",
+  "priceRange": "€€"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+<nav id="mainNav" class="main-nav nav-solid">
+  <div class="main-nav__inner">
+    <a href="index.html" class="main-nav__logo"><span class="nav-mark"><img src="images/logo-mark.png" alt="Studio Web Local"></span>Studio<em> Web Local</em></a>
+    <ul class="main-nav__links" id="navLinks">
+      <li><a href="index.html#questionnaire" class="nav-link">Questionnaire</a></li>
+      <li><a href="offres.html" class="nav-link">Nos offres</a></li>
+      <li><a href="index.html#clients" class="nav-link">Nos clients</a></li>
+      <li><a href="avis-clients.html" class="nav-link">Avis clients</a></li>
+      <li><a href="devis.html" class="nav-link nav-cta">Devis</a></li>
+      <li><a href="contact.html" class="nav-link active">Contact</a></li>
+    </ul>
+    <button class="main-nav__burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div style="height:88px"></div>
+<div class="wrap" style="padding-top:20px;text-align:center">
+  <span class="mono-label">NOUS CONTACTER</span>
+  <h1 style="font-family:var(--font-head);font-size:clamp(1.8rem,3.5vw,2.6rem);margin:10px 0 6px">Contactez Studio Web Local à Besançon</h1>
+</div>
+<section class="sec--sm" style="text-align:center" id="contact">
+  <div class="wrap">
+    <span class="mono-label">CONTACT DIRECT</span>
+
+<h2>Nous contacter</h2>
+
+<div class="divider" style="margin:14px auto 28px"></div>
+
+<p style="color:var(--muted);max-width:620px;margin:0 auto 28px;font-size:.95rem">
+    Une question, un projet ou besoin d'un renseignement ? Contactez-nous directement par téléphone ou par e-mail. Nous vous répondons rapidement.
+</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn--gold" onclick="location.href='tel:0628223722'">📞 Appeler</button>
+      <button class="btn btn--ghost" onclick="location.href='mailto:studioweblocal@gmail.com'">✉️ Email</button>
+    </div>
+    <div style="max-width:420px;margin:24px auto 0;background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-sm);padding:20px">
+      <p style="font-family:var(--font-head);font-weight:600;font-size:.92rem;margin-bottom:14px">📞 Vous préférez qu'on vous appelle ?</p>
+      <div class="fg" style="margin-bottom:10px"><input id="callbackName" class="fi" placeholder="Votre prénom"></div>
+      <div class="fg" style="margin-bottom:14px"><input id="callbackPhone" class="fi" placeholder="Votre numéro de téléphone"></div>
+      <button class="btn btn--gold" style="width:100%;justify-content:center" onclick="
+        const n=document.getElementById('callbackName').value.trim();
+        const p=document.getElementById('callbackPhone').value.trim();
+        if(!p){document.getElementById('callbackPhone').style.borderColor='#ff6b6b';return;}
+        location.href='mailto:studioweblocal@gmail.com?subject='+encodeURIComponent('Demande de rappel')+'&body='+encodeURIComponent('Prénom : '+n+'\nTéléphone : '+p+'\n\nMerci de me rappeler.');
+      ">Demander à être rappelé</button>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrap site-footer__inner">
+    <span class="site-footer__brand">Studio Web Local</span>
+    <nav class="site-footer__links">
+      <button type="button" class="footer-link-btn" onclick="openLegal()">Mentions légales</button>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <span class="site-footer__copy">© 2026 Studio Web Local — Tous droits réservés</span>
+  </div>
+</footer>
+
+<div id="legalModal">
+  <div class="modal-inner">
+    <button class="modal-close" onclick="closeLegal()">✕</button>
+    <div class="modal-hd">
+      <span class="mono-label">INFORMATIONS LÉGALES</span>
+      <h2>Mentions légales &amp; conditions de vente</h2>
+    </div>
+    <div class="legal-list">
+      <details class="legal-item">
+        <summary>1. Éditeur du site</summary>
+        <div class="legal-body">
+          <p>Le site studioweblocal.com est édité à titre individuel, activité en cours de formalisation. Contact : 06 28 22 37 22 — studioweblocal@gmail.com.</p>
+          <p><span class="legal-placeholder"></span></p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>2. Hébergement</summary>
+        <div class="legal-body">
+          <p>Le site est hébergé par <strong>Netlify, Inc.</strong>, 101 2nd Street, San Francisco, CA 94105, États-Unis — <a href="https://www.netlify.com" target="_blank" rel="noopener">netlify.com</a>.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>3. Activité &amp; prestations</summary>
+        <div class="legal-body">
+          <p>Studio Web Local propose des prestations de création de sites internet (Site Vitrine, Site Premium, Ultra Premium) et de gestion des réseaux sociaux (Community Management), destinées aux particuliers, indépendants, commerces et entreprises, en France comme à l'étranger. Chaque prestation fait l'objet d'un devis personnalisé, accepté par le client avant tout début d'exécution.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>4. Conditions de vente — Clients en France</summary>
+        <div class="legal-body">
+          <p>Les prix sont exprimés en euros. Toute commande implique l'acceptation du devis et le règlement, en tout ou partie, selon les modalités convenues (paiement sécurisé via Stripe). Le délai de réalisation est communiqué au devis et court à réception des éléments nécessaires (textes, visuels, accès) fournis par le client.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>5. Ventes à l'international</summary>
+        <div class="legal-body">
+          <p>Studio Web Local accepte les commandes de clients situés hors de France. Les prix restent exprimés en euros ; les frais bancaires, de change ou taxes locales éventuels restent à la charge du client. Pour les clients résidant dans l'Union européenne, les dispositions impératives de protection des consommateurs de leur pays de résidence peuvent s'appliquer en complément du droit français. Pour les clients hors UE, les prestations restent régies par le droit français, sauf disposition locale d'ordre public contraire.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>6. Droit de rétractation</summary>
+        <div class="legal-body">
+          <p>Conformément aux articles L221-18 et suivants du Code de la consommation, le client consommateur dispose de 14 jours à compter de l'acceptation du devis pour se rétracter, sans justifier de motif. S'il demande expressément le commencement de la prestation avant l'expiration de ce délai, il reconnaît renoncer à son droit de rétractation dès lors que le service est pleinement exécuté (article L221-28 du Code de la consommation).</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>7. Propriété intellectuelle</summary>
+        <div class="legal-body">
+          <p>L'ensemble des contenus de ce site (textes, visuels, structure, logo) est la propriété de Studio Web Local, sauf mention contraire, et protégé par le droit d'auteur. Toute reproduction totale ou partielle sans autorisation écrite préalable est interdite. Une fois livré et intégralement réglé, le site créé pour le client lui est cédé selon les modalités précisées au devis.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>8. Données personnelles (RGPD)</summary>
+        <div class="legal-body">
+          <p>Les informations transmises via les formulaires (devis, avis) sont utilisées exclusivement pour traiter la demande du client et ne sont ni vendues ni cédées à des tiers. Conformément au RGPD et à la loi Informatique et Libertés, le client dispose d'un droit d'accès, de rectification, d'opposition et de suppression de ses données, à exercer par email à studioweblocal@gmail.com. Le site utilise le stockage local du navigateur (localStorage) à des fins de fonctionnement (compteur, avis), sans finalité publicitaire.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>9. Médiation de la consommation</summary>
+        <div class="legal-body">
+          <p>Conformément à l'article L616-1 du Code de la consommation, tout client consommateur peut recourir gratuitement à un médiateur en cas de litige non résolu directement avec Studio Web Local. Médiateur compétent : <span class="legal-placeholder"></span>.</p>
+        </div>
+      </details>
+      <details class="legal-item">
+        <summary>10. Loi applicable et litiges</summary>
+        <div class="legal-body">
+          <p>Le site et les prestations sont soumis au droit français. En cas de litige, le client est invité à contacter Studio Web Local pour rechercher une solution amiable avant toute action judiciaire. À défaut d'accord, les juridictions compétentes seront déterminées selon les règles de droit commun.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="shared.js"></script>
+
+</body>
+</html>
