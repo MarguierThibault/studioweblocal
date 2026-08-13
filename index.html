@@ -345,8 +345,14 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 .plan-choice input{position:absolute;opacity:0;pointer-events:none}
 .plan-choice-title{font-family:var(--font-head);font-weight:700;font-size:.86rem;color:var(--text)}
 .plan-choice-desc{font-size:.72rem;color:var(--muted);line-height:1.4}
-#planBreakdown{display:none;text-align:center;font-family:var(--font-mono);font-size:.8rem;color:var(--violet);margin:-8px 0 16px}
 .maintenance-note{display:none;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,213,74,.06);border:1px solid var(--gold-border);border-radius:var(--r-sm);padding:12px 16px;margin:0 0 18px;font-size:.82rem;color:var(--text)}
+.cart-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.08);border-radius:var(--r-sm);padding:12px 14px;margin-bottom:8px}
+.cart-item-info{flex:1;display:flex;flex-direction:column;gap:2px}
+.cart-item-name{font-size:.88rem;font-weight:600;color:var(--text)}
+.cart-item-plan{font-size:.72rem;color:var(--muted)}
+.cart-item-price{font-family:var(--font-mono);color:var(--gold);font-weight:600;font-size:.9rem;white-space:nowrap}
+.cart-item-remove{background:none;border:1px solid rgba(255,255,255,.14);color:var(--muted);width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.8rem;line-height:1;flex-shrink:0;transition:all .2s}
+.cart-item-remove:hover{border-color:#ff6b6b;color:#ff6b6b}
 .maintenance-note .mn-amt{color:var(--gold);font-family:var(--font-mono);font-weight:600;white-space:nowrap}
 .option.opt-monthly{border-color:var(--gold-border)}
 .option.opt-monthly:hover{background:var(--gold-soft);border-color:var(--gold-border)}
@@ -592,8 +598,8 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
     <div class="qz-box reveal" id="qzBox">
       <div class="qz-top">
-        <span class="qz-step-lbl" id="qzStepLbl">Question 1 / 17</span>
-        <span class="qz-step-lbl" id="qzPctLbl">6%</span>
+        <span class="qz-step-lbl" id="qzStepLbl">Question préliminaire</span>
+        <span class="qz-step-lbl" id="qzPctLbl">0%</span>
       </div>
       <div class="qz-bar"><div class="qz-bar-fill" id="qzBarFill"></div></div>
       <div id="qzQuestionWrap"></div>
@@ -663,6 +669,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         <button type="button" class="btn btn--gold" style="white-space:nowrap;padding:16px 28px;font-size:.95rem" onclick="
           document.getElementById('service').value='89';
           setBase();
+          addToCart(true);
           document.getElementById('devis').scrollIntoView({behavior:'smooth'});
         ">🛒 Commander</button>
       </div>
@@ -677,6 +684,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         <button type="button" class="btn btn--gold" style="width:100%;justify-content:center;margin-top:auto" onclick="
           document.getElementById('service').value='149';
           setBase();
+          addToCart(true);
           document.getElementById('devis').scrollIntoView({behavior:'smooth'});
         ">🛒 Commander</button>
       </div>
@@ -688,6 +696,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         <button type="button" class="btn btn--gold" style="width:100%;justify-content:center;margin-top:auto" onclick="
           document.getElementById('service').value='690';
           setBase();
+          addToCart(true);
           document.getElementById('devis').scrollIntoView({behavior:'smooth'});
         ">🛒 Commander</button>
       </div>
@@ -699,6 +708,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         <button type="button" class="btn btn--gold" style="width:100%;justify-content:center;margin-top:auto" onclick="
           document.getElementById('service').value='49';
           setBase();
+          addToCart(true);
           document.getElementById('devis').scrollIntoView({behavior:'smooth'});
         ">🛒 Commander</button>
       </div>
@@ -824,22 +834,37 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <div class="divider"></div>
 
       <p style="color:var(--muted);margin-top:14px;max-width:620px;font-size:.95rem">
-        Répondez à quelques questions pour obtenir une estimation personnalisée en moins d'une minute.
+        Ajoutez une ou plusieurs offres à votre panier (ex : un site + un abonnement) et obtenez votre devis en une fois.
       </p>
     </div>
     <div class="quote-box reveal">
+      <span class="field-lbl" style="display:block;margin-bottom:10px">Ajouter une offre</span>
       <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option><option value="149">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
       <div id="options"></div>
-      <div id="maintenanceNote" class="maintenance-note"><span>🔧 Maintenance mensuelle incluse dans votre demande — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
-      <div id="formFields"></div>
+      <div id="maintenanceNote" class="maintenance-note"><span>🔧 Maintenance mensuelle incluse — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
-      <div class="total-bar" id="total"><span class="total-lbl">Total estimé</span><span class="total-amt">0€</span></div>
-      <div id="planBreakdown"></div>
-      <div class="quote-actions">
-        <button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('email')">📧 Recevoir par email</button>
-        <button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('pay')">💳 Payer maintenant</button>
+      <button type="button" id="addToCartBtn" class="btn btn--ghost" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addToCart()">+ Ajouter au panier</button>
+      <p style="font-size:.76rem;color:var(--muted);text-align:center;margin-bottom:8px">Un seul site à la fois, mais autant d'abonnements que vous voulez (ex : site + community management).</p>
+
+      <div id="cartWrap" style="display:none">
+        <p class="fh">Votre panier</p>
+        <div id="cartList"></div>
+        <div class="total-bar" id="total"><span class="total-lbl">Aujourd'hui</span><span class="total-amt">0€</span></div>
+        <div id="cartMonthlyNote" class="maintenance-note"><span id="cartMonthlyTxt"></span></div>
+
+        <p class="fh">Vos coordonnées</p>
+        <div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div>
+        <div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div>
+        <div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div>
+        <div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div>
+        <div class="fg"><textarea id="description" class="ft" placeholder="Un mot sur votre projet (optionnel)"></textarea></div>
+
+        <div class="quote-actions">
+          <button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('email')">📧 Recevoir par email</button>
+          <button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('pay')">💳 Payer maintenant</button>
+        </div>
+        <div id="quote-status"></div>
       </div>
-      <div id="quote-status"></div>
     </div>
   </div>
 </section>
@@ -982,43 +1007,27 @@ const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Pr
 let base=0,selectedPlan="once";
 function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
 function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
-function updatePlanBreakdown(total){
-  const el=document.getElementById("planBreakdown");if(!el)return;
-  const s=document.getElementById("service").value;
-  if(s===""||s==="129"||s==="89"||s==="149"||s==="49"||total<=0){el.style.display="none";el.textContent="";return}
-  el.style.display="block";
-  const m=window._maintenanceMonthly||0;
-  const fmt=n=>n.toFixed(2).replace(".",",").replace(",00","");
-  if(selectedPlan==="x4"){
-    const per=total/4;
-    el.textContent=m>0?`Soit 4 × ${fmt(per)}€ pour le site + ${fmt(m)}€ de maintenance = ${fmt(per+m)}€ prélevés chaque mois`:`Soit 4 × ${fmt(per)}€ / mois`;
-  }else if(selectedPlan==="x12"){
-    const per=total/12;
-    el.textContent=m>0?`Soit 12 × ${fmt(per)}€ pour le site + ${fmt(m)}€ de maintenance = ${fmt(per+m)}€ prélevés chaque mois`:`Soit 12 × ${fmt(per)}€ / mois`;
-  }else{
-    el.textContent=m>0?`Paiement en une fois à la validation, puis ${fmt(m)}€ prélevés chaque mois pour la maintenance`:"Paiement en une fois, à la validation du devis";
-  }
-}
-function calc(){
+function calcPreview(){
   let t=base,monthly=0;
   document.querySelectorAll("#options input").forEach(el=>{
     if(!el.checked)return;
     const v=parseInt(el.dataset.value||0);
     if(el.dataset.monthly==="1")monthly+=v;else t+=v;
   });
-  const a=document.querySelector("#total .total-amt");if(a)a.textContent=t+"€";
-  window._maintenanceMonthly=monthly;
+  window._currentMaintenanceMonthly=monthly;
+  window._currentPreviewTotal=t;
   const mNote=document.getElementById("maintenanceNote");
   if(mNote){
     mNote.style.display=monthly>0?"flex":"none";
     const amtEl=mNote.querySelector(".mn-amt");if(amtEl)amtEl.textContent=monthly+"€/mois";
   }
-  updatePlanBreakdown(t);
+  const btn=document.getElementById("addToCartBtn");
+  if(btn)btn.textContent=base?`+ Ajouter au panier (${t}€${monthly>0?" + "+monthly+"€/mois":""})`:"+ Ajouter au panier";
 }
 function setPlan(p){
   selectedPlan=p;
   document.querySelectorAll("#paymentPlan .plan-choice").forEach(l=>l.classList.toggle("active",l.dataset.plan===p));
-  calc();
+  calcPreview();
 }
 function renderPaymentPlan(){
   const s=document.getElementById("service").value;
@@ -1031,47 +1040,34 @@ function renderPaymentPlan(){
 <label class="plan-choice" data-plan="x4"><input type="radio" name="pplan" value="x4" onchange="setPlan('x4')"><span class="plan-choice-title">En 4 fois</span><span class="plan-choice-desc">Sans frais, prélevé chaque mois par carte</span></label>
 <label class="plan-choice" data-plan="x12"><input type="radio" name="pplan" value="x12" onchange="setPlan('x12')"><span class="plan-choice-title">Mensualisé 12 mois</span><span class="plan-choice-desc">Idéal pour lisser un gros projet</span></label>`;
 }
-function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderFields();renderPaymentPlan();calc();}
+function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderPaymentPlan();calcPreview();}
 function renderOptions(){
   const s=document.getElementById("service").value;let html="";
   if(s==="129")html=`
-<div class="option"><label><span class="opt-title">Pack de base — 2 publications/semaine <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Deux posts par semaine, rédigés et publiés pour vous, pour rester visible sans y penser.</span></label><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Pack intensif — 4 publications/semaine <span class="opt-price">+50€</span></span><span class="opt-desc">Rythme doublé pour gagner en visibilité plus vite.</span></label><input type="radio" name="cm" data-value="50" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Vidéos courtes (Reels/TikTok) <span class="opt-price">+45€</span></span><span class="opt-desc">Formats courts et dynamiques, ceux qui tournent le mieux en ce moment.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Gestion des messages & commentaires <span class="opt-price">+45€</span></span><span class="opt-desc">On répond à votre place aux messages et commentaires, avec votre ton.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Pack de base — 2 publications/semaine <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Deux posts par semaine, rédigés et publiés pour vous, pour rester visible sans y penser.</span></label><input type="radio" name="cm" data-value="0" checked onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Pack intensif — 4 publications/semaine <span class="opt-price">+50€</span></span><span class="opt-desc">Rythme doublé pour gagner en visibilité plus vite.</span></label><input type="radio" name="cm" data-value="50" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Vidéos courtes (Reels/TikTok) <span class="opt-price">+45€</span></span><span class="opt-desc">Formats courts et dynamiques, ceux qui tournent le mieux en ce moment.</span></label><input type="checkbox" data-value="45" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Gestion des messages & commentaires <span class="opt-price">+45€</span></span><span class="opt-desc">On répond à votre place aux messages et commentaires, avec votre ton.</span></label><input type="checkbox" data-value="45" onchange="calcPreview()"></div>`;
   if(s==="149")html=`
-<div class="option"><label><span class="opt-title">Palier Starter — ~500 clics/mois <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Budget publicitaire inclus dans le prix, géré pour vous sur Google/Meta Ads. Estimation indicative, variable selon secteur et enchères.</span></label><input type="radio" name="ads" data-value="0" checked onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Palier Croissance — ~1 000 clics/mois <span class="opt-price">+90€</span></span><span class="opt-desc">Budget publicitaire renforcé, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Palier Accélération — ~5 000 clics/mois <span class="opt-price">+350€</span></span><span class="opt-desc">Budget publicitaire élevé pour une visibilité maximale, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="350" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Palier Starter — ~500 clics/mois <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Budget publicitaire inclus dans le prix, géré pour vous sur Google/Meta Ads. Estimation indicative, variable selon secteur et enchères.</span></label><input type="radio" name="ads" data-value="0" checked onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Palier Croissance — ~1 000 clics/mois <span class="opt-price">+90€</span></span><span class="opt-desc">Budget publicitaire renforcé, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="90" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Palier Accélération — ~5 000 clics/mois <span class="opt-price">+350€</span></span><span class="opt-desc">Budget publicitaire élevé pour une visibilité maximale, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="350" onchange="calcPreview()"></div>`;
   if(s==="550")html=`
-<div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calc()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calcPreview()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calcPreview()"></div>`;
   if(s==="1115")html=`
-<div class="option"><label><span class="opt-title">Identité de marque <span class="opt-price">+120€</span></span><span class="opt-desc">Logo affiné, palette de couleurs et charte cohérente sur tous vos supports.</span></label><input type="checkbox" data-value="120" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Plan de mots-clés et pages optimisées pour progresser durablement dans Google.</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calc()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Identité de marque <span class="opt-price">+120€</span></span><span class="opt-desc">Logo affiné, palette de couleurs et charte cohérente sur tous vos supports.</span></label><input type="checkbox" data-value="120" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Plan de mots-clés et pages optimisées pour progresser durablement dans Google.</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calcPreview()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calcPreview()"></div>`;
   if(s==="2500")html=`
-<div class="option"><label><span class="opt-title">Publicité Google & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Campagnes payantes ciblées pour amener rapidement des prospects qualifiés sur le site.</span></label><input type="checkbox" data-value="600" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Un parcours pensé pour transformer un visiteur en client sans intervention manuelle de votre part.</span></label><input type="checkbox" data-value="500" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calc()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Publicité Google & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Campagnes payantes ciblées pour amener rapidement des prospects qualifiés sur le site.</span></label><input type="checkbox" data-value="600" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Un parcours pensé pour transformer un visiteur en client sans intervention manuelle de votre part.</span></label><input type="checkbox" data-value="500" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calcPreview()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calcPreview()"></div>`;
   document.getElementById("options").innerHTML=html;
-}
-function renderFields(){
-  const s=document.getElementById("service").value;
-  const common=()=>`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg2"><div class="fg"><input id="adresse" class="fi" placeholder="Adresse complète"></div><div class="fg"><input id="ville" class="fi" placeholder="Ville"></div></div><div class="fg"><input id="codepostal" class="fi" placeholder="Code postal"></div><p class="fh">Projet</p><div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>`;
-  let html="";
-  if(s==="550"||s==="1115"||s==="2500")html=common()+`<p class="fh">Informations site web</p><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><div class="fg"><textarea id="produits" class="ft" placeholder="Produits / services + prix"></textarea></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents"></div>`;
-  if(s==="129")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Réseaux sociaux</p><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà un compte ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom du compte"></div><p class="fh">Stratégie</p><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div><div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
-  if(s==="89")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre site actuel</p><div class="fg"><input id="adresse" class="fi" placeholder="URL de votre site actuel"></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal (ex : plus d'appels, plus de devis…)"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents (optionnel)"></div><div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre situation actuelle (trafic, positions Google, problèmes rencontrés…)"></textarea></div>`;
-  if(s==="149")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre campagne</p><div class="fg"><input id="adresse" class="fi" placeholder="URL de votre site actuel"></div><div class="fg"><input id="objectif" class="fi" placeholder="Budget publicitaire mensuel envisagé"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Zone géographique ciblée"></div><div class="fg"><textarea id="description" class="ft" placeholder="Objectif de la campagne (leads, ventes, notoriété…)"></textarea></div>`;
-  if(s==="690")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre site actuel</p><div class="fg"><input id="adresse" class="fi" placeholder="URL de votre site actuel"></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal de la refonte"></div><div class="fg"><textarea id="description" class="ft" placeholder="Ce qui ne va pas / ce que vous voulez changer"></textarea></div>`;
-  if(s==="49")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre fiche Google</p><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom de la fiche Google Business"></div><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà des avis ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif (ex : 50 avis en 3 mois)"></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
-  document.getElementById("formFields").innerHTML=html;
-  applyAriaLabels(document.getElementById("formFields"));
 }
 function applyAriaLabels(scope){
   (scope||document).querySelectorAll("input[placeholder]:not([aria-label]),textarea[placeholder]:not([aria-label])").forEach(el=>{
@@ -1090,18 +1086,112 @@ function lockBtn(l=true){
   if(eb){eb.disabled=l;eb.style.opacity=l?.55:1}
   if(pb){pb.disabled=l;pb.style.opacity=l?.55:1}
 }
-async function sendQuote(mode){
+
+/* ===== PANIER ===== */
+let cart=[];
+function addToCart(auto){
   const service=document.getElementById("service").value;
-  if(!service){alert("Choisis une offre");return}
+  if(!service){if(!auto)alert("Choisis une offre à ajouter");return}
+  const name=SERVICE_NAMES[service]||"";
+  const isStructural=(service==="550"||service==="1115"||service==="2500"||service==="690");
+  if(isStructural){
+    const already=cart.find(c=>c.type==="structural");
+    if(already){
+      if(!auto && !confirm(`Vous avez déjà "${already.name}" dans votre panier. Le remplacer par "${name}" ?`))return;
+      cart=cart.filter(c=>c.type!=="structural");
+    }
+    cart.push({type:"structural",service,name,amount:window._currentPreviewTotal||base,maintenanceMonthly:window._currentMaintenanceMonthly||0,plan:selectedPlan,options:getSelectedOptions()});
+  }else{
+    if(cart.some(c=>c.service===service)){if(!auto)alert(`"${name}" est déjà dans votre panier.`);return}
+    cart.push({type:"subscription",service,name,amount:window._currentPreviewTotal||base});
+  }
+  document.getElementById("service").value="";
+  setBase();
+  renderCart();
+}
+function removeFromCart(idx){cart.splice(idx,1);renderCart();}
+function quizAddToCart(serviceCode,optionSelectors){
+  const sel=document.getElementById("service");if(!sel)return;
+  sel.value=serviceCode;
+  setBase();
+  (optionSelectors||[]).forEach(o=>{
+    let el=null;
+    if(o.sel)el=document.querySelector("#options "+o.sel);
+    else if(o.idx!==undefined)el=document.querySelectorAll("#options input[type=\"checkbox\"]")[o.idx];
+    if(el){el.checked=true;calcPreview();}
+  });
+  addToCart(true);
+}
+function cartTotals(){
+  let upfront=0,monthly=0;
+  cart.forEach(item=>{
+    if(item.type==="structural"){
+      if(item.plan==="once"){upfront+=item.amount;}
+      else{const inst=item.plan==="x4"?4:12;const per=Math.round(item.amount/inst);upfront+=per;monthly+=per;}
+      if(item.maintenanceMonthly>0){upfront+=item.maintenanceMonthly;monthly+=item.maintenanceMonthly;}
+    }else{upfront+=item.amount;monthly+=item.amount;}
+  });
+  return {upfront,monthly};
+}
+function renderCart(){
+  const wrap=document.getElementById("cartWrap");
+  const list=document.getElementById("cartList");
+  if(!wrap||!list)return;
+  if(cart.length===0){wrap.style.display="none";list.innerHTML="";return}
+  wrap.style.display="block";
+  list.innerHTML=cart.map((item,i)=>{
+    const planLbl=item.type==="structural"?(item.plan==="x4"?" — en 4x":item.plan==="x12"?" — sur 12 mois":" — comptant"):" — abonnement mensuel";
+    const priceTxt=item.type==="structural"
+      ?(item.plan==="once"?item.amount+"€":Math.round(item.amount/(item.plan==="x4"?4:12))+"€/mois")
+      :item.amount+"€/mois";
+    return `<div class="cart-item"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span><span class="cart-item-plan">${planLbl.replace(' — ','')}</span></div><div class="cart-item-price">${priceTxt}</div><button type="button" class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Retirer ${item.name} du panier">✕</button></div>`;
+  }).join('');
+  const {upfront,monthly}=cartTotals();
+  const totalEl=document.querySelector("#total .total-amt");if(totalEl)totalEl.textContent=upfront+"€";
+  const noteEl=document.getElementById("cartMonthlyNote"),txtEl=document.getElementById("cartMonthlyTxt");
+  if(noteEl&&txtEl){
+    if(monthly>0){noteEl.style.display="flex";txtEl.textContent=`Puis ${monthly}€ chaque mois, tant que vous ne résiliez pas vos abonnements.`;}
+    else{noteEl.style.display="none";}
+  }
+}
+
+async function sendQuote(mode){
+  if(cart.length===0){alert("Ajoutez au moins une offre à votre panier");return}
   const email=get("email");if(!email){alert("L'email est obligatoire");return}
-  const serviceName=SERVICE_NAMES[service]||"",totalText=document.querySelector("#total .total-amt")?.textContent||"0€",totalAmount=parseInt(totalText)||0,isMonthly=(service==="129"||service==="89"||service==="149"||service==="49"),optionsTxt=getSelectedOptions();
+  const structural=cart.find(c=>c.type==="structural");
+  const subscriptions=cart.filter(c=>c.type==="subscription");
+  const {upfront,monthly}=cartTotals();
+  const cartSummary=cart.map(c=>{
+    if(c.type==="structural")return `${c.name} (${c.plan==="once"?c.amount+"€ comptant":"en "+(c.plan==="x4"?4:12)+"x, "+Math.round(c.amount/(c.plan==="x4"?4:12))+"€/mois"})`;
+    return `${c.name} (${c.amount}€/mois)`;
+  }).join(" + ");
   const planLabels={once:"Comptant (1x)",x4:"En 4x sans frais",x12:"Mensualisé sur 12 mois"};
-  const paymentPlanLabel=isMonthly?"Abonnement mensuel":(planLabels[selectedPlan]||"Comptant (1x)");
-  const maintenanceMonthly=window._maintenanceMonthly||0;
-  const data={service_name:serviceName,service,total:totalText,options:optionsTxt,payment_link:"",payment_plan:selectedPlan,payment_plan_label:paymentPlanLabel,maintenance_monthly:maintenanceMonthly,prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),message:get("message"),description:get("description")};
+  const data={
+    service_name:cartSummary,
+    service:structural?structural.service:(subscriptions[0]?.service||""),
+    total:upfront+"€",
+    options:subscriptions.map(s=>s.name).join(", ")||(structural?structural.options:""),
+    payment_link:"",
+    payment_plan:structural?structural.plan:"once",
+    payment_plan_label:structural?planLabels[structural.plan]:"Abonnement mensuel",
+    maintenance_monthly:monthly,
+    cart_summary:cartSummary,
+    total_today:upfront+"€",
+    total_monthly:monthly>0?monthly+"€/mois":"—",
+    prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),
+    entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),
+    secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),
+    aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),
+    message:get("message"),description:get("description"),
+  };
   lockBtn(true);setStatus(mode==="pay"?"⏳ Préparation du paiement Stripe…":"⏳ Génération du devis…","loading");
   try{
-    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:totalAmount,service_name:serviceName,options:optionsTxt,is_monthly:isMonthly,payment_plan:selectedPlan,maintenance_monthly:maintenanceMonthly})});
+    const payload={
+      structural:structural?{amount:structural.amount,service_name:structural.name,payment_plan:structural.plan}:null,
+      maintenance_monthly:structural?(structural.maintenanceMonthly||0):0,
+      subscriptions:subscriptions.map(s=>({amount:s.amount,service_name:s.name})),
+    };
+    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const json=await res.json();
     if(!res.ok||!json.url)throw new Error(json.error||`Erreur serveur ${res.status}`);
     data.payment_link=json.url;
@@ -1121,6 +1211,7 @@ async function sendQuote(mode){
 }
 setBase();
 applyAriaLabels();
+renderCart();
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target);if(e.target.id==="orderCounterWrap")setTimeout(animateOrderCounter,200)}})},{threshold:.07});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 function initStarfield(){
@@ -4211,7 +4302,18 @@ function closePortfolio(){
 </script>
 <script>
 (function(){
-  const QZ = [
+  // ===== Question de tri (gate) =====
+  const GATE = {
+    title: "Avez-vous déjà un site internet ?",
+    sub: "On adapte tout le reste du questionnaire selon votre réponse.",
+    opts: [
+      {l:'Non, je n\'ai pas de site', path:'A'},
+      {l:'Oui, j\'ai déjà un site', path:'B'},
+    ]
+  };
+
+  // ===== Parcours A — pas encore de site (création) =====
+  const QZ_A = [
     { id:'secteur', title:"Quel est le secteur de votre activité ?", sub:"Pour adapter nos exemples et notre discours à votre métier.",
       opts:[
         {l:'Commerce / boutique', site:0, cm:0},
@@ -4228,13 +4330,6 @@ function closePortfolio(){
         {l:'6 à 20', site:12, cm:0},
         {l:'Plus de 20', site:18, cm:0},
       ]},
-    { id:'siteActuel', title:"Avez-vous déjà un site web ?", sub:"",
-      opts:[
-        {l:"Non, aucun site", site:4, cm:0},
-        {l:"Oui, mais il est vieux / dépassé", site:6, cm:0},
-        {l:"Oui, mais il ne m'apporte pas de clients", site:8, cm:0},
-        {l:"Oui, et il fonctionne bien", site:0, cm:0},
-      ]},
     { id:'budget', title:"Quel budget envisagez-vous pour votre site ?", sub:"Une fourchette suffit, rien n'est engageant.",
       opts:[
         {l:'Moins de 500€', site:0, cm:0},
@@ -4249,10 +4344,10 @@ function closePortfolio(){
         {l:'Ma région', site:12, cm:0},
         {l:'National ou international', site:18, cm:0},
       ]},
-    { id:'concurrence', title:"Vos concurrents ont-ils un site plus abouti que le vôtre ?", sub:"",
+    { id:'concurrence', title:"Vos concurrents ont-ils un site plus abouti que vous ?", sub:"",
       opts:[
         {l:"Je n'ai pas regardé / je ne sais pas", site:2, cm:0},
-        {l:'Non, on est au même niveau', site:0, cm:0},
+        {l:'Non, je pense être au même niveau', site:0, cm:0},
         {l:'Oui, certains sont mieux', site:8, cm:0},
         {l:'Oui, nettement plus professionnels', site:14, cm:0},
       ]},
@@ -4317,13 +4412,6 @@ function closePortfolio(){
         {l:'3 à 4 fois par semaine', site:0, cm:8},
         {l:'5 fois ou plus par semaine', site:0, cm:10},
       ]},
-    { id:'budgetcm', title:"Quel budget mensuel envisagez-vous pour la gestion de vos réseaux ?", sub:"",
-      opts:[
-        {l:'Aucun budget dédié pour l\'instant', site:0, cm:0},
-        {l:'Moins de 150€/mois', site:0, cm:6},
-        {l:'150€ à 250€/mois', site:0, cm:9},
-        {l:'Plus de 250€/mois', site:0, cm:10},
-      ]},
     { id:'delai', title:"Quel est votre échéance de lancement souhaitée ?", sub:"",
       opts:[
         {l:'Urgent, moins d\'un mois', site:0, cm:0},
@@ -4332,11 +4420,93 @@ function closePortfolio(){
       ]},
   ];
 
-  const MAX_SITE = QZ.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.site)),0);
-  const MAX_CM = QZ.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.cm)),0);
+  // ===== Parcours B — a déjà un site (optimisation / services complémentaires) =====
+  // dims: seo, ads, refonte, avis, cm
+  const QZ_B = [
+    { id:'secteurB', title:"Quel est le secteur de votre activité ?", sub:"Pour adapter la recommandation à votre métier.",
+      opts:[
+        {l:'Commerce / boutique', seo:0, ads:6, refonte:4, avis:0, cm:0},
+        {l:'Artisanat / BTP', seo:8, ads:0, refonte:0, avis:2, cm:0},
+        {l:'Restauration / hôtellerie', seo:0, ads:0, refonte:0, avis:8, cm:4},
+        {l:'Services aux entreprises', seo:6, ads:4, refonte:0, avis:0, cm:0},
+        {l:'Santé / bien-être', seo:4, ads:0, refonte:0, avis:8, cm:0},
+        {l:'Autre activité', seo:0, ads:0, refonte:0, avis:0, cm:0},
+      ]},
+    { id:'probleme', title:"Qu'est-ce qui vous dérange le plus avec votre site actuel ?", sub:"",
+      opts:[
+        {l:"Il n'apparaît pas sur Google", seo:10, ads:0, refonte:0, avis:0, cm:0},
+        {l:"Il est vieux / mal designé", seo:0, ads:0, refonte:10, avis:0, cm:0},
+        {l:"Je n'ai pas assez d'appels / de clients", seo:4, ads:8, refonte:0, avis:0, cm:0},
+        {l:"Je manque d'avis clients en ligne", seo:0, ads:0, refonte:0, avis:10, cm:0},
+        {l:"Rien de spécial, je veux plus de présence sur les réseaux", seo:0, ads:0, refonte:0, avis:0, cm:10},
+      ]},
+    { id:'avisActuels', title:"Avez-vous des avis clients sur votre fiche Google actuellement ?", sub:"",
+      opts:[
+        {l:"Aucun avis pour l'instant", seo:0, ads:0, refonte:0, avis:10, cm:0},
+        {l:"Quelques-uns, mais pas assez", seo:0, ads:0, refonte:0, avis:6, cm:0},
+        {l:"Oui, plusieurs dizaines", seo:0, ads:0, refonte:0, avis:0, cm:0},
+      ]},
+    { id:'pub', title:"Seriez-vous prêt à investir dans de la publicité payante (Google / Meta Ads) ?", sub:"",
+      opts:[
+        {l:'Oui, sans hésiter', seo:0, ads:10, refonte:0, avis:0, cm:0},
+        {l:'Peut-être, si c\'est rentable', seo:0, ads:5, refonte:0, avis:0, cm:0},
+        {l:'Non, je préfère le référencement naturel', seo:8, ads:0, refonte:0, avis:0, cm:0},
+      ]},
+    { id:'anciennete', title:"Depuis quand votre site n'a pas été relooké / mis à jour ?", sub:"",
+      opts:[
+        {l:'Moins d\'1 an', seo:0, ads:0, refonte:0, avis:0, cm:0},
+        {l:'1 à 3 ans', seo:0, ads:0, refonte:6, avis:0, cm:0},
+        {l:'Plus de 3 ans, ou jamais', seo:0, ads:0, refonte:12, avis:0, cm:0},
+      ]},
+    { id:'objectifB', title:"Quel est votre objectif principal aujourd'hui ?", sub:"",
+      opts:[
+        {l:'Être mieux positionné sur Google', seo:10, ads:0, refonte:0, avis:0, cm:0},
+        {l:'Avoir plus de clients rapidement', seo:0, ads:10, refonte:0, avis:0, cm:0},
+        {l:'Moderniser l\'image de mon site', seo:0, ads:0, refonte:10, avis:0, cm:0},
+        {l:'Construire une meilleure réputation en ligne', seo:0, ads:0, refonte:0, avis:10, cm:0},
+        {l:'Être plus actif sur les réseaux sociaux', seo:0, ads:0, refonte:0, avis:0, cm:10},
+      ]},
+    { id:'budgetB', title:"Quel budget êtes-vous prêt à investir ?", sub:"",
+      opts:[
+        {l:'Moins de 50€/mois', seo:0, ads:0, refonte:0, avis:4, cm:0},
+        {l:'50€ à 150€/mois', seo:6, ads:0, refonte:0, avis:0, cm:4},
+        {l:'150€ à 300€/mois', seo:0, ads:8, refonte:0, avis:0, cm:6},
+        {l:'Un budget ponctuel plus important (600€+)', seo:0, ads:0, refonte:8, avis:0, cm:0},
+      ]},
+    { id:'reseauxB', title:"Gérez-vous vos réseaux sociaux aujourd'hui ?", sub:"",
+      opts:[
+        {l:'Non, pas du tout', seo:0, ads:0, refonte:0, avis:0, cm:10},
+        {l:'Oui, mais ça me prend beaucoup de temps', seo:0, ads:0, refonte:0, avis:0, cm:6},
+        {l:'Oui et ça fonctionne bien', seo:0, ads:0, refonte:0, avis:0, cm:0},
+      ]},
+  ];
 
+  const OFFER_INFO = {
+    seo:     { name:'Abonnement SEO',    price:'89',  priceLabel:'À partir de 89€/mois',
+      why:["Audit initial + optimisation continue chaque mois","Rapport de résultats mensuel, sans engagement de durée"] },
+    ads:     { name:'Pack Ads géré',     price:'149', priceLabel:'Dès 149€/mois',
+      why:["Campagnes Google & Meta Ads gérées de A à Z","Budget publicitaire inclus dans le prix, selon le palier choisi"] },
+    refonte: { name:'Refonte express',   price:'690', priceLabel:'690€ tarif fixe',
+      why:["Design, structure et contenu repensés en 7 jours","Le référencement déjà acquis est conservé"] },
+    avis:    { name:'Pack Avis clients', price:'49',  priceLabel:'49€/mois',
+      why:["Collecte automatisée d'avis après chaque prestation","Réponses rédigées et publiées pour vous chaque mois"] },
+    cm:      { name:'Community Management', price:'129', priceLabel:'129€ → 269€/mois',
+      why:["Publications régulières, rédigées et publiées pour vous","Résiliable à tout moment, sans engagement de durée"] },
+  };
+
+  const SECTOR_REASON_B = [
+    "Pour un commerce, chaque visiteur compte : on priorise ce qui convertit le plus de visites en ventes",
+    "Pour l'artisanat/BTP, être bien positionné sur Google reste le levier n°1 pour être appelé",
+    "Pour la restauration/l'hôtellerie, les avis et la présence sur les réseaux pèsent énormément dans la décision du client",
+    "Pour les services aux entreprises, la crédibilité en ligne et la génération de contacts qualifiés priment",
+    "Pour la santé/le bien-être, la confiance et la réputation en ligne sont déterminantes",
+    "Adapté à votre activité et à vos priorités actuelles",
+  ];
+
+  let activeQZ = null;   // QZ_A ou QZ_B une fois la gate répondue
+  let activePath = null; // 'A' ou 'B'
   let qzIdx = 0;
-  const qzAnswers = new Array(QZ.length).fill(null);
+  let qzAnswers = [];
 
   const qWrap = document.getElementById('qzQuestionWrap');
   const rWrap = document.getElementById('qzResultWrap');
@@ -4344,10 +4514,46 @@ function closePortfolio(){
   const pctLbl = document.getElementById('qzPctLbl');
   const barFill = document.getElementById('qzBarFill');
 
+  function renderGate(){
+    activeQZ = null; activePath = null;
+    stepLbl.textContent = 'Question préliminaire';
+    pctLbl.textContent = '0%';
+    barFill.style.width = '0%';
+    const optsHtml = GATE.opts.map((o,i)=>`<button type="button" class="qz-opt" data-i="${i}">${o.l}</button>`).join('');
+    qWrap.innerHTML = `
+      <div class="qz-q">
+        <p class="qz-title">${GATE.title}</p>
+        <p class="qz-sub">${GATE.sub}</p>
+        <div class="qz-opts">${optsHtml}</div>
+        <div class="qz-nav">
+          <button type="button" class="btn btn--ghost" id="qzPrev" style="visibility:hidden">← Précédent</button>
+          <button type="button" class="btn btn--gold" id="qzNext" disabled>Suivant →</button>
+        </div>
+      </div>`;
+    let picked = null;
+    qWrap.querySelectorAll('.qz-opt').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        qWrap.querySelectorAll('.qz-opt').forEach(b=>b.classList.remove('selected'));
+        btn.classList.add('selected');
+        picked = parseInt(btn.dataset.i,10);
+        document.getElementById('qzNext').disabled = false;
+      });
+    });
+    document.getElementById('qzNext').addEventListener('click', ()=>{
+      if(picked===null) return;
+      const path = GATE.opts[picked].path;
+      activePath = path;
+      activeQZ = path === 'A' ? QZ_A : QZ_B;
+      qzIdx = 0;
+      qzAnswers = new Array(activeQZ.length).fill(null);
+      renderQuestion();
+    });
+  }
+
   function renderQuestion(){
-    const q = QZ[qzIdx];
-    const pct = Math.round(((qzIdx) / QZ.length) * 100);
-    stepLbl.textContent = `Question ${qzIdx+1} / ${QZ.length}`;
+    const q = activeQZ[qzIdx];
+    const pct = Math.round(((qzIdx+1) / (activeQZ.length+1)) * 100);
+    stepLbl.textContent = `Question ${qzIdx+2} / ${activeQZ.length+1}`;
     pctLbl.textContent = pct + '%';
     barFill.style.width = pct + '%';
 
@@ -4362,8 +4568,8 @@ function closePortfolio(){
         ${q.sub ? `<p class="qz-sub">${q.sub}</p>` : '<div style="margin-bottom:22px"></div>'}
         <div class="qz-opts">${optsHtml}</div>
         <div class="qz-nav">
-          <button type="button" class="btn btn--ghost" id="qzPrev" ${qzIdx===0?'style="visibility:hidden"':''}>← Précédent</button>
-          <button type="button" class="btn btn--gold" id="qzNext" ${qzAnswers[qzIdx]===null?'disabled':''}>${qzIdx===QZ.length-1?'Voir mon résultat':'Suivant →'}</button>
+          <button type="button" class="btn btn--ghost" id="qzPrev">← Précédent</button>
+          <button type="button" class="btn btn--gold" id="qzNext" ${qzAnswers[qzIdx]===null?'disabled':''}>${qzIdx===activeQZ.length-1?'Voir mon résultat':'Suivant →'}</button>
         </div>
       </div>`;
 
@@ -4373,19 +4579,51 @@ function closePortfolio(){
         renderQuestion();
       });
     });
-    const nextBtn = document.getElementById('qzNext');
-    nextBtn.addEventListener('click', ()=>{
+    document.getElementById('qzNext').addEventListener('click', ()=>{
       if(qzAnswers[qzIdx]===null) return;
-      if(qzIdx < QZ.length-1){ qzIdx++; renderQuestion(); }
-      else { showResult(); }
+      if(qzIdx < activeQZ.length-1){ qzIdx++; renderQuestion(); }
+      else { activePath==='A' ? showResultA() : showResultB(); }
     });
-    const prevBtn = document.getElementById('qzPrev');
-    if(prevBtn) prevBtn.addEventListener('click', ()=>{ if(qzIdx>0){ qzIdx--; renderQuestion(); } });
+    document.getElementById('qzPrev').addEventListener('click', ()=>{
+      if(qzIdx>0){ qzIdx--; renderQuestion(); } else { renderGate(); }
+    });
   }
 
-  function ans(id){ return qzAnswers[QZ.findIndex(q=>q.id===id)]; }
+  function ans(id){ return qzAnswers[activeQZ.findIndex(q=>q.id===id)]; }
 
-  function getRecommendedOptions(tierVal){
+  const SECTOR_REASON_A = [
+    "Pensé pour donner confiance et donner envie d'acheter ou de réserver rapidement",
+    "Pensé pour être trouvé facilement quand un client cherche votre métier près de chez lui",
+    "Pensé pour donner envie de réserver ou venir sur place, avec vos horaires et votre carte bien visibles",
+    "Pensé pour rassurer des prospects professionnels et faciliter la prise de contact",
+    "Pensé pour rassurer et faciliter la prise de rendez-vous en ligne",
+    "Adapté à votre activité et à vos objectifs",
+  ];
+
+  const COMPLEMENTARY_INFO = {
+    cm:   {name:'Community Management', price:'129', priceLabel:'129€ → 269€/mois', reason:"une présence en ligne plus active sur les réseaux sociaux"},
+    seo:  {name:'Abonnement SEO', price:'89', priceLabel:'89€/mois', reason:"un suivi SEO mensuel pour continuer à progresser sur Google une fois le site en ligne"},
+    avis: {name:'Pack Avis clients', price:'49', priceLabel:'49€/mois', reason:"davantage d'avis clients pour renforcer la confiance et votre réputation en ligne"},
+  };
+
+  function getSectorOptionsA(tierVal, secteurIdx){
+    const recs = [];
+    if(tierVal==='550'){
+      if([0,1,4].includes(secteurIdx)) recs.push({label:'Référencement local (SEO)', price:'+90€', sel:'[data-value="90"]'});
+      if([2,4].includes(secteurIdx)) recs.push({label:'Fiche Google avancée', price:'+30€', sel:'[data-value="30"]'});
+    }
+    if(tierVal==='1115'){
+      if([1,4].includes(secteurIdx)) recs.push({label:'SEO avancé & stratégie de contenu', price:'+90€', sel:'[data-value="90"]'});
+      if(secteurIdx===0) recs.push({label:'Optimisation conversion (CRO)', price:'+75€', sel:'[data-value="75"]'});
+    }
+    if(tierVal==='2500'){
+      if(secteurIdx===0) recs.push({label:'Tunnel de vente automatisé', price:'+500€', sel:'[data-value="500"]'});
+      if(secteurIdx===3) recs.push({label:'CRM & automatisations', price:'+400€', sel:'[data-value="400"]'});
+    }
+    return recs;
+  }
+
+  function getRecommendedOptionsA(tierVal, secteurIdx){
     const recs = [];
     if(tierVal==='550'){
       if(ans('surmesure')===1 || ans('objectif')===3) recs.push({label:'Design personnalisé', price:'+80€', sel:'[data-value="80"]'});
@@ -4410,54 +4648,93 @@ function closePortfolio(){
       if(ans('rythme')===3) recs.push({label:'Vidéos courtes (Reels/TikTok)', price:'+45€', idx:0});
       if(ans('tempsdispo')===2) recs.push({label:'Gestion des messages & commentaires', price:'+45€', idx:1});
     }
+    // fusionne avec les recommandations liées au secteur, sans doublon de libellé
+    getSectorOptionsA(tierVal, secteurIdx).forEach(sec=>{
+      if(!recs.some(r=>r.label===sec.label)) recs.push(sec);
+    });
     return recs;
   }
 
-  function showResult(){
-    let siteScore = 0, cmScore = 0;
-    QZ.forEach((q,i)=>{
-      const a = q.opts[qzAnswers[i]];
-      siteScore += a.site;
-      cmScore += a.cm;
+  function highlightOfferCard(offerName){
+    document.querySelectorAll('#offres .card__name').forEach(el=>{
+      if(el.textContent.trim() !== offerName) return;
+      const card = el.closest('.card, .mini-offer-card, .seo-banner');
+      if(!card) return;
+      card.style.borderColor = 'var(--gold)';
+      card.style.boxShadow = '0 0 0 2px var(--gold-border)';
+      setTimeout(()=>{ card.style.borderColor=''; card.style.boxShadow=''; }, 3000);
     });
-    const sitePct = MAX_SITE ? (siteScore / MAX_SITE) * 100 : 0;
-    const cmPct = MAX_CM ? (cmScore / MAX_CM) * 100 : 0;
+  }
+
+  function renderResultShell(innerHtml){
+    qWrap.style.display = 'none';
+    rWrap.style.display = 'block';
+    rWrap.innerHTML = innerHtml;
+    stepLbl.textContent = 'Résultat';
+    pctLbl.textContent = '100%';
+    barFill.style.width = '100%';
+    document.getElementById('qzRestart').addEventListener('click', ()=>{
+      rWrap.style.display = 'none';
+      qWrap.style.display = 'block';
+      renderGate();
+    });
+  }
+
+  function showResultA(){
+    const MAX_SITE = QZ_A.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.site)),0);
+    const MAX_CM = QZ_A.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.cm)),0);
+    let siteScore = 0, cmScore = 0;
+    QZ_A.forEach((q,i)=>{ const a=q.opts[qzAnswers[i]]; siteScore+=a.site; cmScore+=a.cm; });
+    const sitePct = MAX_SITE ? (siteScore/MAX_SITE)*100 : 0;
+    const cmPct = MAX_CM ? (cmScore/MAX_CM)*100 : 0;
+    const secteurIdx = ans('secteur');
+    const secteurLabel = QZ_A[0].opts[secteurIdx].l;
 
     let tier, priceVal, priceLabel, why;
     if(sitePct < 20){
       tier='Site Vitrine'; priceVal='550'; priceLabel='550€ → 750€';
-      why=["Un site simple, clair et rapide à mettre en ligne","Parfait pour un budget maîtrisé et une clientèle locale","Référencement local (SEO) inclus pour être trouvé sur Google"];
+      why=["Un site simple, clair et rapide à mettre en ligne","Référencement local (SEO) inclus pour être trouvé sur Google"];
     } else if(sitePct < 70){
       tier='Site Premium'; priceVal='1115'; priceLabel='1115€ → 1400€';
-      why=["Un design 100% sur mesure pensé pour convertir","Adapté à une activité en développement avec plusieurs services","Accompagnement au lancement inclus"];
+      why=["Un design 100% sur mesure pensé pour convertir","Accompagnement au lancement inclus"];
     } else {
       tier='Ultra Premium'; priceVal='2500'; priceLabel='2500€ → 4000€';
-      why=["Une expérience digitale complète, pas seulement un site","Automatisations et intégrations avancées","Stratégie de conversion et accompagnement marketing dans la durée"];
+      why=["Une expérience digitale complète, pas seulement un site","Automatisations et intégrations avancées pour gagner du temps"];
     }
+    why = [SECTOR_REASON_A[secteurIdx], ...why];
 
-    const rythmeIdx = qzAnswers[QZ.findIndex(q=>q.id==='rythme')];
-    const rythmeNone = rythmeIdx === 0;
+    const rythmeNone = qzAnswers[QZ_A.findIndex(q=>q.id==='rythme')] === 0;
     const addCM = cmPct >= 45 && !rythmeNone;
+    const recOptions = getRecommendedOptionsA(priceVal, secteurIdx);
 
-    const alreadyGoodSite = qzAnswers[QZ.findIndex(q=>q.id==='siteActuel')] === 3;
-    let cmOnly = alreadyGoodSite && addCM && sitePct < 30;
+    // Abonnements complémentaires suggérés en plus du site (max 2, pour rester lisible)
+    const subs = [];
+    if(addCM) subs.push('cm');
+    const seoAlreadyInTier = recOptions.some(o=>/SEO|référencement/i.test(o.label));
+    if(!seoAlreadyInTier && tier==='Ultra Premium' && (ans('seo')===0 || [0,1,4].includes(secteurIdx))) subs.push('seo');
+    if([2,4].includes(secteurIdx) && !subs.includes('cm') && subs.length<2) subs.push('avis');
+    const finalSubs = subs.slice(0,2);
 
-    const finalPriceVal = cmOnly ? '129' : priceVal;
-    const finalTierName = cmOnly ? 'Community Management' : tier;
-    const recOptions = getRecommendedOptions(finalPriceVal);
+    const comboExtras = [
+      ...(recOptions.length ? [recOptions[0].label] : []),
+      ...(finalSubs.length ? [COMPLEMENTARY_INFO[finalSubs[0]].name] : []),
+    ].slice(0,2);
+    const comboTitle = tier + (comboExtras.length ? ' + ' + comboExtras.join(' + ') : '');
 
-    let html = `<div class="qz-result">
-      <span class="qz-result-tag">Résultat de votre questionnaire</span>
-      <p class="qz-result-offer">${finalTierName}</p>
-      <p class="qz-result-price">${cmOnly ? '129€ → 269€/mois' : priceLabel}</p>
-      <ul class="qz-result-why">${(cmOnly ? [
-        "Votre site actuel fonctionne déjà bien",
-        "Votre besoin principal est une présence active sur les réseaux",
-        "Publications régulières + gestion des messages, sans effort de votre part"
-      ] : why).map(w=>`<li>${w}</li>`).join('')}</ul>
-      ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Options que nous vous conseillons d'ajouter</span>
+    const subsHtml = finalSubs.map(k=>{
+      const info = COMPLEMENTARY_INFO[k];
+      return `<div class="qz-result-cm">💡 En complément, nous vous conseillons <b>${info.name}</b> (${info.priceLabel}) pour ${info.reason}.</div>`;
+    }).join('');
+
+    const html = `<div class="qz-result">
+      <span class="qz-result-tag">Nous vous conseillons</span>
+      <p class="qz-result-offer">${comboTitle}</p>
+      <p class="qz-result-price">${priceLabel}${finalSubs.length ? ' + abonnement(s) complémentaire(s)' : ''}</p>
+      <span class="field-lbl" style="display:block;margin-bottom:10px">Pourquoi cette combinaison, pour votre activité (${secteurLabel})</span>
+      <ul class="qz-result-why">${why.map(w=>`<li>${w}</li>`).join('')}</ul>
+      ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Options à ajouter dans le devis</span>
       <ul class="qz-result-why" style="margin-bottom:24px">${recOptions.map(o=>`<li>${o.label} <span style="color:var(--gold)">(${o.price})</span></li>`).join('')}</ul>` : ''}
-      ${(!cmOnly && addCM) ? `<div class="qz-result-cm">💡 Vos réponses indiquent que vous auriez besoin d'une présence en ligne encore plus forte. Nous vous recommandons, en complément et en toute transparence, notre offre <b>Community Management</b> (129€ → 269€/mois) : gestion professionnelle de vos réseaux sociaux, avec possibilité de prendre simplement conseil auprès de notre équipe avant de vous engager.</div>` : ''}
+      ${subsHtml}
       <div class="qz-result-actions">
         <button type="button" class="btn btn--gold" id="qzSeeOffer">Voir cette offre en détail</button>
         <button type="button" class="btn btn--ghost" id="qzGetQuote">Obtenir un devis avec ces options</button>
@@ -4465,52 +4742,78 @@ function closePortfolio(){
       <button type="button" class="qz-restart" id="qzRestart">Refaire le questionnaire</button>
     </div>`;
 
-    qWrap.style.display = 'none';
-    rWrap.style.display = 'block';
-    rWrap.innerHTML = html;
-    stepLbl.textContent = 'Résultat';
-    pctLbl.textContent = '100%';
-    barFill.style.width = '100%';
+    renderResultShell(html);
 
     document.getElementById('qzSeeOffer').addEventListener('click', ()=>{
       document.getElementById('offres').scrollIntoView({behavior:'smooth'});
-      document.querySelectorAll('#offres .card__name').forEach(el=>{
-        const card = el.closest('.card');
-        if(el.textContent.trim() === finalTierName){
-          card.style.borderColor = 'var(--gold)';
-          card.style.boxShadow = '0 0 0 2px var(--gold-border)';
-          setTimeout(()=>{ card.style.borderColor=''; card.style.boxShadow=''; }, 3000);
-        }
-      });
+      highlightOfferCard(tier);
+      finalSubs.forEach(k=>highlightOfferCard(COMPLEMENTARY_INFO[k].name));
     });
-
     document.getElementById('qzGetQuote').addEventListener('click', ()=>{
-      const sel = document.getElementById('service');
-      if(sel){
-        sel.value = finalPriceVal;
-        if(typeof setBase === 'function') setBase();
-      }
-      // Coche automatiquement les options recommandées dans le devis
-      recOptions.forEach(o=>{
-        let el = null;
-        if(o.sel) el = document.querySelector('#options ' + o.sel);
-        else if(o.idx!==undefined) el = document.querySelectorAll('#options input[type="checkbox"]')[o.idx];
-        if(el) el.checked = true;
-      });
-      if(typeof calc === 'function') calc();
+      quizAddToCart(priceVal, recOptions);
+      finalSubs.forEach(k=>quizAddToCart(COMPLEMENTARY_INFO[k].price, []));
       document.getElementById('devis').scrollIntoView({behavior:'smooth'});
-    });
-
-    document.getElementById('qzRestart').addEventListener('click', ()=>{
-      qzIdx = 0;
-      qzAnswers.fill(null);
-      rWrap.style.display = 'none';
-      qWrap.style.display = 'block';
-      renderQuestion();
     });
   }
 
-  renderQuestion();
+  function showResultB(){
+    const dims = ['seo','ads','refonte','avis','cm'];
+    const score = {seo:0, ads:0, refonte:0, avis:0, cm:0};
+    const max = {seo:0, ads:0, refonte:0, avis:0, cm:0};
+    QZ_B.forEach((q,i)=>{
+      const a = q.opts[qzAnswers[i]];
+      dims.forEach(d=>{ score[d]+=(a[d]||0); });
+      dims.forEach(d=>{ max[d]+=Math.max(...q.opts.map(o=>o[d]||0)); });
+    });
+    const pct = {};
+    dims.forEach(d=>{ pct[d] = max[d] ? (score[d]/max[d])*100 : 0; });
+    const sorted = dims.slice().sort((a,b)=>pct[b]-pct[a]);
+    const primary = sorted[0];
+    const secondary = pct[sorted[1]] >= 45 ? sorted[1] : null;
+    const secteurBIdx = ans('secteurB');
+    const secteurLabel = QZ_B[0].opts[secteurBIdx].l;
+
+    const info = OFFER_INFO[primary];
+    const recOptions = [];
+    if(primary==='ads' && pct.ads >= 75){
+      recOptions.push({label:'Palier Croissance — ~1 000 clics/mois', price:'+90€', sel:'input[name="ads"][data-value="90"]'});
+    }
+
+    const comboExtras = secondary ? [OFFER_INFO[secondary].name] : (recOptions.length ? [recOptions[0].label] : []);
+    const comboTitle = info.name + (comboExtras.length ? ' + ' + comboExtras.join(' + ') : '');
+    const why = [SECTOR_REASON_B[secteurBIdx], ...info.why];
+
+    const html = `<div class="qz-result">
+      <span class="qz-result-tag">Nous vous conseillons</span>
+      <p class="qz-result-offer">${comboTitle}</p>
+      <p class="qz-result-price">${info.priceLabel}${secondary ? ' + ' + OFFER_INFO[secondary].priceLabel : ''}</p>
+      <span class="field-lbl" style="display:block;margin-bottom:10px">Pourquoi cette combinaison, pour votre activité (${secteurLabel})</span>
+      <ul class="qz-result-why">${why.map(w=>`<li>${w}</li>`).join('')}</ul>
+      ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Option à ajouter dans le devis</span>
+      <ul class="qz-result-why" style="margin-bottom:24px">${recOptions.map(o=>`<li>${o.label} <span style="color:var(--gold)">(${o.price})</span></li>`).join('')}</ul>` : ''}
+      ${secondary ? `<div class="qz-result-cm">💡 En complément, notre offre <b>${OFFER_INFO[secondary].name}</b> (${OFFER_INFO[secondary].priceLabel}) pourrait aussi vous être utile — les deux se commandent séparément dans le devis.</div>` : ''}
+      <div class="qz-result-actions">
+        <button type="button" class="btn btn--gold" id="qzSeeOffer">Voir cette offre en détail</button>
+        <button type="button" class="btn btn--ghost" id="qzGetQuote">Obtenir un devis avec ces options</button>
+      </div>
+      <button type="button" class="qz-restart" id="qzRestart">Refaire le questionnaire</button>
+    </div>`;
+
+    renderResultShell(html);
+
+    document.getElementById('qzSeeOffer').addEventListener('click', ()=>{
+      document.getElementById('offres').scrollIntoView({behavior:'smooth'});
+      highlightOfferCard(info.name);
+      if(secondary) highlightOfferCard(OFFER_INFO[secondary].name);
+    });
+    document.getElementById('qzGetQuote').addEventListener('click', ()=>{
+      quizAddToCart(info.price, recOptions);
+      if(secondary) quizAddToCart(OFFER_INFO[secondary].price, []);
+      document.getElementById('devis').scrollIntoView({behavior:'smooth'});
+    });
+  }
+
+  renderGate();
 })();
 </script>
 </body>
