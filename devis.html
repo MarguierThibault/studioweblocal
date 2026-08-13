@@ -60,10 +60,6 @@
   </div>
 </nav>
 <div style="height:88px"></div>
-<div class="wrap" style="padding-top:20px;text-align:center">
-  <span class="mono-label">DEVIS EN LIGNE</span>
-  <h1 style="font-family:var(--font-head);font-size:clamp(1.8rem,3.5vw,2.6rem);margin:10px 0 6px">Obtenez votre devis en moins d'une minute</h1>
-</div>
 <section class="sec" id="devis">
   <div class="wrap">
 
@@ -75,22 +71,38 @@
       <div class="divider"></div>
 
       <p style="color:var(--muted);margin-top:14px;max-width:620px;font-size:.95rem">
-        Répondez à quelques questions pour obtenir une estimation personnalisée en moins d'une minute.
+        Ajoutez une ou plusieurs offres à votre panier (ex : un site + un abonnement) et obtenez votre devis en une fois.
       </p>
     </div>
     <div class="quote-box reveal">
+      <span class="field-lbl" style="display:block;margin-bottom:10px">Ajouter une offre</span>
       <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option><option value="149">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
       <div id="options"></div>
-      <div id="maintenanceNote" class="maintenance-note"><span>🔧 Maintenance mensuelle incluse dans votre demande — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
-      <div id="formFields"></div>
+      <div id="maintenanceNote" class="maintenance-note"><span>🔧 Maintenance mensuelle incluse — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
-      <div class="total-bar" id="total"><span class="total-lbl">Total estimé</span><span class="total-amt">0€</span></div>
-      <div id="planBreakdown"></div>
-      <div class="quote-actions">
-        <button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('email')">📧 Recevoir par email</button>
-        <button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('pay')">💳 Payer maintenant</button>
+      <button type="button" id="addToCartBtn" class="btn btn--ghost" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addToCart()">+ Ajouter au panier</button>
+      <p style="font-size:.76rem;color:var(--muted);text-align:center;margin-bottom:8px">Un seul site à la fois, mais autant d'abonnements que vous voulez (ex : site + community management).</p>
+
+      <div id="cartWrap" style="display:none">
+        <p class="fh">Votre panier</p>
+        <div id="cartList"></div>
+        <div class="total-bar" id="total"><span class="total-lbl">Aujourd'hui</span><span class="total-amt">0€</span></div>
+        <div id="cartMonthlyNote" class="maintenance-note"><span id="cartMonthlyTxt"></span></div>
+        <div id="cartCommitNote" class="maintenance-note" style="border-color:rgba(255,107,107,.28);background:rgba(255,107,107,.06)"><span id="cartCommitTxt"></span></div>
+
+        <p class="fh">Vos coordonnées</p>
+        <div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div>
+        <div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div>
+        <div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div>
+        <div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div>
+        <div class="fg"><textarea id="description" class="ft" placeholder="Un mot sur votre projet (optionnel)"></textarea></div>
+
+        <div class="quote-actions">
+          <button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('email')">📧 Recevoir par email</button>
+          <button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('pay')">💳 Payer maintenant</button>
+        </div>
+        <div id="quote-status"></div>
       </div>
-      <div id="quote-status"></div>
     </div>
   </div>
 </section>
@@ -180,49 +192,34 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script src="shared.js"></script>
 <script>
 const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
 const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","89":"Abonnement SEO","149":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
 let base=0,selectedPlan="once";
-function updatePlanBreakdown(total){
-  const el=document.getElementById("planBreakdown");if(!el)return;
-  const s=document.getElementById("service").value;
-  if(s===""||s==="129"||s==="89"||s==="149"||s==="49"||total<=0){el.style.display="none";el.textContent="";return}
-  el.style.display="block";
-  const m=window._maintenanceMonthly||0;
-  const fmt=n=>n.toFixed(2).replace(".",",").replace(",00","");
-  if(selectedPlan==="x4"){
-    const per=total/4;
-    el.textContent=m>0?`Soit 4 × ${fmt(per)}€ pour le site + ${fmt(m)}€ de maintenance = ${fmt(per+m)}€ prélevés chaque mois`:`Soit 4 × ${fmt(per)}€ / mois`;
-  }else if(selectedPlan==="x12"){
-    const per=total/12;
-    el.textContent=m>0?`Soit 12 × ${fmt(per)}€ pour le site + ${fmt(m)}€ de maintenance = ${fmt(per+m)}€ prélevés chaque mois`:`Soit 12 × ${fmt(per)}€ / mois`;
-  }else{
-    el.textContent=m>0?`Paiement en une fois à la validation, puis ${fmt(m)}€ prélevés chaque mois pour la maintenance`:"Paiement en une fois, à la validation du devis";
-  }
-}
-function calc(){
+function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
+function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
+function calcPreview(){
   let t=base,monthly=0;
   document.querySelectorAll("#options input").forEach(el=>{
     if(!el.checked)return;
     const v=parseInt(el.dataset.value||0);
     if(el.dataset.monthly==="1")monthly+=v;else t+=v;
   });
-  const a=document.querySelector("#total .total-amt");if(a)a.textContent=t+"€";
-  window._maintenanceMonthly=monthly;
+  window._currentMaintenanceMonthly=monthly;
+  window._currentPreviewTotal=t;
   const mNote=document.getElementById("maintenanceNote");
   if(mNote){
     mNote.style.display=monthly>0?"flex":"none";
     const amtEl=mNote.querySelector(".mn-amt");if(amtEl)amtEl.textContent=monthly+"€/mois";
   }
-  updatePlanBreakdown(t);
+  const btn=document.getElementById("addToCartBtn");
+  if(btn)btn.textContent=base?`+ Ajouter au panier (${t}€${monthly>0?" + "+monthly+"€/mois":""})`:"+ Ajouter au panier";
 }
 function setPlan(p){
   selectedPlan=p;
   document.querySelectorAll("#paymentPlan .plan-choice").forEach(l=>l.classList.toggle("active",l.dataset.plan===p));
-  calc();
+  calcPreview();
 }
 function renderPaymentPlan(){
   const s=document.getElementById("service").value;
@@ -232,49 +229,46 @@ function renderPaymentPlan(){
   wrap.style.display="grid";
   wrap.innerHTML=`
 <label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">Paiement en 1 fois à la validation</span></label>
-<label class="plan-choice" data-plan="x4"><input type="radio" name="pplan" value="x4" onchange="setPlan('x4')"><span class="plan-choice-title">En 4 fois</span><span class="plan-choice-desc">Sans frais, prélevé chaque mois par carte</span></label>
-<label class="plan-choice" data-plan="x12"><input type="radio" name="pplan" value="x12" onchange="setPlan('x12')"><span class="plan-choice-title">Mensualisé 12 mois</span><span class="plan-choice-desc">Idéal pour lisser un gros projet</span></label>`;
+<label class="plan-choice" data-plan="x4"><input type="radio" name="pplan" value="x4" onchange="setPlan('x4')"><span class="plan-choice-title">En 4 fois</span><span class="plan-choice-desc">Sans frais — engagement sur les 4 mensualités</span></label>
+<label class="plan-choice" data-plan="x12"><input type="radio" name="pplan" value="x12" onchange="setPlan('x12')"><span class="plan-choice-title">Mensualisé 12 mois</span><span class="plan-choice-desc">Idéal pour lisser — engagement sur les 12 mensualités</span></label>`;
 }
-function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderFields();renderPaymentPlan();calc();}
+function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderPaymentPlan();calcPreview();}
 function renderOptions(){
   const s=document.getElementById("service").value;let html="";
   if(s==="129")html=`
-<div class="option"><label><span class="opt-title">Pack de base — 2 publications/semaine <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Deux posts par semaine, rédigés et publiés pour vous, pour rester visible sans y penser.</span></label><input type="radio" name="cm" data-value="0" checked onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Pack intensif — 4 publications/semaine <span class="opt-price">+50€</span></span><span class="opt-desc">Rythme doublé pour gagner en visibilité plus vite.</span></label><input type="radio" name="cm" data-value="50" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Vidéos courtes (Reels/TikTok) <span class="opt-price">+45€</span></span><span class="opt-desc">Formats courts et dynamiques, ceux qui tournent le mieux en ce moment.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Gestion des messages & commentaires <span class="opt-price">+45€</span></span><span class="opt-desc">On répond à votre place aux messages et commentaires, avec votre ton.</span></label><input type="checkbox" data-value="45" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Pack de base — 2 publications/semaine <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Deux posts par semaine, rédigés et publiés pour vous, pour rester visible sans y penser.</span></label><input type="radio" name="cm" data-value="0" checked onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Pack intensif — 4 publications/semaine <span class="opt-price">+50€</span></span><span class="opt-desc">Rythme doublé pour gagner en visibilité plus vite.</span></label><input type="radio" name="cm" data-value="50" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Vidéos courtes (Reels/TikTok) <span class="opt-price">+45€</span></span><span class="opt-desc">Formats courts et dynamiques, ceux qui tournent le mieux en ce moment.</span></label><input type="checkbox" data-value="45" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Gestion des messages & commentaires <span class="opt-price">+45€</span></span><span class="opt-desc">On répond à votre place aux messages et commentaires, avec votre ton.</span></label><input type="checkbox" data-value="45" onchange="calcPreview()"></div>`;
   if(s==="149")html=`
-<div class="option"><label><span class="opt-title">Palier Starter — ~500 clics/mois <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Budget publicitaire inclus dans le prix, géré pour vous sur Google/Meta Ads. Estimation indicative, variable selon secteur et enchères.</span></label><input type="radio" name="ads" data-value="0" checked onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Palier Croissance — ~1 000 clics/mois <span class="opt-price">+90€</span></span><span class="opt-desc">Budget publicitaire renforcé, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Palier Accélération — ~5 000 clics/mois <span class="opt-price">+350€</span></span><span class="opt-desc">Budget publicitaire élevé pour une visibilité maximale, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="350" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Palier Starter — ~500 clics/mois <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Budget publicitaire inclus dans le prix, géré pour vous sur Google/Meta Ads. Estimation indicative, variable selon secteur et enchères.</span></label><input type="radio" name="ads" data-value="0" checked onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Palier Croissance — ~1 000 clics/mois <span class="opt-price">+90€</span></span><span class="opt-desc">Budget publicitaire renforcé, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="90" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Palier Accélération — ~5 000 clics/mois <span class="opt-price">+350€</span></span><span class="opt-desc">Budget publicitaire élevé pour une visibilité maximale, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="350" onchange="calcPreview()"></div>`;
   if(s==="550")html=`
-<div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calc()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calcPreview()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calcPreview()"></div>`;
   if(s==="1115")html=`
-<div class="option"><label><span class="opt-title">Identité de marque <span class="opt-price">+120€</span></span><span class="opt-desc">Logo affiné, palette de couleurs et charte cohérente sur tous vos supports.</span></label><input type="checkbox" data-value="120" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Plan de mots-clés et pages optimisées pour progresser durablement dans Google.</span></label><input type="checkbox" data-value="90" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calc()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Identité de marque <span class="opt-price">+120€</span></span><span class="opt-desc">Logo affiné, palette de couleurs et charte cohérente sur tous vos supports.</span></label><input type="checkbox" data-value="120" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Plan de mots-clés et pages optimisées pour progresser durablement dans Google.</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calcPreview()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calcPreview()"></div>`;
   if(s==="2500")html=`
-<div class="option"><label><span class="opt-title">Publicité Google & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Campagnes payantes ciblées pour amener rapidement des prospects qualifiés sur le site.</span></label><input type="checkbox" data-value="600" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Un parcours pensé pour transformer un visiteur en client sans intervention manuelle de votre part.</span></label><input type="checkbox" data-value="500" onchange="calc()"></div>
-<div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calc()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calc()"></div>`;
+<div class="option"><label><span class="opt-title">Publicité Google & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Campagnes payantes ciblées pour amener rapidement des prospects qualifiés sur le site.</span></label><input type="checkbox" data-value="600" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Un parcours pensé pour transformer un visiteur en client sans intervention manuelle de votre part.</span></label><input type="checkbox" data-value="500" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calcPreview()"></div>
+<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calcPreview()"></div>`;
   document.getElementById("options").innerHTML=html;
 }
-function renderFields(){
-  const s=document.getElementById("service").value;
-  const common=()=>`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg2"><div class="fg"><input id="adresse" class="fi" placeholder="Adresse complète"></div><div class="fg"><input id="ville" class="fi" placeholder="Ville"></div></div><div class="fg"><input id="codepostal" class="fi" placeholder="Code postal"></div><p class="fh">Projet</p><div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre projet"></textarea></div>`;
-  let html="";
-  if(s==="550"||s==="1115"||s==="2500")html=common()+`<p class="fh">Informations site web</p><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><div class="fg"><textarea id="produits" class="ft" placeholder="Produits / services + prix"></textarea></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents"></div>`;
-  if(s==="129")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Réseaux sociaux</p><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà un compte ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom du compte"></div><p class="fh">Stratégie</p><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif"></div><div class="fg"><textarea id="contenu" class="ft" placeholder="Contenu souhaité"></textarea></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
-  if(s==="89")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre site actuel</p><div class="fg"><input id="adresse" class="fi" placeholder="URL de votre site actuel"></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal (ex : plus d'appels, plus de devis…)"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Concurrents (optionnel)"></div><div class="fg"><textarea id="description" class="ft" placeholder="Décrivez votre situation actuelle (trafic, positions Google, problèmes rencontrés…)"></textarea></div>`;
-  if(s==="149")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre campagne</p><div class="fg"><input id="adresse" class="fi" placeholder="URL de votre site actuel"></div><div class="fg"><input id="objectif" class="fi" placeholder="Budget publicitaire mensuel envisagé"></div><div class="fg"><input id="concurrents" class="fi" placeholder="Zone géographique ciblée"></div><div class="fg"><textarea id="description" class="ft" placeholder="Objectif de la campagne (leads, ventes, notoriété…)"></textarea></div>`;
-  if(s==="690")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre site actuel</p><div class="fg"><input id="adresse" class="fi" placeholder="URL de votre site actuel"></div><div class="fg"><input id="objectif" class="fi" placeholder="Objectif principal de la refonte"></div><div class="fg"><textarea id="description" class="ft" placeholder="Ce qui ne va pas / ce que vous voulez changer"></textarea></div>`;
-  if(s==="49")html=`<p class="fh">Informations entreprise</p><div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div><div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div><div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div><div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div><p class="fh">Votre fiche Google</p><div class="fg"><input id="nomcompte" class="fi" placeholder="Nom de la fiche Google Business"></div><div class="fg"><select id="aCompte" class="fs"><option value="">Avez-vous déjà des avis ?</option><option value="oui">Oui</option><option value="non">Non</option></select></div><div class="fg"><input id="objectifcm" class="fi" placeholder="Objectif (ex : 50 avis en 3 mois)"></div><div class="fg"><textarea id="message" class="ft" placeholder="Message"></textarea></div>`;
-  document.getElementById("formFields").innerHTML=html;
+function applyAriaLabels(scope){
+  (scope||document).querySelectorAll("input[placeholder]:not([aria-label]),textarea[placeholder]:not([aria-label])").forEach(el=>{
+    el.setAttribute("aria-label",el.getAttribute("placeholder"));
+  });
+  (scope||document).querySelectorAll("select:not([aria-label])").forEach(el=>{
+    const firstOpt=el.querySelector("option");
+    if(firstOpt)el.setAttribute("aria-label",firstOpt.textContent.trim());
+  });
 }
 function getSelectedOptions(){const o=[];document.querySelectorAll("#options input").forEach(el=>{if(el.checked)o.push(el.closest(".option").querySelector(".opt-title").textContent.trim())});return o.join(", ")}
 const get=id=>document.getElementById(id)?.value||"";
@@ -284,21 +278,137 @@ function lockBtn(l=true){
   if(eb){eb.disabled=l;eb.style.opacity=l?.55:1}
   if(pb){pb.disabled=l;pb.style.opacity=l?.55:1}
 }
-async function incrementOrder(){
-  try{await fetch("/.netlify/functions/order-counter",{method:"POST"})}catch(e){}
-}
-async function sendQuote(mode){
+
+/* ===== PANIER ===== */
+let cart=[];
+function addToCart(auto){
   const service=document.getElementById("service").value;
-  if(!service){alert("Choisis une offre");return}
+  if(!service){if(!auto)alert("Choisis une offre à ajouter");return}
+  const name=SERVICE_NAMES[service]||"";
+  const isStructural=(service==="550"||service==="1115"||service==="2500"||service==="690");
+  if(isStructural){
+    const already=cart.find(c=>c.type==="structural");
+    if(already){
+      if(!auto && !confirm(`Vous avez déjà "${already.name}" dans votre panier. Le remplacer par "${name}" ?`))return;
+      cart=cart.filter(c=>c.type!=="structural");
+    }
+    cart.push({type:"structural",service,name,amount:window._currentPreviewTotal||base,maintenanceMonthly:window._currentMaintenanceMonthly||0,plan:selectedPlan,options:getSelectedOptions()});
+  }else{
+    if(cart.some(c=>c.service===service)){if(!auto)alert(`"${name}" est déjà dans votre panier.`);return}
+    cart.push({type:"subscription",service,name,amount:window._currentPreviewTotal||base});
+  }
+  document.getElementById("service").value="";
+  setBase();
+  renderCart();
+}
+function removeFromCart(idx){cart.splice(idx,1);renderCart();}
+function quizAddToCart(serviceCode,optionSelectors){
+  const sel=document.getElementById("service");if(!sel)return;
+  sel.value=serviceCode;
+  setBase();
+  (optionSelectors||[]).forEach(o=>{
+    let el=null;
+    if(o.sel)el=document.querySelector("#options "+o.sel);
+    else if(o.idx!==undefined)el=document.querySelectorAll("#options input[type=\"checkbox\"]")[o.idx];
+    if(el){el.checked=true;calcPreview();}
+  });
+  addToCart(true);
+}
+function cartTotals(){
+  let upfront=0,monthly=0;
+  cart.forEach(item=>{
+    if(item.type==="structural"){
+      if(item.plan==="once"){upfront+=item.amount;}
+      else{const inst=item.plan==="x4"?4:12;const per=Math.round(item.amount/inst);upfront+=per;monthly+=per;}
+      if(item.maintenanceMonthly>0){upfront+=item.maintenanceMonthly;monthly+=item.maintenanceMonthly;}
+    }else{upfront+=item.amount;monthly+=item.amount;}
+  });
+  return {upfront,monthly};
+}
+function setCartItemPlan(idx,plan){
+  if(!cart[idx]||cart[idx].type!=="structural")return;
+  cart[idx].plan=plan;
+  renderCart();
+}
+function renderCart(){
+  const wrap=document.getElementById("cartWrap");
+  const list=document.getElementById("cartList");
+  if(!wrap||!list)return;
+  if(cart.length===0){wrap.style.display="none";list.innerHTML="";return}
+  wrap.style.display="block";
+  list.innerHTML=cart.map((item,i)=>{
+    const priceTxt=item.type==="structural"
+      ?(item.plan==="once"?item.amount+"€":Math.round(item.amount/(item.plan==="x4"?4:12))+"€/mois")
+      :item.amount+"€/mois";
+    const planZone=item.type==="structural"
+      ?`<div class="cart-plan-switch">
+          <button type="button" class="cps-btn${item.plan==="once"?" active":""}" onclick="setCartItemPlan(${i},'once')">Comptant</button>
+          <button type="button" class="cps-btn${item.plan==="x4"?" active":""}" onclick="setCartItemPlan(${i},'x4')">4x</button>
+          <button type="button" class="cps-btn${item.plan==="x12"?" active":""}" onclick="setCartItemPlan(${i},'x12')">12x</button>
+        </div>`
+      :`<span class="cart-item-plan">Abonnement mensuel</span>`;
+    return `<div class="cart-item"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span>${planZone}</div><div class="cart-item-price">${priceTxt}</div><button type="button" class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Retirer ${item.name} du panier">✕</button></div>`;
+  }).join('');
+  const {upfront,monthly}=cartTotals();
+  const totalEl=document.querySelector("#total .total-amt");if(totalEl)totalEl.textContent=upfront+"€";
+  const noteEl=document.getElementById("cartMonthlyNote"),txtEl=document.getElementById("cartMonthlyTxt");
+  if(noteEl&&txtEl){
+    if(monthly>0){noteEl.style.display="flex";txtEl.textContent=`Puis ${monthly}€ chaque mois, tant que vous ne résiliez pas vos abonnements.`;}
+    else{noteEl.style.display="none";}
+  }
+  const structuralInstallment=cart.find(c=>c.type==="structural"&&c.plan!=="once");
+  const subsInCart=cart.filter(c=>c.type==="subscription");
+  const commitEl=document.getElementById("cartCommitNote"),commitTxt=document.getElementById("cartCommitTxt");
+  if(commitEl&&commitTxt){
+    if(structuralInstallment){
+      const nbFois=structuralInstallment.plan==="x4"?"4":"12";
+      commitTxt.textContent=subsInCart.length
+        ? `⚠️ Le paiement en ${nbFois} fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les ${nbFois} mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin. En revanche, vos abonnements (${subsInCart.map(c=>c.name).join(", ")}) restent résiliables par vous à tout moment.`
+        : `⚠️ Le paiement en ${nbFois} fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les ${nbFois} mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin.`;
+      commitEl.style.display="flex";
+    }else{
+      commitEl.style.display="none";
+    }
+  }
+}
+
+async function sendQuote(mode){
+  if(cart.length===0){alert("Ajoutez au moins une offre à votre panier");return}
   const email=get("email");if(!email){alert("L'email est obligatoire");return}
-  const serviceName=SERVICE_NAMES[service]||"",totalText=document.querySelector("#total .total-amt")?.textContent||"0€",totalAmount=parseInt(totalText)||0,isMonthly=(service==="129"||service==="89"||service==="149"||service==="49"),optionsTxt=getSelectedOptions();
+  const structural=cart.find(c=>c.type==="structural");
+  const subscriptions=cart.filter(c=>c.type==="subscription");
+  const {upfront,monthly}=cartTotals();
+  const cartSummary=cart.map(c=>{
+    if(c.type==="structural")return `${c.name} (${c.plan==="once"?c.amount+"€ comptant":"en "+(c.plan==="x4"?4:12)+"x, "+Math.round(c.amount/(c.plan==="x4"?4:12))+"€/mois"})`;
+    return `${c.name} (${c.amount}€/mois)`;
+  }).join(" + ");
   const planLabels={once:"Comptant (1x)",x4:"En 4x sans frais",x12:"Mensualisé sur 12 mois"};
-  const paymentPlanLabel=isMonthly?"Abonnement mensuel":(planLabels[selectedPlan]||"Comptant (1x)");
-  const maintenanceMonthly=window._maintenanceMonthly||0;
-  const data={service_name:serviceName,service,total:totalText,options:optionsTxt,payment_link:"",payment_plan:selectedPlan,payment_plan_label:paymentPlanLabel,maintenance_monthly:maintenanceMonthly,prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),message:get("message"),description:get("description")};
+  const data={
+    service_name:cartSummary,
+    service:structural?structural.service:(subscriptions[0]?.service||""),
+    total:upfront+"€",
+    options:subscriptions.map(s=>s.name).join(", ")||(structural?structural.options:""),
+    payment_link:"",
+    payment_plan:structural?structural.plan:"once",
+    payment_plan_label:structural?planLabels[structural.plan]:"Abonnement mensuel",
+    maintenance_monthly:monthly,
+    cart_summary:cartSummary,
+    total_today:upfront+"€",
+    total_monthly:monthly>0?monthly+"€/mois":"—",
+    prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),
+    entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),
+    secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),
+    aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),
+    message:get("message"),description:get("description"),
+  };
   lockBtn(true);setStatus(mode==="pay"?"⏳ Préparation du paiement Stripe…":"⏳ Génération du devis…","loading");
   try{
-    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({amount:totalAmount,service_name:serviceName,options:optionsTxt,is_monthly:isMonthly,payment_plan:selectedPlan,maintenance_monthly:maintenanceMonthly})});
+    const payload={
+      structural:structural?{amount:structural.amount,service_name:structural.name,payment_plan:structural.plan}:null,
+      maintenance_monthly:structural?(structural.maintenanceMonthly||0):0,
+      subscriptions:subscriptions.map(s=>({amount:s.amount,service_name:s.name})),
+    };
+    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
     const json=await res.json();
     if(!res.ok||!json.url)throw new Error(json.error||`Erreur serveur ${res.status}`);
     data.payment_link=json.url;
@@ -306,14 +416,31 @@ async function sendQuote(mode){
   try{
     await incrementOrder();
     setStatus("✅ Lien créé — envoi de la confirmation…","ok");
+    // L'email admin (toi) part toujours. L'email client ne part QUE si le
+    // client a choisi "Recevoir par email" — s'il paie tout de suite, il
+    // est redirigé vers Stripe et n'a pas besoin d'un email en plus.
     const emailPromises=[emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data)];
     if(mode!=="pay")emailPromises.push(emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data));
     await Promise.all(emailPromises);
     if(mode==="pay"){window.location.href=data.payment_link;return}
-    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;padding:0 20px;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Vous allez recevoir votre devis par email, avec le lien de paiement inclus. Nous reviendrons vers vous très prochainement.</p><a href="index.html" style="display:inline-block;background:#ffd54a;padding:14px 32px;border-radius:10px;font-weight:700;font-size:1rem;font-family:'Space Grotesk',sans-serif;color:#0a0a0a;text-decoration:none;">Retour à l'accueil</a></div>`;
+    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;padding:0 20px;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Vous allez recevoir votre devis par email, avec le lien de paiement inclus. Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button></div>`;
   }catch(err){console.error("EmailJS:",err);lockBtn(false);setStatus("❌ Erreur envoi email","error")}
 }
 setBase();
+applyAriaLabels();
+renderCart();
+async function incrementOrder(){
+  try{await fetch("/.netlify/functions/order-counter",{method:"POST"})}catch(e){}
+}
+// Permet d'arriver depuis offres.html avec ?add=CODE pour pré-remplir le panier
+(function(){
+  const params=new URLSearchParams(location.search);
+  const add=params.get('add');
+  if(add){
+    const sel=document.getElementById('service');
+    if(sel){ sel.value=add; setBase(); addToCart(true); }
+  }
+})();
 </script>
 </body>
 </html>
