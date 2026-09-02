@@ -423,125 +423,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 </style>
 </head>
 <body>
-<style>
-#loadScreen{position:fixed;inset:0;z-index:9999;background:#03040c;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s ease .1s,visibility .6s ease .1s}
-#loadScreen .grid-bg{opacity:.4}
-#loadScreen.ls-hide{opacity:0;visibility:hidden;pointer-events:none}
-.ls-scan{position:absolute;left:0;right:0;height:140px;top:-140px;background:linear-gradient(180deg,transparent,rgba(255,213,74,.05) 45%,rgba(124,107,255,.09) 55%,transparent);animation:lsScan 3.2s linear infinite;pointer-events:none}
-@keyframes lsScan{0%{top:-140px}100%{top:100%}}
-.ls-frame{position:absolute;top:50%;left:50%;width:min(440px,86vw);height:min(420px,74vh);transform:translate(-50%,-50%);pointer-events:none}
-.ls-corner{position:absolute;width:22px;height:22px;border:1px solid rgba(255,213,74,.5);opacity:0;animation:lsCornerIn .5s ease forwards}
-.ls-corner.tl{top:0;left:0;border-right:none;border-bottom:none;animation-delay:.05s}
-.ls-corner.tr{top:0;right:0;border-left:none;border-bottom:none;animation-delay:.12s}
-.ls-corner.bl{bottom:0;left:0;border-right:none;border-top:none;animation-delay:.12s}
-.ls-corner.br{bottom:0;right:0;border-left:none;border-top:none;animation-delay:.05s}
-@keyframes lsCornerIn{from{opacity:0;transform:scale(1.4)}to{opacity:1;transform:scale(1)}}
-.ls-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:20px;width:100%}
-.ls-tag{font-family:var(--font-mono);font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);opacity:0;margin-bottom:20px;animation:lsFade .5s ease .1s forwards}
-.ls-browser{position:relative;width:min(300px,72vw);margin-bottom:20px;opacity:0;animation:lsFade .5s ease .2s forwards}
-.ls-browser svg{width:100%;display:block;overflow:visible}
-.lb-outline{fill:none;stroke:rgba(234,234,244,.5);stroke-width:1.2;stroke-dasharray:1000;stroke-dashoffset:1000;animation:lbDraw 1.4s ease .3s forwards}
-@keyframes lbDraw{to{stroke-dashoffset:0}}
-.lb-dot{fill:rgba(234,234,244,.35)}
-.lb-url{fill:none;stroke:rgba(234,234,244,.3);stroke-width:1}
-.lb-block{fill:rgba(255,255,255,.06);stroke:rgba(255,255,255,.22);stroke-width:1;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.85);transition:opacity .45s ease,transform .45s ease,fill .5s ease,stroke .5s ease}
-.lb-block.show{opacity:1;transform:scale(1)}
-.ls-browser.ls-lit .lb-block{fill:rgba(255,213,74,.16);stroke:#ffd54a}
-.ls-browser.ls-complete{animation:lbZoom .7s cubic-bezier(.4,0,.2,1) forwards}
-@keyframes lbZoom{to{transform:scale(2.4);opacity:0}}
-.ls-metrics{display:flex;flex-direction:column;align-items:center;margin-bottom:16px;opacity:0;animation:lsFade .5s ease .25s forwards}
-.ls-pct{font-family:var(--font-mono);font-size:34px;font-weight:500;color:var(--text);letter-spacing:-.02em;margin-bottom:12px}
-.ls-pct span{font-size:15px;color:var(--muted);margin-left:1px}
-.ls-bar{position:relative;width:min(280px,68vw);height:2px;background:rgba(255,255,255,.1) linear-gradient(90deg,rgba(255,255,255,.35) 1px,transparent 1px) 0 0/11.111% 100%}
-.ls-bar-fill{position:absolute;inset:0 auto 0 0;width:0%;background:linear-gradient(90deg,#7c6bff,#ffd54a)}
-.ls-bar-fill::after{content:"";position:absolute;right:-3px;top:50%;width:7px;height:7px;border-radius:50%;background:#ffd54a;box-shadow:0 0 8px 2px rgba(255,213,74,.75);transform:translateY(-50%)}
-.ls-log{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.02em;min-height:96px;display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
-.ls-log-line{opacity:0;transform:translateY(4px);transition:opacity .35s ease,transform .35s ease;text-align:left}
-.ls-log-line.show{opacity:1;transform:translateY(0)}
-.ls-log-line b{color:var(--gold);font-weight:500;margin-right:7px}
-.ls-brand{font-family:var(--font-head);font-size:18px;font-weight:700;letter-spacing:.02em;color:var(--text);opacity:0;animation:lsFade .5s ease .3s forwards}
-.ls-brand em{font-style:normal;color:var(--gold)}
-@keyframes lsFade{to{opacity:1}}
-@media(max-width:520px){.ls-browser{width:78vw}.ls-log{font-size:10px;min-height:88px}}
-@media(prefers-reduced-motion:reduce){#loadScreen *{animation:none!important}.ls-tag,.ls-browser,.ls-metrics,.ls-brand,.ls-corner{opacity:1!important}.lb-outline{stroke-dashoffset:0!important}}
-</style>
-<div id="loadScreen">
-  <div class="grid-bg"></div>
-  <div class="ls-scan"></div>
-  <div class="ls-frame">
-    <span class="ls-corner tl"></span><span class="ls-corner tr"></span>
-    <span class="ls-corner bl"></span><span class="ls-corner br"></span>
-  </div>
-  <div class="ls-inner">
-    <div class="ls-tag">Chargement de votre expérience</div>
-
-    <div class="ls-browser" id="lsBrowser">
-      <svg viewBox="0 0 320 200">
-        <rect class="lb-outline" x="4" y="4" width="312" height="192" rx="10"></rect>
-        <line class="lb-outline" x1="4" y1="30" x2="316" y2="30"></line>
-        <circle class="lb-dot" cx="18" cy="17" r="3"></circle>
-        <circle class="lb-dot" cx="30" cy="17" r="3"></circle>
-        <circle class="lb-dot" cx="42" cy="17" r="3"></circle>
-        <rect class="lb-url" x="60" y="11" width="150" height="12" rx="6"></rect>
-        <rect class="lb-block" x="18" y="44" width="90" height="10" rx="2"></rect>
-        <rect class="lb-block" x="18" y="62" width="284" height="50" rx="4"></rect>
-        <rect class="lb-block" x="18" y="124" width="86" height="60" rx="4"></rect>
-        <rect class="lb-block" x="117" y="124" width="86" height="60" rx="4"></rect>
-        <rect class="lb-block" x="216" y="124" width="86" height="60" rx="4"></rect>
-      </svg>
-    </div>
-
-    <div class="ls-metrics">
-      <div class="ls-pct" id="lsPct">0<span>%</span></div>
-      <div class="ls-bar"><div class="ls-bar-fill" id="lsBarFill"></div></div>
-    </div>
-
-    <div class="ls-log">
-      <div class="ls-log-line" data-at="0"><b>›</b>Connexion au serveur</div>
-      <div class="ls-log-line" data-at="20"><b>›</b>Construction des sections</div>
-      <div class="ls-log-line" data-at="45"><b>›</b>Intégration du contenu</div>
-      <div class="ls-log-line" data-at="68"><b>›</b>Optimisation SEO</div>
-      <div class="ls-log-line" data-at="94"><b>›</b>Studio Web Local — prêt</div>
-    </div>
-
-    <div class="ls-brand">Studio<em> Web Local</em></div>
-  </div>
-</div>
-<script>
-(function(){
-  var screenEl=document.getElementById("loadScreen"),pctEl=document.getElementById("lsPct"),barFill=document.getElementById("lsBarFill"),browserEl=document.getElementById("lsBrowser");
-  if(!screenEl||!pctEl||!browserEl)return;
-  document.documentElement.classList.add("no-scroll");
-  var DURATION=1500;
-  var blocks=[].slice.call(browserEl.querySelectorAll(".lb-block"));
-  var logLines=[].slice.call(document.querySelectorAll(".ls-log-line"));
-  var blockSteps=[14,24,40,48,56];
-  var shownBlocks=blocks.map(function(){return false;});
-  var shownLogs=logLines.map(function(){return false;});
-  var litDone=false,start=null;
-  function frame(ts){
-    if(!start)start=ts;
-    var p=Math.min((ts-start)/DURATION,1);
-    var pct=Math.round(p*100);
-    pctEl.firstChild.textContent=pct;
-    barFill.style.width=pct+"%";
-    blocks.forEach(function(b,i){if(!shownBlocks[i]&&pct>=blockSteps[i]){shownBlocks[i]=true;b.classList.add("show");}});
-    logLines.forEach(function(l,i){var at=parseInt(l.getAttribute("data-at"),10);if(!shownLogs[i]&&pct>=at){shownLogs[i]=true;l.classList.add("show");}});
-    if(!litDone&&pct>=72){litDone=true;browserEl.classList.add("ls-lit");}
-    if(p<1){requestAnimationFrame(frame);}
-    else{
-      setTimeout(function(){
-        browserEl.classList.add("ls-complete");
-        setTimeout(function(){
-          screenEl.classList.add("ls-hide");
-          document.documentElement.classList.remove("no-scroll");
-        },250);
-      },400);
-    }
-  }
-  requestAnimationFrame(frame);
-})();
-</script>
 <nav id="mainNav" class="main-nav">
   <div class="main-nav__inner">
     <a href="#hero" class="main-nav__logo"><span class="nav-mark"><img src="images/logo-mark.webp" alt="Studio Web Local" width="27" height="27"></span>Studio<em> Web Local</em></a>
@@ -571,11 +452,11 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <h1 class="hero__title">Sites web qui transforment<br>vos visiteurs en clients</h1>
     <p class="hero__sub">On crée votre site, on vous ramène des clients, on gère vos réseaux — une seule équipe, basée à Besançon, qui accompagne des clients partout en France, à distance.</p>
     <div style="display:flex;align-items:center;gap:10px;background:var(--gold-soft);border:1px solid var(--gold-border);border-radius:40px;padding:10px 22px;margin-bottom:28px;font-family:var(--font-mono);font-size:.82rem;color:var(--gold);max-width:600px;text-align:center;">
-  💡 Une agence classique facture 10 000€ à 12 000€ pour un site Ultra Premium. Chez nous, la même qualité démarre à 2 500€ — jusqu'à 4x moins cher, sans compromis sur le résultat.
+  Une agence classique facture 10 000€ à 12 000€ pour un site Ultra Premium. Chez nous, la même qualité démarre à 2 500€ — jusqu'à 4x moins cher, sans compromis sur le résultat.
 </div>
     <div class="hero__cta">
-      <a href="tel:0628223722" class="btn btn--gold">📞 06 28 22 37 22</a>
-      <a href="mailto:studioweblocal@gmail.com" class="btn btn--ghost">✉️ studioweblocal@gmail.com</a>
+      <a href="tel:0628223722" class="btn btn--gold">06 28 22 37 22</a>
+      <a href="mailto:studioweblocal@gmail.com" class="btn btn--ghost">studioweblocal@gmail.com</a>
     </div>
   </div>
 </section>
@@ -645,37 +526,37 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       </p>
     </div>
     <div class="ocw reveal" id="orderCounterWrap">
-      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.15rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(124,107,255,.18),rgba(255,255,255,.06));border:1px solid rgba(124,107,255,.26);color:#d7cbff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)">🏆</span><span class="ocn" id="orderCountNum">162</span><span class="ocd">sites déjà livrés — le vôtre est le prochain</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span class="ocn" id="orderCountNum">162</span><span class="ocd">sites déjà livrés — le vôtre est le prochain</span></div>
       <span class="ocb">en direct</span>
     </div>
     <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
     <div class="cards">
       <div class="card reveal">
-        <div class="card__img"><img src="images/vitrine.webp" alt="Site Vitrine" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('vitrine')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/vitrine.webp" alt="Site Vitrine" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('vitrine')">Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Site Vitrine</p><p class="card__price">550€ → 750€</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Artisans, commerces, indépendants et petites entreprises locales qui veulent un site simple, clair et qui donne confiance.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Design adapté à votre activité (pas un modèle générique)<br>✓ Pages essentielles : accueil, services, contact…<br>✓ Formulaire de contact + fiche Google Maps intégrée<br>✓ Référencement local (SEO) — être trouvé sur Google quand on tape "[votre métier] + [votre ville]", sans payer de publicité</p>
-          <div class="card__foot">🔧 <b>Maintenance mensuelle en option</b> (dès 29€/mois) — on garde votre site à jour à votre place.</div>
+          <div class="card__foot"><b>Maintenance mensuelle en option</b> (dès 29€/mois) — on garde votre site à jour à votre place.</div>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.1s">
-        <div class="card__img"><img src="images/premium.webp" alt="Site Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('premium')">👁 Voir les exemples</button></div>
-        <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">🔥 OFFRE RECOMMANDÉE</span>
+        <div class="card__img"><img src="images/premium.webp" alt="Site Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('premium')">Voir les exemples</button></div>
+        <div class="card__body"><p class="card__name">Site Premium</p><p class="card__price">1115€ → 1400€</p><span class="card__badge">OFFRE RECOMMANDÉE</span>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises en développement et services professionnels qui veulent un site sur mesure, pensé pour transformer les visiteurs en clients.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout ce qui est dans Site Vitrine, en plus poussé<br>✓ Design 100% sur mesure + stratégie de contenu<br>✓ Parcours pensé pour la conversion (UX/UI) — on organise le site pour qu'un visiteur devienne facilement un prospect<br>✓ Intégrations propres à votre métier + accompagnement au lancement</p>
-          <div class="card__foot">🔧 <b>Maintenance mensuelle en option</b> (dès 49€/mois) — mises à jour et petites évolutions chaque mois.</div>
+          <div class="card__foot"><b>Maintenance mensuelle en option</b> (dès 49€/mois) — mises à jour et petites évolutions chaque mois.</div>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.2s">
-        <div class="card__img"><img src="images/ultra.webp" alt="Ultra Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('ultra')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/ultra.webp" alt="Ultra Premium" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('ultra')">Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Ultra Premium</p><p class="card__price">2500€ → 4000€</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises ambitieuses et marques établies qui veulent une expérience digitale complète, pas seulement un site.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Tout Site Premium, en version complète<br>✓ Branding renforcé + stratégie de conversion avancée<br>✓ Automatisations (relances, formulaires intelligents…)<br>✓ Intégrations avancées + accompagnement marketing dans la durée</p>
-          <div class="card__foot">🔧 <b>Maintenance mensuelle en option</b> (dès 79€/mois) — suivi prioritaire et évolutions régulières.</div>
+          <div class="card__foot"><b>Maintenance mensuelle en option</b> (dès 79€/mois) — suivi prioritaire et évolutions régulières.</div>
         </div>
       </div>
       <div class="card reveal" style="transition-delay:.3s">
-        <div class="card__img"><img src="images/community.webp" alt="Community Management" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('cm')">👁 Voir les exemples</button></div>
+        <div class="card__img"><img src="images/community.webp" alt="Community Management" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('cm')">Voir les exemples</button></div>
         <div class="card__body"><p class="card__name">Community Management</p><p class="card__price">129€ → 269€/mois</p>
           <span class="field-lbl">Pour qui</span><p class="field-txt">Entreprises locales, commerces et indépendants qui veulent une présence active sur les réseaux sans avoir à s'en occuper eux-mêmes.</p>
           <span class="field-lbl">Ce qui est inclus</span><p class="field-txt">✓ Publications régulières rédigées et publiées pour vous<br>✓ Un ton et un style cohérents avec votre image<br>✓ Options : rythme intensifié, vidéos courtes (Reels/TikTok), gestion des messages et commentaires<br>✓ Résiliable à tout moment, sans engagement de durée</p>
@@ -704,7 +585,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 
     <div class="mini-offers-grid reveal">
       <div class="mini-offer-card">
-        <div class="mini-offer-icon">📈</div>
         <p class="card__name" style="font-size:1.05rem;margin:4px 0 2px">Pack Ads géré</p>
         <p class="card__price" style="font-size:.92rem;margin-bottom:8px">Dès 149€/mois</p>
         <p class="field-txt">Campagnes Google &amp; Meta Ads gérées de A à Z : ciblage, création des annonces, suivi et optimisation chaque mois. Choisissez votre palier de visibilité au moment du devis.</p>
@@ -716,7 +596,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         ">🛒 Commander</button>
       </div>
       <div class="mini-offer-card">
-        <div class="mini-offer-icon">⚡</div>
         <p class="card__name" style="font-size:1.05rem;margin:4px 0 2px">Refonte express</p>
         <p class="card__price" style="font-size:.92rem;margin-bottom:8px">690€ <span style="color:var(--muted);font-weight:400;font-size:.8rem">tarif fixe</span></p>
         <p class="field-txt">Votre site actuel ne vous ressemble plus ou ne convertit pas ? On le repense entièrement en 7 jours : design, structure et contenu, sans perdre le référencement déjà acquis.</p>
@@ -728,7 +607,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
         ">🛒 Commander</button>
       </div>
       <div class="mini-offer-card">
-        <div class="mini-offer-icon">⭐</div>
         <p class="card__name" style="font-size:1.05rem;margin:4px 0 2px">Pack Avis clients</p>
         <p class="card__price" style="font-size:.92rem;margin-bottom:8px">49€/mois</p>
         <p class="field-txt">Collecte automatisée d'avis Google après chaque prestation (SMS/email) + réponses rédigées et publiées pour vous chaque mois, pour construire une réputation solide sans y passer de temps.</p>
@@ -773,7 +651,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <button class="rf-btn" data-filter="cm" onclick="filterReviews('cm')">Community (0)</button>
     </div>
     <div class="review-actions reveal">
-      <button class="btn btn--gold" onclick="openReviewForm()">✍️ Ajouter un avis</button>
+      <button class="btn btn--gold" onclick="openReviewForm()">Ajouter un avis</button>
     </div>
     <div class="review-form-card reveal" id="reviewFormCard" style="display:none">
       <form id="reviewForm" onsubmit="submitReview(event)">
@@ -868,7 +746,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <span class="field-lbl" style="display:block;margin-bottom:10px">Ajouter une offre</span>
       <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option><option value="149">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
       <div id="options"></div>
-      <div id="maintenanceNote" class="maintenance-note"><span>🔧 Maintenance mensuelle incluse — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
+      <div id="maintenanceNote" class="maintenance-note"><span>Maintenance mensuelle incluse — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
       <button type="button" id="addToCartBtn" class="btn btn--ghost" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addToCart()">+ Ajouter au panier</button>
       <p style="font-size:.76rem;color:var(--muted);text-align:center;margin-bottom:8px">Un seul site à la fois, mais autant d'abonnements que vous voulez (ex : site + community management).</p>
@@ -891,11 +769,11 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     Une question, un projet ou besoin d'un renseignement ? Contactez-nous directement par téléphone ou par e-mail. Nous vous répondons rapidement.
 </p>
     <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn--gold" onclick="location.href='tel:0628223722'">📞 Appeler</button>
-      <button class="btn btn--ghost" onclick="location.href='mailto:studioweblocal@gmail.com'">✉️ Email</button>
+      <button class="btn btn--gold" onclick="location.href='tel:0628223722'">Appeler</button>
+      <button class="btn btn--ghost" onclick="location.href='mailto:studioweblocal@gmail.com'">Email</button>
     </div>
     <div style="max-width:420px;margin:24px auto 0;background:var(--bg-card);border:1px solid rgba(255,255,255,.06);border-radius:var(--r-sm);padding:20px">
-      <p style="font-family:var(--font-head);font-weight:600;font-size:.92rem;margin-bottom:14px">📞 Vous préférez qu'on vous appelle ?</p>
+      <p style="font-family:var(--font-head);font-weight:600;font-size:.92rem;margin-bottom:14px">Vous préférez qu'on vous appelle ?</p>
       <div class="fg" style="margin-bottom:10px"><input id="callbackName" class="fi" placeholder="Votre prénom"></div>
       <div class="fg" style="margin-bottom:14px"><input id="callbackPhone" class="fi" placeholder="Votre numéro de téléphone"></div>
       <button class="btn btn--gold" style="width:100%;justify-content:center" onclick="
@@ -1000,7 +878,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <div class="modal-hd">
       <span class="mono-label" id="modalLabel">Exemples réalisations</span>
       <h2 id="modalTitle">Exemples de sites</h2>
-      <div class="modal-disc">⚠️ <strong>Aperçus réduits à des fins de démonstration.</strong> Les sites réels sont plus riches, animés et complets. Informations modifiées pour préserver la confidentialité de nos clients — noms, adresses et données sont fictifs.</div>
+      <div class="modal-disc"><strong>Aperçus réduits à des fins de démonstration.</strong> Les sites réels sont plus riches, animés et complets. Informations modifiées pour préserver la confidentialité de nos clients — noms, adresses et données sont fictifs.</div>
     </div>
     <div id="modalContent"></div>
   </div>
@@ -1067,17 +945,17 @@ function renderOptions(){
 <div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calcPreview()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calcPreview()"></div>`;
+<div class="option opt-monthly"><label><span class="opt-title">Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calcPreview()"></div>`;
   if(s==="1115")html=`
 <div class="option"><label><span class="opt-title">Identité de marque <span class="opt-price">+120€</span></span><span class="opt-desc">Logo affiné, palette de couleurs et charte cohérente sur tous vos supports.</span></label><input type="checkbox" data-value="120" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Plan de mots-clés et pages optimisées pour progresser durablement dans Google.</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calcPreview()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calcPreview()"></div>`;
+<div class="option opt-monthly"><label><span class="opt-title">Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calcPreview()"></div>`;
   if(s==="2500")html=`
 <div class="option"><label><span class="opt-title">Publicité Google & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Campagnes payantes ciblées pour amener rapidement des prospects qualifiés sur le site.</span></label><input type="checkbox" data-value="600" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Un parcours pensé pour transformer un visiteur en client sans intervention manuelle de votre part.</span></label><input type="checkbox" data-value="500" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calcPreview()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">🔧 Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calcPreview()"></div>`;
+<div class="option opt-monthly"><label><span class="opt-title">Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calcPreview()"></div>`;
   document.getElementById("options").innerHTML=html;
 }
 function applyAriaLabels(scope){
@@ -4618,7 +4496,7 @@ function closePortfolio(){
 
     const subsHtml = finalSubs.map(k=>{
       const info = COMPLEMENTARY_INFO[k];
-      return `<div class="qz-result-cm">💡 En complément, nous vous conseillons <b>${info.name}</b> (${info.priceLabel}) pour ${info.reason}.</div>`;
+      return `<div class="qz-result-cm">En complément, nous vous conseillons <b>${info.name}</b> (${info.priceLabel}) pour ${info.reason}.</div>`;
     }).join('');
 
     const html = `<div class="qz-result">
@@ -4703,7 +4581,7 @@ function closePortfolio(){
       <ul class="qz-result-why">${why.map(w=>`<li>${w}</li>`).join('')}</ul>
       ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Option à ajouter dans le devis</span>
       <ul class="qz-result-why" style="margin-bottom:24px">${recOptions.map(o=>`<li>${o.label} <span style="color:var(--gold)">(${o.price})</span></li>`).join('')}</ul>` : ''}
-      ${secondary ? `<div class="qz-result-cm">💡 En complément, notre offre <b>${OFFER_INFO[secondary].name}</b> (${OFFER_INFO[secondary].priceLabel}) pourrait aussi vous être utile — les deux se commandent séparément dans le devis.</div>` : ''}
+      ${secondary ? `<div class="qz-result-cm">En complément, notre offre <b>${OFFER_INFO[secondary].name}</b> (${OFFER_INFO[secondary].priceLabel}) pourrait aussi vous être utile — les deux se commandent séparément dans le devis.</div>` : ''}
       ${primary==='refonte' ? `      <span class="field-lbl" style="display:block;margin-bottom:8px">Comment souhaitez-vous régler votre refonte ?</span>
       <div class="cart-plan-switch" id="qzPlanPicker" style="margin:0 0 6px">
         <button type="button" class="cps-btn active" style="padding:8px 16px;font-size:.72rem" data-plan="once">Comptant</button>

@@ -76,8 +76,8 @@ var DRAWER_HTML = ''
 +     '<div class="fg"><input id="secteur" class="fi" placeholder="Secteur d\'activité" aria-label="Secteur d\'activité"></div>'
 +     '<div class="fg"><textarea id="description" class="ft" placeholder="Un mot sur votre projet (optionnel)" aria-label="Un mot sur votre projet"></textarea></div>'
 +     '<div class="quote-actions">'
-+       '<button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:15px;font-size:.88rem">📧 Recevoir par email</button>'
-+       '<button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:15px;font-size:.88rem">💳 Payer maintenant</button>'
++       '<button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:15px;font-size:.88rem">Recevoir par email</button>'
++       '<button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:15px;font-size:.88rem">Payer maintenant</button>'
 +     '</div>'
 +     '<div id="quote-status"></div>'
 +   '</div>'
@@ -290,8 +290,8 @@ function renderCart(){
     if(installment){
       var nb = installment.plan === "x4" ? "4" : "12";
       commitTxt.textContent = subs.length
-        ? "⚠️ Le paiement en " + nb + " fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les " + nb + " mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin. En revanche, vos abonnements (" + subs.map(function(c){return c.name}).join(", ") + ") restent résiliables par vous à tout moment."
-        : "⚠️ Le paiement en " + nb + " fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les " + nb + " mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin.";
+        ? "Le paiement en " + nb + " fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les " + nb + " mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin. En revanche, vos abonnements (" + subs.map(function(c){return c.name}).join(", ") + ") restent résiliables par vous à tout moment."
+        : "Le paiement en " + nb + " fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les " + nb + " mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin.";
       commitEl.style.display = "flex";
     }else commitEl.style.display = "none";
   }
@@ -344,7 +344,7 @@ async function sendQuote(mode){
     message: get("message"), description: get("description")
   };
   lockBtn(true);
-  setStatus(mode === "pay" ? "⏳ Préparation du paiement Stripe…" : "⏳ Génération du devis…", "loading");
+  setStatus(mode === "pay" ? "Préparation du paiement Stripe…" : "Génération du devis…", "loading");
   try{
     var payload = {
       structural: structural ? {amount: structural.amount, service_name: structural.name, payment_plan: structural.plan} : null,
@@ -357,11 +357,11 @@ async function sendQuote(mode){
     data.payment_link = json.url;
   }catch(err){
     console.error("Netlify:", err); lockBtn(false);
-    setStatus("❌ Erreur : " + err.message, "error"); return;
+    setStatus("Erreur : " + err.message, "error"); return;
   }
   try{
     await incrementOrder();
-    setStatus("✅ Lien créé — envoi de la confirmation…", "ok");
+    setStatus("Lien créé, envoi de la confirmation en cours…", "ok");
     if(window.emailjs){
       try{ emailjs.init(EMAILJS_PUBLIC); }catch(e){}
       var jobs = [emailjs.send(SERVICE_ID, TEMPLATE_ADMIN, data)];
@@ -372,10 +372,10 @@ async function sendQuote(mode){
     if(mode === "pay"){ window.location.href = data.payment_link; return; }
     closeCart();
     document.body.classList.remove("no-scroll");
-    document.body.innerHTML = '<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:\'Space Grotesk\',sans-serif;padding:0 20px;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Vous allez recevoir votre devis par email, avec le lien de paiement inclus. Nous reviendrons vers vous très prochainement.</p><button onclick="location.href=\'index.html\'" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:\'Space Grotesk\',sans-serif;">Retour</button></div>';
+    document.body.innerHTML = '<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:\'Space Grotesk\',sans-serif;padding:0 20px;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Vous allez recevoir votre devis par email, avec le lien de paiement inclus. Nous reviendrons vers vous très prochainement.</p><button onclick="location.href=\'index.html\'" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:\'Space Grotesk\',sans-serif;">Retour</button></div>';
   }catch(err){
     console.error("EmailJS:", err); lockBtn(false);
-    setStatus("❌ Erreur envoi email", "error");
+    setStatus("Erreur envoi email", "error");
   }
 }
 
