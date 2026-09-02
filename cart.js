@@ -12,7 +12,7 @@ var EMAILJS_PUBLIC = "_Y9wyDROWTwY1--zW";
 var SERVICE_ID = "service_a53gjwo";
 var TEMPLATE_ADMIN = "template_qw8k1jc";
 var TEMPLATE_CLIENT = "template_ec8v56a";
-var NAMES = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","89":"Abonnement SEO","149":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
+var NAMES = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
 var STRUCTURAL = ["550","1115","2500","690"];
 
 /* ---------- État ---------- */

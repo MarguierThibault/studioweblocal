@@ -46,7 +46,7 @@
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ultra Premium"},"priceSpecification":{"@type":"PriceSpecification","price":"2500","priceCurrency":"EUR"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Community Management"},"priceSpecification":{"@type":"PriceSpecification","price":"129","priceCurrency":"EUR","unitText":"MONTH"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Abonnement SEO"},"priceSpecification":{"@type":"PriceSpecification","price":"89","priceCurrency":"EUR","unitText":"MONTH"}},
-    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Pack Ads géré"},"priceSpecification":{"@type":"PriceSpecification","price":"149","priceCurrency":"EUR","unitText":"MONTH"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Pack Ads géré"},"priceSpecification":{"@type":"PriceSpecification","price":"349","priceCurrency":"EUR","unitText":"MONTH"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Refonte express"},"priceSpecification":{"@type":"PriceSpecification","price":"690","priceCurrency":"EUR"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Pack Avis clients"},"priceSpecification":{"@type":"PriceSpecification","price":"49","priceCurrency":"EUR","unitText":"MONTH"}}
   ]
@@ -578,10 +578,10 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     <div class="mini-offers-grid reveal">
       <div class="mini-offer-card">
         <p class="card__name" style="font-size:1.05rem;margin:4px 0 2px">Pack Ads géré</p>
-        <p class="card__price" style="font-size:.92rem;margin-bottom:8px">Dès 149€/mois</p>
-        <p class="field-txt">Campagnes Google &amp; Meta Ads gérées de A à Z : ciblage, création des annonces, suivi et optimisation chaque mois. Choisissez votre palier de visibilité au moment du devis.</p>
+        <p class="card__price" style="font-size:.92rem;margin-bottom:8px">Dès 349€/mois <span style="font-size:.72rem;color:var(--muted);font-family:var(--font-body)">de gestion, hors budget publicitaire</span></p>
+        <p class="field-txt">Campagnes Google &amp; Meta Ads gérées de A à Z : ciblage, création des annonces, suivi et optimisation chaque mois. Le tarif correspond à la gestion. Le budget publicitaire est payé directement par vous à Google/Meta, sur votre compte : vous gardez la main dessus et vous voyez exactement où va chaque euro. Budget conseillé pour démarrer : 300 à 500€/mois.</p>
         <button type="button" class="btn btn--gold" style="width:100%;justify-content:center;margin-top:auto" onclick="
-          document.getElementById('service').value='149';
+          document.getElementById('service').value='349';
           setBase();
           addToCart(true);
           document.getElementById('devis').scrollIntoView({behavior:'smooth'});
@@ -736,7 +736,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
     <div class="quote-box reveal">
       <span class="field-lbl" style="display:block;margin-bottom:10px">Ajouter une offre</span>
-      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option><option value="149">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
+      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option><option value="349">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
       <div id="options"></div>
       <div id="maintenanceNote" class="maintenance-note"><span>Maintenance mensuelle incluse — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
@@ -884,7 +884,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 <script>
 const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
-const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","89":"Abonnement SEO","149":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
+const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
 let base=0,selectedPlan="once";
 function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
 function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
@@ -914,7 +914,7 @@ function renderPaymentPlan(){
   const s=document.getElementById("service").value;
   const wrap=document.getElementById("paymentPlan");if(!wrap)return;
   selectedPlan="once";window._selectedPlan="once";
-  if(s===""||s==="129"||s==="89"||s==="149"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
+  if(s===""||s==="129"||s==="89"||s==="349"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
 <label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">Paiement en 1 fois à la validation</span></label>
@@ -929,10 +929,10 @@ function renderOptions(){
 <div class="option"><label><span class="opt-title">Pack intensif — 4 publications/semaine <span class="opt-price">+50€</span></span><span class="opt-desc">Rythme doublé pour gagner en visibilité plus vite.</span></label><input type="radio" name="cm" data-value="50" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Vidéos courtes (Reels/TikTok) <span class="opt-price">+45€</span></span><span class="opt-desc">Formats courts et dynamiques, ceux qui tournent le mieux en ce moment.</span></label><input type="checkbox" data-value="45" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Gestion des messages & commentaires <span class="opt-price">+45€</span></span><span class="opt-desc">On répond à votre place aux messages et commentaires, avec votre ton.</span></label><input type="checkbox" data-value="45" onchange="calcPreview()"></div>`;
-  if(s==="149")html=`
-<div class="option"><label><span class="opt-title">Palier Starter — ~500 clics/mois <span style="color:var(--gold)">(inclus)</span></span><span class="opt-desc">Budget publicitaire inclus dans le prix, géré pour vous sur Google/Meta Ads. Estimation indicative, variable selon secteur et enchères.</span></label><input type="radio" name="ads" data-value="0" checked onchange="calcPreview()"></div>
-<div class="option"><label><span class="opt-title">Palier Croissance — ~1 000 clics/mois <span class="opt-price">+90€</span></span><span class="opt-desc">Budget publicitaire renforcé, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="90" onchange="calcPreview()"></div>
-<div class="option"><label><span class="opt-title">Palier Accélération — ~5 000 clics/mois <span class="opt-price">+350€</span></span><span class="opt-desc">Budget publicitaire élevé pour une visibilité maximale, inclus dans le prix.</span></label><input type="radio" name="ads" data-value="350" onchange="calcPreview()"></div>`;
+  if(s==="349")html=`
+<div class="option"><label><span class="opt-title">Suivi standard — budget publicitaire jusqu'à 500€/mois <span class="opt-price">349€/mois</span></span><span class="opt-desc">Création et pilotage des campagnes, optimisation et rapport chaque mois. Le budget publicitaire est payé directement par vos soins à Google/Meta, sur votre propre compte.</span></label><input type="radio" name="ads" data-value="0" checked onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Suivi renforcé — budget publicitaire jusqu'à 1 500€/mois <span class="opt-price">449€/mois</span></span><span class="opt-desc">Plus de campagnes à piloter, optimisation rapprochée et ajustement des enchères deux fois par mois.</span></label><input type="radio" name="ads" data-value="100" onchange="calcPreview()"></div>
+<div class="option"><label><span class="opt-title">Suivi intensif — budget publicitaire jusqu'à 5 000€/mois <span class="opt-price">649€/mois</span></span><span class="opt-desc">Comptes à budget élevé : plusieurs campagnes, tests créatifs réguliers et reporting détaillé.</span></label><input type="radio" name="ads" data-value="300" onchange="calcPreview()"></div>`;
   if(s==="550")html=`
 <div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
@@ -4232,8 +4232,8 @@ function closePortfolio(){
   const OFFER_INFO = {
     seo:     { name:'Abonnement SEO',    price:'89',  priceLabel:'À partir de 89€/mois',
       why:["Audit initial + optimisation continue chaque mois","Rapport de résultats mensuel, sans engagement de durée"] },
-    ads:     { name:'Pack Ads géré',     price:'149', priceLabel:'Dès 149€/mois',
-      why:["Campagnes Google & Meta Ads gérées de A à Z","Budget publicitaire inclus dans le prix, selon le palier choisi"] },
+    ads:     { name:'Pack Ads géré',     price:'349', priceLabel:'Dès 349€/mois de gestion, hors budget publicitaire',
+      why:["Campagnes Google & Meta Ads gérées de A à Z","Tarif de gestion : le budget publicitaire reste sur votre compte Google/Meta"] },
     refonte: { name:'Refonte express',   price:'690', priceLabel:'690€ tarif fixe',
       why:["Design, structure et contenu repensés en 7 jours","Le référencement déjà acquis est conservé"] },
     avis:    { name:'Pack Avis clients', price:'49',  priceLabel:'49€/mois',
@@ -4541,7 +4541,7 @@ function closePortfolio(){
     const info = OFFER_INFO[primary];
     const recOptions = [];
     if(primary==='ads' && pct.ads >= 75){
-      recOptions.push({label:'Palier Croissance — ~1 000 clics/mois', price:'+90€', sel:'input[name="ads"][data-value="90"]'});
+      recOptions.push({label:'Suivi renforcé — budget publicitaire jusqu\'à 1 500€/mois', price:'449€/mois', sel:'input[name="ads"][data-value="100"]'});
     }
 
     const comboExtras = secondary ? [OFFER_INFO[secondary].name] : (recOptions.length ? [recOptions[0].label] : []);
