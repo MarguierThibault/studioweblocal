@@ -230,9 +230,22 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   .main-nav__links.open li:nth-child(3){transition-delay:.12s}
   .main-nav__links.open li:nth-child(4){transition-delay:.16s}
   .main-nav__links.open li:nth-child(5){transition-delay:.2s}
-  .main-nav__links a{padding:14px 16px;width:100%;border-radius:10px;font-size:.74rem;letter-spacing:.06em;white-space:nowrap}
-  .main-nav__links a.nav-cta{display:flex;justify-content:center;margin-left:0;margin-top:8px;text-align:center;border-radius:10px;padding:13px 16px}
-  .main-nav__links a.nav-cta::before{display:none}
+  .main-nav__links{padding:12px;gap:7px;border-radius:20px;top:72px}
+  .main-nav__links a{display:flex;align-items:center;gap:12px;width:100%;padding:11px 13px;border-radius:13px;font-size:.75rem;letter-spacing:.05em;white-space:nowrap;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.06);color:var(--text)}
+  .main-nav__links a::before{content:"";display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;flex:none;border-radius:10px;font-size:14px;font-family:var(--font-body);letter-spacing:0}
+  .main-nav__links a::after{content:"\203A";display:inline-block;margin-left:auto;color:var(--muted);font-size:1rem;opacity:.7}
+  .main-nav__links a:hover,.main-nav__links a:active{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12)}
+  .main-nav__links li:nth-child(1) a::before{content:"\1F9ED";background:rgba(124,107,255,.16);border:1px solid rgba(124,107,255,.3)}
+  .main-nav__links li:nth-child(2) a::before{content:"\1F4BC";background:rgba(78,205,196,.14);border:1px solid rgba(78,205,196,.28)}
+  .main-nav__links li:nth-child(3) a::before{content:"\1F3C6";background:rgba(255,213,74,.14);border:1px solid rgba(255,213,74,.28)}
+  .main-nav__links li:nth-child(4) a::before{content:"\2B50";background:rgba(255,107,157,.14);border:1px solid rgba(255,107,157,.28)}
+  .main-nav__links li:nth-child(5) a::before{content:"\2753";background:rgba(87,227,137,.13);border:1px solid rgba(87,227,137,.26)}
+  .main-nav__links li:nth-child(7) a::before{content:"\2709\FE0F";background:rgba(124,107,255,.13);border:1px solid rgba(124,107,255,.26)}
+  .main-nav__links a.active{background:rgba(255,213,74,.09);border-color:rgba(255,213,74,.32);color:var(--gold)}
+  .main-nav__links a.nav-cta{margin-left:0;margin-top:5px;justify-content:flex-start;text-align:left;border-radius:13px;padding:13px;background:linear-gradient(135deg,var(--gold),#ffc93a);color:#1a1305;border:none;font-weight:700;letter-spacing:.06em;box-shadow:0 10px 26px rgba(255,213,74,.2)}
+  .main-nav__links a.nav-cta::before{content:"\1F9FE";position:static;transform:none;width:30px;height:30px;background:rgba(0,0,0,.14);border:1px solid rgba(0,0,0,.12)}
+  .main-nav__links a.nav-cta::after{content:"\203A";display:inline-block;margin-left:auto;color:rgba(26,19,5,.55);opacity:1;font-size:1rem}
+  .main-nav__links a.nav-cta.active{background:linear-gradient(135deg,var(--gold),#ffc93a);color:#1a1305}
   .main-nav__burger{display:flex}
 }
 /* ===== NOUVEAUX STYLES ===== */
@@ -632,7 +645,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       </p>
     </div>
     <div class="ocw reveal" id="orderCounterWrap">
-      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.15rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(124,107,255,.18),rgba(255,255,255,.06));border:1px solid rgba(124,107,255,.26);color:#d7cbff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)">🏆</span><span class="ocn" id="orderCountNum">143</span><span class="ocd">sites déjà livrés — le vôtre est le prochain</span></div>
+      <div style="display:flex;align-items:center;gap:10px"><span style="font-size:1.15rem;font-weight:700;display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:10px;background:linear-gradient(135deg,rgba(124,107,255,.18),rgba(255,255,255,.06));border:1px solid rgba(124,107,255,.26);color:#d7cbff;box-shadow:inset 0 1px 0 rgba(255,255,255,.08)">🏆</span><span class="ocn" id="orderCountNum">162</span><span class="ocd">sites déjà livrés — le vôtre est le prochain</span></div>
       <span class="ocb">en direct</span>
     </div>
     <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
@@ -1296,12 +1309,19 @@ function initStarfield(){
   if("requestIdleCallback" in window)requestIdleCallback(loadThree,{timeout:2500});
   else setTimeout(loadThree,1200);
 })();
-const ORDER_BASE=143;
-let orderCount=ORDER_BASE;
-const orderCountPromise=(async()=>{try{const res=await fetch("/.netlify/functions/order-counter");if(res.ok){const json=await res.json();if(typeof json.count==="number"){orderCount=json.count;}}}catch(e){}return orderCount;})();
+const ORDER_BASE=162;
+let orderCount=ORDER_BASE,orderCounterAnimated=false;
+const orderCountPromise=(async()=>{
+  try{const res=await fetch("/.netlify/functions/order-counter");if(res.ok){const json=await res.json();if(typeof json.count==="number"){orderCount=json.count;}}}catch(e){}
+  // On affiche tout de suite la vraie valeur (utile si le bloc n'a pas encore ete anime)
+  const el=document.getElementById("orderCountNum");
+  if(el&&!orderCounterAnimated)el.textContent=orderCount;
+  return orderCount;
+})();
 async function animateOrderCounter(){
   const el=document.getElementById("orderCountNum");if(!el)return;
   const target=await orderCountPromise;
+  orderCounterAnimated=true;
   const start=Math.max(0,target-12),dur=1400,t0=performance.now();
   function step(now){const p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(start+(target-start)*e);if(p<1)requestAnimationFrame(step)}
   requestAnimationFrame(step);
