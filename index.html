@@ -72,6 +72,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap"></noscript>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="cart.js" defer></script>
 <style>
 :root{--bg:#05050f;--bg-card:#0b0b1d;--gold:#ffd54a;--gold-soft:rgba(255,213,74,0.1);--gold-border:rgba(255,213,74,0.2);--violet:#7c6bff;--violet-glow:rgba(124,107,255,0.14);--violet-border:rgba(124,107,255,0.28);--text:#eaeaf4;--muted:#8888aa;--font-head:'Space Grotesk',sans-serif;--font-body:'Inter',sans-serif;--font-mono:'DM Mono',monospace;--r:16px;--r-sm:10px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -846,25 +847,9 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <button type="button" id="addToCartBtn" class="btn btn--ghost" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addToCart()">+ Ajouter au panier</button>
       <p style="font-size:.76rem;color:var(--muted);text-align:center;margin-bottom:8px">Un seul site à la fois, mais autant d'abonnements que vous voulez (ex : site + community management).</p>
 
-      <div id="cartWrap" style="display:none">
-        <p class="fh">Votre panier</p>
-        <div id="cartList"></div>
-        <div class="total-bar" id="total"><span class="total-lbl">Aujourd'hui</span><span class="total-amt">0€</span></div>
-        <div id="cartMonthlyNote" class="maintenance-note"><span id="cartMonthlyTxt"></span></div>
-
-        <p class="fh">Vos coordonnées</p>
-        <div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div>
-        <div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div>
-        <div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div>
-        <div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div>
-        <div class="fg"><textarea id="description" class="ft" placeholder="Un mot sur votre projet (optionnel)"></textarea></div>
-
-        <div class="quote-actions">
-          <button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('email')">📧 Recevoir par email</button>
-          <button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('pay')">💳 Payer maintenant</button>
-        </div>
-        <div id="quote-status"></div>
-      </div>
+      <p id="cartHint" style="font-size:.8rem;color:var(--muted);text-align:center;margin-top:10px">
+        🛒 Vos offres s'ajoutent dans le panier, en haut à droite du menu. Cliquez dessus à tout moment pour compléter vos informations, choisir votre mode de paiement et régler ou recevoir le devis par email.
+      </p>
     </div>
   </div>
 </section>
@@ -1025,14 +1010,14 @@ function calcPreview(){
   if(btn)btn.textContent=base?`+ Ajouter au panier (${t}€${monthly>0?" + "+monthly+"€/mois":""})`:"+ Ajouter au panier";
 }
 function setPlan(p){
-  selectedPlan=p;
+  selectedPlan=p;window._selectedPlan=p;
   document.querySelectorAll("#paymentPlan .plan-choice").forEach(l=>l.classList.toggle("active",l.dataset.plan===p));
   calcPreview();
 }
 function renderPaymentPlan(){
   const s=document.getElementById("service").value;
   const wrap=document.getElementById("paymentPlan");if(!wrap)return;
-  selectedPlan="once";
+  selectedPlan="once";window._selectedPlan="once";
   if(s===""||s==="129"||s==="89"||s==="149"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
@@ -1087,131 +1072,8 @@ function lockBtn(l=true){
   if(pb){pb.disabled=l;pb.style.opacity=l?.55:1}
 }
 
-/* ===== PANIER ===== */
-let cart=[];
-function addToCart(auto){
-  const service=document.getElementById("service").value;
-  if(!service){if(!auto)alert("Choisis une offre à ajouter");return}
-  const name=SERVICE_NAMES[service]||"";
-  const isStructural=(service==="550"||service==="1115"||service==="2500"||service==="690");
-  if(isStructural){
-    const already=cart.find(c=>c.type==="structural");
-    if(already){
-      if(!auto && !confirm(`Vous avez déjà "${already.name}" dans votre panier. Le remplacer par "${name}" ?`))return;
-      cart=cart.filter(c=>c.type!=="structural");
-    }
-    cart.push({type:"structural",service,name,amount:window._currentPreviewTotal||base,maintenanceMonthly:window._currentMaintenanceMonthly||0,plan:selectedPlan,options:getSelectedOptions()});
-  }else{
-    if(cart.some(c=>c.service===service)){if(!auto)alert(`"${name}" est déjà dans votre panier.`);return}
-    cart.push({type:"subscription",service,name,amount:window._currentPreviewTotal||base});
-  }
-  document.getElementById("service").value="";
-  setBase();
-  renderCart();
-}
-function removeFromCart(idx){cart.splice(idx,1);renderCart();}
-function quizAddToCart(serviceCode,optionSelectors){
-  const sel=document.getElementById("service");if(!sel)return;
-  sel.value=serviceCode;
-  setBase();
-  (optionSelectors||[]).forEach(o=>{
-    let el=null;
-    if(o.sel)el=document.querySelector("#options "+o.sel);
-    else if(o.idx!==undefined)el=document.querySelectorAll("#options input[type=\"checkbox\"]")[o.idx];
-    if(el){el.checked=true;calcPreview();}
-  });
-  addToCart(true);
-}
-function cartTotals(){
-  let upfront=0,monthly=0;
-  cart.forEach(item=>{
-    if(item.type==="structural"){
-      if(item.plan==="once"){upfront+=item.amount;}
-      else{const inst=item.plan==="x4"?4:12;const per=Math.round(item.amount/inst);upfront+=per;monthly+=per;}
-      if(item.maintenanceMonthly>0){upfront+=item.maintenanceMonthly;monthly+=item.maintenanceMonthly;}
-    }else{upfront+=item.amount;monthly+=item.amount;}
-  });
-  return {upfront,monthly};
-}
-function renderCart(){
-  const wrap=document.getElementById("cartWrap");
-  const list=document.getElementById("cartList");
-  if(!wrap||!list)return;
-  if(cart.length===0){wrap.style.display="none";list.innerHTML="";return}
-  wrap.style.display="block";
-  list.innerHTML=cart.map((item,i)=>{
-    const planLbl=item.type==="structural"?(item.plan==="x4"?" — en 4x":item.plan==="x12"?" — sur 12 mois":" — comptant"):" — abonnement mensuel";
-    const priceTxt=item.type==="structural"
-      ?(item.plan==="once"?item.amount+"€":Math.round(item.amount/(item.plan==="x4"?4:12))+"€/mois")
-      :item.amount+"€/mois";
-    return `<div class="cart-item"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span><span class="cart-item-plan">${planLbl.replace(' — ','')}</span></div><div class="cart-item-price">${priceTxt}</div><button type="button" class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Retirer ${item.name} du panier">✕</button></div>`;
-  }).join('');
-  const {upfront,monthly}=cartTotals();
-  const totalEl=document.querySelector("#total .total-amt");if(totalEl)totalEl.textContent=upfront+"€";
-  const noteEl=document.getElementById("cartMonthlyNote"),txtEl=document.getElementById("cartMonthlyTxt");
-  if(noteEl&&txtEl){
-    if(monthly>0){noteEl.style.display="flex";txtEl.textContent=`Puis ${monthly}€ chaque mois, tant que vous ne résiliez pas vos abonnements.`;}
-    else{noteEl.style.display="none";}
-  }
-}
-
-async function sendQuote(mode){
-  if(cart.length===0){alert("Ajoutez au moins une offre à votre panier");return}
-  const email=get("email");if(!email){alert("L'email est obligatoire");return}
-  const structural=cart.find(c=>c.type==="structural");
-  const subscriptions=cart.filter(c=>c.type==="subscription");
-  const {upfront,monthly}=cartTotals();
-  const cartSummary=cart.map(c=>{
-    if(c.type==="structural")return `${c.name} (${c.plan==="once"?c.amount+"€ comptant":"en "+(c.plan==="x4"?4:12)+"x, "+Math.round(c.amount/(c.plan==="x4"?4:12))+"€/mois"})`;
-    return `${c.name} (${c.amount}€/mois)`;
-  }).join(" + ");
-  const planLabels={once:"Comptant (1x)",x4:"En 4x sans frais",x12:"Mensualisé sur 12 mois"};
-  const data={
-    service_name:cartSummary,
-    service:structural?structural.service:(subscriptions[0]?.service||""),
-    total:upfront+"€",
-    options:subscriptions.map(s=>s.name).join(", ")||(structural?structural.options:""),
-    payment_link:"",
-    payment_plan:structural?structural.plan:"once",
-    payment_plan_label:structural?planLabels[structural.plan]:"Abonnement mensuel",
-    maintenance_monthly:monthly,
-    cart_summary:cartSummary,
-    total_today:upfront+"€",
-    total_monthly:monthly>0?monthly+"€/mois":"—",
-    prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),
-    entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),
-    secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),
-    aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),
-    message:get("message"),description:get("description"),
-  };
-  lockBtn(true);setStatus(mode==="pay"?"⏳ Préparation du paiement Stripe…":"⏳ Génération du devis…","loading");
-  try{
-    const payload={
-      structural:structural?{amount:structural.amount,service_name:structural.name,payment_plan:structural.plan}:null,
-      maintenance_monthly:structural?(structural.maintenanceMonthly||0):0,
-      subscriptions:subscriptions.map(s=>({amount:s.amount,service_name:s.name})),
-    };
-    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const json=await res.json();
-    if(!res.ok||!json.url)throw new Error(json.error||`Erreur serveur ${res.status}`);
-    data.payment_link=json.url;
-  }catch(err){console.error("Netlify:",err);lockBtn(false);setStatus(`❌ Erreur : ${err.message}`,"error");return}
-  try{
-    await incrementOrder();
-    setStatus("✅ Lien créé — envoi de la confirmation…","ok");
-    // L'email admin (toi) part toujours. L'email client ne part QUE si le
-    // client a choisi "Recevoir par email" — s'il paie tout de suite, il
-    // est redirigé vers Stripe et n'a pas besoin d'un email en plus.
-    const emailPromises=[emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data)];
-    if(mode!=="pay")emailPromises.push(emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data));
-    await Promise.all(emailPromises);
-    if(mode==="pay"){window.location.href=data.payment_link;return}
-    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;padding:0 20px;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Vous allez recevoir votre devis par email, avec le lien de paiement inclus. Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button></div>`;
-  }catch(err){console.error("EmailJS:",err);lockBtn(false);setStatus("❌ Erreur envoi email","error")}
-}
 setBase();
 applyAriaLabels();
-renderCart();
 const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("in");obs.unobserve(e.target);if(e.target.id==="orderCounterWrap")setTimeout(animateOrderCounter,200)}})},{threshold:.07});
 document.querySelectorAll(".reveal").forEach(el=>obs.observe(el));
 function initStarfield(){
@@ -4735,6 +4597,13 @@ function closePortfolio(){
       ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Options à ajouter dans le devis</span>
       <ul class="qz-result-why" style="margin-bottom:24px">${recOptions.map(o=>`<li>${o.label} <span style="color:var(--gold)">(${o.price})</span></li>`).join('')}</ul>` : ''}
       ${subsHtml}
+      <span class="field-lbl" style="display:block;margin-bottom:8px">Comment souhaitez-vous régler votre site ?</span>
+      <div class="cart-plan-switch" id="qzPlanPicker" style="margin:0 0 6px">
+        <button type="button" class="cps-btn active" style="padding:8px 16px;font-size:.72rem" data-plan="once">Comptant</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x4">En 4 fois</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x12">En 12 fois</button>
+      </div>
+      <p style="font-size:.74rem;color:var(--muted);margin:0 0 18px">Modifiable à tout moment dans le panier. Les abonnements mensuels, eux, gardent le même prix chaque mois.</p>
       <div class="qz-result-actions">
         <button type="button" class="btn btn--gold" id="qzSeeOffer">Voir cette offre en détail</button>
         <button type="button" class="btn btn--ghost" id="qzGetQuote">Obtenir un devis avec ces options</button>
@@ -4744,15 +4613,25 @@ function closePortfolio(){
 
     renderResultShell(html);
 
+    var qzPlan = 'once';
+    var qzPicker = document.getElementById('qzPlanPicker');
+    if(qzPicker){
+      qzPicker.querySelectorAll('.cps-btn').forEach(function(b){
+        b.addEventListener('click', function(){
+          qzPlan = b.dataset.plan;
+          qzPicker.querySelectorAll('.cps-btn').forEach(function(x){ x.classList.toggle('active', x === b); });
+        });
+      });
+    }
+
     document.getElementById('qzSeeOffer').addEventListener('click', ()=>{
       document.getElementById('offres').scrollIntoView({behavior:'smooth'});
       highlightOfferCard(tier);
       finalSubs.forEach(k=>highlightOfferCard(COMPLEMENTARY_INFO[k].name));
     });
     document.getElementById('qzGetQuote').addEventListener('click', ()=>{
-      quizAddToCart(priceVal, recOptions);
+      quizAddToCart(priceVal, recOptions, qzPlan);
       finalSubs.forEach(k=>quizAddToCart(COMPLEMENTARY_INFO[k].price, []));
-      document.getElementById('devis').scrollIntoView({behavior:'smooth'});
     });
   }
 
@@ -4792,6 +4671,14 @@ function closePortfolio(){
       ${recOptions.length ? `<span class="field-lbl" style="display:block;margin-bottom:10px">Option à ajouter dans le devis</span>
       <ul class="qz-result-why" style="margin-bottom:24px">${recOptions.map(o=>`<li>${o.label} <span style="color:var(--gold)">(${o.price})</span></li>`).join('')}</ul>` : ''}
       ${secondary ? `<div class="qz-result-cm">💡 En complément, notre offre <b>${OFFER_INFO[secondary].name}</b> (${OFFER_INFO[secondary].priceLabel}) pourrait aussi vous être utile — les deux se commandent séparément dans le devis.</div>` : ''}
+      ${primary==='refonte' ? `      <span class="field-lbl" style="display:block;margin-bottom:8px">Comment souhaitez-vous régler votre refonte ?</span>
+      <div class="cart-plan-switch" id="qzPlanPicker" style="margin:0 0 6px">
+        <button type="button" class="cps-btn active" style="padding:8px 16px;font-size:.72rem" data-plan="once">Comptant</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x4">En 4 fois</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x12">En 12 fois</button>
+      </div>
+      <p style="font-size:.74rem;color:var(--muted);margin:0 0 18px">Modifiable à tout moment dans le panier. Les abonnements mensuels, eux, gardent le même prix chaque mois.</p>
+` : `<p style="font-size:.74rem;color:var(--muted);margin:0 0 18px">Ces prestations sont des abonnements mensuels : le prix est fixe et reste le même chaque mois.</p>`}
       <div class="qz-result-actions">
         <button type="button" class="btn btn--gold" id="qzSeeOffer">Voir cette offre en détail</button>
         <button type="button" class="btn btn--ghost" id="qzGetQuote">Obtenir un devis avec ces options</button>
@@ -4801,15 +4688,25 @@ function closePortfolio(){
 
     renderResultShell(html);
 
+    var qzPlan = 'once';
+    var qzPicker = document.getElementById('qzPlanPicker');
+    if(qzPicker){
+      qzPicker.querySelectorAll('.cps-btn').forEach(function(b){
+        b.addEventListener('click', function(){
+          qzPlan = b.dataset.plan;
+          qzPicker.querySelectorAll('.cps-btn').forEach(function(x){ x.classList.toggle('active', x === b); });
+        });
+      });
+    }
+
     document.getElementById('qzSeeOffer').addEventListener('click', ()=>{
       document.getElementById('offres').scrollIntoView({behavior:'smooth'});
       highlightOfferCard(info.name);
       if(secondary) highlightOfferCard(OFFER_INFO[secondary].name);
     });
     document.getElementById('qzGetQuote').addEventListener('click', ()=>{
-      quizAddToCart(info.price, recOptions);
+      quizAddToCart(info.price, recOptions, qzPlan);
       if(secondary) quizAddToCart(OFFER_INFO[secondary].price, []);
-      document.getElementById('devis').scrollIntoView({behavior:'smooth'});
     });
   }
 

@@ -83,26 +83,9 @@
       <button type="button" id="addToCartBtn" class="btn btn--ghost" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addToCart()">+ Ajouter au panier</button>
       <p style="font-size:.76rem;color:var(--muted);text-align:center;margin-bottom:8px">Un seul site à la fois, mais autant d'abonnements que vous voulez (ex : site + community management).</p>
 
-      <div id="cartWrap" style="display:none">
-        <p class="fh">Votre panier</p>
-        <div id="cartList"></div>
-        <div class="total-bar" id="total"><span class="total-lbl">Aujourd'hui</span><span class="total-amt">0€</span></div>
-        <div id="cartMonthlyNote" class="maintenance-note"><span id="cartMonthlyTxt"></span></div>
-        <div id="cartCommitNote" class="maintenance-note" style="border-color:rgba(255,107,107,.28);background:rgba(255,107,107,.06)"><span id="cartCommitTxt"></span></div>
-
-        <p class="fh">Vos coordonnées</p>
-        <div class="fg2"><div class="fg"><input id="prenom" class="fi" placeholder="Prénom"></div><div class="fg"><input id="nom" class="fi" placeholder="Nom"></div></div>
-        <div class="fg2"><div class="fg"><input id="email" class="fi" placeholder="Email"></div><div class="fg"><input id="telephone" class="fi" placeholder="Téléphone"></div></div>
-        <div class="fg"><input id="entreprise" class="fi" placeholder="Nom de l'entreprise"></div>
-        <div class="fg"><input id="secteur" class="fi" placeholder="Secteur d'activité"></div>
-        <div class="fg"><textarea id="description" class="ft" placeholder="Un mot sur votre projet (optionnel)"></textarea></div>
-
-        <div class="quote-actions">
-          <button id="emailBtn" class="btn btn--ghost" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('email')">📧 Recevoir par email</button>
-          <button id="payBtn" class="btn btn--gold" style="flex:1;justify-content:center;padding:16px;font-size:.9rem;" onclick="sendQuote('pay')">💳 Payer maintenant</button>
-        </div>
-        <div id="quote-status"></div>
-      </div>
+      <p id="cartHint" style="font-size:.8rem;color:var(--muted);text-align:center;margin-top:10px">
+        🛒 Vos offres s'ajoutent dans le panier, en haut à droite du menu. Cliquez dessus à tout moment pour compléter vos informations, choisir votre mode de paiement et régler ou recevoir le devis par email.
+      </p>
     </div>
   </div>
 </section>
@@ -192,6 +175,8 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script src="shared.js"></script>
+<script src="cart.js"></script>
 <script>
 const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
@@ -217,14 +202,14 @@ function calcPreview(){
   if(btn)btn.textContent=base?`+ Ajouter au panier (${t}€${monthly>0?" + "+monthly+"€/mois":""})`:"+ Ajouter au panier";
 }
 function setPlan(p){
-  selectedPlan=p;
+  selectedPlan=p;window._selectedPlan=p;
   document.querySelectorAll("#paymentPlan .plan-choice").forEach(l=>l.classList.toggle("active",l.dataset.plan===p));
   calcPreview();
 }
 function renderPaymentPlan(){
   const s=document.getElementById("service").value;
   const wrap=document.getElementById("paymentPlan");if(!wrap)return;
-  selectedPlan="once";
+  selectedPlan="once";window._selectedPlan="once";
   if(s===""||s==="129"||s==="89"||s==="149"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
@@ -279,159 +264,8 @@ function lockBtn(l=true){
   if(pb){pb.disabled=l;pb.style.opacity=l?.55:1}
 }
 
-/* ===== PANIER ===== */
-let cart=[];
-function addToCart(auto){
-  const service=document.getElementById("service").value;
-  if(!service){if(!auto)alert("Choisis une offre à ajouter");return}
-  const name=SERVICE_NAMES[service]||"";
-  const isStructural=(service==="550"||service==="1115"||service==="2500"||service==="690");
-  if(isStructural){
-    const already=cart.find(c=>c.type==="structural");
-    if(already){
-      if(!auto && !confirm(`Vous avez déjà "${already.name}" dans votre panier. Le remplacer par "${name}" ?`))return;
-      cart=cart.filter(c=>c.type!=="structural");
-    }
-    cart.push({type:"structural",service,name,amount:window._currentPreviewTotal||base,maintenanceMonthly:window._currentMaintenanceMonthly||0,plan:selectedPlan,options:getSelectedOptions()});
-  }else{
-    if(cart.some(c=>c.service===service)){if(!auto)alert(`"${name}" est déjà dans votre panier.`);return}
-    cart.push({type:"subscription",service,name,amount:window._currentPreviewTotal||base});
-  }
-  document.getElementById("service").value="";
-  setBase();
-  renderCart();
-}
-function removeFromCart(idx){cart.splice(idx,1);renderCart();}
-function quizAddToCart(serviceCode,optionSelectors){
-  const sel=document.getElementById("service");if(!sel)return;
-  sel.value=serviceCode;
-  setBase();
-  (optionSelectors||[]).forEach(o=>{
-    let el=null;
-    if(o.sel)el=document.querySelector("#options "+o.sel);
-    else if(o.idx!==undefined)el=document.querySelectorAll("#options input[type=\"checkbox\"]")[o.idx];
-    if(el){el.checked=true;calcPreview();}
-  });
-  addToCart(true);
-}
-function cartTotals(){
-  let upfront=0,monthly=0;
-  cart.forEach(item=>{
-    if(item.type==="structural"){
-      if(item.plan==="once"){upfront+=item.amount;}
-      else{const inst=item.plan==="x4"?4:12;const per=Math.round(item.amount/inst);upfront+=per;monthly+=per;}
-      if(item.maintenanceMonthly>0){upfront+=item.maintenanceMonthly;monthly+=item.maintenanceMonthly;}
-    }else{upfront+=item.amount;monthly+=item.amount;}
-  });
-  return {upfront,monthly};
-}
-function setCartItemPlan(idx,plan){
-  if(!cart[idx]||cart[idx].type!=="structural")return;
-  cart[idx].plan=plan;
-  renderCart();
-}
-function renderCart(){
-  const wrap=document.getElementById("cartWrap");
-  const list=document.getElementById("cartList");
-  if(!wrap||!list)return;
-  if(cart.length===0){wrap.style.display="none";list.innerHTML="";return}
-  wrap.style.display="block";
-  list.innerHTML=cart.map((item,i)=>{
-    const priceTxt=item.type==="structural"
-      ?(item.plan==="once"?item.amount+"€":Math.round(item.amount/(item.plan==="x4"?4:12))+"€/mois")
-      :item.amount+"€/mois";
-    const planZone=item.type==="structural"
-      ?`<div class="cart-plan-switch">
-          <button type="button" class="cps-btn${item.plan==="once"?" active":""}" onclick="setCartItemPlan(${i},'once')">Comptant</button>
-          <button type="button" class="cps-btn${item.plan==="x4"?" active":""}" onclick="setCartItemPlan(${i},'x4')">4x</button>
-          <button type="button" class="cps-btn${item.plan==="x12"?" active":""}" onclick="setCartItemPlan(${i},'x12')">12x</button>
-        </div>`
-      :`<span class="cart-item-plan">Abonnement mensuel</span>`;
-    return `<div class="cart-item"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span>${planZone}</div><div class="cart-item-price">${priceTxt}</div><button type="button" class="cart-item-remove" onclick="removeFromCart(${i})" aria-label="Retirer ${item.name} du panier">✕</button></div>`;
-  }).join('');
-  const {upfront,monthly}=cartTotals();
-  const totalEl=document.querySelector("#total .total-amt");if(totalEl)totalEl.textContent=upfront+"€";
-  const noteEl=document.getElementById("cartMonthlyNote"),txtEl=document.getElementById("cartMonthlyTxt");
-  if(noteEl&&txtEl){
-    if(monthly>0){noteEl.style.display="flex";txtEl.textContent=`Puis ${monthly}€ chaque mois, tant que vous ne résiliez pas vos abonnements.`;}
-    else{noteEl.style.display="none";}
-  }
-  const structuralInstallment=cart.find(c=>c.type==="structural"&&c.plan!=="once");
-  const subsInCart=cart.filter(c=>c.type==="subscription");
-  const commitEl=document.getElementById("cartCommitNote"),commitTxt=document.getElementById("cartCommitTxt");
-  if(commitEl&&commitTxt){
-    if(structuralInstallment){
-      const nbFois=structuralInstallment.plan==="x4"?"4":"12";
-      commitTxt.textContent=subsInCart.length
-        ? `⚠️ Le paiement en ${nbFois} fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les ${nbFois} mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin. En revanche, vos abonnements (${subsInCart.map(c=>c.name).join(", ")}) restent résiliables par vous à tout moment.`
-        : `⚠️ Le paiement en ${nbFois} fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les ${nbFois} mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin.`;
-      commitEl.style.display="flex";
-    }else{
-      commitEl.style.display="none";
-    }
-  }
-}
-
-async function sendQuote(mode){
-  if(cart.length===0){alert("Ajoutez au moins une offre à votre panier");return}
-  const email=get("email");if(!email){alert("L'email est obligatoire");return}
-  const structural=cart.find(c=>c.type==="structural");
-  const subscriptions=cart.filter(c=>c.type==="subscription");
-  const {upfront,monthly}=cartTotals();
-  const cartSummary=cart.map(c=>{
-    if(c.type==="structural")return `${c.name} (${c.plan==="once"?c.amount+"€ comptant":"en "+(c.plan==="x4"?4:12)+"x, "+Math.round(c.amount/(c.plan==="x4"?4:12))+"€/mois"})`;
-    return `${c.name} (${c.amount}€/mois)`;
-  }).join(" + ");
-  const planLabels={once:"Comptant (1x)",x4:"En 4x sans frais",x12:"Mensualisé sur 12 mois"};
-  const data={
-    service_name:cartSummary,
-    service:structural?structural.service:(subscriptions[0]?.service||""),
-    total:upfront+"€",
-    options:subscriptions.map(s=>s.name).join(", ")||(structural?structural.options:""),
-    payment_link:"",
-    payment_plan:structural?structural.plan:"once",
-    payment_plan_label:structural?planLabels[structural.plan]:"Abonnement mensuel",
-    maintenance_monthly:monthly,
-    cart_summary:cartSummary,
-    total_today:upfront+"€",
-    total_monthly:monthly>0?monthly+"€/mois":"—",
-    prenom:get("prenom"),nom:get("nom"),email,telephone:get("telephone"),
-    entreprise:get("entreprise"),adresse:get("adresse"),ville:get("ville"),codepostal:get("codepostal"),
-    secteur:get("secteur"),objectif:get("objectif"),produits:get("produits"),concurrents:get("concurrents"),
-    aCompte:get("aCompte"),nomcompte:get("nomcompte"),objectifcm:get("objectifcm"),contenu:get("contenu"),
-    message:get("message"),description:get("description"),
-  };
-  lockBtn(true);setStatus(mode==="pay"?"⏳ Préparation du paiement Stripe…":"⏳ Génération du devis…","loading");
-  try{
-    const payload={
-      structural:structural?{amount:structural.amount,service_name:structural.name,payment_plan:structural.plan}:null,
-      maintenance_monthly:structural?(structural.maintenanceMonthly||0):0,
-      subscriptions:subscriptions.map(s=>({amount:s.amount,service_name:s.name})),
-    };
-    const res=await fetch("/.netlify/functions/create-payment",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
-    const json=await res.json();
-    if(!res.ok||!json.url)throw new Error(json.error||`Erreur serveur ${res.status}`);
-    data.payment_link=json.url;
-  }catch(err){console.error("Netlify:",err);lockBtn(false);setStatus(`❌ Erreur : ${err.message}`,"error");return}
-  try{
-    await incrementOrder();
-    setStatus("✅ Lien créé — envoi de la confirmation…","ok");
-    // L'email admin (toi) part toujours. L'email client ne part QUE si le
-    // client a choisi "Recevoir par email" — s'il paie tout de suite, il
-    // est redirigé vers Stripe et n'a pas besoin d'un email en plus.
-    const emailPromises=[emailjs.send(SERVICE_ID,TEMPLATE_ADMIN,data)];
-    if(mode!=="pay")emailPromises.push(emailjs.send(SERVICE_ID,TEMPLATE_CLIENT,data));
-    await Promise.all(emailPromises);
-    if(mode==="pay"){window.location.href=data.payment_link;return}
-    document.body.innerHTML=`<div style="text-align:center;margin-top:18%;color:#eaeaf4;font-family:'Space Grotesk',sans-serif;padding:0 20px;"><h1 style="color:#ffd54a;font-size:2.6rem;margin-bottom:12px;">Devis envoyé ✔</h1><p style="color:#8888aa;margin-bottom:32px;">Merci ! Vous allez recevoir votre devis par email, avec le lien de paiement inclus. Nous reviendrons vers vous très prochainement.</p><button onclick="location.reload()" style="background:#ffd54a;padding:14px 32px;border:none;cursor:pointer;font-weight:700;border-radius:10px;font-size:1rem;font-family:'Space Grotesk',sans-serif;">Retour</button></div>`;
-  }catch(err){console.error("EmailJS:",err);lockBtn(false);setStatus("❌ Erreur envoi email","error")}
-}
 setBase();
 applyAriaLabels();
-renderCart();
-async function incrementOrder(){
-  try{await fetch("/.netlify/functions/order-counter",{method:"POST"})}catch(e){}
-}
 // Permet d'arriver depuis offres.html avec ?add=CODE pour pré-remplir le panier
 (function(){
   const params=new URLSearchParams(location.search);
