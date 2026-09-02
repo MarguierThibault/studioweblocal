@@ -98,11 +98,24 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
   .stats-row{grid-template-columns:1fr;gap:10px}
   .quote-box{padding:26px 18px}
   .fg2{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr}
-  .mini-offers-grid{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr 1fr;gap:12px}
+  .cards .card{align-self:start}
+  .cards .card__img{height:104px}
+  .cards .examples-btn{font-size:.62rem;padding:5px 11px;bottom:8px}
+  .cards .card__body{padding:13px 13px 18px}
+  .cards .card__name{font-size:.95rem;margin-bottom:3px}
+  .cards .card__price{font-size:.84rem;margin-bottom:9px}
+  .cards .card__badge{font-size:8px;padding:3px 9px;margin-bottom:10px}
+  .cards .field-lbl{font-size:8.5px;margin-bottom:2px}
+  .cards .field-txt{font-size:.73rem;line-height:1.45}
+  .cards .card__foot{font-size:.68rem;padding:10px 13px}
+  .mini-offers-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .mini-offer-card{padding:16px 14px}
+  .mini-offer-card .field-txt{font-size:.73rem;line-height:1.45}
+  .mini-offer-card .btn{font-size:.78rem;padding:11px 14px}
+  .hero{min-height:auto;align-items:flex-start;padding:104px 0 56px}
   .seo-banner{flex-direction:column;align-items:stretch !important;text-align:center}
   .seo-banner > div{flex:none !important;max-width:none !important}
-  .hero{min-height:82vh}
 }
 #particles{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;overflow:hidden;z-index:1;transition:opacity .4s ease}
 #particles canvas{display:block;width:100%;height:100%}
