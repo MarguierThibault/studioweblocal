@@ -276,6 +276,7 @@ function renderCart(){
         + '<button type="button" class="cps-btn' + (item.plan === "deposit" ? " active" : "") + '" data-plan="deposit" data-idx="' + i + '">Acompte 40 %</button>'
         + '<button type="button" class="cps-btn' + (item.plan === "deposit3x" ? " active" : "") + '" data-plan="deposit3x" data-idx="' + i + '">Acompte + 3 fois</button>'
         + '</div>';
+      if(item.maintenanceMonthly > 0) planZone += '<span class="cart-item-plan">Maintenance ' + item.maintenanceMonthly + '€/mois incluse, résiliable à tout moment</span>';
       if(item.plan === "deposit") planZone += '<span class="cart-item-plan">Puis ' + pp.balance + '€ à la livraison du site</span>';
       if(item.plan === "deposit3x") planZone += '<span class="cart-item-plan">Puis 3 × ' + pp.perInstallment + '€, une fois le site livré</span>';
     }else{

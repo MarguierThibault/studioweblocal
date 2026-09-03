@@ -78,7 +78,7 @@
       <span class="field-lbl" style="display:block;margin-bottom:10px">Ajouter une offre</span>
       <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option><option value="349">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
       <div id="options"></div>
-      <div id="maintenanceNote" class="maintenance-note"><span>Maintenance mensuelle incluse — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
+      <div id="maintenanceNote" class="maintenance-note"><span>Maintenance mensuelle incluse dans cette offre — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
       <button type="button" id="addToCartBtn" class="btn btn--ghost" style="width:100%;justify-content:center;margin-bottom:6px" onclick="addToCart()">+ Ajouter au panier</button>
       <p style="font-size:.76rem;color:var(--muted);text-align:center;margin-bottom:8px">Un seul site à la fois, mais autant d'abonnements que vous voulez (ex : site + community management).</p>
@@ -184,8 +184,12 @@ const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Pr
 let base=0,selectedPlan="once";
 function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
 function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
+const MAINTENANCE={"550":29,"1115":49,"2500":79};
 function calcPreview(){
   let t=base,monthly=0;
+  const svc=document.getElementById("service")?document.getElementById("service").value:"";
+  // La maintenance est incluse d'office dans les offres de site (résiliable à tout moment)
+  monthly+=MAINTENANCE[svc]||0;
   document.querySelectorAll("#options input").forEach(el=>{
     if(!el.checked)return;
     const v=parseInt(el.dataset.value||0);
@@ -232,18 +236,15 @@ function renderOptions(){
   if(s==="550")html=`
 <div class="option"><label><span class="opt-title">Design personnalisé <span class="opt-price">+80€</span></span><span class="opt-desc">On adapte les couleurs, polices et mise en page à votre image, au lieu d'un modèle standard.</span></label><input type="checkbox" data-value="80" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Référencement local (SEO) <span class="opt-price">+90€</span></span><span class="opt-desc">On optimise le site pour apparaître sur Google quand quelqu'un cherche "[votre métier] + [votre ville]".</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
-<div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calcPreview()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">Maintenance mensuelle <span class="opt-price">29€/mois</span></span><span class="opt-desc">On garde votre site à jour (textes, photos, petites modifs) — facturé séparément chaque mois, résiliable à tout moment.</span></label><input type="checkbox" data-value="29" data-monthly="1" onchange="calcPreview()"></div>`;
+<div class="option"><label><span class="opt-title">Fiche Google avancée <span class="opt-price">+30€</span></span><span class="opt-desc">Carte interactive et fiche Google Maps optimisée pour plus de visites et d'appels.</span></label><input type="checkbox" data-value="30" onchange="calcPreview()"></div>`;
   if(s==="1115")html=`
 <div class="option"><label><span class="opt-title">Identité de marque <span class="opt-price">+120€</span></span><span class="opt-desc">Logo affiné, palette de couleurs et charte cohérente sur tous vos supports.</span></label><input type="checkbox" data-value="120" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">SEO avancé & stratégie de contenu <span class="opt-price">+90€</span></span><span class="opt-desc">Plan de mots-clés et pages optimisées pour progresser durablement dans Google.</span></label><input type="checkbox" data-value="90" onchange="calcPreview()"></div>
-<div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calcPreview()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">Maintenance mensuelle <span class="opt-price">49€/mois</span></span><span class="opt-desc">Mises à jour de contenu, petites évolutions et surveillance technique du site chaque mois.</span></label><input type="checkbox" data-value="49" data-monthly="1" onchange="calcPreview()"></div>`;
+<div class="option"><label><span class="opt-title">Optimisation conversion (CRO) <span class="opt-price">+75€</span></span><span class="opt-desc">On retravaille les boutons, formulaires et parcours pour que plus de visiteurs vous contactent.</span></label><input type="checkbox" data-value="75" onchange="calcPreview()"></div>`;
   if(s==="2500")html=`
 <div class="option"><label><span class="opt-title">Publicité Google & Meta Ads <span class="opt-price">+600€</span></span><span class="opt-desc">Campagnes payantes ciblées pour amener rapidement des prospects qualifiés sur le site.</span></label><input type="checkbox" data-value="600" onchange="calcPreview()"></div>
 <div class="option"><label><span class="opt-title">Tunnel de vente automatisé <span class="opt-price">+500€</span></span><span class="opt-desc">Un parcours pensé pour transformer un visiteur en client sans intervention manuelle de votre part.</span></label><input type="checkbox" data-value="500" onchange="calcPreview()"></div>
-<div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calcPreview()"></div>
-<div class="option opt-monthly"><label><span class="opt-title">Maintenance mensuelle <span class="opt-price">79€/mois</span></span><span class="opt-desc">Mises à jour, évolutions et suivi technique prioritaire chaque mois.</span></label><input type="checkbox" data-value="79" data-monthly="1" onchange="calcPreview()"></div>`;
+<div class="option"><label><span class="opt-title">CRM & automatisations <span class="opt-price">+400€</span></span><span class="opt-desc">Vos prospects et relances sont organisés automatiquement — plus rien n'est oublié.</span></label><input type="checkbox" data-value="400" onchange="calcPreview()"></div>`;
   document.getElementById("options").innerHTML=html;
 }
 function applyAriaLabels(scope){
