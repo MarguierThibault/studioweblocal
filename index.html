@@ -821,7 +821,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <details class="legal-item">
         <summary>4. Conditions de vente — Clients en France</summary>
         <div class="legal-body">
-          <p>Les prix sont exprimés en euros. Toute commande implique l'acceptation du devis et le règlement, en tout ou partie, selon les modalités convenues (paiement sécurisé via Stripe). Le délai de réalisation est communiqué au devis et court à réception des éléments nécessaires (textes, visuels, accès) fournis par le client.</p>
+          <p>Les prix sont exprimés en euros. Toute commande implique l'acceptation du devis et le règlement selon l'une des modalités suivantes, au choix du client, par paiement sécurisé via Stripe : règlement comptant à la validation du devis ; ou acompte de 40 % à la validation du devis, le solde étant exigible à la livraison du site, avant remise des accès ; ou acompte de 40 % à la validation du devis, le solde étant réparti en trois mensualités égales et sans frais, prélevées après la livraison, l'échelonnement n'excédant pas trois mois. Aucun frais, intérêt ni majoration n'est appliqué en cas de paiement échelonné. Le délai de réalisation est communiqué au devis et court à réception des éléments nécessaires (textes, visuels, accès) fournis par le client.</p>
         </div>
       </details>
       <details class="legal-item">
@@ -917,9 +917,9 @@ function renderPaymentPlan(){
   if(s===""||s==="129"||s==="89"||s==="349"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
-<label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">Paiement en 1 fois à la validation</span></label>
-<label class="plan-choice" data-plan="x4"><input type="radio" name="pplan" value="x4" onchange="setPlan('x4')"><span class="plan-choice-title">En 4 fois</span><span class="plan-choice-desc">Sans frais, prélevé chaque mois par carte</span></label>
-<label class="plan-choice" data-plan="x12"><input type="radio" name="pplan" value="x12" onchange="setPlan('x12')"><span class="plan-choice-title">Mensualisé 12 mois</span><span class="plan-choice-desc">Idéal pour lisser un gros projet</span></label>`;
+<label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">La totalité à la validation du devis</span></label>
+<label class="plan-choice" data-plan="deposit"><input type="radio" name="pplan" value="deposit" onchange="setPlan('deposit')"><span class="plan-choice-title">Acompte 40 %</span><span class="plan-choice-desc">40 % maintenant, le solde à la livraison du site</span></label>
+<label class="plan-choice" data-plan="deposit3x"><input type="radio" name="pplan" value="deposit3x" onchange="setPlan('deposit3x')"><span class="plan-choice-title">Acompte 40 % puis 3 fois</span><span class="plan-choice-desc">40 % maintenant, le solde en 3 mensualités sans frais</span></label>`;
 }
 function setBase(){base=parseInt(document.getElementById("service").value||0);renderOptions();renderPaymentPlan();calcPreview();}
 function renderOptions(){
@@ -4486,8 +4486,8 @@ function closePortfolio(){
       <span class="field-lbl" style="display:block;margin-bottom:8px">Comment souhaitez-vous régler votre site ?</span>
       <div class="cart-plan-switch" id="qzPlanPicker" style="margin:0 0 6px">
         <button type="button" class="cps-btn active" style="padding:8px 16px;font-size:.72rem" data-plan="once">Comptant</button>
-        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x4">En 4 fois</button>
-        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x12">En 12 fois</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="deposit">Acompte 40 % puis solde à la livraison</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="deposit3x">Acompte 40 % puis 3 fois</button>
       </div>
       <p style="font-size:.74rem;color:var(--muted);margin:0 0 18px">Modifiable à tout moment dans le panier. Les abonnements mensuels, eux, gardent le même prix chaque mois.</p>
       <div class="qz-result-actions">
@@ -4560,8 +4560,8 @@ function closePortfolio(){
       ${primary==='refonte' ? `      <span class="field-lbl" style="display:block;margin-bottom:8px">Comment souhaitez-vous régler votre refonte ?</span>
       <div class="cart-plan-switch" id="qzPlanPicker" style="margin:0 0 6px">
         <button type="button" class="cps-btn active" style="padding:8px 16px;font-size:.72rem" data-plan="once">Comptant</button>
-        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x4">En 4 fois</button>
-        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="x12">En 12 fois</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="deposit">Acompte 40 % puis solde à la livraison</button>
+        <button type="button" class="cps-btn" style="padding:8px 16px;font-size:.72rem" data-plan="deposit3x">Acompte 40 % puis 3 fois</button>
       </div>
       <p style="font-size:.74rem;color:var(--muted);margin:0 0 18px">Modifiable à tout moment dans le panier. Les abonnements mensuels, eux, gardent le même prix chaque mois.</p>
 ` : `<p style="font-size:.74rem;color:var(--muted);margin:0 0 18px">Ces prestations sont des abonnements mensuels : le prix est fixe et reste le même chaque mois.</p>`}

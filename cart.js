@@ -149,22 +149,36 @@ function toggleCart(){
 }
 
 /* ---------- Calculs ---------- */
+var DEPOSIT_RATE = 0.4;
+
+/* Décompose une ligne "site" selon le mode de paiement choisi :
+   once      -> tout aujourd'hui
+   deposit   -> 40% aujourd'hui, le solde à la livraison
+   deposit3x -> 40% aujourd'hui, le solde en 3 mensualités sans frais */
+function planParts(item){
+  var amount = Number(item.amount) || 0;
+  if(item.plan === "deposit" || item.plan === "deposit3x"){
+    var today = Math.round(amount * DEPOSIT_RATE);
+    var balance = amount - today;
+    var n = item.plan === "deposit3x" ? 3 : 1;
+    return {today: today, balance: balance, installments: n, perInstallment: Math.round(balance / n)};
+  }
+  return {today: amount, balance: 0, installments: 0, perInstallment: 0};
+}
+
 function cartTotals(){
-  var upfront = 0, monthly = 0;
+  var upfront = 0, monthly = 0, balance = 0;
   cart.forEach(function(item){
     if(item.type === "structural"){
-      if(item.plan === "once"){ upfront += item.amount; }
-      else{
-        var inst = item.plan === "x4" ? 4 : 12;
-        var per = Math.round(item.amount / inst);
-        upfront += per; monthly += per;
-      }
+      var p = planParts(item);
+      upfront += p.today;
+      balance += p.balance;
       if(item.maintenanceMonthly > 0){ upfront += item.maintenanceMonthly; monthly += item.maintenanceMonthly; }
     }else{
       upfront += item.amount; monthly += item.amount;
     }
   });
-  return {upfront: upfront, monthly: monthly};
+  return {upfront: upfront, monthly: monthly, balance: balance};
 }
 
 /* ---------- Ajout / retrait ---------- */
@@ -251,16 +265,23 @@ function renderCart(){
   if(contentEl) contentEl.style.display = "block";
 
   list.innerHTML = cart.map(function(item, i){
-    var priceTxt = item.type === "structural"
-      ? (item.plan === "once" ? item.amount + "€" : Math.round(item.amount / (item.plan === "x4" ? 4 : 12)) + "€/mois")
-      : item.amount + "€/mois";
-    var planZone = item.type === "structural"
-      ? '<div class="cart-plan-switch">'
+    var priceTxt, planZone;
+    if(item.type === "structural"){
+      var pp = planParts(item);
+      priceTxt = item.plan === "once"
+        ? item.amount + "€"
+        : pp.today + "€ <span style=\'font-size:.68rem;color:var(--muted,#8888aa);font-weight:400\'>aujourd\'hui</span>";
+      planZone = '<div class="cart-plan-switch">'
         + '<button type="button" class="cps-btn' + (item.plan === "once" ? " active" : "") + '" data-plan="once" data-idx="' + i + '">Comptant</button>'
-        + '<button type="button" class="cps-btn' + (item.plan === "x4" ? " active" : "") + '" data-plan="x4" data-idx="' + i + '">4x</button>'
-        + '<button type="button" class="cps-btn' + (item.plan === "x12" ? " active" : "") + '" data-plan="x12" data-idx="' + i + '">12x</button>'
-        + '</div>'
-      : '<span class="cart-item-plan">Abonnement mensuel — prix fixe</span>';
+        + '<button type="button" class="cps-btn' + (item.plan === "deposit" ? " active" : "") + '" data-plan="deposit" data-idx="' + i + '">Acompte 40 %</button>'
+        + '<button type="button" class="cps-btn' + (item.plan === "deposit3x" ? " active" : "") + '" data-plan="deposit3x" data-idx="' + i + '">Acompte + 3 fois</button>'
+        + '</div>';
+      if(item.plan === "deposit") planZone += '<span class="cart-item-plan">Puis ' + pp.balance + '€ à la livraison du site</span>';
+      if(item.plan === "deposit3x") planZone += '<span class="cart-item-plan">Puis 3 × ' + pp.perInstallment + '€, une fois le site livré</span>';
+    }else{
+      priceTxt = item.amount + "€/mois";
+      planZone = '<span class="cart-item-plan">Abonnement mensuel — prix fixe</span>';
+    }
     return '<div class="cart-item"><div class="cart-item-info"><span class="cart-item-name">' + item.name + '</span>' + planZone + '</div>'
       + '<div class="cart-item-price">' + priceTxt + '</div>'
       + '<button type="button" class="cart-item-remove" data-remove="' + i + '" aria-label="Retirer ' + item.name + ' du panier">✕</button></div>';
@@ -282,16 +303,15 @@ function renderCart(){
     if(t.monthly > 0){ noteEl.style.display = "flex"; txtEl.textContent = "Puis " + t.monthly + "€ chaque mois, tant que vous ne résiliez pas vos abonnements."; }
     else noteEl.style.display = "none";
   }
-  var installment = null;
-  cart.forEach(function(c){ if(c.type === "structural" && c.plan !== "once") installment = c; });
-  var subs = cart.filter(function(c){ return c.type === "subscription"; });
+  var deferred = null;
+  cart.forEach(function(c){ if(c.type === "structural" && c.plan !== "once") deferred = c; });
   var commitEl = document.getElementById("cartCommitNote"), commitTxt = document.getElementById("cartCommitTxt");
   if(commitEl && commitTxt){
-    if(installment){
-      var nb = installment.plan === "x4" ? "4" : "12";
-      commitTxt.textContent = subs.length
-        ? "Le paiement en " + nb + " fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les " + nb + " mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin. En revanche, vos abonnements (" + subs.map(function(c){return c.name}).join(", ") + ") restent résiliables par vous à tout moment."
-        : "Le paiement en " + nb + " fois du site est un engagement : c'est nous, Studio Web Local, qui arrêtons ce prélèvement une fois les " + nb + " mensualités réglées — vous ne pouvez pas l'arrêter vous-même avant la fin.";
+    if(deferred){
+      var d = planParts(deferred);
+      commitTxt.textContent = deferred.plan === "deposit3x"
+        ? "Vous réglez aujourd'hui l'acompte de " + d.today + "€ (40 %). Le solde de " + d.balance + "€ est ensuite réparti en 3 mensualités de " + d.perInstallment + "€, prélevées après la livraison du site. Sans frais."
+        : "Vous réglez aujourd'hui l'acompte de " + d.today + "€ (40 %). Le solde de " + d.balance + "€ est réglé à la livraison du site, avant la remise des accès.";
       commitEl.style.display = "flex";
     }else commitEl.style.display = "none";
   }
@@ -323,10 +343,15 @@ async function sendQuote(mode){
   var subscriptions = cart.filter(function(c){ return c.type === "subscription"; });
   var t = cartTotals();
   var cartSummary = cart.map(function(c){
-    if(c.type === "structural") return c.name + " (" + (c.plan === "once" ? c.amount + "€ comptant" : "en " + (c.plan === "x4" ? 4 : 12) + "x, " + Math.round(c.amount / (c.plan === "x4" ? 4 : 12)) + "€/mois") + ")";
+    if(c.type === "structural"){
+      var q = planParts(c);
+      if(c.plan === "once") return c.name + " (" + c.amount + "€ comptant)";
+      if(c.plan === "deposit") return c.name + " (" + c.amount + "€ : acompte " + q.today + "€ puis " + q.balance + "€ à la livraison)";
+      return c.name + " (" + c.amount + "€ : acompte " + q.today + "€ puis 3 × " + q.perInstallment + "€)";
+    }
     return c.name + " (" + c.amount + "€/mois)";
   }).join(" + ");
-  var planLabels = {once:"Comptant (1x)", x4:"En 4x sans frais", x12:"Mensualisé sur 12 mois"};
+  var planLabels = {once:"Comptant (1x)", deposit:"Acompte 40 % puis solde à la livraison", deposit3x:"Acompte 40 % puis solde en 3 fois sans frais"};
   var data = {
     service_name: cartSummary,
     service: structural ? structural.service : (subscriptions[0] ? subscriptions[0].service : ""),
@@ -337,6 +362,9 @@ async function sendQuote(mode){
     payment_plan_label: structural ? planLabels[structural.plan] : "Abonnement mensuel",
     maintenance_monthly: t.monthly,
     cart_summary: cartSummary,
+    deposit_amount: structural ? planParts(structural).today + "€" : "—",
+    balance_amount: structural && structural.plan !== "once" ? planParts(structural).balance + "€" : "—",
+    balance_schedule: structural && structural.plan === "deposit3x" ? "3 × " + planParts(structural).perInstallment + "€" : (structural && structural.plan === "deposit" ? "En une fois à la livraison" : "—"),
     total_today: t.upfront + "€",
     total_monthly: t.monthly > 0 ? t.monthly + "€/mois" : "—",
     prenom: get("prenom"), nom: get("nom"), email: email, telephone: get("telephone"),

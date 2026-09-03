@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Encaissement des soldes — Studio Web Local</title>
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+body{padding:40px 0 80px}
+.adm-wrap{max-width:900px;margin:0 auto;padding:0 24px}
+.adm-head{margin-bottom:28px}
+.adm-card{background:var(--bg-card);border:1px solid var(--violet-border);border-radius:var(--r);padding:22px;margin-bottom:14px}
+.adm-row{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-start;justify-content:space-between}
+.adm-client{font-family:var(--font-head);font-weight:700;font-size:1.05rem}
+.adm-mail{font-size:.82rem;color:var(--muted)}
+.adm-figs{display:flex;gap:22px;flex-wrap:wrap;margin:14px 0 16px}
+.adm-fig{display:flex;flex-direction:column;gap:2px}
+.adm-fig span:first-child{font-family:var(--font-mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--violet)}
+.adm-fig span:last-child{font-family:var(--font-mono);font-size:1rem;color:var(--text)}
+.adm-fig.gold span:last-child{color:var(--gold);font-weight:600}
+.adm-actions{display:flex;gap:10px;flex-wrap:wrap}
+.adm-tag{display:inline-block;font-family:var(--font-mono);font-size:.66rem;padding:3px 10px;border-radius:20px;border:1px solid var(--violet-border);color:var(--muted);margin-left:8px}
+.adm-msg{margin-top:12px;font-family:var(--font-mono);font-size:.8rem}
+.adm-msg.ok{color:#57e389}.adm-msg.err{color:#ff6b6b}.adm-msg.load{color:var(--violet)}
+.adm-empty{color:var(--muted);text-align:center;padding:50px 10px}
+.adm-login{max-width:400px;margin:60px auto}
+</style>
+</head>
+<body>
+<div class="adm-wrap">
+  <div class="adm-head">
+    <span class="mono-label">ESPACE PRIVÉ</span>
+    <h2>Encaissement des soldes</h2>
+    <div class="divider"></div>
+    <p style="color:var(--muted);margin-top:14px;font-size:.92rem">Commandes dont l'acompte a été réglé et dont le solde reste à encaisser. Une fois le site livré, un clic suffit.</p>
+  </div>
+
+  <div id="login" class="adm-login">
+    <div class="adm-card">
+      <span class="field-lbl">Code administrateur</span>
+      <div class="fg" style="margin-top:8px"><input id="tok" class="fi" type="password" placeholder="Votre code" autocomplete="off"></div>
+      <button class="btn btn--gold" style="width:100%;justify-content:center" onclick="login()">Ouvrir</button>
+      <div id="loginMsg" class="adm-msg err"></div>
+    </div>
+  </div>
+
+  <div id="list" style="display:none"></div>
+  <div id="globalMsg" class="adm-msg"></div>
+</div>
+
+<script>
+var TOKEN = sessionStorage.getItem("swl_admin_token") || "";
+var PENDING = [];
+
+function login(){
+  var v = document.getElementById("tok").value.trim();
+  if(!v) return;
+  TOKEN = v;
+  load(true);
+}
+function api(path, opts){
+  opts = opts || {};
+  opts.headers = Object.assign({"Content-Type":"application/json","x-admin-token":TOKEN}, opts.headers || {});
+  return fetch("/.netlify/functions/" + path, opts).then(function(r){
+    return r.json().then(function(j){ if(!r.ok) throw new Error(j.error || ("Erreur " + r.status)); return j; });
+  });
+}
+function euro(n){ return (Math.round(n*100)/100).toLocaleString("fr-FR") + "€"; }
+
+function load(fromLogin){
+  var msg = document.getElementById(fromLogin ? "loginMsg" : "globalMsg");
+  msg.className = "adm-msg load"; msg.textContent = "Chargement…";
+  api("admin-pending").then(function(j){
+    sessionStorage.setItem("swl_admin_token", TOKEN);
+    document.getElementById("login").style.display = "none";
+    document.getElementById("list").style.display = "block";
+    msg.textContent = "";
+    PENDING = j.pending || [];
+    render();
+  }).catch(function(e){
+    msg.className = "adm-msg err"; msg.textContent = e.message;
+  });
+}
+
+function render(){
+  var el = document.getElementById("list");
+  if(!PENDING.length){
+    el.innerHTML = '<div class="adm-card adm-empty">Aucun solde en attente.<br><br>Les commandes réglées comptant n\'apparaissent pas ici : elles sont déjà payées en totalité.</div>';
+    return;
+  }
+  el.innerHTML = PENDING.map(function(p, i){
+    var date = new Date(p.created * 1000).toLocaleDateString("fr-FR", {day:"2-digit", month:"2-digit", year:"numeric"});
+    var planTag = p.plan === "deposit3x" ? "Le client a choisi : solde en 3 fois" : "Le client a choisi : solde à la livraison";
+    return '<div class="adm-card">'
+      + '<div class="adm-row"><div><span class="adm-client">' + p.customer_name + '</span><span class="adm-tag">' + date + '</span>'
+      + '<div class="adm-mail">' + p.customer_email + '</div></div></div>'
+      + '<div class="adm-figs">'
+      +   '<div class="adm-fig"><span>Total du site</span><span>' + euro(p.site_total) + '</span></div>'
+      +   '<div class="adm-fig"><span>Acompte réglé</span><span>' + euro(p.deposit_paid) + '</span></div>'
+      +   '<div class="adm-fig gold"><span>Solde à encaisser</span><span>' + euro(p.balance_due) + '</span></div>'
+      + '</div>'
+      + '<p style="font-size:.78rem;color:var(--muted);margin-bottom:14px">' + planTag + '</p>'
+      + '<div class="adm-actions">'
+      +   '<button class="btn ' + (p.plan === "deposit3x" ? "btn--ghost" : "btn--gold") + '" onclick="collect(' + i + ',\'once\')">Encaisser ' + euro(p.balance_due) + ' maintenant</button>'
+      +   '<button class="btn ' + (p.plan === "deposit3x" ? "btn--gold" : "btn--ghost") + '" onclick="collect(' + i + ',\'3x\')">Lancer les 3 mensualités de ' + euro(Math.round(p.balance_due/3)) + '</button>'
+      + '</div>'
+      + '<div class="adm-msg" id="msg' + i + '"></div>'
+      + '</div>';
+  }).join("");
+}
+
+function collect(i, mode){
+  var p = PENDING[i];
+  var texte = mode === "3x"
+    ? "Lancer 3 mensualités de " + euro(Math.round(p.balance_due/3)) + " pour " + p.customer_name + " ?\n\nLa première est prélevée immédiatement, l'échéancier s'arrête tout seul après la troisième."
+    : "Encaisser " + euro(p.balance_due) + " maintenant sur la carte de " + p.customer_name + " ?";
+  if(!confirm(texte)) return;
+  var msg = document.getElementById("msg" + i);
+  msg.className = "adm-msg load"; msg.textContent = "En cours…";
+  api("admin-collect", { method:"POST", body: JSON.stringify({
+    session_id: p.session_id, customer_id: p.customer_id, mode: mode,
+    amount_eur: p.balance_due, label: "Site — Studio Web Local"
+  })}).then(function(j){
+    msg.className = "adm-msg ok"; msg.textContent = j.message;
+    setTimeout(load, 1800);
+  }).catch(function(e){
+    msg.className = "adm-msg err"; msg.textContent = e.message;
+  });
+}
+
+document.getElementById("tok").addEventListener("keydown", function(e){ if(e.key === "Enter") login(); });
+if(TOKEN) load(true);
+</script>
+</body>
+</html>
