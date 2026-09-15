@@ -467,11 +467,18 @@ function showLessReviews(){
 }
 async function loadReviewsFromServer(){
   let reviews=[];
+  const CK="swl_reviews_cache";
   try{
-    const res=await fetch("/.netlify/functions/reviews");
-    if(res.ok){
-      const json=await res.json();
-      reviews=Array.isArray(json.reviews)?json.reviews:[];
+    const c=JSON.parse(localStorage.getItem(CK)||"null");
+    if(c&&Array.isArray(c.r)&&Date.now()-c.t<1800000){
+      reviews=c.r;
+    }else{
+      const res=await fetch("/.netlify/functions/reviews");
+      if(res.ok){
+        const json=await res.json();
+        reviews=Array.isArray(json.reviews)?json.reviews:[];
+        try{localStorage.setItem(CK,JSON.stringify({r:reviews,t:Date.now()}))}catch(e){}
+      }
     }
   }catch(e){console.warn("Reviews load error:",e);}
   const localReviews=loadLocalReviews();
@@ -490,6 +497,7 @@ async function submitReview(event){
   let savedReview={...payload,date:new Date().toISOString().slice(0,10),isNew:true,source:"local"};
   try{
     const res=await fetch("/.netlify/functions/reviews",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+    try{localStorage.removeItem("swl_reviews_cache")}catch(e){}
     const json=await res.json().catch(()=>({}));
     if(res.ok&&json.success&&json.review){
       savedReview={...json.review,date:json.review.date||new Date().toISOString().slice(0,10),isNew:true,source:"server"};

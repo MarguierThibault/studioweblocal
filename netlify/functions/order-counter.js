@@ -1,11 +1,16 @@
 import { getStore } from "@netlify/blobs";
 
+const CACHE = {
+  "Cache-Control": "public, max-age=60",
+  "Netlify-CDN-Cache-Control": "public, s-maxage=300, stale-while-revalidate=3600"
+};
+
 export default async (req) => {
   const store = getStore("counters");
 
   if (req.method === "GET") {
     const count = (await store.get("orders", { type: "json" })) ?? 143;
-    return Response.json({ count });
+    return Response.json({ count }, { headers: CACHE });
   }
 
   if (req.method === "POST") {
