@@ -46,6 +46,7 @@
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Ultra Premium"},"priceSpecification":{"@type":"PriceSpecification","price":"2500","priceCurrency":"EUR"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Community Management"},"priceSpecification":{"@type":"PriceSpecification","price":"129","priceCurrency":"EUR","unitText":"MONTH"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Abonnement SEO"},"priceSpecification":{"@type":"PriceSpecification","price":"89","priceCurrency":"EUR","unitText":"MONTH"}},
+    {"@type":"Offer","itemOffered":{"@type":"Service","name":"Agent IA"},"priceSpecification":{"@type":"PriceSpecification","price":"450","priceCurrency":"EUR","unitText":"MONTH"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Pack Ads géré"},"priceSpecification":{"@type":"PriceSpecification","price":"349","priceCurrency":"EUR","unitText":"MONTH"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Refonte express"},"priceSpecification":{"@type":"PriceSpecification","price":"690","priceCurrency":"EUR"}},
     {"@type":"Offer","itemOffered":{"@type":"Service","name":"Pack Avis clients"},"priceSpecification":{"@type":"PriceSpecification","price":"49","priceCurrency":"EUR","unitText":"MONTH"}}
@@ -556,6 +557,36 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       </div>
     </div>
 
+    <div class="seo-banner reveal" style="margin-top:40px;display:flex;align-items:center;gap:36px;background:linear-gradient(135deg,rgba(255,213,74,.08),rgba(124,107,255,.05));border:1px solid rgba(255,213,74,.24);border-radius:var(--r);overflow:hidden;padding:32px">
+      <div style="flex:0 0 260px;max-width:260px"><svg viewBox="0 0 260 186" width="260" height="186" role="img" aria-label="Agent IA qui repond aux demandes" style="width:100%;height:auto;display:block;border-radius:12px;background:linear-gradient(140deg,#0d0d22,#141130)">
+        <rect x="24" y="30" width="140" height="34" rx="17" fill="rgba(255,255,255,.07)"/>
+        <circle cx="44" cy="47" r="4" fill="#8a8ab0"/><rect x="56" y="43" width="72" height="7" rx="3.5" fill="#8a8ab0"/>
+        <rect x="88" y="78" width="148" height="42" rx="17" fill="rgba(255,213,74,.14)" stroke="rgba(255,213,74,.45)"/>
+        <rect x="104" y="90" width="104" height="7" rx="3.5" fill="#ffd54a"/>
+        <rect x="104" y="103" width="72" height="7" rx="3.5" fill="rgba(255,213,74,.55)"/>
+        <rect x="24" y="134" width="120" height="30" rx="15" fill="rgba(124,107,255,.16)" stroke="rgba(124,107,255,.42)"/>
+        <circle cx="42" cy="149" r="3.4" fill="#7c6bff"/><circle cx="54" cy="149" r="3.4" fill="#7c6bff" opacity=".65"/><circle cx="66" cy="149" r="3.4" fill="#7c6bff" opacity=".35"/>
+        <text x="82" y="153" font-family="monospace" font-size="10" fill="#9d92ff">45 s</text>
+        <circle cx="222" cy="40" r="13" fill="rgba(87,227,137,.16)" stroke="rgba(87,227,137,.5)"/>
+        <path d="M216 40.5l4.2 4.2 7.4-8.4" stroke="#57e389" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg></div>
+      <div style="flex:1;min-width:260px">
+        <span class="mono-label" style="color:var(--gold)">VOUS RATEZ DES APPELS&nbsp;?</span>
+        <p class="card__name" style="font-size:1.4rem;margin:8px 0 4px">Agent IA</p>
+        <p class="card__price" style="margin-bottom:10px">450€/mois</p>
+        <p class="field-txt" style="max-width:520px">Un appel manqué, c'est un chantier qui part chez le concurrent. Votre agent répond à votre place, jour et nuit : il renseigne le client, qualifie la demande (besoin, budget, délai) et vous transmet le rendez-vous. Vous ne rappelez que les demandes sérieuses.</p>
+        <p class="field-txt" style="margin-top:8px">✓ Réponse en moins d'une minute, 24h/24 &nbsp; ✓ Entraîné sur votre métier et vos tarifs &nbsp; ✓ Site, formulaire et e-mail &nbsp; ✓ Sans engagement de durée</p>
+      </div>
+      <div style="flex:0 0 auto">
+        <button type="button" class="btn btn--gold" style="white-space:nowrap;padding:16px 28px;font-size:.95rem" onclick="
+          document.getElementById('service').value='450';
+          setBase();
+          addToCart(true);
+          document.getElementById('devis').scrollIntoView({behavior:'smooth'});
+        ">🛒 Commander</button>
+      </div>
+    </div>
+
     <div class="seo-banner reveal" style="margin-top:40px;display:flex;align-items:center;gap:36px;background:linear-gradient(135deg,rgba(124,107,255,.08),rgba(255,213,74,.05));border:1px solid rgba(124,107,255,.22);border-radius:var(--r);overflow:hidden;padding:32px">
       <div style="flex:0 0 260px;max-width:260px"><img src="images/seo.webp" alt="Abonnement SEO" width="700" height="500" style="width:100%;height:auto;display:block;border-radius:12px" loading="lazy"></div>
       <div style="flex:1;min-width:260px">
@@ -736,7 +767,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
     <div class="quote-box reveal">
       <span class="field-lbl" style="display:block;margin-bottom:10px">Ajouter une offre</span>
-      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="89">Abonnement SEO</option><option value="349">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
+      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="450">Agent IA</option><option value="89">Abonnement SEO</option><option value="349">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
       <div id="options"></div>
       <div id="maintenanceNote" class="maintenance-note"><span>Maintenance mensuelle incluse dans cette offre — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
@@ -884,7 +915,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 <script>
 const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
-const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
+const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","450":"Agent IA","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
 let base=0,selectedPlan="once";
 function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
 function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
@@ -918,7 +949,7 @@ function renderPaymentPlan(){
   const s=document.getElementById("service").value;
   const wrap=document.getElementById("paymentPlan");if(!wrap)return;
   selectedPlan="once";window._selectedPlan="once";
-  if(s===""||s==="129"||s==="89"||s==="349"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
+  if(s===""||s==="129"||s==="450"||s==="89"||s==="349"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
 <label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">La totalité à la validation du devis</span></label>
