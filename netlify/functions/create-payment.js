@@ -16,9 +16,8 @@ exports.handler = async (event) => {
     //   deposit3x -> 40 % maintenant, le solde en 3 mensualités après livraison
     // maintenance_monthly : montant mensuel de la maintenance (0 si absente)
     // subscriptions : [ { amount, service_name } ] -> abonnements du panier
-    const { structural, maintenance_monthly, subscriptions, oneoffs } = JSON.parse(event.body);
+    const { structural, maintenance_monthly, subscriptions } = JSON.parse(event.body);
     const subs = Array.isArray(subscriptions) ? subscriptions : [];
-    const singles = Array.isArray(oneoffs) ? oneoffs : [];
     const maintenance = Math.max(0, Math.round(Number(maintenance_monthly) || 0));
 
     const origin = event.headers.origin || 'https://studioweblocal.netlify.app';
@@ -97,21 +96,6 @@ exports.handler = async (event) => {
           },
           unit_amount: Math.max(50, Math.round(Number(s.amount) * 100)),
           recurring: { interval: 'month' },
-        },
-        quantity: 1,
-      });
-    });
-
-    // ── Produits a paiement unique (hors abonnement) ──
-    singles.forEach((o) => {
-      lineItems.push({
-        price_data: {
-          currency: 'eur',
-          product_data: {
-            name: o.service_name || 'Produit Studio Web Local',
-            description: 'Paiement unique',
-          },
-          unit_amount: Math.max(50, Math.round(Number(o.amount) * 100)),
         },
         quantity: 1,
       });

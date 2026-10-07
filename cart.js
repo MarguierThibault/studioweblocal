@@ -12,9 +12,8 @@ var EMAILJS_PUBLIC = "_Y9wyDROWTwY1--zW";
 var SERVICE_ID = "service_a53gjwo";
 var TEMPLATE_ADMIN = "template_qw8k1jc";
 var TEMPLATE_CLIENT = "template_ec8v56a";
-var NAMES = {"5":"Parrainage Revolut","550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","450":"Agent IA","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
+var NAMES = {"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","450":"Agent IA","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
 var STRUCTURAL = ["550","1115","2500","690"];
-var ONEOFF = ["5"];   /* produits a paiement unique, hors abonnement */
 
 /* ---------- État ---------- */
 var cart = [];
@@ -175,8 +174,6 @@ function cartTotals(){
       upfront += p.today;
       balance += p.balance;
       if(item.maintenanceMonthly > 0){ upfront += item.maintenanceMonthly; monthly += item.maintenanceMonthly; }
-    }else if(item.type === "oneoff"){
-      upfront += item.amount;
     }else{
       upfront += item.amount; monthly += item.amount;
     }
@@ -207,8 +204,7 @@ function addToCart(auto, forcedPlan){
   }else{
     var dup = cart.some(function(c){ return c.service === service; });
     if(dup){ if(!auto) alert('"' + name + '" est déjà dans votre panier.'); return; }
-    var kind = ONEOFF.indexOf(service) !== -1 ? "oneoff" : "subscription";
-    cart.push({type:kind, service:service, name:name, amount:amount});
+    cart.push({type:"subscription", service:service, name:name, amount:amount});
   }
   save();
   if(sel) sel.value = "";
@@ -283,9 +279,6 @@ function renderCart(){
       if(item.maintenanceMonthly > 0) planZone += '<span class="cart-item-plan">Maintenance ' + item.maintenanceMonthly + '€/mois incluse, résiliable à tout moment</span>';
       if(item.plan === "deposit") planZone += '<span class="cart-item-plan">Puis ' + pp.balance + '€ à la livraison du site</span>';
       if(item.plan === "deposit3x") planZone += '<span class="cart-item-plan">Puis 3 × ' + pp.perInstallment + '€, une fois le site livré</span>';
-    }else if(item.type === "oneoff"){
-      priceTxt = item.amount + "€";
-      planZone = '<span class="cart-item-plan">Paiement unique</span>';
     }else{
       priceTxt = item.amount + "€/mois";
       planZone = '<span class="cart-item-plan">Abonnement mensuel — prix fixe</span>';
@@ -357,7 +350,6 @@ async function sendQuote(mode){
       if(c.plan === "deposit") return c.name + " (" + c.amount + "€ : acompte " + q.today + "€ puis " + q.balance + "€ à la livraison)";
       return c.name + " (" + c.amount + "€ : acompte " + q.today + "€ puis 3 × " + q.perInstallment + "€)";
     }
-    if(c.type === "oneoff") return c.name + " (" + c.amount + "€)";
     return c.name + " (" + c.amount + "€/mois)";
   }).join(" + ");
   var planLabels = {once:"Comptant (1x)", deposit:"Acompte 40 % puis solde à la livraison", deposit3x:"Acompte 40 % puis solde en 3 fois sans frais"};
@@ -386,9 +378,7 @@ async function sendQuote(mode){
     var payload = {
       structural: structural ? {amount: structural.amount, service_name: structural.name, payment_plan: structural.plan} : null,
       maintenance_monthly: structural ? (structural.maintenanceMonthly || 0) : 0,
-      subscriptions: subscriptions.map(function(s){ return {amount: s.amount, service_name: s.name}; }),
-      oneoffs: cart.filter(function(c){ return c.type === "oneoff"; })
-                   .map(function(o){ return {amount: o.amount, service_name: o.name}; })
+      subscriptions: subscriptions.map(function(s){ return {amount: s.amount, service_name: s.name}; })
     };
     var res = await fetch("/.netlify/functions/create-payment", {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(payload)});
     var json = await res.json();

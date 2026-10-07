@@ -523,10 +523,6 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
       <span class="ocb">en direct</span>
     </div>
     <div class="ticker-outer reveal" id="tickerOuter"><div class="ticker-track" id="tickerTrack"></div></div>
-    <p class="reveal" style="margin:0 0 18px;font-size:.78rem;color:var(--muted);font-family:var(--font-mono,monospace);letter-spacing:.02em">
-      Parrainage Revolut — 5€ ·
-      <a href="#devis" onclick="document.getElementById('service').value='5';setBase();addToCart(true);" style="color:var(--gold);text-decoration:underline;cursor:pointer">ajouter au panier</a>
-    </p>
     <div class="cards">
       <div class="card reveal">
         <div class="card__img"><img src="images/vitrine.webp" alt="Site Vitrine" width="400" height="178" loading="lazy" decoding="async"><button class="examples-btn" onclick="openPortfolio('vitrine')">Voir les exemples</button></div>
@@ -771,7 +767,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
     </div>
     <div class="quote-box reveal">
       <span class="field-lbl" style="display:block;margin-bottom:10px">Ajouter une offre</span>
-      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="450">Agent IA</option><option value="89">Abonnement SEO</option><option value="349">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option><option value="5">Parrainage Revolut — 5€</option></select></div>
+      <div class="fg"><select id="service" class="fs" onchange="setBase()"><option value="">Choisir une offre</option><option value="550">Site Vitrine</option><option value="1115">Site Premium</option><option value="2500">Ultra Premium</option><option value="129">Community Management</option><option value="450">Agent IA</option><option value="89">Abonnement SEO</option><option value="349">Pack Ads géré</option><option value="690">Refonte express</option><option value="49">Pack Avis clients</option></select></div>
       <div id="options"></div>
       <div id="maintenanceNote" class="maintenance-note"><span>Maintenance mensuelle incluse dans cette offre — facturée séparément chaque mois, résiliable à tout moment.</span><span class="mn-amt">0€/mois</span></div>
       <div id="paymentPlan" class="plan-picker" style="display:none"></div>
@@ -919,7 +915,7 @@ h1{font-size:clamp(2.2rem,5vw,3.8rem)}h2{font-size:clamp(1.7rem,3.5vw,2.6rem)}h3
 <script>
 const SERVICE_ID="service_a53gjwo",TEMPLATE_ADMIN="template_qw8k1jc",TEMPLATE_CLIENT="template_ec8v56a";
 emailjs.init("_Y9wyDROWTwY1--zW");
-const SERVICE_NAMES={"5":"Parrainage Revolut","550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","450":"Agent IA","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
+const SERVICE_NAMES={"550":"Site Vitrine","1115":"Site Premium","2500":"Ultra Premium","129":"Community Management","450":"Agent IA","89":"Abonnement SEO","349":"Pack Ads géré","690":"Refonte express","49":"Pack Avis clients"};
 let base=0,selectedPlan="once";
 function openLegal(){document.body.classList.add("no-scroll");document.getElementById("legalModal").style.display="block";}
 function closeLegal(){document.body.classList.remove("no-scroll");document.getElementById("legalModal").style.display="none";}
@@ -953,7 +949,7 @@ function renderPaymentPlan(){
   const s=document.getElementById("service").value;
   const wrap=document.getElementById("paymentPlan");if(!wrap)return;
   selectedPlan="once";window._selectedPlan="once";
-  if(s===""||s==="5"||s==="129"||s==="450"||s==="89"||s==="349"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
+  if(s===""||s==="129"||s==="450"||s==="89"||s==="349"||s==="49"){wrap.innerHTML="";wrap.style.display="none";return}
   wrap.style.display="grid";
   wrap.innerHTML=`
 <label class="plan-choice active" data-plan="once"><input type="radio" name="pplan" value="once" checked onchange="setPlan('once')"><span class="plan-choice-title">Comptant</span><span class="plan-choice-desc">La totalité à la validation du devis</span></label>
